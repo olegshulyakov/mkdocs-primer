@@ -34,6 +34,20 @@
       {%- if config.theme.favicon %}
         <link rel="icon" href="{{ config.theme.favicon | url }}">
       {%- endif %}
+      {#
+        mkdocs-rss-plugin writes the feeds but leaves discovery to the theme,
+        so without these a reader has no way to find them. The filenames are a
+        plugin option, hence reading them back off the plugin config.
+      #}
+      {%- set rss_plugin = config.plugins.get('rss') %}
+      {%- if rss_plugin %}
+        <link rel="alternate" type="application/rss+xml"
+              title="{{ config.site_name }} — recently updated"
+              href="{{ rss_plugin.config.feeds_filenames.rss_updated | url }}">
+        <link rel="alternate" type="application/rss+xml"
+              title="{{ config.site_name }} — recently created"
+              href="{{ rss_plugin.config.feeds_filenames.rss_created | url }}">
+      {%- endif %}
     {%- endblock %}
 
     <title>{% block htmltitle %}{% if page and page.title and not page.is_homepage %}{{ page.title }} - {% endif %}{{ config.site_name }}{% endblock %}</title>
