@@ -1,0 +1,121 @@
+/*
+ * Pygments tokens mapped onto Primer's --color-prettylights-syntax-* variables.
+ *
+ * Those variables are defined in both the light and dark primitives, so this
+ * single file gives GitHub's exact syntax colors in either color mode — there
+ * is no separate dark stylesheet to keep in sync.
+ *
+ * Both wrappers are covered because which one appears depends on the user's
+ * markdown_extensions: `.highlight` (pymdownx.highlight, fenced_code) and
+ * `.codehilite` (codehilite).
+ */
+
+/* Primer styles `.markdown-body .highlight pre` already; match it for codehilite. */
+.markdown-body .codehilite {
+  margin-bottom: var(--base-size-16);
+}
+
+.markdown-body .codehilite pre {
+  padding: var(--base-size-16);
+  margin-bottom: 0;
+  overflow: auto;
+  font-size: 85%;
+  line-height: 1.45;
+  color: var(--fgColor-default);
+  word-break: normal;
+  background-color: var(--bgColor-muted);
+  border-radius: 6px;
+}
+
+/* Highlighted line (pymdownx `hl_lines`). */
+:is(.highlight, .codehilite) .hll {
+  background-color: var(--bgColor-attention-muted);
+}
+
+/* Line numbers. */
+:is(.highlight, .codehilite) :is(.lineno, .linenos, .gl) {
+  color: var(--fgColor-muted);
+  user-select: none;
+}
+
+/* Comments. */
+:is(.highlight, .codehilite) :is(.c, .ch, .cd, .cm, .cp, .cpf, .c1, .cs, .gp) {
+  color: var(--color-prettylights-syntax-comment);
+}
+
+/* Keywords. */
+:is(.highlight, .codehilite) :is(.k, .kd, .kp, .kr, .kt) {
+  color: var(--color-prettylights-syntax-keyword);
+}
+
+/* Imports and other storage modifiers. */
+:is(.highlight, .codehilite) .kn {
+  color: var(--color-prettylights-syntax-storage-modifier-import);
+}
+
+/* Constants: numbers, booleans, builtins, symbols. */
+:is(.highlight, .codehilite)
+  :is(.kc, .m, .mb, .mf, .mh, .mi, .il, .mo, .nb, .bp, .no, .ni, .na, .ss, .o, .ow) {
+  color: var(--color-prettylights-syntax-constant);
+}
+
+/* Strings. */
+:is(.highlight, .codehilite) :is(.s, .sa, .sb, .sc, .dl, .sd, .s2, .se, .sh, .si, .sx, .s1) {
+  color: var(--color-prettylights-syntax-string);
+}
+
+:is(.highlight, .codehilite) .sr {
+  color: var(--color-prettylights-syntax-string-regexp);
+}
+
+/* Entities: function, class, decorator and exception names. */
+:is(.highlight, .codehilite) :is(.nf, .fm, .nc, .nd, .ne) {
+  color: var(--color-prettylights-syntax-entity);
+}
+
+/* Markup tags (HTML/XML). */
+:is(.highlight, .codehilite) .nt {
+  color: var(--color-prettylights-syntax-entity-tag);
+}
+
+/* Variables and namespaces. */
+:is(.highlight, .codehilite) :is(.nv, .vc, .vg, .vi, .vm, .nn, .nl) {
+  color: var(--color-prettylights-syntax-variable);
+}
+
+/* Errors. */
+:is(.highlight, .codehilite) :is(.err, .gr) {
+  color: var(--color-prettylights-syntax-invalid-illegal-text);
+  background-color: var(--color-prettylights-syntax-invalid-illegal-bg);
+}
+
+/* Diff output. */
+:is(.highlight, .codehilite) .gd {
+  color: var(--color-prettylights-syntax-markup-deleted-text);
+  background-color: var(--color-prettylights-syntax-markup-deleted-bg);
+}
+
+:is(.highlight, .codehilite) .gi {
+  color: var(--color-prettylights-syntax-markup-inserted-text);
+  background-color: var(--color-prettylights-syntax-markup-inserted-bg);
+}
+
+:is(.highlight, .codehilite) :is(.gh, .gu) {
+  color: var(--color-prettylights-syntax-markup-heading);
+  font-weight: var(--base-text-weight-semibold, 600);
+}
+
+:is(.highlight, .codehilite) .gt {
+  color: var(--color-prettylights-syntax-meta-diff-range);
+}
+
+/* Emphasis in markup lexers. */
+:is(.highlight, .codehilite) .ge {
+  color: var(--color-prettylights-syntax-markup-italic);
+  font-style: italic;
+}
+
+:is(.highlight, .codehilite) .gs {
+  color: var(--color-prettylights-syntax-markup-bold);
+  font-weight: var(--base-text-weight-semibold, 600);
+}

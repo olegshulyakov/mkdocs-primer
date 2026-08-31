@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block htmltitle %}404 - {{ config.site_name }}{% endblock %}
+
+{% block content %}
+  <h1>404</h1>
+  <p>Sorry, this page could not be found.</p>
+  <p><a href="{{ nav.homepage.url | url if nav.homepage else base_url }}">Back to the home page</a></p>
+{% endblock %}
+
+{% block pagination %}{% endblock %}

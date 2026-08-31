@@ -1,0 +1,16 @@
+{#
+  Mirrors the Jekyll Primer footer: "This site is open source. Improve this page."
+  Only renders when there is something to link to.
+#}
+{%- if page and page.edit_url or config.repo_url or config.copyright %}
+  <footer class="primer-footer border-top mt-5 pt-3 text-right color-fg-muted f6">
+    {%- if config.copyright %}
+      <p class="mb-1">{{ config.copyright }}</p>
+    {%- endif %}
+    {%- if page and page.edit_url %}
+      <p class="mb-0">This site is open source. <a href="{{ page.edit_url }}">Improve this page</a>.</p>
+    {%- elif config.repo_url %}
+      <p class="mb-0">This site is open source. <a href="{{ config.repo_url }}">{{ config.repo_name }}</a>.</p>
+    {%- endif %}
+  </footer>
+{%- endif %}

@@ -1,0 +1,19 @@
+{#
+  Recursive: nav depth is unbounded, so a section includes this same template
+  for each of its children. The inner `for` rebinds `nav_item` in loop scope,
+  which is what makes the recursion work (same trick as mkdocs-basic-theme).
+#}
+{%- if nav_item.children %}
+  <div class="primer-nav-section">
+    <div class="primer-nav-section-label">{{ nav_item.title }}</div>
+    <div class="primer-nav-section-items">
+      {%- for nav_item in nav_item.children %}
+        {% include "partials/nav-item.html" %}
+      {%- endfor %}
+    </div>
+  </div>
+{%- else %}
+  <a class="SideNav-item"
+     href="{{ nav_item.url | url }}"
+     {% if nav_item.active %}aria-current="page"{% endif %}>{{ nav_item.title }}</a>
+{%- endif %}

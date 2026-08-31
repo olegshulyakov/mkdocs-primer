@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+{#
+  The three data-* attributes are all required: @primer/primitives scopes each
+  theme with selectors like
+    [data-color-mode="auto"][data-light-theme="light"]
+  so setting data-color-mode alone leaves every variable undefined.
+#}
+<html lang="{{ config.theme.locale }}"
+      data-color-mode="{{ config.theme.color_mode }}"
+      data-light-theme="{{ config.theme.light_theme }}"
+      data-dark-theme="{{ config.theme.dark_theme }}">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    {%- block site_meta %}
+      {%- if page and page.meta.description %}
+        <meta name="description" content="{{ page.meta.description }}">
+      {%- elif config.site_description %}
+        <meta name="description" content="{{ config.site_description }}">
+      {%- endif %}
+      {%- if config.site_author %}
+        <meta name="author" content="{{ config.site_author }}">
+      {%- endif %}
+      {%- if page and page.canonical_url %}
+        <link rel="canonical" href="{{ page.canonical_url }}">
+      {%- endif %}
+      {%- if config.theme.favicon %}
+        <link rel="icon" href="{{ config.theme.favicon | url }}">
+      {%- endif %}
+    {%- endblock %}
+
+    <title>{% block htmltitle %}{% if page and page.title and not page.is_homepage %}{{ page.title }} - {% endif %}{{ config.site_name }}{% endblock %}</title>
+
+    {%- block styles %}
+      {# Size/spacing/typography tokens first: Primer consumes them without fallbacks. #}
+      <link rel="stylesheet" href="{{ 'css/vendor/primitives-base.css' | url }}">
+      <link rel="stylesheet" href="{{ 'css/vendor/primitives-light.css' | url }}">
+      <link rel="stylesheet" href="{{ 'css/vendor/primitives-dark.css' | url }}">
+      <link rel="stylesheet" href="{{ 'css/vendor/primer-core.css' | url }}">
+      <link rel="stylesheet" href="{{ 'css/vendor/primer-markdown.css' | url }}">
+      <link rel="stylesheet" href="{{ 'css/pygments.css' | url }}">
+      <link rel="stylesheet" href="{{ 'css/theme.css' | url }}">
+      {%- for path in config.extra_css %}
+        <link rel="stylesheet" href="{{ path | url }}">
+      {%- endfor %}
+    {%- endblock %}
+
+    {#
+      Applies the stored color mode before first paint. Must stay inline and
+      blocking, otherwise a dark-mode visitor gets a flash of the light theme.
+    #}
+    <script>
+      (function () {
+        try {
+          var mode = localStorage.getItem('mkdocs-primer-color-mode')
+          if (mode) document.documentElement.setAttribute('data-color-mode', mode)
+        } catch (e) {}
+      })()
+    </script>
+
+    {%- block extrahead %}{% endblock %}
+  </head>
+
+  <body>
+    <a href="#primer-content" class="sr-only">Skip to content</a>
+
+    {%- block header %}
+      {% include "partials/header.html" %}
+    {%- endblock %}
+
+    <div class="primer-layout container-xl px-3">
+      {%- block site_nav %}
+        {%- if config.theme.include_sidebar and nav %}
+          <aside class="primer-sidebar" aria-label="Site navigation">
+            {% include "partials/nav.html" %}
+          </aside>
+        {%- endif %}
+      {%- endblock %}
+
+      <main class="primer-main" id="primer-content">
+        <article class="markdown-body">
+          {%- block content %}
+            {{ page.content }}
+          {%- endblock %}
+        </article>
+
+        {%- block pagination %}
+          {% include "partials/pagination.html" %}
+        {%- endblock %}
+
+        {%- block footer %}
+          {%- if config.theme.show_footer %}
+            {% include "partials/footer.html" %}
+          {%- endif %}
+        {%- endblock %}
+      </main>
+    </div>
+
+    {%- block scripts %}
+      <script src="{{ 'js/color-mode.js' | url }}" defer></script>
+      {%- if 'search' in config.plugins %}
+        <script>var base_url = {{ base_url | tojson }}</script>
+        <script src="{{ 'search/main.js' | url }}" defer></script>
+      {%- endif %}
+      {%- for script in config.extra_javascript %}
+        {{ script | script_tag }}
+      {%- endfor %}
+    {%- endblock %}
+  </body>
+</html>

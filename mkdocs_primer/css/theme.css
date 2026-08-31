@@ -1,0 +1,269 @@
+/*
+ * mkdocs-primer chrome: the parts MkDocs needs that Primer does not ship.
+ *
+ * Everything here is plain CSS on top of @primer/primitives custom properties,
+ * so it follows the active color mode without a second dark-mode ruleset.
+ */
+
+:root {
+  --primer-sidebar-width: 240px;
+  --primer-header-height: 56px;
+}
+
+body {
+  color: var(--fgColor-default);
+  background-color: var(--bgColor-default);
+}
+
+/* --------------------------------------------------------------- header -- */
+
+.primer-header {
+  position: sticky;
+  top: 0;
+  z-index: 32;
+  height: var(--primer-header-height);
+  background-color: var(--bgColor-default);
+  border-bottom: 1px solid var(--borderColor-default);
+}
+
+.primer-header > .container-xl {
+  height: 100%;
+  gap: var(--base-size-8);
+}
+
+.primer-header-title {
+  display: flex;
+  gap: var(--base-size-8);
+  align-items: center;
+  min-width: 0; /* long site names truncate rather than wrapping the header taller */
+  overflow: hidden;
+  font-size: var(--text-title-size-medium, 16px);
+  font-weight: var(--base-text-weight-semibold, 600);
+  color: var(--fgColor-default);
+  text-decoration: none;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.primer-header-title:hover {
+  color: var(--fgColor-accent);
+}
+
+.primer-header-logo {
+  height: 24px;
+  width: auto;
+}
+
+/* --------------------------------------------------------------- layout -- */
+
+.primer-layout {
+  display: grid;
+  grid-template-columns: var(--primer-sidebar-width) minmax(0, 1fr);
+  gap: var(--base-size-32);
+  align-items: start;
+}
+
+.primer-sidebar {
+  position: sticky;
+  top: var(--primer-header-height);
+  max-height: calc(100vh - var(--primer-header-height));
+  padding-top: var(--base-size-24);
+  overflow-y: auto;
+}
+
+.primer-main {
+  min-width: 0; /* lets wide tables and code blocks scroll instead of stretching the grid */
+  padding-top: var(--base-size-24);
+  padding-bottom: var(--base-size-32);
+}
+
+/* Primer caps .markdown-body at full width; keep prose readable. */
+.primer-main .markdown-body {
+  max-width: 900px;
+}
+
+/* -------------------------------------------------------------- sidebar -- */
+
+.primer-nav-section + .primer-nav-section {
+  margin-top: var(--base-size-16);
+}
+
+.primer-nav-section-label {
+  padding: var(--base-size-4) var(--base-size-8);
+  font-size: 12px;
+  font-weight: var(--base-text-weight-semibold, 600);
+  color: var(--fgColor-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* Nested sections indent; Primer's SideNav has no depth of its own. */
+.primer-nav-section-items .primer-nav-section {
+  padding-left: var(--base-size-8);
+}
+
+/*
+ * Scoped to .SideNav itself, not to .primer-sidebar: the same nav is rendered
+ * twice, once in the sidebar and once inside the mobile disclosure panel, and
+ * both need these resets.
+ *
+ * Primer's SideNav is a bordered list — separators between items and a rule
+ * under the last one. That reads as clutter for a docs tree, so drop them.
+ */
+.SideNav {
+  border: 0;
+  background-color: transparent;
+}
+
+.SideNav-item {
+  padding: 6px var(--base-size-8);
+  font-size: 14px;
+  border: 0;
+  border-radius: var(--borderRadius-medium, 6px);
+}
+
+.SideNav-item:last-child {
+  box-shadow: none;
+}
+
+/* Primer draws the active accent bar through .SideNav-item::before. */
+.SideNav-item[aria-current='page'] {
+  font-weight: var(--base-text-weight-semibold, 600);
+  background-color: var(--bgColor-neutral-muted);
+}
+
+/* --------------------------------------------------------------- search -- */
+
+.primer-search {
+  max-width: 240px;
+  flex: 1 1 auto;
+}
+
+/* ----------------------------------------------------------- color mode -- */
+
+/* Show only the icon matching the active mode. */
+.primer-color-mode svg {
+  display: none;
+}
+
+[data-color-mode='auto'] .primer-color-mode .primer-icon-auto,
+[data-color-mode='light'] .primer-color-mode .primer-icon-light,
+[data-color-mode='dark'] .primer-color-mode .primer-icon-dark {
+  display: inline-block;
+}
+
+/* ----------------------------------------------------------- pagination -- */
+
+.primer-pagination {
+  display: flex;
+  gap: var(--base-size-16);
+  justify-content: space-between;
+}
+
+.primer-pagination a {
+  display: flex;
+  flex-direction: column;
+  gap: var(--base-size-4);
+  padding: var(--base-size-8) var(--base-size-16);
+  font-weight: var(--base-text-weight-semibold, 600);
+  color: var(--fgColor-accent);
+  text-decoration: none;
+  border: 1px solid var(--borderColor-default);
+  border-radius: var(--borderRadius-medium, 6px);
+}
+
+.primer-pagination a:hover {
+  background-color: var(--bgColor-muted);
+}
+
+.primer-pagination-next {
+  margin-left: auto;
+  text-align: right;
+}
+
+/* ------------------------------------------------------ heading anchors -- */
+
+/*
+ * Python-Markdown's toc extension emits a text glyph, where Primer's
+ * .markdown-body .anchor rules expect GitHub's octicon-link SVG. Swap the
+ * glyph for the octicon via a mask so it inherits currentColor.
+ *
+ * Requires `toc: {permalink: true, permalink_class: anchor, permalink_leading: true}`.
+ * Without it, the permalink just renders as its normal glyph.
+ */
+.markdown-body .anchor {
+  font-size: 0; /* hides the ¶ (or whatever `permalink` was set to) */
+  visibility: hidden;
+  text-decoration: none;
+}
+
+.markdown-body .anchor::before {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  content: '';
+  vertical-align: middle;
+  background-color: var(--fgColor-muted);
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' width='16' height='16'%3E%3Cpath d='m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z'%3E%3C/path%3E%3C/svg%3E");
+  mask-repeat: no-repeat;
+}
+
+.markdown-body h1:hover .anchor,
+.markdown-body h2:hover .anchor,
+.markdown-body h3:hover .anchor,
+.markdown-body h4:hover .anchor,
+.markdown-body h5:hover .anchor,
+.markdown-body h6:hover .anchor,
+.markdown-body .anchor:focus {
+  visibility: visible;
+}
+
+/* ------------------------------------------------------------ responsive -- */
+
+/* Below Primer's md breakpoint the sidebar collapses into the header disclosure. */
+.primer-nav-toggle {
+  display: none;
+  position: relative;
+}
+
+.primer-nav-toggle > summary {
+  list-style: none;
+}
+
+.primer-nav-toggle > summary::-webkit-details-marker {
+  display: none;
+}
+
+.primer-nav-toggle-panel {
+  position: absolute;
+  top: calc(100% + var(--base-size-8));
+  left: 0;
+  z-index: 32;
+  width: max-content;
+  min-width: 220px;
+  max-height: 70vh;
+  padding: var(--base-size-8);
+  overflow-y: auto;
+  background-color: var(--overlay-bgColor, var(--bgColor-default));
+  border: 1px solid var(--borderColor-default);
+  border-radius: var(--borderRadius-medium, 6px);
+  box-shadow: var(--shadow-floating-small);
+}
+
+@media (max-width: 767px) {
+  .primer-layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .primer-sidebar {
+    display: none;
+  }
+
+  .primer-nav-toggle {
+    display: block;
+  }
+
+  .primer-search {
+    max-width: 140px;
+  }
+}

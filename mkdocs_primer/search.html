@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block htmltitle %}Search - {{ config.site_name }}{% endblock %}
+
+{#
+  The search plugin's search/main.js needs `base_url` (set in base.html) plus
+  these two element ids. It rewrites #mkdocs-search-results in place.
+#}
+{% block content %}
+  <h1 id="search">Search results</h1>
+
+  <form id="content_search" action="{{ 'search.html' | url }}" method="get" role="search">
+    <label class="sr-only" for="mkdocs-search-query">Search</label>
+    <input class="form-control width-full"
+           id="mkdocs-search-query"
+           type="search"
+           name="q"
+           placeholder="Search the docs"
+           autocomplete="off">
+  </form>
+
+  <div id="mkdocs-search-results">
+    <p>Searching…</p>
+  </div>
+{% endblock %}
+
+{% block pagination %}{% endblock %}

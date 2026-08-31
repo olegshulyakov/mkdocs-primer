@@ -1,0 +1,32 @@
+<header class="primer-header">
+  <div class="container-xl px-3 d-flex flex-items-center">
+    <a class="primer-header-title" href="{{ nav.homepage.url | url if nav.homepage else base_url }}">
+      {%- if config.theme.logo %}
+        <img src="{{ config.theme.logo | url }}" alt="" class="primer-header-logo">
+      {%- endif %}
+      {{ config.site_name }}
+    </a>
+
+    {%- if config.theme.include_sidebar and nav %}
+      {# Mobile nav lives here as a <details> disclosure; the sidebar is hidden below md. #}
+      <details class="primer-nav-toggle">
+        <summary class="btn btn-octicon" aria-label="Toggle navigation">
+          <svg aria-hidden="true" height="16" viewBox="0 0 16 16" width="16" fill="currentColor">
+            <path d="M1 2.75A.75.75 0 0 1 1.75 2h12.5a.75.75 0 0 1 0 1.5H1.75A.75.75 0 0 1 1 2.75Zm0 5A.75.75 0 0 1 1.75 7h12.5a.75.75 0 0 1 0 1.5H1.75A.75.75 0 0 1 1 7.75ZM1.75 12h12.5a.75.75 0 0 1 0 1.5H1.75a.75.75 0 0 1 0-1.5Z"></path>
+          </svg>
+        </summary>
+        <div class="primer-nav-toggle-panel">
+          {% include "partials/nav.html" %}
+        </div>
+      </details>
+    {%- endif %}
+
+    <div class="flex-auto"></div>
+
+    {%- if 'search' in config.plugins %}
+      {% include "partials/search-box.html" %}
+    {%- endif %}
+
+    {% include "partials/color-mode.html" %}
+  </div>
+</header>

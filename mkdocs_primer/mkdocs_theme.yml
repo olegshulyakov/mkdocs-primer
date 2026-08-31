@@ -1,0 +1,29 @@
+# Default configuration for the `primer` theme.
+# Override any of these under `theme:` in your mkdocs.yml.
+
+# Templates rendered once for the whole site rather than per page.
+static_templates:
+  - 404.html
+
+# The search plugin builds search.html for us and supplies search/main.js.
+include_search_page: true
+search_index_only: false
+
+# Image shown next to the site name in the header. Path relative to docs_dir.
+logo: null
+favicon: img/favicon.svg
+
+# Chrome toggles.
+include_sidebar: true
+show_footer: true
+
+# Color mode. `color_mode` is the initial default only — visitors can override
+# it with the header toggle, and their choice is remembered in localStorage.
+#   auto  follow the operating system
+#   light always light
+#   dark  always dark
+color_mode: auto
+# Only `light` and `dark` primitives ship with the theme today. Adding another
+# Primer theme (dark_dimmed, *_high_contrast, ...) means vendoring one more file.
+light_theme: light
+dark_theme: dark
