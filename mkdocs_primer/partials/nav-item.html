@@ -5,7 +5,19 @@
 #}
 {%- if nav_item.children %}
   <div class="primer-nav-section">
-    <div class="primer-nav-section-label">{{ nav_item.title }}</div>
+    {#
+      A section normally has no url. mkdocs-section-index gives it one by
+      folding the section's index page into the section itself, and then the
+      label is the only route to that page — rendering it as inert text drops
+      the page out of the nav entirely.
+    #}
+    {%- if nav_item.url %}
+      <a class="primer-nav-section-label"
+         href="{{ nav_item.url | url }}"
+         {% if nav_item == page %}aria-current="page"{% endif %}>{{ nav_item.title }}</a>
+    {%- else %}
+      <div class="primer-nav-section-label">{{ nav_item.title }}</div>
+    {%- endif %}
     <div class="primer-nav-section-items">
       {%- for nav_item in nav_item.children %}
         {% include "partials/nav-item.html" %}

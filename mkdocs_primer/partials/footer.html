@@ -1,11 +1,26 @@
 {#
   Mirrors the Jekyll Primer footer: "This site is open source. Improve this page."
   Only renders when there is something to link to.
+
+  `git_revision_date_localized` is set per page by
+  mkdocs-git-revision-date-localized-plugin; without a line like this the plugin
+  computes the date and nothing ever shows it.
 #}
-{%- if page and page.edit_url or config.repo_url or config.copyright %}
+{%- set last_update = page.meta.get('git_revision_date_localized') if page and page.meta else none %}
+{%- if page and page.edit_url or config.repo_url or config.copyright or last_update or git_page_authors %}
   <footer class="primer-footer border-top mt-5 pt-3 text-right color-fg-muted f6">
     {%- if config.copyright %}
       <p class="mb-1">{{ config.copyright }}</p>
+    {%- endif %}
+    {%- if last_update %}
+      <p class="mb-1">Last updated: {{ last_update }}</p>
+    {%- endif %}
+    {#
+      `git_page_authors` is put on the page context by mkdocs-git-authors-plugin
+      as a string of HTML (mailto links), which is why it is not escaped here.
+    #}
+    {%- if git_page_authors %}
+      <p class="mb-1">Authors: {{ git_page_authors | safe }}</p>
     {%- endif %}
     {%- if page and page.edit_url %}
       <p class="mb-0">This site is open source. <a href="{{ page.edit_url }}">Improve this page</a>.</p>

@@ -56,6 +56,50 @@ markdown_extensions:
 
 Both `.highlight` and `.codehilite` wrappers are styled, so `codehilite` works too.
 
+## Markdown extensions
+
+None of these are required, but the theme ships styling that only pays off once
+they are on:
+
+```yaml
+markdown_extensions:
+  - admonition   # !!! note blocks, colored with Primer's alert palette
+  - def_list
+  - footnotes
+  - tables
+  - pymdownx.highlight
+  - pymdownx.superfences
+  - pymdownx.tilde
+```
+
+`admonition` is the one worth calling out: the extension emits markup and no CSS
+of its own, and `@primer/css` has no rule for it either, so an unstyled
+admonition is a common surprise. The theme fills that gap — see
+[the examples](nested/deep-page.md#admonitions).
+
+## Custom CSS and JavaScript
+
+`extra_css` is loaded after every stylesheet the theme ships, so your rules win
+without needing `!important`:
+
+```yaml
+extra_css:
+  - css/overrides.css
+extra_javascript:
+  - js/site.js
+  # MkDocs 1.5+ also takes the mapping form.
+  - path: js/chart.js
+    type: module
+```
+
+`extra_javascript` is emitted at the end of `<body>`, after the theme's own
+scripts.
+
+!!! note "Plugins that inject their own assets"
+    A plugin that writes `<link>` tags into the page HTML rather than adding to
+    `extra_css` — mkdocs-glightbox is one — lands *after* your overrides. Style
+    those with a more specific selector rather than relying on order.
+
 ## Edit links
 
 The footer links back to the source file when `repo_url` and `edit_uri` are set:

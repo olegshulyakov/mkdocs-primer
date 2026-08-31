@@ -89,12 +89,29 @@ body {
 }
 
 .primer-nav-section-label {
+  display: block;
   padding: var(--base-size-4) var(--base-size-8);
   font-size: 12px;
   font-weight: var(--base-text-weight-semibold, 600);
   color: var(--fgColor-muted);
   text-transform: uppercase;
   letter-spacing: 0.05em;
+}
+
+/* The label is an <a> when the section has an index page (mkdocs-section-index). */
+a.primer-nav-section-label {
+  border-radius: var(--borderRadius-medium, 6px);
+  text-decoration: none;
+}
+
+a.primer-nav-section-label:hover {
+  color: var(--fgColor-default);
+  background-color: var(--bgColor-neutral-muted);
+}
+
+a.primer-nav-section-label[aria-current='page'] {
+  color: var(--fgColor-default);
+  background-color: var(--bgColor-neutral-muted);
 }
 
 /* Nested sections indent; Primer's SideNav has no depth of its own. */
@@ -218,6 +235,93 @@ body {
   visibility: visible;
 }
 
+/* ----------------------------------------------------------- admonitions -- */
+
+/*
+ * The `admonition` extension emits markup and no styling, and neither Primer's
+ * markdown stylesheet nor its core carries a rule for it — GitHub's own alerts
+ * use `.markdown-alert`, which @primer/css does not ship. Without the rules
+ * below, every `!!! note` renders as an undecorated block.
+ *
+ * Geometry follows GitHub's alerts: a colored left rule and a colored title.
+ * The octicon GitHub puts beside the title is not reproduced; there are five
+ * of them and they would cost more than they are worth here.
+ */
+.markdown-body .admonition {
+  padding: 0 var(--base-size-16);
+  margin-bottom: var(--base-size-16);
+  color: inherit;
+  /* 0.25em, not --borderWidth-thick (2px): matches the rule Primer draws down
+     the side of a blockquote, so the two read as the same family. */
+  border-left: 0.25em solid var(--borderColor-default);
+}
+
+.markdown-body .admonition > :first-child {
+  margin-top: var(--base-size-16);
+}
+
+.markdown-body .admonition > :last-child {
+  margin-bottom: var(--base-size-16);
+}
+
+.markdown-body .admonition-title {
+  font-weight: var(--base-text-weight-semibold, 600);
+}
+
+/*
+ * Type names come from the `admonition` extension. The five that match a
+ * GitHub alert take its color; anything else keeps the neutral border above.
+ */
+.markdown-body .admonition.note {
+  border-left-color: var(--borderColor-accent-emphasis);
+}
+
+.markdown-body .admonition.note > .admonition-title {
+  color: var(--fgColor-accent);
+}
+
+.markdown-body .admonition.tip,
+.markdown-body .admonition.hint {
+  border-left-color: var(--borderColor-success-emphasis);
+}
+
+.markdown-body .admonition.tip > .admonition-title,
+.markdown-body .admonition.hint > .admonition-title {
+  color: var(--fgColor-success);
+}
+
+.markdown-body .admonition.important {
+  border-left-color: var(--borderColor-done-emphasis);
+}
+
+.markdown-body .admonition.important > .admonition-title {
+  color: var(--fgColor-done);
+}
+
+.markdown-body .admonition.warning,
+.markdown-body .admonition.attention,
+.markdown-body .admonition.caution {
+  border-left-color: var(--borderColor-attention-emphasis);
+}
+
+.markdown-body .admonition.warning > .admonition-title,
+.markdown-body .admonition.attention > .admonition-title,
+.markdown-body .admonition.caution > .admonition-title {
+  color: var(--fgColor-attention);
+}
+
+.markdown-body .admonition.danger,
+.markdown-body .admonition.error,
+.markdown-body .admonition.bug {
+  border-left-color: var(--borderColor-danger-emphasis);
+}
+
+.markdown-body .admonition.danger > .admonition-title,
+.markdown-body .admonition.error > .admonition-title,
+.markdown-body .admonition.bug > .admonition-title {
+  color: var(--fgColor-danger);
+}
+
 /* ------------------------------------------------------------ responsive -- */
 
 /* Below Primer's md breakpoint the sidebar collapses into the header disclosure. */
@@ -265,5 +369,81 @@ body {
 
   .primer-search {
     max-width: 140px;
+  }
+}
+
+/* ------------------------------------------------------------- diagrams -- */
+
+/*
+ * Diagram plugins drop an SVG into the page and leave the framing to the theme.
+ * Mermaid sizes its SVG to the diagram; mkdocs-charts-plugin measures a parent
+ * it recognises by class name (`md-content` for Material, `col-md-9` for the
+ * built-in theme) and, finding neither here, falls back to a fixed 800px. Both
+ * therefore need a ceiling of their own to survive a narrow viewport.
+ */
+.markdown-body .mermaid,
+.markdown-body .vega-embed {
+  display: flex;
+  justify-content: center;
+  margin-bottom: var(--base-size-16);
+}
+
+.markdown-body .mermaid svg,
+.markdown-body .vega-embed svg {
+  max-width: 100%;
+  height: auto;
+}
+
+/* ---------------------------------------------------------------- print -- */
+
+/*
+ * A theme is expected to bring its own print rules — mkdocs-print-site even
+ * ships one stylesheet per theme it knows about and warns for the rest.
+ * Without these, Ctrl+P puts the header, sidebar and pagination on paper and
+ * keeps the prose inside its on-screen column.
+ */
+@media print {
+  .primer-header,
+  .primer-sidebar,
+  .primer-pagination {
+    display: none;
+  }
+
+  .primer-layout {
+    display: block;
+  }
+
+  .primer-main .markdown-body {
+    max-width: none;
+  }
+
+  /* Hover-only affordance; it prints as an empty box. */
+  .markdown-body .anchor {
+    display: none;
+  }
+
+  /*
+   * Literal values rather than Primer tokens: a visitor printing while in dark
+   * mode carries the dark variables into the print stylesheet, and light-gray
+   * body text on white paper is unreadable. These two are Primer's light
+   * --fgColor-default and --bgColor-default.
+   */
+  .markdown-body {
+    color: #1f2328;
+    background-color: #ffffff;
+  }
+
+  .markdown-body pre,
+  .markdown-body table,
+  .markdown-body .admonition {
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+
+  .markdown-body h1,
+  .markdown-body h2,
+  .markdown-body h3 {
+    page-break-after: avoid;
+    break-after: avoid;
   }
 }

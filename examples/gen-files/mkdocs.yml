@@ -1,0 +1,49 @@
+# Builds into site/examples/gen-files/. Run after the main site, which cleans
+# site/.
+#
+#   mkdocs build --strict -f examples/gen-files/mkdocs.yml
+#
+# mkdocs-gen-files cannot share a config with mkdocs-static-i18n, and
+# mkdocs-literate-nav competes with mkdocs-awesome-nav; the main site uses both
+# of those. See ../README.md.
+site_name: mkdocs-primer — generated pages example
+site_description: The primer theme with a nav and pages built at build time
+site_url: https://olegshulyakov.github.io/mkdocs-primer/examples/gen-files/
+repo_url: https://github.com/olegshulyakov/mkdocs-primer
+edit_uri: edit/main/examples/gen-files/docs/
+site_dir: ../../site/examples/gen-files
+
+theme:
+  name: primer
+
+# Shared with the main site: drops one false-positive warning from
+# mkdocs-section-index so `--strict` stays usable.
+hooks:
+  - ../../hooks.py
+
+# literate-nav reads SUMMARY.md but does not stop MkDocs from building it as a
+# page of its own.
+exclude_docs: |
+  SUMMARY.md
+
+plugins:
+  - search
+  # Writes docs/generated/*.md at build time; none of it exists on disk.
+  - gen-files:
+      scripts:
+        - gen_pages.py
+  # Takes the nav from SUMMARY.md, including the generated section.
+  - literate-nav:
+      nav_file: SUMMARY.md
+  # Folds generated/index.md into its own section, so the sidebar label is a link.
+  - section-index
+
+markdown_extensions:
+  - admonition
+  - tables
+  - toc:
+      permalink: ""
+      permalink_class: anchor
+      permalink_leading: true
+  - pymdownx.highlight
+  - pymdownx.superfences

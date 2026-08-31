@@ -1,0 +1,29 @@
+# Dependencies for building this repository's own documentation site, which
+# doubles as the theme's plugin compatibility test. Not needed to use the theme.
+#
+#   pip install -e . -r requirements-docs.txt
+#   mkdocs build --strict                              # main site
+#   mkdocs build --strict -f examples/rss/mkdocs.yml   # and each example
+#
+# Several of these require Python >= 3.10, so this file is not installable on
+# the theme's own minimum (3.9). CI builds the docs on 3.13 and checks 3.9 with
+# a plugin-free site instead.
+pymdown-extensions >= 10
+mkdocs-awesome-nav >= 3
+mkdocs-section-index >= 0.3.9
+mkdocs-static-i18n >= 1.2
+mkdocs-git-revision-date-localized-plugin >= 1.2
+mkdocs-git-authors-plugin >= 0.7
+mkdocs-glightbox >= 0.4
+mkdocs-macros-plugin >= 1.0
+mkdocs-mermaid2-plugin >= 1.1
+mkdocs-charts-plugin >= 0.0.10
+mkdocs-minify-plugin >= 0.8
+mkdocs-redirects >= 1.2
+mkdocstrings[python] >= 0.25
+
+# Used only by the builds under examples/, which exist because these plugins
+# cannot share a config with mkdocs-static-i18n.
+mkdocs-rss-plugin >= 1.12
+mkdocs-gen-files >= 0.5
+mkdocs-literate-nav >= 0.6

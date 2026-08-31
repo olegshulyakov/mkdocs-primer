@@ -21,11 +21,19 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          # mkdocs-git-revision-date-localized reads the log of every page.
+          fetch-depth: 0
       - uses: actions/setup-python@v5
         with:
           python-version: '3.13'
-      - run: pip install -e . pymdown-extensions
+      - run: pip install -e . -r requirements-docs.txt
       - run: mkdocs build --strict
+      # Published under /examples/. Must run after the main build, which cleans
+      # site/.
+      - run: mkdocs build --strict -f examples/rss/mkdocs.yml
+      - run: mkdocs build --strict -f examples/gen-files/mkdocs.yml
+      - run: mkdocs build --strict -f examples/diagrams/mkdocs.yml
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:

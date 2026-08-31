@@ -5,7 +5,13 @@
     [data-color-mode="auto"][data-light-theme="light"]
   so setting data-color-mode alone leaves every variable undefined.
 #}
-<html lang="{{ config.theme.locale }}"
+{#
+  `i18n_page_locale` is put on the page context by mkdocs-static-i18n. That
+  plugin only rewrites `theme.locale` for the themes it ships support for, so a
+  third-party theme that reads `theme.locale` alone labels every translated
+  page as the default language.
+#}
+<html lang="{{ i18n_page_locale | default(config.theme.locale, true) }}"
       data-color-mode="{{ config.theme.color_mode }}"
       data-light-theme="{{ config.theme.light_theme }}"
       data-dark-theme="{{ config.theme.dark_theme }}">
@@ -27,6 +33,20 @@
       {%- endif %}
       {%- if config.theme.favicon %}
         <link rel="icon" href="{{ config.theme.favicon | url }}">
+      {%- endif %}
+      {#
+        mkdocs-rss-plugin writes the feeds but leaves discovery to the theme,
+        so without these a reader has no way to find them. The filenames are a
+        plugin option, hence reading them back off the plugin config.
+      #}
+      {%- set rss_plugin = config.plugins.get('rss') %}
+      {%- if rss_plugin %}
+        <link rel="alternate" type="application/rss+xml"
+              title="{{ config.site_name }} — recently updated"
+              href="{{ rss_plugin.config.feeds_filenames.rss_updated | url }}">
+        <link rel="alternate" type="application/rss+xml"
+              title="{{ config.site_name }} — recently created"
+              href="{{ rss_plugin.config.feeds_filenames.rss_created | url }}">
       {%- endif %}
     {%- endblock %}
 
@@ -98,9 +118,15 @@
     </div>
 
     {%- block scripts %}
+      {#
+        Unconditional: the search plugin is not the only consumer. Anything
+        added through `extra_javascript` reads it too — mike's version selector
+        is one — and those scripts have no way to know whether search happens to
+        be enabled.
+      #}
+      <script>var base_url = {{ base_url | tojson }}</script>
       <script src="{{ 'js/color-mode.js' | url }}" defer></script>
       {%- if 'search' in config.plugins %}
-        <script>var base_url = {{ base_url | tojson }}</script>
         <script src="{{ 'search/main.js' | url }}" defer></script>
       {%- endif %}
       {%- for script in config.extra_javascript %}
