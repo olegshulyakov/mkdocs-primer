@@ -1,0 +1,36 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  vendor:
+    name: Vendored CSS is up to date
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: npm install --no-package-lock
+      - run: npm run vendor
+      # Guards against the pinned versions in package.json drifting from the
+      # bytes committed under mkdocs_primer/css/vendor/.
+      - name: Check for drift
+        run: git diff --exit-code -- mkdocs_primer/css/vendor
+
+  build:
+    name: Build docs (Python ${{ matrix.python-version }})
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ['3.9', '3.13']
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - run: pip install -e . pymdown-extensions
+      - run: mkdocs build --strict
