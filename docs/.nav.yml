@@ -1,0 +1,7 @@
+# mkdocs-awesome-nav builds the nav from these files instead of a `nav:` key in
+# mkdocs.yml, so a new page only has to be listed next to its siblings.
+nav:
+  - index.md
+  - guide
+  - reference.md
+  - another-page.md

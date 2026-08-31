@@ -8,17 +8,69 @@ edit_uri: edit/main/docs/
 theme:
   name: primer
 
+# Drops one false-positive warning from mkdocs-section-index so `--strict` stays
+# usable. See the docstring in hooks.py.
+hooks:
+  - hooks.py
+
+# This site doubles as the theme's plugin compatibility test: every plugin that
+# needs something from a theme is enabled here, and CI builds with `--strict`.
+# docs/guide/plugins.md explains what each one is here to prove.
 plugins:
+  # Built in. The theme renders the header search box and loads search/main.js
+  # only when this plugin is enabled.
   - search
 
-nav:
-  - Home: index.md
-  - Another page: another-page.md
-  - Guide:
-      - Installation: guide/installation.md
-      - Configuration: guide/configuration.md
-      - Nested:
-          - Deep page: guide/nested/deep-page.md
+  # Nav comes from docs/.nav.yml instead of a `nav:` key below. Must run before
+  # section-index, which rewrites the nav it produces.
+  - awesome-nav
+
+  # Second locale under /ru/. `docs_structure: suffix` means installation.ru.md.
+  # Pages with no translation fall back to their English source.
+  - i18n:
+      docs_structure: suffix
+      languages:
+        - locale: en
+          default: true
+          name: English
+          build: true
+        - locale: ru
+          name: Русский
+          build: true
+
+  # Folds docs/guide/index.md into the Guide section itself, so a nav item ends
+  # up with both children and a url. Runs after the other nav plugins, or its
+  # rewrite is thrown away.
+  - section-index
+
+  # Sets page.meta.git_revision_date_localized, which the theme footer prints.
+  - git-revision-date-localized:
+      # A shallow clone or a fresh working copy has no log for a page; fall back
+      # rather than failing the build.
+      fallback_to_build_date: true
+
+  # Wraps content images in a lightbox by rewriting the page HTML.
+  - glightbox
+
+  # Renders docs/reference.md from the theme package's docstring.
+  - mkdocstrings:
+      handlers:
+        python:
+          paths: ['.']
+
+  # Jinja in Markdown; docs/guide/plugins.md uses it for config values.
+  - macros
+
+  # The Configuration page used to live at /options/.
+  - redirects:
+      redirect_maps:
+        options.md: guide/configuration.md
+
+  # Last: it rewrites the HTML every other plugin produced.
+  - minify:
+      minify_html: true
+      minify_js: true
+      minify_css: true
 
 markdown_extensions:
   - admonition

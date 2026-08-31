@@ -29,7 +29,11 @@ theme:
   the color mode. Works with both `pymdownx.highlight` and `codehilite`.
 - Sidebar navigation with unlimited nesting, prev/next links, a search results page, and a
   404 page.
-- "Improve this page" footer, as in the Jekyll theme.
+- "Improve this page" footer, as in the Jekyll theme, with a "Last updated" line when
+  `mkdocs-git-revision-date-localized` is enabled.
+- Native support for the plugins that need it: `mkdocs-section-index` (section labels
+  render as links) and `mkdocs-static-i18n` (translated pages get the right `<html lang>`).
+  See [Plugins](https://olegshulyakov.github.io/mkdocs-primer/guide/plugins/).
 
 ## Configuration
 
@@ -75,9 +79,13 @@ CI fails if those committed files drift from the pinned versions.
 To preview the demo site:
 
 ```console
-$ pip install -e . pymdown-extensions
+$ pip install -e . -r requirements-docs.txt
 $ mkdocs serve
 ```
+
+The demo site doubles as the theme's plugin compatibility test: `mkdocs.yml` enables every
+plugin that needs something from a theme, and CI builds it with `--strict`. Those plugins
+need Python 3.10+, so CI checks the theme's own floor of 3.9 against a plugin-free site.
 
 ## License
 

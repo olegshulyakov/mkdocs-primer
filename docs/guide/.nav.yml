@@ -1,0 +1,8 @@
+nav:
+  # Listed without a title so mkdocs-section-index folds it into the "Guide"
+  # section itself rather than adding a separate child entry.
+  - index.md
+  - installation.md
+  - configuration.md
+  - plugins.md
+  - nested
