@@ -74,6 +74,24 @@ the plugin's own config rather than hardcoding them, since they are options.
 
 The plugin is not enabled on this site — see [Known plugin conflicts](#known-plugin-conflicts).
 
+### mike
+
+[mike][mike] keeps several documentation versions side by side and adds a
+version dropdown. It finds a theme's dropdown assets through the `mike.themes`
+entry point group and, for a theme it cannot find there, builds **no selector at
+all and says nothing** — the site deploys, the versions exist, and the only way
+to move between them is to edit the URL.
+
+`pyproject.toml` registers `mkdocs_primer.mike` under that group, so mike picks
+up `version-select.css` and `version-select.js` from this package and copies
+them in. The selector lands in the header next to the site name and follows the
+color mode. Aliases resolve to their real version, so `/latest/` shows `2.0`
+selected rather than an empty control.
+
+That script reads the global `base_url`, which `base.html` declares
+unconditionally. It used to be declared only when the `search` plugin was
+enabled, which would have left the selector broken on a site without search.
+
 ### mkdocs-print-site
 
 [mkdocs-print-site][print-site] renders the whole site as one page using the
@@ -129,11 +147,14 @@ its place in a theme's documentation:
 | [markdown-exec][markdown-exec] | Code executed, output inlined. |
 | [mkdocs-table-reader-plugin][table-reader] | CSV rendered as a table. |
 | [mkdocs-markdownextradata-plugin][extradata] | `extra:` values interpolated. |
+| [mkdocs-autolinks-plugin][autolinks] | Bare `[file.md](file.md)` links resolved. |
+| [mkdocs-encryptcontent-plugin][encryptcontent] | Page body encrypted with no plaintext left in the HTML, password form rendered, theme shell intact around it. |
+| [mkdocs-monorepo-plugin][monorepo] | Sub-project merged in through `!include`. |
 | `material/group` | Enables or disables a plugin group. With the built-in `search` inside it, the theme's search box correctly appears when the group is on and disappears when it is off. |
 
 Nav- and file-level plugins — [mkdocs-literate-nav][literate-nav],
-[mkdocs-awesome-pages][awesome-pages], [mkdocs-exclude][exclude],
-[mkdocs-monorepo][monorepo] — never reach a template at all.
+[mkdocs-awesome-pages][awesome-pages], [mkdocs-exclude][exclude] — never reach a
+template at all.
 
 ## Known plugin conflicts
 
@@ -148,14 +169,21 @@ under any theme:
   `on_config`. The i18n plugin runs `on_config` once per language, so the second
   pass re-parses a `datetime` and warns. Harmless, but it aborts a `--strict`
   build, which is why RSS is not enabled here.
+- **mkdocs-monorepo without `repo_url`** — building a sub-project page raises
+  `TypeError: join() missing 1 required positional argument`. Setting `repo_url`
+  and `edit_uri` avoids it. Reproduces identically under the built-in `mkdocs`
+  theme.
 - **`material/search` with a non-Material theme** — Material's search plugin
   renders `partials/language.html` through the *active* theme's Jinja
   environment. Under any theme that does not ship that template it raises
   `TemplateNotFound` and the build dies. Use the built-in `search` plugin
   instead; the theme is built against that one.
 
+[autolinks]: https://github.com/zachhannum/mkdocs-autolinks-plugin
 [awesome-nav]: https://lukasgeiter.github.io/mkdocs-awesome-nav/
 [awesome-pages]: https://github.com/lukasgeiter/mkdocs-awesome-pages-plugin
+[encryptcontent]: https://github.com/unverbuggt/mkdocs-encryptcontent-plugin
+[mike]: https://github.com/jimporter/mike
 [charts]: https://timvink.github.io/mkdocs-charts-plugin/
 [exclude]: https://github.com/apenwarr/mkdocs-exclude
 [extradata]: https://github.com/rosscdh/mkdocs-markdownextradata-plugin
