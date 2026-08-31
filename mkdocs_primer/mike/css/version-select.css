@@ -1,0 +1,19 @@
+/*
+ * The selector sits in the Primer header, immediately after the site title.
+ * Colors come from the header's own tokens so it follows the color mode.
+ */
+#version-selector {
+  display: flex;
+  align-items: center;
+  margin-left: var(--base-size-8, 8px);
+}
+
+#version-selector > select {
+  width: auto;
+  padding: 3px var(--base-size-8, 8px);
+  font-size: 12px;
+  color: var(--fgColor-default);
+  background-color: var(--bgColor-default);
+  border: 1px solid var(--borderColor-default);
+  border-radius: var(--borderRadius-medium, 6px);
+}

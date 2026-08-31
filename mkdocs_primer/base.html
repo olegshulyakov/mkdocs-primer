@@ -118,9 +118,15 @@
     </div>
 
     {%- block scripts %}
+      {#
+        Unconditional: the search plugin is not the only consumer. Anything
+        added through `extra_javascript` reads it too — mike's version selector
+        is one — and those scripts have no way to know whether search happens to
+        be enabled.
+      #}
+      <script>var base_url = {{ base_url | tojson }}</script>
       <script src="{{ 'js/color-mode.js' | url }}" defer></script>
       {%- if 'search' in config.plugins %}
-        <script>var base_url = {{ base_url | tojson }}</script>
         <script src="{{ 'search/main.js' | url }}" defer></script>
       {%- endif %}
       {%- for script in config.extra_javascript %}
