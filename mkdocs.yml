@@ -1,0 +1,37 @@
+site_name: mkdocs-primer
+site_description: A MkDocs theme built on GitHub's Primer design system
+site_url: https://olegshulyakov.github.io/mkdocs-primer/
+
+repo_url: https://github.com/olegshulyakov/mkdocs-primer
+edit_uri: edit/main/docs/
+
+theme:
+  name: primer
+
+plugins:
+  - search
+
+nav:
+  - Home: index.md
+  - Another page: another-page.md
+  - Guide:
+      - Installation: guide/installation.md
+      - Configuration: guide/configuration.md
+      - Nested:
+          - Deep page: guide/nested/deep-page.md
+
+markdown_extensions:
+  - admonition
+  - def_list
+  - footnotes
+  - tables
+  - toc:
+      # Empty permalink text: theme.css draws the octicon via ::before, and an
+      # empty anchor keeps the glyph out of the search index.
+      permalink: ""
+      permalink_class: anchor
+      permalink_leading: true
+      permalink_title: Permanent link
+  - pymdownx.highlight
+  - pymdownx.superfences
+  - pymdownx.tilde
