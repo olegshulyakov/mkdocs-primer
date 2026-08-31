@@ -43,14 +43,15 @@ primer = "mkdocs_primer"
 # mike resolves a theme's version-selector assets through this group and builds
 # no selector at all, without warning, for a theme it cannot find here.
 [project.entry-points."mike.themes"]
-primer = "mkdocs_primer.mike"
+primer = "mkdocs_primer_mike"
 
 [tool.hatch.build.targets.wheel]
-packages = ["mkdocs_primer"]
+packages = ["mkdocs_primer", "mkdocs_primer_mike"]
 
 [tool.hatch.build.targets.sdist]
 include = [
     "/mkdocs_primer",
+    "/mkdocs_primer_mike",
     "/scripts",
     "/package.json",
     "/README.md",
