@@ -14,7 +14,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - run: npm install --no-package-lock
+      - run: npm ci
       - run: npm run vendor
       # Guards against the pinned versions in package.json drifting from the
       # bytes committed under mkdocs_primer/css/vendor/.
