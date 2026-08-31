@@ -235,6 +235,93 @@ a.primer-nav-section-label[aria-current='page'] {
   visibility: visible;
 }
 
+/* ----------------------------------------------------------- admonitions -- */
+
+/*
+ * The `admonition` extension emits markup and no styling, and neither Primer's
+ * markdown stylesheet nor its core carries a rule for it — GitHub's own alerts
+ * use `.markdown-alert`, which @primer/css does not ship. Without the rules
+ * below, every `!!! note` renders as an undecorated block.
+ *
+ * Geometry follows GitHub's alerts: a colored left rule and a colored title.
+ * The octicon GitHub puts beside the title is not reproduced; there are five
+ * of them and they would cost more than they are worth here.
+ */
+.markdown-body .admonition {
+  padding: 0 var(--base-size-16);
+  margin-bottom: var(--base-size-16);
+  color: inherit;
+  /* 0.25em, not --borderWidth-thick (2px): matches the rule Primer draws down
+     the side of a blockquote, so the two read as the same family. */
+  border-left: 0.25em solid var(--borderColor-default);
+}
+
+.markdown-body .admonition > :first-child {
+  margin-top: var(--base-size-16);
+}
+
+.markdown-body .admonition > :last-child {
+  margin-bottom: var(--base-size-16);
+}
+
+.markdown-body .admonition-title {
+  font-weight: var(--base-text-weight-semibold, 600);
+}
+
+/*
+ * Type names come from the `admonition` extension. The five that match a
+ * GitHub alert take its color; anything else keeps the neutral border above.
+ */
+.markdown-body .admonition.note {
+  border-left-color: var(--borderColor-accent-emphasis);
+}
+
+.markdown-body .admonition.note > .admonition-title {
+  color: var(--fgColor-accent);
+}
+
+.markdown-body .admonition.tip,
+.markdown-body .admonition.hint {
+  border-left-color: var(--borderColor-success-emphasis);
+}
+
+.markdown-body .admonition.tip > .admonition-title,
+.markdown-body .admonition.hint > .admonition-title {
+  color: var(--fgColor-success);
+}
+
+.markdown-body .admonition.important {
+  border-left-color: var(--borderColor-done-emphasis);
+}
+
+.markdown-body .admonition.important > .admonition-title {
+  color: var(--fgColor-done);
+}
+
+.markdown-body .admonition.warning,
+.markdown-body .admonition.attention,
+.markdown-body .admonition.caution {
+  border-left-color: var(--borderColor-attention-emphasis);
+}
+
+.markdown-body .admonition.warning > .admonition-title,
+.markdown-body .admonition.attention > .admonition-title,
+.markdown-body .admonition.caution > .admonition-title {
+  color: var(--fgColor-attention);
+}
+
+.markdown-body .admonition.danger,
+.markdown-body .admonition.error,
+.markdown-body .admonition.bug {
+  border-left-color: var(--borderColor-danger-emphasis);
+}
+
+.markdown-body .admonition.danger > .admonition-title,
+.markdown-body .admonition.error > .admonition-title,
+.markdown-body .admonition.bug > .admonition-title {
+  color: var(--fgColor-danger);
+}
+
 /* ------------------------------------------------------------ responsive -- */
 
 /* Below Primer's md breakpoint the sidebar collapses into the header disclosure. */
