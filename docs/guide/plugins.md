@@ -158,17 +158,25 @@ template at all.
 
 ## Known plugin conflicts
 
-Not every failure is the theme's. Three worth knowing about, all reproducible
-under any theme:
+Not every failure is the theme's. Four worth knowing about, all reproducible
+under any theme.
 
-- **mkdocs-gen-files with mkdocs-static-i18n** — files created during
-  `on_files` are not classified by the i18n plugin, which logs
-  `Unhandled file case` and drops them from the build.
+Two of them are why this site is not the only build in the repository: the
+plugins involved cannot share a config with the ones already enabled here, so
+they get a site of their own under `examples/`, built with `--strict` by the
+same CI job.
+
 - **mkdocs-rss-plugin with mkdocs-static-i18n** — the RSS plugin rewrites its
   own `date_from_meta.default_time` from a string to a `datetime` during
   `on_config`. The i18n plugin runs `on_config` once per language, so the second
-  pass re-parses a `datetime` and warns. Harmless, but it aborts a `--strict`
-  build, which is why RSS is not enabled here.
+  pass re-parses a `datetime` and warns, aborting a `--strict` build. Demonstrated
+  instead at [examples/rss/]({{ config.site_url }}examples/rss/).
+- **mkdocs-gen-files with mkdocs-static-i18n** — files created during
+  `on_files` are not classified by the i18n plugin, which logs
+  `Unhandled file case` and drops them from the build. Demonstrated instead at
+  [examples/gen-files/]({{ config.site_url }}examples/gen-files/), together with
+  mkdocs-literate-nav, which would otherwise compete with mkdocs-awesome-nav for
+  the nav.
 - **mkdocs-monorepo without `repo_url`** — building a sub-project page raises
   `TypeError: join() missing 1 required positional argument`. Setting `repo_url`
   and `edit_uri` avoids it. Reproduces identically under the built-in `mkdocs`

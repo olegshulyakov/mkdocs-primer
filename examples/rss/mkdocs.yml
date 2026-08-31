@@ -1,0 +1,34 @@
+# Builds into site/examples/rss/. Run after the main site, which cleans site/.
+#
+#   mkdocs build --strict -f examples/rss/mkdocs.yml
+#
+# mkdocs-rss-plugin cannot share a config with mkdocs-static-i18n, which the
+# main site uses; see ../README.md.
+site_name: mkdocs-primer — RSS example
+site_description: The primer theme emitting RSS autodiscovery links
+site_url: https://olegshulyakov.github.io/mkdocs-primer/examples/rss/
+repo_url: https://github.com/olegshulyakov/mkdocs-primer
+edit_uri: edit/main/examples/rss/docs/
+site_dir: ../../site/examples/rss
+
+theme:
+  name: primer
+
+plugins:
+  - search
+  # Writes feed_rss_created.xml and feed_rss_updated.xml. The theme turns those
+  # into <link rel="alternate"> tags, reading the filenames off this config.
+  - rss:
+      abstract_chars_count: 160
+  # Puts `git_page_authors` on the page context; the theme footer prints it.
+  - git-authors
+
+markdown_extensions:
+  - admonition
+  - tables
+  - toc:
+      permalink: ""
+      permalink_class: anchor
+      permalink_leading: true
+  - pymdownx.highlight
+  - pymdownx.superfences

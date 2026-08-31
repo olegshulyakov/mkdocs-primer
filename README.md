@@ -89,6 +89,16 @@ The demo site doubles as the theme's plugin compatibility test: `mkdocs.yml` ena
 plugin that needs something from a theme, and CI builds it with `--strict`. Those plugins
 need Python 3.10+, so CI checks the theme's own floor of 3.9 against a plugin-free site.
 
+A few plugins cannot share that config — `rss` and `gen-files` both break under
+`static-i18n` — so they get their own sites under `examples/`, published beside the main
+one. Build them after it, since `mkdocs build` cleans `site/`:
+
+```console
+$ mkdocs build --strict
+$ mkdocs build --strict -f examples/rss/mkdocs.yml
+$ mkdocs build --strict -f examples/gen-files/mkdocs.yml
+```
+
 ## License
 
 MIT. Vendored Primer CSS is MIT, Copyright (c) GitHub, Inc. — see

@@ -53,3 +53,8 @@ jobs:
       # Every plugin that needs theme support is enabled in mkdocs.yml, so this
       # build is where a regression in that support surfaces.
       - run: mkdocs build --strict
+      # The examples cover plugins that cannot share a config with the main
+      # site. They build into site/, so they have to run after it — that build
+      # cleans the directory.
+      - run: mkdocs build --strict -f examples/rss/mkdocs.yml
+      - run: mkdocs build --strict -f examples/gen-files/mkdocs.yml

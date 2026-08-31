@@ -29,6 +29,10 @@ jobs:
           python-version: '3.13'
       - run: pip install -e . -r requirements-docs.txt
       - run: mkdocs build --strict
+      # Published under /examples/. Must run after the main build, which cleans
+      # site/.
+      - run: mkdocs build --strict -f examples/rss/mkdocs.yml
+      - run: mkdocs build --strict -f examples/gen-files/mkdocs.yml
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
