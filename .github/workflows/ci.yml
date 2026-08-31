@@ -58,3 +58,4 @@ jobs:
       # cleans the directory.
       - run: mkdocs build --strict -f examples/rss/mkdocs.yml
       - run: mkdocs build --strict -f examples/gen-files/mkdocs.yml
+      - run: mkdocs build --strict -f examples/diagrams/mkdocs.yml

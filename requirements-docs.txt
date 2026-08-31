@@ -13,12 +13,14 @@ mkdocs-awesome-nav >= 3
 mkdocs-section-index >= 0.3.9
 mkdocs-static-i18n >= 1.2
 mkdocs-git-revision-date-localized-plugin >= 1.2
+mkdocs-git-authors-plugin >= 0.7
 mkdocs-glightbox >= 0.4
 mkdocs-macros-plugin >= 1.0
+mkdocs-mermaid2-plugin >= 1.1
+mkdocs-charts-plugin >= 0.0.10
 mkdocs-minify-plugin >= 0.8
 mkdocs-redirects >= 1.2
 mkdocstrings[python] >= 0.25
-mkdocs-git-authors-plugin >= 0.7
 
 # Used only by the builds under examples/, which exist because these plugins
 # cannot share a config with mkdocs-static-i18n.

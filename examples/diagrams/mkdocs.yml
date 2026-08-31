@@ -1,0 +1,64 @@
+# Builds into site/examples/diagrams/. Run after the main site, which cleans
+# site/.
+#
+#   mkdocs build --strict -f examples/diagrams/mkdocs.yml
+#
+# Mermaid cannot share a config with the main site's `minify` settings: Mermaid
+# parses its source line by line, and `minify_html` collapses the newlines
+# inside the container. See ../README.md.
+site_name: mkdocs-primer — diagrams example
+site_description: Mermaid and Vega-Lite rendered under the primer theme
+site_url: https://olegshulyakov.github.io/mkdocs-primer/examples/diagrams/
+repo_url: https://github.com/olegshulyakov/mkdocs-primer
+edit_uri: edit/main/examples/diagrams/docs/
+site_dir: ../../site/examples/diagrams
+
+theme:
+  name: primer
+
+plugins:
+  - search
+
+  # `theme` is a raw JavaScript expression — mermaid2 treats a leading `^` as a
+  # literal rather than a string — evaluated when Mermaid initializes, so a
+  # diagram is drawn in whatever color mode the page loaded in.
+  - mermaid2:
+      arguments:
+        theme: >-
+          ^(function () {
+            var mode = document.documentElement.getAttribute('data-color-mode')
+            if (mode === 'dark') return 'dark'
+            if (mode === 'light') return 'default'
+            return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+              ? 'dark' : 'default'
+          })()
+
+  # Vega-Lite, rendered in the browser from the libraries in extra_javascript.
+  - charts
+
+extra_javascript:
+  - https://cdn.jsdelivr.net/npm/vega@5
+  - https://cdn.jsdelivr.net/npm/vega-lite@5
+  - https://cdn.jsdelivr.net/npm/vega-embed@6
+
+markdown_extensions:
+  - admonition
+  - tables
+  - toc:
+      permalink: ""
+      permalink_class: anchor
+      permalink_leading: true
+  - pymdownx.highlight
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          # `fence_mermaid`, not `fence_mermaid_custom`: the `_custom` variant
+          # only publishes `window.mermaidConfig` and waits for Material's own
+          # loader to run Mermaid, so under any other theme nothing is drawn.
+          format: !!python/name:mermaid2.fence_mermaid
+        - name: vegalite
+          class: vegalite
+          # Without this the chart is left as a highlighted JSON code block —
+          # mkdocs-charts-plugin does not touch a fence it was not given.
+          format: !!python/name:mkdocs_charts_plugin.fences.fence_vegalite

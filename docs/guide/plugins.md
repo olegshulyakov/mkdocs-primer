@@ -140,8 +140,6 @@ its place in a theme's documentation:
 
 | Plugin | Checked |
 |:---|:---|
-| [mkdocs-mermaid2-plugin][mermaid2] | Diagram renders; needs a `custom_fences` entry under `pymdownx.superfences`. |
-| [mkdocs-charts-plugin][charts] | Vega-Lite block renders; needs the vega scripts in `extra_javascript`. |
 | [mkdocs-swagger-ui-tag][swagger] | `<swagger-ui>` tag expands, assets copied. |
 | [mkdocs-include-markdown-plugin][include-markdown] | Snippet inlined. |
 | [markdown-exec][markdown-exec] | Code executed, output inlined. |
@@ -177,6 +175,11 @@ same CI job.
   [examples/gen-files/]({{ config.site_url }}examples/gen-files/), together with
   mkdocs-literate-nav, which would otherwise compete with mkdocs-awesome-nav for
   the nav.
+- **Mermaid with `minify_html`** — Mermaid parses its source line by line, and
+  the minifier collapses the newlines inside its `<div>`. The diagram renders as
+  *Syntax error in text* and the build says nothing. Demonstrated instead at
+  [examples/diagrams/]({{ config.site_url }}examples/diagrams/), which also
+  covers [mkdocs-charts-plugin][charts] and how both pick up the color mode.
 - **mkdocs-monorepo without `repo_url`** — building a sub-project page raises
   `TypeError: join() missing 1 required positional argument`. Setting `repo_url`
   and `edit_uri` avoids it. Reproduces identically under the built-in `mkdocs`
