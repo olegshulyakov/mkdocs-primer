@@ -372,6 +372,28 @@ a.primer-nav-section-label[aria-current='page'] {
   }
 }
 
+/* ------------------------------------------------------------- diagrams -- */
+
+/*
+ * Diagram plugins drop an SVG into the page and leave the framing to the theme.
+ * Mermaid sizes its SVG to the diagram; mkdocs-charts-plugin measures a parent
+ * it recognises by class name (`md-content` for Material, `col-md-9` for the
+ * built-in theme) and, finding neither here, falls back to a fixed 800px. Both
+ * therefore need a ceiling of their own to survive a narrow viewport.
+ */
+.markdown-body .mermaid,
+.markdown-body .vega-embed {
+  display: flex;
+  justify-content: center;
+  margin-bottom: var(--base-size-16);
+}
+
+.markdown-body .mermaid svg,
+.markdown-body .vega-embed svg {
+  max-width: 100%;
+  height: auto;
+}
+
 /* ---------------------------------------------------------------- print -- */
 
 /*
