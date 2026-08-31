@@ -25,8 +25,9 @@ plugins:
   # section-index, which rewrites the nav it produces.
   - awesome-nav
 
-  # Second locale under /ru/. `docs_structure: suffix` means installation.ru.md.
-  # Pages with no translation fall back to their English source.
+  # Extra locales under /es/, /zh/, /hi/, /pt/, /ru/ and /fr/.
+  # `docs_structure: suffix` means installation.ru.md. Pages with no translation
+  # fall back to their English source.
   - i18n:
       docs_structure: suffix
       languages:
@@ -34,8 +35,23 @@ plugins:
           default: true
           name: English
           build: true
+        - locale: es
+          name: Spanish
+          build: true
+        - locale: zh
+          name: Chinese
+          build: true
+        - locale: hi
+          name: Hindi
+          build: true
+        - locale: pt
+          name: Portuguese
+          build: true
         - locale: ru
-          name: Русский
+          name: Russian
+          build: true
+        - locale: fr
+          name: French
           build: true
 
   # Folds docs/guide/index.md into the Guide section itself, so a nav item ends

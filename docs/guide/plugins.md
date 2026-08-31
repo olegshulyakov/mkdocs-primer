@@ -47,9 +47,9 @@ context, and falls back to `theme.locale` when the plugin is absent:
 {% raw %}<html lang="{{ i18n_page_locale | default(config.theme.locale, true) }}">{% endraw %}
 ```
 
-The Russian pages under `/ru/` carry `lang="ru"`. Pages with no `*.ru.md`
-translation fall back to their English source, which is the plugin's default
-behaviour.
+The translated pages under `/es/`, `/zh/`, `/hi/`, `/pt/`, `/ru/` and `/fr/`
+carry the matching `lang` attribute. Pages with no `*.<locale>.md` translation
+fall back to their English source, which is the plugin's default behaviour.
 
 ### mkdocs-git-revision-date-localized
 
