@@ -4,9 +4,11 @@ Most MkDocs plugins never touch a template, so they work with any theme. A
 handful do not: they expect the theme to render something they computed, or to
 handle a nav shape they created. Those are the ones worth checking.
 
-This site is the check. `mkdocs.yml` in the repository root enables every plugin
-listed below, and CI builds it with `--strict`, so a regression in theme support
-breaks the build rather than quietly degrading a page.
+This site is the check. `mkdocs.yml` in the repository root enables the plugins
+that need theme support, and CI builds it with `--strict`, so a regression
+breaks the build rather than quietly degrading a page. The candidates were taken
+from the [MkDocs catalog](https://github.com/mkdocs/catalog), working down by
+popularity.
 
 ## Plugins that need something from the theme
 
@@ -57,6 +59,35 @@ the theme asks for it, so a theme without that line makes the plugin look
 broken. `partials/footer.html` prints it — the "Last updated" line at the bottom
 of this page.
 
+### mkdocs-git-authors
+
+[mkdocs-git-authors][git-authors] has the same shape: it puts
+`git_page_authors` on the page context as a string of HTML and leaves the
+display to the theme. The footer prints it beside the revision date.
+
+### mkdocs-rss-plugin
+
+[mkdocs-rss-plugin][rss] writes `feed_rss_created.xml` and
+`feed_rss_updated.xml` but adds no markup, so nothing points a reader at them.
+`base.html` emits the `<link rel="alternate">` pair, taking the filenames from
+the plugin's own config rather than hardcoding them, since they are options.
+
+The plugin is not enabled on this site — see [Known plugin conflicts](#known-plugin-conflicts).
+
+### mkdocs-print-site
+
+[mkdocs-print-site][print-site] renders the whole site as one page using the
+active theme's templates, which works here. What it cannot do is supply print
+CSS: it ships one stylesheet per theme it knows about and warns
+`Theme 'primer' not yet supported` for the rest.
+
+That is the theme's job anyway. `theme.css` carries an `@media print` block
+that drops the header, sidebar and pagination, releases the content column to
+full width, and keeps code blocks and tables from splitting across pages. It
+also pins the body text to Primer's *light* foreground color, because a visitor
+printing while in dark mode would otherwise get light gray text on white paper.
+That block applies to any page, with or without the plugin.
+
 ### search
 
 The built-in `search` plugin needs the theme to ship a `search.html` template
@@ -74,8 +105,8 @@ defaults. [Reference](../reference.md) is the page it generates.
 
 ## Plugins that just work
 
-These need nothing from the theme beyond well-formed HTML. They are enabled here
-so that stays true:
+These need nothing from the theme beyond well-formed HTML. The first group is
+enabled on this site, so that stays true:
 
 | Plugin | What it does on this site |
 |:---|:---|
@@ -85,21 +116,64 @@ so that stays true:
 | [mkdocs-redirects][redirects] | `/options/` redirects to [Configuration](configuration.md). |
 | [mkdocs-macros-plugin][macros] | Renders Jinja in Markdown. This site is **{{ config.site_name }}**, built with theme `{{ config.theme.name }}` — that sentence comes from the plugin, not from Markdown. |
 
+The second group was checked against the theme in a scratch build rather than
+wired into this site, because each one wants fixture content that would not earn
+its place in a theme's documentation:
+
+| Plugin | Checked |
+|:---|:---|
+| [mkdocs-mermaid2-plugin][mermaid2] | Diagram renders; needs a `custom_fences` entry under `pymdownx.superfences`. |
+| [mkdocs-charts-plugin][charts] | Vega-Lite block renders; needs the vega scripts in `extra_javascript`. |
+| [mkdocs-swagger-ui-tag][swagger] | `<swagger-ui>` tag expands, assets copied. |
+| [mkdocs-include-markdown-plugin][include-markdown] | Snippet inlined. |
+| [markdown-exec][markdown-exec] | Code executed, output inlined. |
+| [mkdocs-table-reader-plugin][table-reader] | CSV rendered as a table. |
+| [mkdocs-markdownextradata-plugin][extradata] | `extra:` values interpolated. |
+| `material/group` | Enables or disables a plugin group. With the built-in `search` inside it, the theme's search box correctly appears when the group is on and disappears when it is off. |
+
+Nav- and file-level plugins — [mkdocs-literate-nav][literate-nav],
+[mkdocs-awesome-pages][awesome-pages], [mkdocs-exclude][exclude],
+[mkdocs-monorepo][monorepo] — never reach a template at all.
+
 ## Known plugin conflicts
 
-Not every failure is the theme's. One worth knowing about:
+Not every failure is the theme's. Three worth knowing about, all reproducible
+under any theme:
 
 - **mkdocs-gen-files with mkdocs-static-i18n** — files created during
   `on_files` are not classified by the i18n plugin, which logs
-  `Unhandled file case` and drops them from the build. This happens under any
-  theme; it is a plugin-to-plugin issue.
+  `Unhandled file case` and drops them from the build.
+- **mkdocs-rss-plugin with mkdocs-static-i18n** — the RSS plugin rewrites its
+  own `date_from_meta.default_time` from a string to a `datetime` during
+  `on_config`. The i18n plugin runs `on_config` once per language, so the second
+  pass re-parses a `datetime` and warns. Harmless, but it aborts a `--strict`
+  build, which is why RSS is not enabled here.
+- **`material/search` with a non-Material theme** — Material's search plugin
+  renders `partials/language.html` through the *active* theme's Jinja
+  environment. Under any theme that does not ship that template it raises
+  `TemplateNotFound` and the build dies. Use the built-in `search` plugin
+  instead; the theme is built against that one.
 
 [awesome-nav]: https://lukasgeiter.github.io/mkdocs-awesome-nav/
+[awesome-pages]: https://github.com/lukasgeiter/mkdocs-awesome-pages-plugin
+[charts]: https://timvink.github.io/mkdocs-charts-plugin/
+[exclude]: https://github.com/apenwarr/mkdocs-exclude
+[extradata]: https://github.com/rosscdh/mkdocs-markdownextradata-plugin
+[git-authors]: https://timvink.github.io/mkdocs-git-authors-plugin/
 [git-date]: https://timvink.github.io/mkdocs-git-revision-date-localized-plugin/
 [glightbox]: https://blueswen.github.io/mkdocs-glightbox/
 [i18n]: https://ultrabug.github.io/mkdocs-static-i18n/
+[include-markdown]: https://github.com/mondeja/mkdocs-include-markdown-plugin
+[literate-nav]: https://github.com/oprypin/mkdocs-literate-nav
 [macros]: https://mkdocs-macros-plugin.readthedocs.io/
+[markdown-exec]: https://pawamoy.github.io/markdown-exec/
+[mermaid2]: https://mkdocs-mermaid2.readthedocs.io/
 [minify]: https://github.com/byrnereese/mkdocs-minify-plugin
 [mkdocstrings]: https://mkdocstrings.github.io/
+[monorepo]: https://github.com/backstage/mkdocs-monorepo-plugin
+[print-site]: https://timvink.github.io/mkdocs-print-site-plugin/
 [redirects]: https://github.com/mkdocs/mkdocs-redirects
+[rss]: https://guts.github.io/mkdocs-rss-plugin/
 [section-index]: https://github.com/oprypin/mkdocs-section-index
+[swagger]: https://blueswen.github.io/mkdocs-swagger-ui-tag/
+[table-reader]: https://timvink.github.io/mkdocs-table-reader-plugin/

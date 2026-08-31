@@ -49,6 +49,9 @@ plugins:
       # rather than failing the build.
       fallback_to_build_date: true
 
+  # Puts `git_page_authors` on the page context, which the footer prints too.
+  - git-authors
+
   # Wraps content images in a lightbox by rewriting the page HTML.
   - glightbox
 
