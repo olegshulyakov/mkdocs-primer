@@ -21,16 +21,35 @@ jobs:
       - name: Check for drift
         run: git diff --exit-code -- mkdocs_primer/css/vendor
 
-  build:
-    name: Build docs (Python ${{ matrix.python-version }})
+  minimum-python:
+    name: Theme builds on Python 3.9
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        python-version: ['3.9', '3.13']
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
-          python-version: ${{ matrix.python-version }}
-      - run: pip install -e . pymdown-extensions
+          python-version: '3.9'
+      - run: pip install -e .
+      # The docs site pulls in plugins that need Python 3.10+, so the floor of
+      # the theme's own `requires-python` is checked against a bare site.
+      - name: Build a plugin-free site
+        run: |
+          mkdocs new "$RUNNER_TEMP/smoke"
+          printf 'theme:\n  name: primer\n' >> "$RUNNER_TEMP/smoke/mkdocs.yml"
+          mkdocs build --strict -f "$RUNNER_TEMP/smoke/mkdocs.yml"
+
+  docs:
+    name: Docs site (full plugin stack)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          # mkdocs-git-revision-date-localized reads the log of every page.
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - run: pip install -e . -r requirements-docs.txt
+      # Every plugin that needs theme support is enabled in mkdocs.yml, so this
+      # build is where a regression in that support surfaces.
       - run: mkdocs build --strict
