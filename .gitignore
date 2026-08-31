@@ -1,0 +1,14 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+.venv/
+
+# Node — only needed to refresh mkdocs_primer/css/vendor/
+node_modules/
+package-lock.json
+
+# MkDocs
+site/

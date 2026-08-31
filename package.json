@@ -1,0 +1,15 @@
+{
+  "name": "mkdocs-primer",
+  "version": "0.1.0",
+  "description": "Vendoring pipeline for the CSS shipped with the mkdocs-primer theme",
+  "private": true,
+  "type": "module",
+  "license": "MIT",
+  "scripts": {
+    "vendor": "node scripts/vendor-css.mjs"
+  },
+  "devDependencies": {
+    "@primer/css": "22.3.0",
+    "@primer/primitives": "11.10.0"
+  }
+}
