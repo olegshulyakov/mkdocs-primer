@@ -7,7 +7,7 @@ gérer une forme de navigation qu'ils ont créée. Ce sont ceux-là qui valent l
 Ce site est le chèque. `mkdocs.yml` dans la racine du référentiel active les plugins
 qui ont besoin d'un support de thème, et CI le construit avec `--strict`, donc une régression
 brise la construction plutôt que de dégrader tranquillement une page. Les candidats ont été retenus
-à partir du [catalogue MkDocs] (https://github.com/mkdocs/catalog), en travaillant par
+à partir du [catalogue MkDocs](https://github.com/mkdocs/catalog), en travaillant par
 popularité.
 
 ## Plugins qui ont besoin de quelque chose du thème
@@ -79,7 +79,7 @@ afficher au thème. Le pied de page l'imprime à côté de la date de révision.
 `base.html` émet la paire `<link rel="alternate">`, en prenant les noms de fichiers de
 la propre configuration du plugin plutôt que de la coder en dur, car ce sont des options.
 
-Le plugin n'est pas activé sur ce site — voir [Conflits de plugins connus] (#known-plugin-conflicts).
+Le plugin n'est pas activé sur ce site — voir [Conflits de plugins connus](#known-plugin-conflicts).
 
 ### mike
 
@@ -161,6 +161,8 @@ Plugins de navigation et au niveau des fichiers — [mkdocs-literate-nav][litera
 [mkdocs-awesome-pages][awesome-pages], [mkdocs-exclude][exclude] — n'atteignez jamais un
 modèle du tout.
 
+<a id="known-plugin-conflicts"></a>
+
 ## Conflits de plugins connus
 
 Tous les échecs ne sont pas le thème. Quatre à connaître, tous reproductibles
@@ -185,7 +187,7 @@ même travail CI.
 - **Mermaid avec `minify_html`** — Mermaid analyse sa source ligne par ligne et
   le minifier réduit les nouvelles lignes à l'intérieur de son `<div>`. Le diagramme rend comme
   *Erreur de syntaxe dans le texte* et la version ne dit rien. Démontré à la place à
-  [exemples/diagrammes/]({{ config.site_url }}examples/diagrammes/), qui également
+  [exemples/diagrammes/]({{ config.site_url }}examples/diagrams/), qui également
   couvre [mkdocs-charts-plugin][charts] et comment les deux sélectionnent le mode couleur.
 - **mkdocs-monorepo sans `repo_url`** — la création d'une page de sous-projet augmente
   `TypeError: join() missing 1 required positional argument`. Configuration de `repo_url`

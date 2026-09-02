@@ -79,7 +79,7 @@ mostrar al tema. El pie de página lo imprime junto a la fecha de revisión.
 `base.html` emite el par `<link rel="alternate">`, tomando los nombres de archivo de
 la propia configuración del complemento en lugar de codificarlas, ya que son opciones.
 
-El complemento no está habilitado en este sitio; consulte [Conflictos de complementos conocidos] (#conflictos-de-complementos-conocidos).
+El complemento no está habilitado en este sitio; consulte [Conflictos de complementos conocidos](#known-plugin-conflicts).
 
 ### mike
 
@@ -185,7 +185,7 @@ mismo trabajo de CI.
 - **Mermaid con `minify_html`** — Mermaid analiza su fuente línea por línea y
   el minificador colapsa las nuevas líneas dentro de su `<div>`. El diagrama se representa como
   *Error de sintaxis en el texto* y la compilación no dice nada. Demostrado en cambio en
-  [ejemplos/diagramas/]({{ config.site_url }}ejemplos/diagramas/), que también
+  [ejemplos/diagramas/]({{ config.site_url }}examples/diagrams/), que también
   cubre [mkdocs-charts-plugin][charts] y cómo ambos seleccionan el modo de color.
 - **mkdocs-monorepo sin `repo_url`**: aumenta la creación de una página de subproyecto
   `TypeError: join() missing 1 required positional argument`. Configuración de `repo_url`

@@ -79,7 +79,7 @@ exibição para o tema. O rodapé imprime ao lado da data de revisão.
 `base.html` emite o par `<link rel="alternate">`, pegando os nomes dos arquivos de
 a própria configuração do plugin em vez de codificá-los, já que são opções.
 
-O plug-in não está habilitado neste site — consulte [Conflitos de plug-ins conhecidos](#conflitos-de-plugin-conhecidos).
+O plug-in não está habilitado neste site — consulte [Conflitos de plug-ins conhecidos](#known-plugin-conflicts).
 
 ### Mike
 
@@ -161,6 +161,8 @@ Plugins de navegação e nível de arquivo — [mkdocs-literate-nav][literate-na
 [mkdocs-awesome-pages][awesome-pages], [mkdocs-exclude][exclude] — nunca alcance um
 modelo em tudo.
 
+<a id="known-plugin-conflicts"></a>
+
 ## Conflitos de plugins conhecidos
 
 Nem todo fracasso é do tema. Quatro que vale a pena conhecer, todos reproduzíveis
@@ -185,7 +187,7 @@ mesmo trabalho de CI.
 - **Mermaid com `minify_html`** — Mermaid analisa sua fonte linha por linha e
   o minificador recolhe as novas linhas dentro de seu `<div>`. O diagrama é renderizado como
   *Erro de sintaxe no texto* e a compilação não diz nada. Demonstrado em vez disso em
-  [exemplos/diagramas/]({{ config.site_url }}examples/diagramas/), que também
+  [exemplos/diagramas/]({{ config.site_url }}examples/diagrams/), que também
   cobre [mkdocs-charts-plugin][charts] e como ambos selecionam o modo de cor.
 - **mkdocs-monorepo sem `repo_url`** — a construção de uma página de subprojeto aumenta
   `TypeError: join() missing 1 required positional argument`. Configurando `repo_url`

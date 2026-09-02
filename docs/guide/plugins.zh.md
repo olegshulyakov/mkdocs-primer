@@ -161,6 +161,8 @@ CSS：它为每个它知道并发出警告的主题提供一个样式表
 [mkdocs-awesome-pages][awesome-pages], [mkdocs-exclude][exclude] — 永远不会达到
 根本没有模板。
 
+<a id="known-plugin-conflicts"></a>
+
 ## 已知插件冲突
 
 并非所有的失败都是主题的。四个值得了解的内容，全部可复制
@@ -185,7 +187,7 @@ CSS：它为每个它知道并发出警告的主题提供一个样式表
 - **Mermaid with `minify_html`** — Mermaid 逐行解析其源代码，并且
   缩小器会折叠其 `<div>` 内的换行符。该图呈现为
   *文本中的语法错误*并且构建什么也没说。改为展示于
-  [示例/图表/]({{ config.site_url }}示例/图表/)，其中还
+  [示例/图表/]({{ config.site_url }}examples/diagrams/)，其中还
   涵盖 [mkdocs-charts-plugin][charts] 以及两者如何选择颜色模式。
 - **mkdocs-monorepo 没有 `repo_url`** — 构建子项目页面引发
   `TypeError: join() missing 1 required positional argument`。设置 `repo_url`
