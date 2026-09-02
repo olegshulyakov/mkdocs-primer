@@ -15,6 +15,22 @@ body {
   background-color: var(--bgColor-default);
 }
 
+/* Primer's .sr-only hides content even while focused; skip links must surface. */
+.primer-skip-link:focus {
+  position: fixed;
+  top: var(--base-size-8);
+  inset-inline-start: var(--base-size-8);
+  z-index: 64;
+  width: auto;
+  height: auto;
+  padding: var(--base-size-8) var(--base-size-16);
+  overflow: visible;
+  clip-path: none;
+  color: var(--fgColor-onEmphasis);
+  background-color: var(--bgColor-accent-emphasis);
+  border-radius: var(--borderRadius-medium, 6px);
+}
+
 /* --------------------------------------------------------------- header -- */
 
 .primer-header {
