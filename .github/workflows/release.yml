@@ -49,4 +49,4 @@ jobs:
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v3
         with:
-          body_path: ${{ steps.git-cliff.outputs.changelog }}
+          body_path: release-notes.md
