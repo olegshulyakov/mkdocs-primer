@@ -15,9 +15,7 @@ This page exists so the sidebar has more than one level of nesting to render.
 
 ## Admonitions
 
-The `admonition` extension emits markup and no CSS, so the colors below come
-from the theme. They follow GitHub's alerts: a colored left rule and a colored
-title, in both light and dark mode.[^alerts]
+The `admonition` extension emits markup and no CSS, so the colors below come from the theme. They follow GitHub's alerts: a colored left rule and a colored title, in both light and dark mode.[^alerts]
 
 !!! note
     `note` takes Primer's accent blue.
@@ -45,11 +43,8 @@ title, in both light and dark mode.[^alerts]
 
 ## Definition lists
 
-The `def_list` extension takes a plainer syntax than the raw `<dl>` on the
-[home page](../../index.md):
+The `def_list` extension takes a plainer syntax than the raw `<dl>` on the [home page](../../index.md):
 
-`docs_dir`
-:   Directory MkDocs reads Markdown from.
+`docs_dir` :   Directory MkDocs reads Markdown from.
 
-`site_dir`
-:   Directory MkDocs writes HTML to.
+`site_dir` :   Directory MkDocs writes HTML to.

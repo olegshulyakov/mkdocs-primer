@@ -13,5 +13,4 @@ theme:
   name: primer
 ```
 
-C'est toute la configuration : chaque option ci-dessous a une valeur par défaut
-qui fonctionne.
+C'est toute la configuration : chaque option ci-dessous a une valeur par défaut qui fonctionne.

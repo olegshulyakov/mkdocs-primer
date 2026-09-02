@@ -8,6 +8,4 @@ Three pages, in the order you will want them:
 - [Plugins](plugins.md) — which MkDocs plugins this theme is built against, and
   what each one needs from a theme.
 
-This page is also the **Guide** entry in the sidebar. That is
-[mkdocs-section-index](plugins.md#mkdocs-section-index) at work: the section
-label is a link rather than dead text.
+This page is also the **Guide** entry in the sidebar. That is [mkdocs-section-index](plugins.md#mkdocs-section-index) at work: the section label is a link rather than dead text.

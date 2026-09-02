@@ -17,14 +17,11 @@
 | `light_theme` | `light` | Tema básico utilizado en modo claro. |
 | `dark_theme` | `dark` | Tema básico utilizado en modo oscuro. |
 
-`color_mode` solo establece el modo *inicial*. Los visitantes pueden cambiarlo con el encabezado.
-alternar y su elección se almacena en `localStorage`.
+`color_mode` solo establece el modo *inicial*. Los visitantes pueden cambiarlo con el encabezado. alternar y su elección se almacena en `localStorage`.
 
 ## Iconos
 
-La navegación del encabezado, el control del modo de color y el botón de volver al principio utilizan SVG en línea
-de un conjunto de iconos. `octicons` es el valor predeterminado; elige iconos de Lucide
-con:
+La navegación del encabezado, el control del modo de color y el botón de volver al principio utilizan SVG en línea de un conjunto de iconos. `octicons` es el valor predeterminado; elige iconos de Lucide con:
 
 ```yaml
 theme:
@@ -32,17 +29,11 @@ theme:
   icon: lucide
 ```
 
-Ambos conjuntos están incluidos en el tema, por lo que ninguna de las opciones agrega una solicitud CDN. Icono
-La selección se aplica sólo a los controles HTML del tema. El selector de idioma
-siempre utiliza un globo Octicon y el tratamiento `btn-octicon` de Primer para que coincida
-el resto del encabezado de Primer. Sintaxis de iconos de Markdown y terceros arbitrarios
-Los paquetes de iconos no son compatibles deliberadamente.
+Ambos conjuntos están incluidos en el tema, por lo que ninguna de las opciones agrega una solicitud CDN. Icono La selección se aplica sólo a los controles HTML del tema. El selector de idioma siempre utiliza un globo Octicon y el tratamiento `btn-octicon` de Primer para que coincida el resto del encabezado de Primer. Sintaxis de iconos de Markdown y terceros arbitrarios Los paquetes de iconos no son compatibles deliberadamente.
 
 ## Fuentes
 
-Las fuentes son opcionales: el tema no solicita una CDN de fuentes de forma predeterminada. Establecer texto y
-familias de códigos de forma independiente, luego apunte `source` a una hoja de estilo externa
-o un archivo CSS en `docs_dir`:
+Las fuentes son opcionales: el tema no solicita una CDN de fuentes de forma predeterminada. Establecer texto y familias de códigos de forma independiente, luego apunte `source` a una hoja de estilo externa o un archivo CSS en `docs_dir`:
 
 ```yaml
 theme:
@@ -53,8 +44,7 @@ theme:
     source: https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=JetBrains+Mono&display=swap
 ```
 
-Para un sitio autohospedado, coloque los archivos de fuentes y una hoja de estilo en `docs_dir`, luego
-utilice una ruta de origen relativa:
+Para un sitio autohospedado, coloque los archivos de fuentes y una hoja de estilo en `docs_dir`, luego utilice una ruta de origen relativa:
 
 ```yaml
 theme:
@@ -73,15 +63,11 @@ theme:
 }
 ```
 
-El navegador almacena en caché esos archivos normalmente. El autohospedaje evita a un tercero
-solicitud y mantiene el sitio utilizable sin conexión una vez que sus activos se almacenan en caché.
+El navegador almacena en caché esos archivos normalmente. El autohospedaje evita a un tercero solicitud y mantiene el sitio utilizable sin conexión una vez que sus activos se almacenan en caché.
 
 ## Diseños de derecha a izquierda
 
-Configure `direction: rtl` para un documento de derecha a izquierda. El tema pone `dir="rtl"`
-en el elemento HTML raíz y refleja su encabezado, barra lateral, navegación móvil,
-paginación, pie de página, menús y controles con propiedades lógicas CSS. Código y
-Los diagramas permanecen intencionalmente de izquierda a derecha.
+Configure `direction: rtl` para un documento de derecha a izquierda. El tema pone `dir="rtl"` en el elemento HTML raíz y refleja su encabezado, barra lateral, navegación móvil, paginación, pie de página, menús y controles con propiedades lógicas CSS. Código y Los diagramas permanecen intencionalmente de izquierda a derecha.
 
 ```yaml
 theme:
@@ -89,8 +75,7 @@ theme:
   direction: rtl
 ```
 
-La dirección es una configuración que abarca todo el sitio; el tema no lo infiere de una página o
-idioma local.
+La dirección es una configuración que abarca todo el sitio; el tema no lo infiere de una página o idioma local.
 
 !!! advertencia "`light_theme` y `dark_theme` actualmente aceptan solo `light` y `dark`"
     Primer publica catorce temas (`dark_dimmed`, `light_high_contrast`,
@@ -101,8 +86,7 @@ idioma local.
 
 ## Anclas de rumbo
 
-Para obtener el ancla flotante de GitHub junto a cada encabezado, habilite la extensión `toc` con un
-enlace permanente principal que lleva la clase `anchor` de Primer:
+Para obtener el ancla flotante de GitHub junto a cada encabezado, habilite la extensión `toc` con un enlace permanente principal que lleva la clase `anchor` de Primer:
 
 ```yaml
 markdown_extensions:
@@ -113,17 +97,13 @@ markdown_extensions:
       permalink_title: Permanent link
 ```
 
-El tema dibuja el octicon en sí, por lo que `permalink` se establece en una cadena vacía en lugar de
-que el `true` habitual. Eso importa más que la apariencia: el complemento de búsqueda de MkDocs no
-elimine los glifos de enlaces permanentes, por lo que, de lo contrario, aparecerá un `¶` en los resultados de su búsqueda.
+El tema dibuja el octicon en sí, por lo que `permalink` se establece en una cadena vacía en lugar de que el `true` habitual. Eso importa más que la apariencia: el complemento de búsqueda de MkDocs no elimine los glifos de enlaces permanentes, por lo que, de lo contrario, aparecerá un `¶` en los resultados de su búsqueda.
 
-Sin esta configuración, el enlace permanente aún funciona, simplemente se representa como un glifo simple en lugar de
-que el octicon.
+Sin esta configuración, el enlace permanente aún funciona, simplemente se representa como un glifo simple en lugar de que el octicon.
 
 ## Resaltado de sintaxis
 
-Los colores del código provienen de las variables `prettylights` de Primer, por lo que siguen el código activo.
-modo de color automáticamente. No es necesario seleccionar ningún estilo de pigmentos:
+Los colores del código provienen de las variables `prettylights` de Primer, por lo que siguen el código activo. modo de color automáticamente. No es necesario seleccionar ningún estilo de pigmentos:
 
 ```yaml
 markdown_extensions:
@@ -133,21 +113,15 @@ markdown_extensions:
 
 Tanto los contenedores `.highlight` como `.codehilite` tienen estilo, por lo que `codehilite` también funciona.
 
-El tema agrega un botón de copia a cada bloque de Pygments `.highlight`. Copia el
-fuente visible y anuncia si la operación del portapapeles se realizó correctamente. Bloques
-renderizados por complementos, como Mermaid y Vega-Lite, se excluyen intencionalmente.
+El tema agrega un botón de copia a cada bloque de Pygments `.highlight`. Copia el fuente visible y anuncia si la operación del portapapeles se realizó correctamente. Bloques renderizados por complementos, como Mermaid y Vega-Lite, se excluyen intencionalmente.
 
 ## Controles de navegación
 
-Después de desplazarse 400 píxeles, aparece un botón para volver al principio en la parte inferior derecha
-de la página. Devuelve al visitante al inicio del documento y se mueve
-enfoque del teclado en el enlace del título del sitio. El movimiento es instantáneo cuando el visitante
-ha solicitado la reducción de la moción.
+Después de desplazarse 400 píxeles, aparece un botón para volver al principio en la parte inferior derecha de la página. Devuelve al visitante al inicio del documento y se mueve enfoque del teclado en el enlace del título del sitio. El movimiento es instantáneo cuando el visitante ha solicitado la reducción de la moción.
 
 ## Extensiones de rebajas
 
-Ninguno de estos es necesario, pero el tema ofrece un estilo que solo vale la pena una vez.
-estan en:
+Ninguno de estos es necesario, pero el tema ofrece un estilo que solo vale la pena una vez. estan en:
 
 ```yaml
 markdown_extensions:
@@ -160,15 +134,11 @@ markdown_extensions:
   - pymdownx.tilde
 ```
 
-`admonition` es el que vale la pena mencionar: la extensión emite marcado y no CSS
-propio, y `@primer/css` tampoco tiene ninguna regla para ello, por lo que un sin estilo
-la amonestación es una sorpresa común. El tema llena ese vacío (ver
-[los ejemplos](nested/deep-page.md#admonitions).
+`admonition` es el que vale la pena mencionar: la extensión emite marcado y no CSS propio, y `@primer/css` tampoco tiene ninguna regla para ello, por lo que un sin estilo la amonestación es una sorpresa común. El tema llena ese vacío (ver [los ejemplos](nested/deep-page.md#admonitions).
 
 ## CSS y JavaScript personalizados
 
-`extra_css` se carga después de cada hoja de estilo que envía el tema, por lo que tus reglas ganan
-sin necesidad de `!important`:
+`extra_css` se carga después de cada hoja de estilo que envía el tema, por lo que tus reglas ganan sin necesidad de `!important`:
 
 ```yaml
 extra_css:
@@ -180,8 +150,7 @@ extra_javascript:
     type: module
 ```
 
-`extra_javascript` se emite al final de `<body>`, después del propio tema.
-guiones.
+`extra_javascript` se emite al final de `<body>`, después del propio tema. guiones.
 
 !!! nota "Complementos que inyectan sus propios activos"
     Un complemento que escribe etiquetas `<link>` en el HTML de la página en lugar de agregarlas

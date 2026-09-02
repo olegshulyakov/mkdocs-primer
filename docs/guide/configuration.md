@@ -17,14 +17,11 @@
 | `light_theme` | `light` | Primer theme used in light mode. |
 | `dark_theme` | `dark` | Primer theme used in dark mode. |
 
-`color_mode` only sets the *initial* mode. Visitors can change it with the header
-toggle, and their choice is stored in `localStorage`.
+`color_mode` only sets the *initial* mode. Visitors can change it with the header toggle, and their choice is stored in `localStorage`.
 
 ## Icons
 
-The header navigation, color-mode control and back-to-top button use inline SVG
-from one icon set. `octicons` is the default; choose Lucide icons
-with:
+The header navigation, color-mode control and back-to-top button use inline SVG from one icon set. `octicons` is the default; choose Lucide icons with:
 
 ```yaml
 theme:
@@ -32,17 +29,11 @@ theme:
   icon: lucide
 ```
 
-Both sets are included in the theme, so neither option adds a CDN request. Icon
-selection applies only to the theme's HTML controls. The language selector
-always uses an Octicon globe and Primer's `btn-octicon` treatment so it matches
-the rest of the Primer header. Markdown icon syntax and arbitrary third-party
-icon packs are deliberately unsupported.
+Both sets are included in the theme, so neither option adds a CDN request. Icon selection applies only to the theme's HTML controls. The language selector always uses an Octicon globe and Primer's `btn-octicon` treatment so it matches the rest of the Primer header. Markdown icon syntax and arbitrary third-party icon packs are deliberately unsupported.
 
 ## Fonts
 
-Fonts are opt-in: the theme does not request a font CDN by default. Set text and
-code families independently, then point `source` at either an external stylesheet
-or a CSS file in `docs_dir`:
+Fonts are opt-in: the theme does not request a font CDN by default. Set text and code families independently, then point `source` at either an external stylesheet or a CSS file in `docs_dir`:
 
 ```yaml
 theme:
@@ -53,8 +44,7 @@ theme:
     source: https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=JetBrains+Mono&display=swap
 ```
 
-For a self-hosted site, put the font files and a stylesheet in `docs_dir`, then
-use a relative source path:
+For a self-hosted site, put the font files and a stylesheet in `docs_dir`, then use a relative source path:
 
 ```yaml
 theme:
@@ -73,15 +63,11 @@ theme:
 }
 ```
 
-The browser caches those files normally. Self-hosting avoids a third-party
-request and keeps the site usable offline once its assets are cached.
+The browser caches those files normally. Self-hosting avoids a third-party request and keeps the site usable offline once its assets are cached.
 
 ## Right-to-left layouts
 
-Set `direction: rtl` for a right-to-left document. The theme puts `dir="rtl"`
-on the root HTML element and mirrors its header, sidebar, mobile navigation,
-pagination, footer, menus and controls with logical CSS properties. Code and
-diagrams intentionally remain left-to-right.
+Set `direction: rtl` for a right-to-left document. The theme puts `dir="rtl"` on the root HTML element and mirrors its header, sidebar, mobile navigation, pagination, footer, menus and controls with logical CSS properties. Code and diagrams intentionally remain left-to-right.
 
 ```yaml
 theme:
@@ -89,8 +75,7 @@ theme:
   direction: rtl
 ```
 
-Direction is a site-wide setting; the theme does not infer it from a page or
-language locale.
+Direction is a site-wide setting; the theme does not infer it from a page or language locale.
 
 !!! warning "`light_theme` and `dark_theme` currently accept only `light` and `dark`"
     Primer publishes fourteen themes (`dark_dimmed`, `light_high_contrast`,
@@ -101,8 +86,7 @@ language locale.
 
 ## Heading anchors
 
-To get GitHub's hover anchor next to each heading, enable the `toc` extension with a
-leading permalink that carries Primer's `anchor` class:
+To get GitHub's hover anchor next to each heading, enable the `toc` extension with a leading permalink that carries Primer's `anchor` class:
 
 ```yaml
 markdown_extensions:
@@ -113,17 +97,13 @@ markdown_extensions:
       permalink_title: Permanent link
 ```
 
-The theme draws the octicon itself, so `permalink` is set to an empty string rather
-than the usual `true`. That matters for more than looks: MkDocs' search plugin does not
-strip permalink glyphs, so a `¶` would otherwise show up in your search results.
+The theme draws the octicon itself, so `permalink` is set to an empty string rather than the usual `true`. That matters for more than looks: MkDocs' search plugin does not strip permalink glyphs, so a `¶` would otherwise show up in your search results.
 
-Without this config the permalink still works, it just renders as a plain glyph rather
-than the octicon.
+Without this config the permalink still works, it just renders as a plain glyph rather than the octicon.
 
 ## Syntax highlighting
 
-Code colors come from Primer's `prettylights` variables, so they follow the active
-color mode automatically. No Pygments style needs to be selected:
+Code colors come from Primer's `prettylights` variables, so they follow the active color mode automatically. No Pygments style needs to be selected:
 
 ```yaml
 markdown_extensions:
@@ -133,21 +113,15 @@ markdown_extensions:
 
 Both `.highlight` and `.codehilite` wrappers are styled, so `codehilite` works too.
 
-The theme adds a copy button to each Pygments `.highlight` block. It copies the
-visible source and announces whether the clipboard operation succeeded. Blocks
-rendered by plugins, such as Mermaid and Vega-Lite, are intentionally excluded.
+The theme adds a copy button to each Pygments `.highlight` block. It copies the visible source and announces whether the clipboard operation succeeded. Blocks rendered by plugins, such as Mermaid and Vega-Lite, are intentionally excluded.
 
 ## Navigation controls
 
-After scrolling 400 pixels, a back-to-top button appears at the bottom-right
-of the page. It returns the visitor to the start of the document and moves
-keyboard focus to the site-title link. The movement is instant when the visitor
-has requested reduced motion.
+After scrolling 400 pixels, a back-to-top button appears at the bottom-right of the page. It returns the visitor to the start of the document and moves keyboard focus to the site-title link. The movement is instant when the visitor has requested reduced motion.
 
 ## Markdown extensions
 
-None of these are required, but the theme ships styling that only pays off once
-they are on:
+None of these are required, but the theme ships styling that only pays off once they are on:
 
 ```yaml
 markdown_extensions:
@@ -160,15 +134,11 @@ markdown_extensions:
   - pymdownx.tilde
 ```
 
-`admonition` is the one worth calling out: the extension emits markup and no CSS
-of its own, and `@primer/css` has no rule for it either, so an unstyled
-admonition is a common surprise. The theme fills that gap — see
-[the examples](nested/deep-page.md#admonitions).
+`admonition` is the one worth calling out: the extension emits markup and no CSS of its own, and `@primer/css` has no rule for it either, so an unstyled admonition is a common surprise. The theme fills that gap — see [the examples](nested/deep-page.md#admonitions).
 
 ## Custom CSS and JavaScript
 
-`extra_css` is loaded after every stylesheet the theme ships, so your rules win
-without needing `!important`:
+`extra_css` is loaded after every stylesheet the theme ships, so your rules win without needing `!important`:
 
 ```yaml
 extra_css:
@@ -180,8 +150,7 @@ extra_javascript:
     type: module
 ```
 
-`extra_javascript` is emitted at the end of `<body>`, after the theme's own
-scripts.
+`extra_javascript` is emitted at the end of `<body>`, after the theme's own scripts.
 
 !!! note "Plugins that inject their own assets"
     A plugin that writes `<link>` tags into the page HTML rather than adding to
