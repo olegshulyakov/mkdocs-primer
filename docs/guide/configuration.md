@@ -7,6 +7,9 @@
 | `logo` | `null` | Image shown beside the site name, relative to `docs_dir`. |
 | `favicon` | `img/favicon.svg` | Site icon. |
 | `icon` | `octicons` | Icon set for theme controls: `octicons` or `material`. |
+| `font.text` | `null` | CSS font-family value for interface and prose. |
+| `font.code` | `null` | CSS font-family value for inline and block code. |
+| `font.source` | `null` | An external stylesheet URL or local stylesheet under `docs_dir`. |
 | `include_sidebar` | `true` | Render the navigation sidebar. |
 | `show_footer` | `true` | Render the "Improve this page" footer. |
 | `color_mode` | `auto` | Initial color mode: `auto`, `light` or `dark`. |
@@ -31,6 +34,44 @@ theme:
 Both sets are included in the theme, so neither option adds a CDN request. Icon
 selection applies only to the theme's HTML controls; Markdown icon syntax and
 arbitrary third-party icon packs are deliberately unsupported.
+
+## Fonts
+
+Fonts are opt-in: the theme does not request a font CDN by default. Set text and
+code families independently, then point `source` at either an external stylesheet
+or a CSS file in `docs_dir`:
+
+```yaml
+theme:
+  name: primer
+  font:
+    text: 'Inter, sans-serif'
+    code: '"JetBrains Mono", monospace'
+    source: https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=JetBrains+Mono&display=swap
+```
+
+For a self-hosted site, put the font files and a stylesheet in `docs_dir`, then
+use a relative source path:
+
+```yaml
+theme:
+  name: primer
+  font:
+    text: 'Atkinson Hyperlegible, sans-serif'
+    code: 'Atkinson Hyperlegible Mono, monospace'
+    source: fonts/fonts.css
+```
+
+```css title="docs/fonts/fonts.css"
+@font-face {
+  font-family: "Atkinson Hyperlegible";
+  src: url("AtkinsonHyperlegible-Regular.woff2") format("woff2");
+  font-display: swap;
+}
+```
+
+The browser caches those files normally. Self-hosting avoids a third-party
+request and keeps the site usable offline once its assets are cached.
 
 !!! warning "`light_theme` and `dark_theme` currently accept only `light` and `dark`"
     Primer publishes fourteen themes (`dark_dimmed`, `light_high_contrast`,

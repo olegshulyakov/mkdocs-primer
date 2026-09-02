@@ -16,6 +16,13 @@ favicon: img/favicon.svg
 # Icon set used by the theme chrome. Supported values: `octicons` and `material`.
 icon: octicons
 
+# Optional typography overrides. `source` may be an absolute stylesheet URL or
+# a stylesheet under docs_dir that declares local files with @font-face.
+font:
+  text: null
+  code: null
+  source: null
+
 # Chrome toggles.
 include_sidebar: true
 show_footer: true

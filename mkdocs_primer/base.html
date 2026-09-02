@@ -54,6 +54,9 @@
 
     {%- block styles %}
       {# Size/spacing/typography tokens first: Primer consumes them without fallbacks. #}
+      {%- if config.theme.font and config.theme.font.source %}
+        <link rel="stylesheet" href="{{ config.theme.font.source | url }}">
+      {%- endif %}
       <link rel="stylesheet" href="{{ 'css/vendor/primitives-base.css' | url }}">
       <link rel="stylesheet" href="{{ 'css/vendor/primitives-light.css' | url }}">
       <link rel="stylesheet" href="{{ 'css/vendor/primitives-dark.css' | url }}">
@@ -61,6 +64,20 @@
       <link rel="stylesheet" href="{{ 'css/vendor/primer-markdown.css' | url }}">
       <link rel="stylesheet" href="{{ 'css/pygments.css' | url }}">
       <link rel="stylesheet" href="{{ 'css/theme.css' | url }}">
+      {%- if config.theme.font and (config.theme.font.text or config.theme.font.code) %}
+        <style>
+          :root {
+            {%- if config.theme.font.text %}
+            --fontStack-sansSerif: {{ config.theme.font.text }};
+            --fontStack-sansSerifDisplay: {{ config.theme.font.text }};
+            --fontStack-system: {{ config.theme.font.text }};
+            {%- endif %}
+            {%- if config.theme.font.code %}
+            --fontStack-monospace: {{ config.theme.font.code }};
+            {%- endif %}
+          }
+        </style>
+      {%- endif %}
       {%- for path in config.extra_css %}
         <link rel="stylesheet" href="{{ path | url }}">
       {%- endfor %}
