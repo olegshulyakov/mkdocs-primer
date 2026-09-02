@@ -1,9 +1,20 @@
-<form class="primer-search" action="{{ 'search.html' | url }}" method="get" role="search">
-  <label class="sr-only" for="primer-search-input">Search</label>
-  <input class="form-control input-sm"
-         id="primer-search-input"
-         type="search"
-         name="q"
-         placeholder="Search"
-         autocomplete="off">
-</form>
+<details class="primer-search-disclosure">
+  <summary class="btn btn-octicon" aria-label="Search" title="Search">
+    {%- if config.theme.icon == 'lucide' %}
+      <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg>
+    {%- else %}
+      <svg aria-hidden="true" height="16" viewBox="0 0 16 16" width="16" fill="currentColor">
+        <path d="M10.68 11.74a6.97 6.97 0 0 1-4.32 1.51A7 7 0 1 1 13.25 6.36a6.97 6.97 0 0 1-1.51 4.32l3.97 3.97a.75.75 0 0 1-1.06 1.06l-3.97-3.97ZM6.36 11.75a5.39 5.39 0 1 0 0-10.78 5.39 5.39 0 0 0 0 10.78Z"></path>
+      </svg>
+    {%- endif %}
+  </summary>
+  <form class="primer-search" action="{{ 'search.html' | url }}" method="get" role="search">
+    <label class="sr-only" for="primer-search-input">Search</label>
+    <input class="form-control input-sm"
+           id="primer-search-input"
+           type="search"
+           name="q"
+           placeholder="Search"
+           autocomplete="off">
+  </form>
+</details>
