@@ -19,10 +19,11 @@ theme:
 - GitHub's `.markdown-body` rendering — the same typography, tables and code chrome as a README on github.com.
 - Light and dark modes via Primer's color primitives, with an auto/light/dark toggle that remembers the visitor's choice. Defaults to following the OS.
 - Syntax highlighting mapped onto Primer's `prettylights` variables, so code colors follow the color mode. Works with both `pymdownx.highlight` and `codehilite`.
+- Copy buttons for Pygments code blocks and an accessible back-to-top control that respects reduced-motion preferences.
 - Admonitions styled after GitHub's alerts. The `admonition` extension ships no CSS and `@primer/css` has no rule for it, so most themes render `!!! note` undecorated.
 - Sidebar navigation with unlimited nesting, prev/next links, a search results page, and a 404 page.
 - "Improve this page" footer, as in the Jekyll theme, with a "Last updated" line when `mkdocs-git-revision-date-localized` is enabled.
-- Native support for the plugins that need it: `mkdocs-section-index` (section labels render as links) and `mkdocs-static-i18n` (translated pages get the right `<html lang>`). See [Plugins](https://olegshulyakov.github.io/mkdocs-primer/guide/plugins/).
+- Native support for the plugins that need it: `mkdocs-section-index` (section labels render as links) and `mkdocs-static-i18n` (translated pages get the right `<html lang>` and can use the header language selector). See [Plugins](https://olegshulyakov.github.io/mkdocs-primer/guide/plugins/).
 
 ## Configuration
 

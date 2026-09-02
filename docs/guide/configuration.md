@@ -56,6 +56,17 @@ markdown_extensions:
 
 Both `.highlight` and `.codehilite` wrappers are styled, so `codehilite` works too.
 
+The theme adds a copy button to each Pygments `.highlight` block. It copies the
+visible source and announces whether the clipboard operation succeeded. Blocks
+rendered by plugins, such as Mermaid and Vega-Lite, are intentionally excluded.
+
+## Navigation controls
+
+After scrolling 400 pixels, a back-to-top button appears at the bottom-right
+of the page. It returns the visitor to the start of the document and moves
+keyboard focus to the site-title link. The movement is instant when the visitor
+has requested reduced motion.
+
 ## Markdown extensions
 
 None of these are required, but the theme ships styling that only pays off once
