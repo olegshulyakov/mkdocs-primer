@@ -9,9 +9,12 @@ jobs:
     runs-on: ubuntu-latest
     environment: pypi
     permissions:
+      contents: write # create the GitHub Release
       id-token: write # trusted publishing, no API token stored
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - uses: actions/setup-python@v5
         with:
           python-version: '3.13'
@@ -35,3 +38,15 @@ jobs:
           printf 'theme:\n  name: primer\n' >> "$RUNNER_TEMP/smoke-site/mkdocs.yml"
           "$RUNNER_TEMP/smoke-venv/bin/mkdocs" build --strict -f "$RUNNER_TEMP/smoke-site/mkdocs.yml"
       - uses: pypa/gh-action-pypi-publish@release/v1
+      - name: Generate release notes
+        id: git-cliff
+        uses: orhun/git-cliff-action@v4
+        with:
+          config: cliff.toml
+          args: --latest --strip header
+        env:
+          OUTPUT: release-notes.md
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v3
+        with:
+          body_path: ${{ steps.git-cliff.outputs.changelog }}
