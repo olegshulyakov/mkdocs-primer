@@ -179,6 +179,15 @@
       {%- if 'search' in config.plugins %}
         <script src="{{ 'search/main.js' | url }}" defer></script>
       {%- endif %}
+      {%- if config.theme.offline %}
+      <script>
+        if ('serviceWorker' in navigator) {
+          addEventListener('load', function () {
+            navigator.serviceWorker.register({{ 'service-worker.js' | url | tojson }})
+          })
+        }
+      </script>
+      {%- endif %}
       {%- for script in config.extra_javascript %}
         {{ script | script_tag }}
       {%- endfor %}

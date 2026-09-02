@@ -6,10 +6,13 @@
   "type": "module",
   "license": "MIT",
   "scripts": {
-    "vendor": "node scripts/vendor-css.mjs"
+    "vendor": "node scripts/vendor-css.mjs",
+    "workbox": "workbox generateSW workbox-config.cjs",
+    "build:offline": "mkdocs build --strict -f mkdocs.offline.yml && npm run workbox"
   },
   "devDependencies": {
     "@primer/css": "22.3.0",
-    "@primer/primitives": "11.10.0"
+    "@primer/primitives": "11.10.0",
+    "workbox-cli": "^7.4.1"
   }
 }

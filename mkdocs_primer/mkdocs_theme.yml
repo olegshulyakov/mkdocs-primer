@@ -29,6 +29,9 @@ direction: ltr
 # Chrome toggles.
 include_sidebar: true
 show_footer: true
+# Register a Workbox-generated service worker. The application using the theme
+# must generate it as part of its site build; see the project offline example.
+offline: false
 
 # Color mode. `color_mode` is the initial default only — visitors can override
 # it with the header toggle, and their choice is remembered in localStorage.
