@@ -13,7 +13,7 @@ search_index_only: false
 logo: null
 favicon: img/favicon.svg
 
-# Icon set used by the theme chrome. Supported values: `octicons` and `material`.
+# Icon set used by the theme chrome. Supported values: `octicons` and `lucide`.
 icon: octicons
 
 # Optional typography overrides. `source` may be an absolute stylesheet URL or

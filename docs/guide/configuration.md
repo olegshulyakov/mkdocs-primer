@@ -6,7 +6,7 @@
 |:---|:---|:---|
 | `logo` | `null` | Image shown beside the site name, relative to `docs_dir`. |
 | `favicon` | `img/favicon.svg` | Site icon. |
-| `icon` | `octicons` | Icon set for theme controls: `octicons` or `material`. |
+| `icon` | `octicons` | Icon set for theme controls: `octicons` or `lucide`. |
 | `font.text` | `null` | CSS font-family value for interface and prose. |
 | `font.code` | `null` | CSS font-family value for inline and block code. |
 | `font.source` | `null` | An external stylesheet URL or local stylesheet under `docs_dir`. |
@@ -23,13 +23,13 @@ toggle, and their choice is stored in `localStorage`.
 ## Icons
 
 The header, language selector, color-mode control and back-to-top button use
-inline SVG from one icon set. `octicons` is the default; choose Material icons
+inline SVG from one icon set. `octicons` is the default; choose Lucide icons
 with:
 
 ```yaml
 theme:
   name: primer
-  icon: material
+  icon: lucide
 ```
 
 Both sets are included in the theme, so neither option adds a CDN request. Icon
