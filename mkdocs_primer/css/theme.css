@@ -156,6 +156,56 @@ a.primer-nav-section-label[aria-current='page'] {
   flex: 1 1 auto;
 }
 
+/* ------------------------------------------------------------ languages -- */
+
+.primer-language-selector {
+  position: relative;
+}
+
+.primer-language-selector-summary {
+  display: flex;
+  gap: var(--base-size-4);
+  align-items: center;
+  white-space: nowrap;
+}
+
+.primer-language-selector-summary::marker,
+.primer-language-selector-summary::-webkit-details-marker {
+  display: none;
+}
+
+.primer-language-selector-menu {
+  position: absolute;
+  top: calc(100% + var(--base-size-8));
+  right: 0;
+  z-index: 32;
+  min-width: max-content;
+  padding: var(--base-size-4);
+  margin: 0;
+  list-style: none;
+  background-color: var(--overlay-bgColor, var(--bgColor-default));
+  border: 1px solid var(--borderColor-default);
+  border-radius: var(--borderRadius-medium, 6px);
+  box-shadow: var(--shadow-floating-small);
+}
+
+.primer-language-selector-menu a {
+  display: block;
+  padding: var(--base-size-4) var(--base-size-8);
+  color: var(--fgColor-default);
+  text-decoration: none;
+  border-radius: var(--borderRadius-medium, 6px);
+}
+
+.primer-language-selector-menu a:hover,
+.primer-language-selector-menu a:focus {
+  background-color: var(--bgColor-neutral-muted);
+}
+
+.primer-language-selector-menu a[aria-current='true'] {
+  font-weight: var(--base-text-weight-semibold, 600);
+}
+
 /* ----------------------------------------------------------- color mode -- */
 
 /* Show only the icon matching the active mode. */
@@ -369,6 +419,10 @@ a.primer-nav-section-label[aria-current='page'] {
 
   .primer-search {
     max-width: 140px;
+  }
+
+  .primer-language-selector-label {
+    display: none;
   }
 }
 
