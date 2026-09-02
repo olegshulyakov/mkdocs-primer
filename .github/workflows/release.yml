@@ -15,6 +15,23 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.13'
-      - run: pip install build
+      - name: Check tag matches package version
+        run: |
+          package_version=$(python -c "import tomllib; print(tomllib.load(open('pyproject.toml', 'rb'))['project']['version'])")
+          test "v$package_version" = "$GITHUB_REF_NAME"
+      - run: pip install build twine
+      - run: pip install -e . -r requirements-docs.txt
+      - run: mkdocs build --strict
+      - run: mkdocs build --strict -f examples/rss/mkdocs.yml
+      - run: mkdocs build --strict -f examples/gen-files/mkdocs.yml
+      - run: mkdocs build --strict -f examples/diagrams/mkdocs.yml
       - run: python -m build
+      - run: twine check dist/*
+      - name: Smoke-test the built wheel
+        run: |
+          python -m venv "$RUNNER_TEMP/smoke-venv"
+          "$RUNNER_TEMP/smoke-venv/bin/pip" install dist/*.whl
+          "$RUNNER_TEMP/smoke-venv/bin/mkdocs" new "$RUNNER_TEMP/smoke-site"
+          printf 'theme:\n  name: primer\n' >> "$RUNNER_TEMP/smoke-site/mkdocs.yml"
+          "$RUNNER_TEMP/smoke-venv/bin/mkdocs" build --strict -f "$RUNNER_TEMP/smoke-site/mkdocs.yml"
       - uses: pypa/gh-action-pypi-publish@release/v1
