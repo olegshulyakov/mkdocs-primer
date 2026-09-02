@@ -1,0 +1,57 @@
+# Releasing mkdocs-primer
+
+This project publishes to PyPI from GitHub Actions.
+Pushing a tag named `v<version>` starts the [release workflow](.github/workflows/release.yml); it builds and validates the package, smoke-tests the wheel, and publishes it with PyPI Trusted Publishing.
+
+## Before the release
+
+1. Choose the next [Semantic Versioning](https://semver.org/) version.
+2. Update `version` in `pyproject.toml` to that version, without the `v` prefix. `package.json` is for the private CSS-vendoring tool and does not need to change for a Python package release.
+3. If Primer dependencies changed, run `npm ci && npm run vendor` and commit the resulting files under `mkdocs_primer/css/vendor/`.
+4. Run the release checks locally with Python 3.13:
+
+   ```console
+   pip install -e . -r requirements-docs.txt
+   mkdocs build --strict
+   mkdocs build --strict -f examples/rss/mkdocs.yml
+   mkdocs build --strict -f examples/gen-files/mkdocs.yml
+   mkdocs build --strict -f examples/diagrams/mkdocs.yml
+   python -m build
+   twine check dist/*
+   ```
+
+   Optionally, install the wheel into a fresh virtual environment and build a minimal MkDocs site with `theme: { name: primer }`.
+5. Commit the version change, open and merge a pull request, and make sure the `CI` workflow is green on `main`.
+
+## Publish
+
+Run these commands from the commit on `main` that contains the version bump:
+
+```console
+git switch main
+git pull --ff-only
+git tag -a v0.1.1 -m "Release v0.1.1"
+git push origin v0.1.1
+```
+
+Replace `0.1.1` with the version from `pyproject.toml`. Do not move or reuse a published tag: PyPI releases are immutable.
+
+The push triggers the `Release` workflow. Confirm that its `publish` job passes, then verify the new version appears on PyPI and install it in a clean environment:
+
+```console
+pip install --upgrade mkdocs-primer==0.1.1
+mkdocs new smoke-site
+```
+
+Add this to `smoke-site/mkdocs.yml`, then run `mkdocs build --strict -f smoke-site/mkdocs.yml`:
+
+```yaml
+theme:
+  name: primer
+```
+
+## If the release fails
+
+- If the tag/version check fails, create a new commit with the correct version, merge it, and publish a new tag matching that version. Do not retag the previous release.
+- If a build, package validation, or smoke test fails, fix the cause in a new commit, run the checks again, and publish a new version and tag.
+- If publishing is denied, check that the GitHub `pypi` environment is allowed to use PyPI Trusted Publishing for the `mkdocs-primer` project. No PyPI API token is used by this workflow.

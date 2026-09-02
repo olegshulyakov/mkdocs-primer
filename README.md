@@ -52,6 +52,8 @@ See the [documentation](https://olegshulyakov.github.io/mkdocs-primer/) for the 
 
 ## Development
 
+For the package release procedure, see [RELEASING.md](RELEASING.md).
+
 The CSS under `mkdocs_primer/css/vendor/` is copied from `@primer/css` and `@primer/primitives` and **committed**, so installing the theme needs no Node toolchain.
 To refresh it after bumping a version in `package.json`:
 
