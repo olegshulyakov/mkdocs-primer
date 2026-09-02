@@ -15,6 +15,13 @@ body {
   background-color: var(--bgColor-default);
 }
 
+/* Links in prose need a non-color cue in their resting state. */
+.markdown-body a:not(.anchor):not(.btn),
+.primer-footer a {
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+}
+
 /* Primer's .sr-only hides content even while focused; skip links must surface. */
 .primer-skip-link:focus {
   position: fixed;
