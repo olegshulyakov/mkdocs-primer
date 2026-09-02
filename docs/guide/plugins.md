@@ -51,6 +51,13 @@ The translated pages under `/es/`, `/zh/`, `/hi/`, `/pt/`, `/ru/` and `/fr/`
 carry the matching `lang` attribute. Pages with no `*.<locale>.md` translation
 fall back to their English source, which is the plugin's default behaviour.
 
+When at least two configured languages have `build: true`, the header also
+renders a language selector. Its labels come from each language's `name`, and
+each entry stays on the same page in the target locale. This includes pages
+for which the plugin falls back to the default-language source. The selector
+is not rendered without `mkdocs-static-i18n`, for a single-language build, or
+on the static 404 page.
+
 ### mkdocs-git-revision-date-localized
 
 [mkdocs-git-revision-date-localized][git-date] reads the git log and stores the
