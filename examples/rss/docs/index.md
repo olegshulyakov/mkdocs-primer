@@ -31,4 +31,4 @@ fail MkDocs' own link validation under `--strict`.
 [mkdocs-git-authors](https://timvink.github.io/mkdocs-git-authors-plugin/) is
 enabled too, which is why the footer names an author under the revision date.
 
-[Back to the documentation](../../).
+[Back to the documentation](https://olegshulyakov.github.io/mkdocs-primer/).

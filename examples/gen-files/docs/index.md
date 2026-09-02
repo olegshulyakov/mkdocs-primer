@@ -18,4 +18,4 @@ Three plugins that build the site's own structure, running against the theme:
     `awesome-nav` for the nav there. Both are plugin-to-plugin issues that
     reproduce under any theme.
 
-[Back to the documentation](../../).
+[Back to the documentation](https://olegshulyakov.github.io/mkdocs-primer/).

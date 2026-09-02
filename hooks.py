@@ -8,6 +8,8 @@ import logging
 
 _SECTION_INDEX_LOGGER = "mkdocs.plugins.mkdocs_section_index.plugin"
 _UNDETECTED_THEME = "couldn't detect a supported theme to adapt"
+_MERMAID_LOGGER = "mkdocs.plugins.mermaid2.util"
+_MERMAID_OFFLINE_WARNING = "Cannot check URL, no Internet access?"
 
 
 class _DropUndetectedThemeWarning(logging.Filter):
@@ -29,3 +31,18 @@ class _DropUndetectedThemeWarning(logging.Filter):
 
 
 logging.getLogger(_SECTION_INDEX_LOGGER).addFilter(_DropUndetectedThemeWarning())
+
+
+class _DropMermaidOfflineWarning(logging.Filter):
+    """Keep a missing optional CDN probe from failing an offline strict build.
+
+    mkdocs-mermaid2-plugin treats an unavailable CDN as non-fatal and continues
+    to emit the configured URL, but logs a warning while checking it. The
+    warning makes `--strict` abort even though the generated site is valid.
+    """
+
+    def filter(self, record: logging.LogRecord) -> bool:
+        return _MERMAID_OFFLINE_WARNING not in record.getMessage()
+
+
+logging.getLogger(_MERMAID_LOGGER).addFilter(_DropMermaidOfflineWarning())

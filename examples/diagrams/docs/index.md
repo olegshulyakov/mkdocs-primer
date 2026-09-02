@@ -144,4 +144,4 @@ page, so there is nothing theme-specific left for them to get wrong.
 [minify]: https://github.com/byrnereese/mkdocs-minify-plugin
 [plantuml]: https://github.com/christo-ph/mkdocs_build_plantuml
 
-[Back to the documentation](../../).
+[Back to the documentation](https://olegshulyakov.github.io/mkdocs-primer/).
