@@ -22,8 +22,8 @@ toggle, and their choice is stored in `localStorage`.
 
 ## Icons
 
-The header, language selector, color-mode control and back-to-top button use
-inline SVG from one icon set. `octicons` is the default; choose Lucide icons
+The header navigation, color-mode control and back-to-top button use inline SVG
+from one icon set. `octicons` is the default; choose Lucide icons
 with:
 
 ```yaml
@@ -33,8 +33,10 @@ theme:
 ```
 
 Both sets are included in the theme, so neither option adds a CDN request. Icon
-selection applies only to the theme's HTML controls; Markdown icon syntax and
-arbitrary third-party icon packs are deliberately unsupported.
+selection applies only to the theme's HTML controls. The language selector
+always uses an Octicon globe and Primer's `btn-octicon` treatment so it matches
+the rest of the Primer header. Markdown icon syntax and arbitrary third-party
+icon packs are deliberately unsupported.
 
 ## Fonts
 
