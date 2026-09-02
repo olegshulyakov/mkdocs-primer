@@ -218,6 +218,16 @@ a.primer-nav-section-label[aria-current='page'] {
   right: var(--base-size-8);
 }
 
+/* ---------------------------------------------------------- back to top -- */
+
+.primer-back-to-top {
+  position: fixed;
+  right: var(--base-size-16);
+  bottom: var(--base-size-16);
+  z-index: 32;
+  box-shadow: var(--shadow-floating-small);
+}
+
 /* ----------------------------------------------------------- color mode -- */
 
 /* Show only the icon matching the active mode. */
@@ -471,7 +481,8 @@ a.primer-nav-section-label[aria-current='page'] {
 @media print {
   .primer-header,
   .primer-sidebar,
-  .primer-pagination {
+  .primer-pagination,
+  .primer-back-to-top {
     display: none;
   }
 

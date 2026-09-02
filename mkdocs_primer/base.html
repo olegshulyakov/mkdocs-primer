@@ -117,6 +117,13 @@
       </main>
     </div>
 
+    <button class="btn btn-octicon primer-back-to-top" type="button"
+            data-primer-back-to-top hidden aria-label="Back to top" title="Back to top">
+      <svg aria-hidden="true" height="16" viewBox="0 0 16 16" width="16" fill="currentColor">
+        <path d="M8 1a.75.75 0 0 1 .53.22l5 5a.75.75 0 0 1-1.06 1.06L8.75 3.56V14.5a.75.75 0 0 1-1.5 0V3.56L3.53 7.28a.75.75 0 0 1-1.06-1.06l5-5A.75.75 0 0 1 8 1Z"></path>
+      </svg>
+    </button>
+
     {%- block scripts %}
       {#
         Unconditional: the search plugin is not the only consumer. Anything
@@ -127,6 +134,7 @@
       <script>var base_url = {{ base_url | tojson }}</script>
       <script src="{{ 'js/color-mode.js' | url }}" defer></script>
       <script src="{{ 'js/copy-code.js' | url }}" defer></script>
+      <script src="{{ 'js/back-to-top.js' | url }}" defer></script>
       {%- if 'search' in config.plugins %}
         <script src="{{ 'search/main.js' | url }}" defer></script>
       {%- endif %}
