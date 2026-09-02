@@ -119,9 +119,13 @@
 
     <button class="btn btn-octicon primer-back-to-top" type="button"
             data-primer-back-to-top hidden aria-label="Back to top" title="Back to top">
+      {%- if config.theme.icon == 'material' %}
+        <svg aria-hidden="true" viewBox="0 0 24 24" fill="currentColor"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+      {%- else %}
       <svg aria-hidden="true" height="16" viewBox="0 0 16 16" width="16" fill="currentColor">
         <path d="M8 1a.75.75 0 0 1 .53.22l5 5a.75.75 0 0 1-1.06 1.06L8.75 3.56V14.5a.75.75 0 0 1-1.5 0V3.56L3.53 7.28a.75.75 0 0 1-1.06-1.06l5-5A.75.75 0 0 1 8 1Z"></path>
       </svg>
+      {%- endif %}
     </button>
 
     {%- block scripts %}

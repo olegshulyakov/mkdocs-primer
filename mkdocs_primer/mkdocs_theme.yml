@@ -13,6 +13,9 @@ search_index_only: false
 logo: null
 favicon: img/favicon.svg
 
+# Icon set used by the theme chrome. Supported values: `octicons` and `material`.
+icon: octicons
+
 # Chrome toggles.
 include_sidebar: true
 show_footer: true

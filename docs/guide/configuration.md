@@ -6,6 +6,7 @@
 |:---|:---|:---|
 | `logo` | `null` | Image shown beside the site name, relative to `docs_dir`. |
 | `favicon` | `img/favicon.svg` | Site icon. |
+| `icon` | `octicons` | Icon set for theme controls: `octicons` or `material`. |
 | `include_sidebar` | `true` | Render the navigation sidebar. |
 | `show_footer` | `true` | Render the "Improve this page" footer. |
 | `color_mode` | `auto` | Initial color mode: `auto`, `light` or `dark`. |
@@ -14,6 +15,22 @@
 
 `color_mode` only sets the *initial* mode. Visitors can change it with the header
 toggle, and their choice is stored in `localStorage`.
+
+## Icons
+
+The header, language selector, color-mode control and back-to-top button use
+inline SVG from one icon set. `octicons` is the default; choose Material icons
+with:
+
+```yaml
+theme:
+  name: primer
+  icon: material
+```
+
+Both sets are included in the theme, so neither option adds a CDN request. Icon
+selection applies only to the theme's HTML controls; Markdown icon syntax and
+arbitrary third-party icon packs are deliberately unsupported.
 
 !!! warning "`light_theme` and `dark_theme` currently accept only `light` and `dark`"
     Primer publishes fourteen themes (`dark_dimmed`, `light_high_contrast`,
