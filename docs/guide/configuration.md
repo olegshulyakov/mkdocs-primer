@@ -10,6 +10,7 @@
 | `font.text` | `null` | CSS font-family value for interface and prose. |
 | `font.code` | `null` | CSS font-family value for inline and block code. |
 | `font.source` | `null` | An external stylesheet URL or local stylesheet under `docs_dir`. |
+| `direction` | `ltr` | Document direction: `ltr` or `rtl`. |
 | `include_sidebar` | `true` | Render the navigation sidebar. |
 | `show_footer` | `true` | Render the "Improve this page" footer. |
 | `color_mode` | `auto` | Initial color mode: `auto`, `light` or `dark`. |
@@ -72,6 +73,22 @@ theme:
 
 The browser caches those files normally. Self-hosting avoids a third-party
 request and keeps the site usable offline once its assets are cached.
+
+## Right-to-left layouts
+
+Set `direction: rtl` for a right-to-left document. The theme puts `dir="rtl"`
+on the root HTML element and mirrors its header, sidebar, mobile navigation,
+pagination, footer, menus and controls with logical CSS properties. Code and
+diagrams intentionally remain left-to-right.
+
+```yaml
+theme:
+  name: primer
+  direction: rtl
+```
+
+Direction is a site-wide setting; the theme does not infer it from a page or
+language locale.
 
 !!! warning "`light_theme` and `dark_theme` currently accept only `light` and `dark`"
     Primer publishes fourteen themes (`dark_dimmed`, `light_high_contrast`,

@@ -12,6 +12,7 @@
   page as the default language.
 #}
 <html lang="{{ i18n_page_locale | default(config.theme.locale, true) }}"
+      dir="{{ config.theme.direction }}"
       data-color-mode="{{ config.theme.color_mode }}"
       data-light-theme="{{ config.theme.light_theme }}"
       data-dark-theme="{{ config.theme.dark_theme }}">

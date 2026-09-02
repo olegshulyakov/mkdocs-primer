@@ -23,6 +23,9 @@ font:
   code: null
   source: null
 
+# Document direction. Supported values: `ltr` and `rtl`.
+direction: ltr
+
 # Chrome toggles.
 include_sidebar: true
 show_footer: true

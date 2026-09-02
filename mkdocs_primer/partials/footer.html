@@ -8,7 +8,7 @@
 #}
 {%- set last_update = page.meta.get('git_revision_date_localized') if page and page.meta else none %}
 {%- if page and page.edit_url or config.repo_url or config.copyright or last_update or git_page_authors %}
-  <footer class="primer-footer border-top mt-5 pt-3 text-right color-fg-muted f6">
+  <footer class="primer-footer border-top mt-5 pt-3 color-fg-muted f6">
     {%- if config.copyright %}
       <p class="mb-1">{{ config.copyright }}</p>
     {%- endif %}
