@@ -120,7 +120,7 @@
   </head>
 
   <body>
-    <a href="#primer-content" class="sr-only primer-skip-link">Skip to content</a>
+    <a href="#primer-content" class="sr-only primer-skip-link">{% trans %}Skip to content{% endtrans %}</a>
 
     {%- block header %}
       {% include "partials/header.html" %}
@@ -128,14 +128,28 @@
 
     <div class="primer-layout container-xl px-3">
       {%- block site_nav %}
-        {%- if config.theme.include_sidebar and nav %}
-          <aside class="primer-sidebar" aria-label="Site navigation">
+        {#
+          Suppressed in a static template on a translated site: `nav` there is
+          the last locale mkdocs-static-i18n built, so every link would point
+          out of the locale the visitor is actually in. See partials/header.html.
+        #}
+        {%- if config.theme.include_sidebar and nav and (page or not config.plugins.get('i18n')) %}
+          <aside class="primer-sidebar" aria-label="{% trans %}Site navigation{% endtrans %}">
             {% include "partials/nav.html" %}
           </aside>
         {%- endif %}
       {%- endblock %}
 
-      <main class="primer-main" id="primer-content">
+      {#
+        tabindex="-1" is what makes the skip link work: without it the browser
+        scrolls but leaves focus at the top of the document, so the next Tab
+        goes straight back into the header the visitor just skipped.
+      #}
+      <main class="primer-main" id="primer-content" tabindex="-1">
+        {%- block toc %}
+          {% include "partials/toc.html" %}
+        {%- endblock %}
+
         <article class="markdown-body">
           {%- block content %}
             {{ page.content }}
@@ -155,7 +169,9 @@
     </div>
 
     <button class="btn btn-octicon primer-back-to-top" type="button"
-            data-primer-back-to-top hidden aria-label="Back to top" title="Back to top">
+            data-primer-back-to-top hidden
+            aria-label="{% trans %}Back to top{% endtrans %}"
+            title="{% trans %}Back to top{% endtrans %}">
       {%- if config.theme.icon == 'lucide' %}
         <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 7-7 7 7"/><path d="M12 19V5"/></svg>
       {%- else %}
@@ -173,12 +189,25 @@
         be enabled.
       #}
       <script>var base_url = {{ base_url | tojson }}</script>
+      {#
+        Strings for the controls the scripts build at runtime. A .js file is
+        served as-is and never passes through Jinja, so it cannot reach the
+        translation catalog itself.
+      #}
+      <script>
+        var primer_strings = {
+          copy: {{ gettext('Copy code') | tojson }},
+          copied: {{ gettext('Code copied') | tojson }},
+          copied_announcement: {{ gettext('Code copied to clipboard') | tojson }},
+          copy_failed: {{ gettext('Could not copy code to clipboard') | tojson }}
+        }
+      </script>
       <script src="{{ 'js/color-mode.js' | url }}" defer></script>
       <script src="{{ 'js/copy-code.js' | url }}" defer></script>
       <script src="{{ 'js/back-to-top.js' | url }}" defer></script>
-      {%- if 'search' in config.plugins %}
-        <script src="{{ 'js/search-disclosure.js' | url }}" defer></script>
-      {%- endif %}
+      <script src="{{ 'js/scrollable.js' | url }}" defer></script>
+      {# Unconditional: the language and navigation popovers exist with or without search. #}
+      <script src="{{ 'js/disclosure.js' | url }}" defer></script>
       {%- if config.theme.offline %}
       <script>
         if ('serviceWorker' in navigator) {

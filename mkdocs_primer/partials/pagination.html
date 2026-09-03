@@ -1,14 +1,19 @@
 {%- if page and (page.previous_page or page.next_page) %}
-  <nav class="primer-pagination border-top mt-5 pt-3" aria-label="Page navigation">
+  <nav class="primer-pagination border-top mt-5 pt-3" aria-label="{% trans %}Page navigation{% endtrans %}">
+    {#
+      The arrows are drawn by theme.css, not written here: which way they point
+      depends on the document direction, and a literal &larr; keeps pointing
+      left in an RTL build where "previous" lies to the right.
+    #}
     {%- if page.previous_page %}
       <a class="primer-pagination-prev" href="{{ page.previous_page.url | url }}" rel="prev">
-        <span class="color-fg-muted">&larr; Previous</span>
+        <span class="primer-pagination-label color-fg-muted">{% trans %}Previous{% endtrans %}</span>
         <span>{{ page.previous_page.title }}</span>
       </a>
     {%- endif %}
     {%- if page.next_page %}
       <a class="primer-pagination-next" href="{{ page.next_page.url | url }}" rel="next">
-        <span class="color-fg-muted">Next &rarr;</span>
+        <span class="primer-pagination-label color-fg-muted">{% trans %}Next{% endtrans %}</span>
         <span>{{ page.next_page.title }}</span>
       </a>
     {%- endif %}

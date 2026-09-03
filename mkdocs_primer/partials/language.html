@@ -4,8 +4,18 @@
   locale prefix keeps the selector on the corresponding page (including a
   fallback page when no translation source exists).
 #}
+{#
+  Default language first, then the configured order.
+
+  The two are deliberately decoupled: mkdocs-static-i18n runs one build pass per
+  language and the shared static pages (404.html, search.html) are written once
+  per pass, so the language listed last is the one they end up in. A site that
+  wants those in its default language has to list it last — and the selector
+  should not inherit that ordering.
+#}
 {%- if i18n_config is defined %}
-  {%- set languages = i18n_config.languages | selectattr('build') | list %}
+  {%- set built = i18n_config.languages | selectattr('build') | list %}
+  {%- set languages = (built | selectattr('default') | list) + (built | rejectattr('default') | list) %}
 {%- endif %}
 {%- if languages is defined and languages | length > 1 %}
   {%- set locales = namespace(default='') %}
@@ -13,7 +23,7 @@
     {%- set locales.default = language.locale %}
   {%- endfor %}
   <details class="primer-language-selector">
-    <summary class="btn btn-octicon primer-language-selector-summary" aria-label="Change language">
+    <summary class="btn btn-octicon primer-language-selector-summary" aria-label="{% trans %}Change language{% endtrans %}">
       <svg class="octicon" aria-hidden="true" height="16" viewBox="0 0 16 16" width="16" fill="currentColor">
         <path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0Zm5.71 4.5h-2.31a12.63 12.63 0 0 0-.93-2.39A6.52 6.52 0 0 1 13.71 4.5ZM8 1.5c.68.72 1.41 1.79 1.86 3H6.14C6.59 3.29 7.32 2.22 8 1.5ZM1.81 9.5a6.51 6.51 0 0 1 0-3h2.68a12.88 12.88 0 0 0 0 3H1.81Zm.48 1.5h2.31c.23.87.54 1.68.93 2.39A6.52 6.52 0 0 1 2.29 11Zm2.31-6.5H2.29a6.52 6.52 0 0 1 3.24-2.39A12.63 12.63 0 0 0 4.6 4.5ZM8 14.5c-.68-.72-1.41-1.79-1.86-3h3.72c-.45 1.21-1.18 2.28-1.86 3Zm2.47-1.11c.39-.71.7-1.52.93-2.39h2.31a6.52 6.52 0 0 1-3.24 2.39ZM11.51 9.5a12.88 12.88 0 0 0 0-3h2.68a6.51 6.51 0 0 1 0 3h-2.68Z"></path>
       </svg>
@@ -23,7 +33,7 @@
         {%- endfor %}
       </span>
     </summary>
-    <ul class="primer-language-selector-menu" aria-label="Languages">
+    <ul class="primer-language-selector-menu" aria-label="{% trans %}Languages{% endtrans %}">
       {%- for language in languages %}
         {%- set locale = language.locale %}
         {%- if locale == locales.default %}
@@ -38,8 +48,9 @@
           {%- set path = locale ~ '/' ~ (page.url | replace(i18n_page_locale ~ '/', '', 1)) %}
         {%- endif %}
         <li>
+          {# `page`, not `true`: these link to the same page in another language. #}
           <a href="{{ path | url }}" lang="{{ locale }}"
-             {%- if locale == i18n_page_locale %} aria-current="true"{% endif %}>
+             {%- if locale == i18n_page_locale %} aria-current="page"{% endif %}>
             {{ language.name }}
           </a>
         </li>

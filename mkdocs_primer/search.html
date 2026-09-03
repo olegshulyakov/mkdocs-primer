@@ -1,27 +1,142 @@
 {% extends "base.html" %}
 
-{% block htmltitle %}Search - {{ config.site_name }}{% endblock %}
+{% block htmltitle %}{% trans %}Search{% endtrans %} - {{ config.site_name }}{% endblock %}
 
 {#
   The search plugin's search/main.js needs `base_url` (set in base.html) plus
   these two element ids. It rewrites #mkdocs-search-results in place.
 #}
 {% block content %}
-  <h1 id="search">Search results</h1>
+  <h1 id="search">{% trans %}Search results{% endtrans %}</h1>
 
   <form id="content_search" action="{{ 'search.html' | url }}" method="get" role="search">
-    <label class="sr-only" for="mkdocs-search-query">Search</label>
+    <label class="sr-only" for="mkdocs-search-query">{% trans %}Search{% endtrans %}</label>
     <input class="form-control width-full"
            id="mkdocs-search-query"
            type="search"
            name="q"
-           placeholder="Search the docs"
+           placeholder="{% trans %}Search the docs{% endtrans %}"
            autocomplete="off">
   </form>
 
-  <div id="mkdocs-search-results">
-    <p>Searching…</p>
+  {#
+    The search plugin's main.js only rewrites this container once it has a query
+    to run, so whatever sits here is what a visitor with no query sees — and
+    "Searching…" claimed a search was in progress forever. Keep the prompt as
+    the default and switch to the progress message only when there is a term to
+    look up, which is also the only case where the container is short-lived.
+  #}
+  {#
+    The plugin's main.js renders every hit as an <h3>, which would jump
+    straight from the <h1> above and skip a level. This heading fills the gap;
+    it is redundant next to "Search results", hence hidden from sight.
+  #}
+  <h2 class="sr-only">{% trans %}Results{% endtrans %}</h2>
+
+  <div id="mkdocs-search-results"
+       data-no-results-text="{% trans %}No results found{% endtrans %}">
+    <p>{% trans %}Enter a search term above to search the documentation.{% endtrans %}</p>
   </div>
+
+  <noscript>
+    <p>{% trans %}Search needs JavaScript. Use your browser's find-on-page, or the repository's own search, to look through the documentation instead.{% endtrans %}</p>
+  </noscript>
+
+  {#
+    Locale prefixes, so the script below can tell which language a result URL
+    belongs to. Empty on a single-language site, where it never filters.
+
+    Read off the plugin config rather than `i18n_config`: the search plugin
+    builds this page as a static template, and mkdocs-static-i18n only puts
+    `i18n_config` on a real page context.
+  #}
+  {%- set prefixes = [] %}
+  {%- set i18n_plugin = config.plugins.get('i18n') %}
+  {%- if i18n_plugin %}
+    {%- for language in i18n_plugin.config.languages if language.build and not language.default %}
+      {%- set _ = prefixes.append(language.locale) %}
+    {%- endfor %}
+  {%- endif %}
+
+  <script>
+    ;(function () {
+      var params = new URLSearchParams(location.search)
+      var results = document.getElementById('mkdocs-search-results')
+
+      if (params.get('q')) results.innerHTML = '<p>' + {{ gettext('Searching…') | tojson }} + '</p>'
+
+      // Locales that live under a path prefix; the default one has none.
+      var prefixes = {{ prefixes | tojson }}
+      var requested = params.get('lang')
+      if (!prefixes.length || requested === null) return
+
+      // '' stands for the default locale, which is also what an unknown code
+      // falls back to rather than hiding everything.
+      var wanted = prefixes.indexOf(requested) === -1 ? '' : requested
+      var root = new URL('.', location.href).pathname
+      var showAll = false
+
+      // Keep the locale across a submit from this page's own form; main.js
+      // searches on keyup, but pressing Enter reloads and would drop it.
+      var carry = document.createElement('input')
+      carry.type = 'hidden'
+      carry.name = 'lang'
+      carry.value = requested
+      document.getElementById('content_search').appendChild(carry)
+
+      function localeOf(link) {
+        var path = new URL(link.getAttribute('href'), location.href).pathname
+        var segment = path.slice(root.length).split('/')[0]
+        return prefixes.indexOf(segment) === -1 ? '' : segment
+      }
+
+      function filter() {
+        if (showAll) return
+        var articles = [].slice.call(results.querySelectorAll('article'))
+        if (!articles.length) return
+
+        var hidden = 0
+        articles.forEach(function (article) {
+          var link = article.querySelector('a[href]')
+          var drop = link && localeOf(link) !== wanted
+          article.hidden = !!drop
+          if (drop) hidden++
+        })
+
+        if (!hidden) return
+
+        // Never leave a dead end: the hits exist, just not in this language.
+        var notice = document.createElement('p')
+        notice.className = 'color-fg-muted'
+        var button = document.createElement('button')
+        button.type = 'button'
+        button.className = 'btn-link'
+        // Count in parentheses rather than inside the sentence: the label is
+        // built here, out of reach of ngettext, and several of the theme's
+        // locales inflect the noun differently per count.
+        button.textContent = {{ gettext('Show results in other languages (%(count)s)') | tojson }}.replace(
+          '%(count)s',
+          hidden
+        )
+        button.addEventListener('click', function () {
+          showAll = true
+          articles.forEach(function (article) {
+            article.hidden = false
+          })
+          notice.remove()
+        })
+        notice.appendChild(button)
+        results.appendChild(notice)
+      }
+
+      // main.js clears and refills the container on every keystroke.
+      new MutationObserver(function (records, observer) {
+        observer.disconnect()
+        filter()
+        observer.observe(results, { childList: true })
+      }).observe(results, { childList: true })
+    })()
+  </script>
 {% endblock %}
 
 {% block pagination %}{% endblock %}

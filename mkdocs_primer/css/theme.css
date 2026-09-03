@@ -10,6 +10,16 @@
   --primer-header-height: 56px;
 }
 
+/*
+ * The header is sticky, so anything scrolled to by the browser — a heading
+ * reached through a #fragment, a permalink, the skip link — otherwise lands
+ * underneath it. Reserving the header's height on the scrolling element covers
+ * every such target at once, including ones plugins add later.
+ */
+html {
+  scroll-padding-top: calc(var(--primer-header-height) + var(--base-size-8));
+}
+
 body {
   color: var(--fgColor-default);
   background-color: var(--bgColor-default);
@@ -38,6 +48,15 @@ body {
   border-radius: var(--borderRadius-medium, 6px);
 }
 
+/*
+ * The skip link focuses .primer-main so the tab order continues from the
+ * content (see base.html). It is a scroll target, not a control, so the ring
+ * the browser would draw around the whole column carries no information.
+ */
+.primer-main:focus {
+  outline: none;
+}
+
 /* --------------------------------------------------------------- header -- */
 
 .primer-header {
@@ -52,6 +71,17 @@ body {
 .primer-header > .container-xl {
   height: 100%;
   gap: var(--base-size-8);
+}
+
+/*
+ * Primer keys its focus ring to a/button/[role=button]; <summary> is none of
+ * those, so the three popover triggers fell back to the browser's own thin
+ * outline while every neighbouring control drew Primer's. Same declaration
+ * Primer uses, so they match exactly.
+ */
+.primer-header summary:focus-visible {
+  outline: 2px solid var(--focus-outlineColor, var(--fgColor-accent));
+  outline-offset: -2px;
 }
 
 .primer-header-title {
@@ -121,6 +151,11 @@ body {
   letter-spacing: 0.05em;
 }
 
+/* Lifted out of the muted default to mark the branch holding the current page. */
+.primer-nav-section-label-active {
+  color: var(--fgColor-default);
+}
+
 /* The label is an <a> when the section has an index page (mkdocs-section-index). */
 a.primer-nav-section-label {
   border-radius: var(--borderRadius-medium, 6px);
@@ -170,6 +205,86 @@ a.primer-nav-section-label[aria-current='page'] {
 .SideNav-item[aria-current='page'] {
   font-weight: var(--base-text-weight-semibold, 600);
   background-color: var(--bgColor-neutral-muted);
+}
+
+/* ------------------------------------------------------------------ toc -- */
+
+/*
+ * "On this page", collapsed by default so it costs one line above the prose.
+ * A script in partials/toc.html moves it under the page title; the margins
+ * below suit either position.
+ */
+.primer-toc {
+  margin-bottom: var(--base-size-24);
+  border-bottom: 1px solid var(--borderColor-muted, var(--borderColor-default));
+}
+
+.primer-toc-summary {
+  display: inline-flex;
+  gap: var(--base-size-4);
+  align-items: center;
+  padding: var(--base-size-4) 0;
+  font-size: 12px;
+  font-weight: var(--base-text-weight-semibold, 600);
+  color: var(--fgColor-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  list-style: none;
+}
+
+.primer-toc-summary::-webkit-details-marker {
+  display: none;
+}
+
+.primer-toc-summary:hover {
+  color: var(--fgColor-default);
+}
+
+/* Disclosure triangle, rotating on open; ::before so it leads the label. */
+.primer-toc-summary::before {
+  display: inline-block;
+  width: 0;
+  height: 0;
+  content: '';
+  border-top: 4px solid transparent;
+  border-bottom: 4px solid transparent;
+  border-inline-start: 5px solid currentcolor;
+  transition: transform 0.1s ease-in-out;
+}
+
+.primer-toc[open] > .primer-toc-summary::before {
+  transform: rotate(90deg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .primer-toc-summary::before {
+    transition: none;
+  }
+}
+
+.primer-toc-list {
+  padding: 0;
+  margin: 0 0 var(--base-size-8);
+  list-style: none;
+}
+
+/* Nested headings indent; the marker is dropped, so padding carries the depth. */
+.primer-toc-list .primer-toc-list {
+  margin-bottom: 0;
+  padding-inline-start: var(--base-size-16);
+}
+
+.primer-toc-item > a {
+  display: block;
+  padding: 2px 0;
+  font-size: 14px;
+  color: var(--fgColor-accent);
+  text-decoration: none;
+}
+
+.primer-toc-item > a:hover {
+  text-decoration: underline;
 }
 
 /* --------------------------------------------------------------- search -- */
@@ -253,7 +368,7 @@ a.primer-nav-section-label[aria-current='page'] {
   background-color: var(--bgColor-neutral-muted);
 }
 
-.primer-language-selector-menu a[aria-current='true'] {
+.primer-language-selector-menu a[aria-current='page'] {
   font-weight: var(--base-text-weight-semibold, 600);
 }
 
@@ -321,6 +436,27 @@ a.primer-nav-section-label[aria-current='page'] {
   text-align: end;
 }
 
+/*
+ * Inline layout puts ::before on the leading edge and ::after on the trailing
+ * one, so the arrows move to the correct side by themselves; only the glyph has
+ * to be mirrored, because "previous" points right in an RTL document.
+ */
+.primer-pagination-prev .primer-pagination-label::before {
+  content: '\2190\00a0';
+}
+
+.primer-pagination-next .primer-pagination-label::after {
+  content: '\00a0\2192';
+}
+
+[dir='rtl'] .primer-pagination-prev .primer-pagination-label::before {
+  content: '\2192\00a0';
+}
+
+[dir='rtl'] .primer-pagination-next .primer-pagination-label::after {
+  content: '\00a0\2190';
+}
+
 /* ------------------------------------------------------ heading anchors -- */
 
 /*
@@ -363,6 +499,32 @@ a.primer-nav-section-label[aria-current='page'] {
   visibility: visible;
 }
 
+/*
+ * Reveal-on-hover leaves a phone with no way to get a link to a heading. Show
+ * the anchor permanently where there is no hover, and put it back in the flow:
+ * the negative margin above parks it outside the content column, off-screen on
+ * a narrow viewport.
+ */
+@media (hover: none) {
+  .markdown-body .anchor {
+    /*
+     * `font-size: 0` above collapses the line box to zero height, so the link
+     * has no tappable area of its own until it is given a box — inline-flex
+     * both sizes it and centres the octicon the ::before draws.
+     */
+    display: inline-flex;
+    float: none;
+    align-items: center;
+    justify-content: center;
+    min-width: 24px;
+    min-height: 24px;
+    padding-inline-end: 0;
+    margin-inline-start: 0;
+    vertical-align: middle;
+    visibility: visible;
+  }
+}
+
 /* ----------------------------------------------------------- admonitions -- */
 
 /*
@@ -394,6 +556,16 @@ a.primer-nav-section-label[aria-current='page'] {
 
 .markdown-body .admonition-title {
   font-weight: var(--base-text-weight-semibold, 600);
+}
+
+/*
+ * The type colors below tint the whole title, including any inline code in it,
+ * and against Primer's muted code background that pairing falls under 4.5:1.
+ * Inline code already reads as code from its own background, so it does not
+ * need the title color too.
+ */
+.markdown-body .admonition-title code {
+  color: var(--fgColor-default);
 }
 
 /*
@@ -452,7 +624,13 @@ a.primer-nav-section-label[aria-current='page'] {
 
 /* ------------------------------------------------------------ responsive -- */
 
-/* Below Primer's md breakpoint the sidebar collapses into the header disclosure. */
+/*
+ * Below Primer's lg breakpoint the sidebar collapses into the header
+ * disclosure. Not md (768px): the sidebar keeps its full 240px there, which
+ * left the prose column at 464px — narrow enough that the tables on the
+ * configuration page start scrolling sideways. Handing that band the full
+ * width and one tap to reach the nav reads better than keeping both.
+ */
 .primer-nav-toggle {
   display: none;
   position: relative;
@@ -482,7 +660,7 @@ a.primer-nav-section-label[aria-current='page'] {
   box-shadow: var(--shadow-floating-small);
 }
 
-@media (max-width: 767px) {
+@media (max-width: 1011.98px) {
   .primer-layout {
     grid-template-columns: minmax(0, 1fr);
   }
@@ -498,6 +676,20 @@ a.primer-nav-section-label[aria-current='page'] {
   /* Keep the search trigger at the edge so its popover stays in the viewport. */
   .primer-search-disclosure {
     order: 1;
+  }
+
+  /*
+   * Primer sizes .btn-octicon for dense desktop toolbars, which leaves these
+   * four controls around 26px square — barely over the 24px minimum and well
+   * under a comfortable thumb target. Grow the hit area, not the icon.
+   */
+  .primer-header .btn-octicon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 40px;
+    min-height: 40px;
+    padding: 0;
   }
 
   .primer-language-selector-label {
@@ -536,10 +728,6 @@ a.primer-nav-section-label[aria-current='page'] {
   text-align: start;
 }
 
-.primer-footer {
-  text-align: end !important;
-}
-
 /* ---------------------------------------------------------------- print -- */
 
 /*
@@ -552,7 +740,12 @@ a.primer-nav-section-label[aria-current='page'] {
   .primer-header,
   .primer-sidebar,
   .primer-pagination,
-  .primer-back-to-top {
+  .primer-back-to-top,
+  /* Collapsed on paper it would print as a bare "On this page" label. */
+  .primer-toc,
+  /* Sits inside .markdown-body, so it survives the header being hidden and
+     prints an icon over the first line of every code block. */
+  .primer-copy-code {
     display: none;
   }
 

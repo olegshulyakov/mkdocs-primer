@@ -43,3 +43,6 @@ color_mode: auto
 # Primer theme (dark_dimmed, *_high_contrast, ...) means vendoring one more file.
 light_theme: light
 dark_theme: dark
+
+# Language of the theme chrome. Catalogs ship for the locales under locales/.
+locale: en

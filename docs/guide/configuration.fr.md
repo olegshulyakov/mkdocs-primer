@@ -1,4 +1,4 @@
-#Configuration
+# Configuration
 
 ## Options de thème
 

@@ -32,6 +32,7 @@ theme:
 | --- | --- | --- |
 | `logo` | `null` | Image shown beside the site name, relative to `docs_dir`. |
 | `favicon` | `img/favicon.svg` | Site icon. |
+| `locale` | `en` | Language of the theme's own text. Catalogs ship for `en`, `es`, `fr`, `hi`, `pt`, `ru` and `zh`. |
 | `include_sidebar` | `true` | Render the navigation sidebar. |
 | `show_footer` | `true` | Render the "Improve this page" footer. |
 | `color_mode` | `auto` | Initial color mode: `auto`, `light` or `dark`. |

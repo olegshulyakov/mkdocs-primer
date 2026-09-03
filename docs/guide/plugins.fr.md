@@ -1,4 +1,4 @@
-#Plugins
+# Plugins
 
 La plupart des plugins MkDocs ne touchent jamais à un modèle, ils fonctionnent donc avec n'importe quel thème. Un peu ne le font pas : ils s'attendent à ce que le thème restitue quelque chose qu'ils ont calculé, ou à gérer une forme de navigation qu'ils ont créée. Ce sont ceux-là qui valent la peine d’être vérifiés.
 

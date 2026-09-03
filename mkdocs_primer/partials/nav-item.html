@@ -11,12 +11,18 @@
       label is the only route to that page — rendering it as inert text drops
       the page out of the nav entirely.
     #}
+    {#
+      `active` is true for a section anywhere above the current page, which is
+      the only signal the tree has for "you are in here" — the leaf item's
+      aria-current says nothing about its ancestors.
+    #}
+    {%- set section_label_class = 'primer-nav-section-label' ~ (' primer-nav-section-label-active' if nav_item.active else '') %}
     {%- if nav_item.url %}
-      <a class="primer-nav-section-label"
+      <a class="{{ section_label_class }}"
          href="{{ nav_item.url | url }}"
          {% if nav_item == page %}aria-current="page"{% endif %}>{{ nav_item.title }}</a>
     {%- else %}
-      <div class="primer-nav-section-label">{{ nav_item.title }}</div>
+      <div class="{{ section_label_class }}">{{ nav_item.title }}</div>
     {%- endif %}
     <div class="primer-nav-section-items">
       {%- for nav_item in nav_item.children %}

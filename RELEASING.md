@@ -8,7 +8,17 @@ Pushing a tag named `v<version>` starts the [release workflow](.github/workflows
 1. Choose the next [Semantic Versioning](https://semver.org/) version.
 2. Update `version` in `pyproject.toml` to that version, without the `v` prefix. `package.json` is for the private CSS-vendoring tool and does not need to change for a Python package release.
 3. If Primer dependencies changed, run `npm ci && npm run vendor` and commit the resulting files under `mkdocs_primer/css/vendor/`.
-4. Run the release checks locally with Python 3.13:
+4. If any translatable string in a template changed, refresh the catalogs and commit them:
+
+   ```console
+   pybabel extract -F babel.cfg -o mkdocs_primer/messages.pot mkdocs_primer
+   pybabel update -i mkdocs_primer/messages.pot -d mkdocs_primer/locales --no-fuzzy-matching
+   # fill in the new msgstr values in mkdocs_primer/locales/*/LC_MESSAGES/messages.po
+   pybabel compile -d mkdocs_primer/locales --statistics
+   ```
+
+   The compiled `.mo` files are committed, because that is what ships in the wheel.
+5. Run the release checks locally with Python 3.13:
 
    ```console
    pip install -e . -r requirements-docs.txt
@@ -21,7 +31,7 @@ Pushing a tag named `v<version>` starts the [release workflow](.github/workflows
    ```
 
    Optionally, install the wheel into a fresh virtual environment and build a minimal MkDocs site with `theme: { name: primer }`.
-5. Commit the version change, open and merge a pull request, and make sure the `CI` workflow is green on `main`.
+6. Commit the version change, open and merge a pull request, and make sure the `CI` workflow is green on `main`.
 
 ## Publish
 

@@ -10,6 +10,7 @@
 | `font.text` | `null` | CSS font-family value for interface and prose. |
 | `font.code` | `null` | CSS font-family value for inline and block code. |
 | `font.source` | `null` | An external stylesheet URL or local stylesheet under `docs_dir`. |
+| `locale` | `en` | Language of the theme's own text. Catalogs ship for `en`, `es`, `fr`, `hi`, `pt`, `ru` and `zh`. |
 | `direction` | `ltr` | Document direction: `ltr` or `rtl`. |
 | `include_sidebar` | `true` | Render the navigation sidebar. |
 | `show_footer` | `true` | Render the "Improve this page" footer. |
@@ -64,6 +65,48 @@ theme:
 ```
 
 The browser caches those files normally. Self-hosting avoids a third-party request and keeps the site usable offline once its assets are cached.
+
+## Language
+
+The theme's own text — `Search`, `Back to top`, `Previous`/`Next`, the footer labels — comes from a gettext catalog, separately from the language your pages are written in. Pick one with `locale`:
+
+```yaml
+theme:
+  name: primer
+  locale: ru
+```
+
+Catalogs ship for `en`, `es`, `fr`, `hi`, `pt`, `ru` and `zh`. An unlisted locale falls back to English rather than failing the build.
+
+!!! note "Multi-language sites need `locale` per language"
+    mkdocs-static-i18n sets `theme.locale` automatically only for the themes
+    MkDocs itself ships, so a third-party theme has to be told explicitly. Add
+    it to each language, or every locale renders English chrome:
+
+    ```yaml
+    plugins:
+      - i18n:
+          languages:
+            - locale: en
+              default: true
+              build: true
+              theme:
+                locale: en
+            - locale: ru
+              build: true
+              theme:
+                locale: ru
+    ```
+
+!!! warning "List the default language last"
+    The plugin runs one build pass per language, and the pages that exist once
+    for the whole site — `404.html` and `search.html` — are rewritten by every
+    pass. The language listed **last** is therefore the one those two come out
+    in. List the default language last so they land in it. The theme sorts the
+    language selector on its own, so this does not change the order visitors
+    see.
+
+To add or correct a language, edit `mkdocs_primer/locales/<locale>/LC_MESSAGES/messages.po` and recompile — see [`RELEASING.md`](https://github.com/olegshulyakov/mkdocs-primer/blob/main/RELEASING.md).
 
 ## Right-to-left layouts
 

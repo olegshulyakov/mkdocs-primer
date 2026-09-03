@@ -1,4 +1,4 @@
-#Configuração
+# Configuração
 
 ## Opções de tema
 
