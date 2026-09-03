@@ -3,7 +3,7 @@
   if (!disclosure) return
 
   disclosure.addEventListener('toggle', function () {
-    if (disclosure.open && matchMedia('(max-width: 767px)').matches) {
+    if (disclosure.open) {
       disclosure.querySelector('input[type="search"]').focus()
     }
   })

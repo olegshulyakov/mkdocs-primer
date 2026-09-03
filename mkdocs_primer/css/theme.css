@@ -175,16 +175,36 @@ a.primer-nav-section-label[aria-current='page'] {
 /* --------------------------------------------------------------- search -- */
 
 .primer-search-disclosure {
-  max-width: 240px;
-  flex: 1 1 auto;
+  position: relative;
+  flex: 0 0 auto;
+  max-width: none;
 }
 
 .primer-search-disclosure > summary {
+  display: block;
+  list-style: none;
+}
+
+.primer-search-disclosure > summary::-webkit-details-marker {
   display: none;
 }
 
-.primer-search-disclosure > .primer-search {
+.primer-search-disclosure:not([open]) > .primer-search {
+  display: none;
+}
+
+.primer-search-disclosure[open] > .primer-search {
+  position: absolute;
+  top: calc(100% + var(--base-size-8));
+  inset-inline-end: 0;
+  z-index: 32;
   display: block;
+  width: min(320px, calc(100vw - var(--base-size-32)));
+  padding: var(--base-size-8);
+  background-color: var(--overlay-bgColor, var(--bgColor-default));
+  border: 1px solid var(--borderColor-default);
+  border-radius: var(--borderRadius-medium, 6px);
+  box-shadow: var(--shadow-floating-small);
 }
 
 /* ------------------------------------------------------------ languages -- */
@@ -475,37 +495,9 @@ a.primer-nav-section-label[aria-current='page'] {
     display: block;
   }
 
+  /* Keep the search trigger at the edge so its popover stays in the viewport. */
   .primer-search-disclosure {
-    position: relative;
-    flex: 0 0 auto;
-    max-width: none;
-  }
-
-  .primer-search-disclosure > summary {
-    display: block;
-    list-style: none;
-  }
-
-  .primer-search-disclosure > summary::-webkit-details-marker {
-    display: none;
-  }
-
-  .primer-search-disclosure:not([open]) > .primer-search {
-    display: none;
-  }
-
-  .primer-search-disclosure[open] > .primer-search {
-    position: absolute;
-    top: calc(100% + var(--base-size-8));
-    inset-inline-end: 0;
-    z-index: 32;
-    display: block;
-    width: min(320px, calc(100vw - var(--base-size-32)));
-    padding: var(--base-size-8);
-    background-color: var(--overlay-bgColor, var(--bgColor-default));
-    border: 1px solid var(--borderColor-default);
-    border-radius: var(--borderRadius-medium, 6px);
-    box-shadow: var(--shadow-floating-small);
+    order: 1;
   }
 
   .primer-language-selector-label {
