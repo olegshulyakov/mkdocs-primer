@@ -128,7 +128,12 @@
 
     <div class="primer-layout container-xl px-3">
       {%- block site_nav %}
-        {%- if config.theme.include_sidebar and nav %}
+        {#
+          Suppressed in a static template on a translated site: `nav` there is
+          the last locale mkdocs-static-i18n built, so every link would point
+          out of the locale the visitor is actually in. See partials/header.html.
+        #}
+        {%- if config.theme.include_sidebar and nav and (page or not config.plugins.get('i18n')) %}
           <aside class="primer-sidebar" aria-label="Site navigation">
             {% include "partials/nav.html" %}
           </aside>
