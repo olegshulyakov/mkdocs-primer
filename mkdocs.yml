@@ -39,13 +39,13 @@ plugins:
       # (Search, Back to top, Previous/Next...) to that language. The plugin
       # only sets it automatically for the themes MkDocs itself ships, so a
       # third-party theme needs it spelled out. See mkdocs_primer/locales/.
+      #
+      # `en` is listed last on purpose. One build pass runs per language and
+      # the pages that exist once for the whole site — 404.html and search.html
+      # — are rewritten by every pass, so the last language wins them. Putting
+      # the default language last leaves those two in English. The theme sorts
+      # the language selector itself, so this does not affect its order.
       languages:
-        - locale: en
-          default: true
-          name: English
-          build: true
-          theme:
-            locale: en
         - locale: es
           name: Spanish
           build: true
@@ -76,6 +76,12 @@ plugins:
           build: true
           theme:
             locale: fr
+        - locale: en
+          default: true
+          name: English
+          build: true
+          theme:
+            locale: en
 
   # Folds docs/guide/index.md into the Guide section itself, so a nav item ends
   # up with both children and a url. Runs after the other nav plugins, or its

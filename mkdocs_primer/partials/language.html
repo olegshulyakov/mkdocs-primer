@@ -4,8 +4,18 @@
   locale prefix keeps the selector on the corresponding page (including a
   fallback page when no translation source exists).
 #}
+{#
+  Default language first, then the configured order.
+
+  The two are deliberately decoupled: mkdocs-static-i18n runs one build pass per
+  language and the shared static pages (404.html, search.html) are written once
+  per pass, so the language listed last is the one they end up in. A site that
+  wants those in its default language has to list it last — and the selector
+  should not inherit that ordering.
+#}
 {%- if i18n_config is defined %}
-  {%- set languages = i18n_config.languages | selectattr('build') | list %}
+  {%- set built = i18n_config.languages | selectattr('build') | list %}
+  {%- set languages = (built | selectattr('default') | list) + (built | rejectattr('default') | list) %}
 {%- endif %}
 {%- if languages is defined and languages | length > 1 %}
   {%- set locales = namespace(default='') %}

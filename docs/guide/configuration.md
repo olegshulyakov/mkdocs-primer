@@ -98,6 +98,14 @@ Catalogs ship for `en`, `es`, `fr`, `hi`, `pt`, `ru` and `zh`. An unlisted local
                 locale: ru
     ```
 
+!!! warning "List the default language last"
+    The plugin runs one build pass per language, and the pages that exist once
+    for the whole site — `404.html` and `search.html` — are rewritten by every
+    pass. The language listed **last** is therefore the one those two come out
+    in. List the default language last so they land in it. The theme sorts the
+    language selector on its own, so this does not change the order visitors
+    see.
+
 To add or correct a language, edit `mkdocs_primer/locales/<locale>/LC_MESSAGES/messages.po` and recompile — see [`RELEASING.md`](https://github.com/olegshulyakov/mkdocs-primer/blob/main/RELEASING.md).
 
 ## Right-to-left layouts
