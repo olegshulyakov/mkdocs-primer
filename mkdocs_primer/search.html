@@ -35,10 +35,95 @@
     repository's own search, to look through the documentation instead.</p>
   </noscript>
 
+  {#
+    Locale prefixes, so the script below can tell which language a result URL
+    belongs to. Empty on a single-language site, where it never filters.
+
+    Read off the plugin config rather than `i18n_config`: the search plugin
+    builds this page as a static template, and mkdocs-static-i18n only puts
+    `i18n_config` on a real page context.
+  #}
+  {%- set prefixes = [] %}
+  {%- set i18n_plugin = config.plugins.get('i18n') %}
+  {%- if i18n_plugin %}
+    {%- for language in i18n_plugin.config.languages if language.build and not language.default %}
+      {%- set _ = prefixes.append(language.locale) %}
+    {%- endfor %}
+  {%- endif %}
+
   <script>
-    if (new URLSearchParams(location.search).get('q')) {
-      document.getElementById('mkdocs-search-results').innerHTML = '<p>Searching…</p>'
-    }
+    ;(function () {
+      var params = new URLSearchParams(location.search)
+      var results = document.getElementById('mkdocs-search-results')
+
+      if (params.get('q')) results.innerHTML = '<p>Searching…</p>'
+
+      // Locales that live under a path prefix; the default one has none.
+      var prefixes = {{ prefixes | tojson }}
+      var requested = params.get('lang')
+      if (!prefixes.length || requested === null) return
+
+      // '' stands for the default locale, which is also what an unknown code
+      // falls back to rather than hiding everything.
+      var wanted = prefixes.indexOf(requested) === -1 ? '' : requested
+      var root = new URL('.', location.href).pathname
+      var showAll = false
+
+      // Keep the locale across a submit from this page's own form; main.js
+      // searches on keyup, but pressing Enter reloads and would drop it.
+      var carry = document.createElement('input')
+      carry.type = 'hidden'
+      carry.name = 'lang'
+      carry.value = requested
+      document.getElementById('content_search').appendChild(carry)
+
+      function localeOf(link) {
+        var path = new URL(link.getAttribute('href'), location.href).pathname
+        var segment = path.slice(root.length).split('/')[0]
+        return prefixes.indexOf(segment) === -1 ? '' : segment
+      }
+
+      function filter() {
+        if (showAll) return
+        var articles = [].slice.call(results.querySelectorAll('article'))
+        if (!articles.length) return
+
+        var hidden = 0
+        articles.forEach(function (article) {
+          var link = article.querySelector('a[href]')
+          var drop = link && localeOf(link) !== wanted
+          article.hidden = !!drop
+          if (drop) hidden++
+        })
+
+        if (!hidden) return
+
+        // Never leave a dead end: the hits exist, just not in this language.
+        var notice = document.createElement('p')
+        notice.className = 'color-fg-muted'
+        var button = document.createElement('button')
+        button.type = 'button'
+        button.className = 'btn-link'
+        button.textContent =
+          hidden === 1 ? 'Show 1 result in another language' : 'Show ' + hidden + ' results in other languages'
+        button.addEventListener('click', function () {
+          showAll = true
+          articles.forEach(function (article) {
+            article.hidden = false
+          })
+          notice.remove()
+        })
+        notice.appendChild(button)
+        results.appendChild(notice)
+      }
+
+      // main.js clears and refills the container on every keystroke.
+      new MutationObserver(function (records, observer) {
+        observer.disconnect()
+        filter()
+        observer.observe(results, { childList: true })
+      }).observe(results, { childList: true })
+    })()
   </script>
 {% endblock %}
 

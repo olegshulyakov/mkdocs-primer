@@ -9,6 +9,15 @@
     {%- endif %}
   </summary>
   <form class="primer-search" action="{{ 'search.html' | url }}" method="get" role="search">
+    {#
+      One search index covers every locale, and there is only one search page —
+      the plugin builds it at the site root. Carrying the locale across lets
+      that page narrow the results to the language the visitor is reading,
+      instead of interleaving all seven.
+    #}
+    {%- if i18n_page_locale %}
+      <input type="hidden" name="lang" value="{{ i18n_page_locale }}">
+    {%- endif %}
     <label class="sr-only" for="primer-search-input">Search</label>
     <input class="form-control input-sm"
            id="primer-search-input"
