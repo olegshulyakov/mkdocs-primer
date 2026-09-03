@@ -73,6 +73,17 @@ body {
   gap: var(--base-size-8);
 }
 
+/*
+ * Primer keys its focus ring to a/button/[role=button]; <summary> is none of
+ * those, so the three popover triggers fell back to the browser's own thin
+ * outline while every neighbouring control drew Primer's. Same declaration
+ * Primer uses, so they match exactly.
+ */
+.primer-header summary:focus-visible {
+  outline: 2px solid var(--focus-outlineColor, var(--fgColor-accent));
+  outline-offset: -2px;
+}
+
 .primer-header-title {
   display: flex;
   gap: var(--base-size-8);
