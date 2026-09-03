@@ -403,6 +403,32 @@ a.primer-nav-section-label[aria-current='page'] {
   visibility: visible;
 }
 
+/*
+ * Reveal-on-hover leaves a phone with no way to get a link to a heading. Show
+ * the anchor permanently where there is no hover, and put it back in the flow:
+ * the negative margin above parks it outside the content column, off-screen on
+ * a narrow viewport.
+ */
+@media (hover: none) {
+  .markdown-body .anchor {
+    /*
+     * `font-size: 0` above collapses the line box to zero height, so the link
+     * has no tappable area of its own until it is given a box — inline-flex
+     * both sizes it and centres the octicon the ::before draws.
+     */
+    display: inline-flex;
+    float: none;
+    align-items: center;
+    justify-content: center;
+    min-width: 24px;
+    min-height: 24px;
+    padding-inline-end: 0;
+    margin-inline-start: 0;
+    vertical-align: middle;
+    visibility: visible;
+  }
+}
+
 /* ----------------------------------------------------------- admonitions -- */
 
 /*
