@@ -19,9 +19,27 @@
            autocomplete="off">
   </form>
 
+  {#
+    The search plugin's main.js only rewrites this container once it has a query
+    to run, so whatever sits here is what a visitor with no query sees — and
+    "Searching…" claimed a search was in progress forever. Keep the prompt as
+    the default and switch to the progress message only when there is a term to
+    look up, which is also the only case where the container is short-lived.
+  #}
   <div id="mkdocs-search-results">
-    <p>Searching…</p>
+    <p>Enter a search term above to search the documentation.</p>
   </div>
+
+  <noscript>
+    <p>Search needs JavaScript. Use your browser's find-on-page, or the
+    repository's own search, to look through the documentation instead.</p>
+  </noscript>
+
+  <script>
+    if (new URLSearchParams(location.search).get('q')) {
+      document.getElementById('mkdocs-search-results').innerHTML = '<p>Searching…</p>'
+    }
+  </script>
 {% endblock %}
 
 {% block pagination %}{% endblock %}
