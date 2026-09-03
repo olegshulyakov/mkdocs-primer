@@ -10,6 +10,16 @@
   --primer-header-height: 56px;
 }
 
+/*
+ * The header is sticky, so anything scrolled to by the browser — a heading
+ * reached through a #fragment, a permalink, the skip link — otherwise lands
+ * underneath it. Reserving the header's height on the scrolling element covers
+ * every such target at once, including ones plugins add later.
+ */
+html {
+  scroll-padding-top: calc(var(--primer-header-height) + var(--base-size-8));
+}
+
 body {
   color: var(--fgColor-default);
   background-color: var(--bgColor-default);
