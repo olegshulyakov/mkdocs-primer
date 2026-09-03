@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: mkdocs-primer 0.1.2\n"
 "Report-Msgid-Bugs-To: https://github.com/olegshulyakov/mkdocs-primer/issues\n"
-"POT-Creation-Date: 2026-09-03 14:32+0300\n"
+"POT-Creation-Date: 2026-09-03 14:45+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: fr\n"
@@ -69,15 +69,19 @@ msgstr "Résultats de la recherche"
 msgid "Search the docs"
 msgstr "Rechercher dans la documentation"
 
-#: mkdocs_primer/search.html:30
+#: mkdocs_primer/search.html:34
+msgid "Results"
+msgstr "Résultats"
+
+#: mkdocs_primer/search.html:37
 msgid "No results found"
 msgstr "Aucun résultat trouvé"
 
-#: mkdocs_primer/search.html:31
+#: mkdocs_primer/search.html:38
 msgid "Enter a search term above to search the documentation."
 msgstr "Saisissez un terme ci-dessus pour rechercher dans la documentation."
 
-#: mkdocs_primer/search.html:35
+#: mkdocs_primer/search.html:42
 msgid ""
 "Search needs JavaScript. Use your browser's find-on-page, or the repository's own "
 "search, to look through the documentation instead."
@@ -85,11 +89,11 @@ msgstr ""
 "La recherche nécessite JavaScript. Utilisez plutôt la recherche dans la page de votre"
 " navigateur, ou celle du dépôt, pour parcourir la documentation."
 
-#: mkdocs_primer/search.html:59
+#: mkdocs_primer/search.html:66
 msgid "Searching…"
 msgstr "Recherche…"
 
-#: mkdocs_primer/search.html:110
+#: mkdocs_primer/search.html:117
 #, python-format
 msgid "Show results in other languages (%(count)s)"
 msgstr "Afficher les résultats dans d'autres langues (%(count)s)"
@@ -106,11 +110,11 @@ msgstr "Dernière mise à jour :"
 msgid "Authors:"
 msgstr "Auteurs :"
 
-#: mkdocs_primer/partials/footer.html:26 mkdocs_primer/partials/footer.html:29
+#: mkdocs_primer/partials/footer.html:30 mkdocs_primer/partials/footer.html:33
 msgid "This site is open source."
 msgstr "Ce site est open source."
 
-#: mkdocs_primer/partials/footer.html:27
+#: mkdocs_primer/partials/footer.html:31
 msgid "Improve this page"
 msgstr "Améliorer cette page"
 
@@ -118,11 +122,11 @@ msgstr "Améliorer cette page"
 msgid "Toggle navigation"
 msgstr "Afficher ou masquer la navigation"
 
-#: mkdocs_primer/partials/language.html:16
+#: mkdocs_primer/partials/language.html:26
 msgid "Change language"
 msgstr "Changer de langue"
 
-#: mkdocs_primer/partials/language.html:26
+#: mkdocs_primer/partials/language.html:36
 msgid "Languages"
 msgstr "Langues"
 

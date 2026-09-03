@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: mkdocs-primer 0.1.2\n"
 "Report-Msgid-Bugs-To: https://github.com/olegshulyakov/mkdocs-primer/issues\n"
-"POT-Creation-Date: 2026-09-03 14:32+0300\n"
+"POT-Creation-Date: 2026-09-03 14:45+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ru\n"
@@ -70,15 +70,19 @@ msgstr "Результаты поиска"
 msgid "Search the docs"
 msgstr "Поиск по документации"
 
-#: mkdocs_primer/search.html:30
+#: mkdocs_primer/search.html:34
+msgid "Results"
+msgstr "Результаты"
+
+#: mkdocs_primer/search.html:37
 msgid "No results found"
 msgstr "Ничего не найдено"
 
-#: mkdocs_primer/search.html:31
+#: mkdocs_primer/search.html:38
 msgid "Enter a search term above to search the documentation."
 msgstr "Введите поисковый запрос выше, чтобы искать по документации."
 
-#: mkdocs_primer/search.html:35
+#: mkdocs_primer/search.html:42
 msgid ""
 "Search needs JavaScript. Use your browser's find-on-page, or the repository's own "
 "search, to look through the documentation instead."
@@ -86,11 +90,11 @@ msgstr ""
 "Для поиска нужен JavaScript. Воспользуйтесь поиском по странице в браузере или "
 "поиском в репозитории."
 
-#: mkdocs_primer/search.html:59
+#: mkdocs_primer/search.html:66
 msgid "Searching…"
 msgstr "Поиск…"
 
-#: mkdocs_primer/search.html:110
+#: mkdocs_primer/search.html:117
 #, python-format
 msgid "Show results in other languages (%(count)s)"
 msgstr "Показать результаты на других языках (%(count)s)"
@@ -107,11 +111,11 @@ msgstr "Последнее обновление:"
 msgid "Authors:"
 msgstr "Авторы:"
 
-#: mkdocs_primer/partials/footer.html:26 mkdocs_primer/partials/footer.html:29
+#: mkdocs_primer/partials/footer.html:30 mkdocs_primer/partials/footer.html:33
 msgid "This site is open source."
 msgstr "Исходный код сайта открыт."
 
-#: mkdocs_primer/partials/footer.html:27
+#: mkdocs_primer/partials/footer.html:31
 msgid "Improve this page"
 msgstr "Улучшить эту страницу"
 
@@ -119,11 +123,11 @@ msgstr "Улучшить эту страницу"
 msgid "Toggle navigation"
 msgstr "Показать или скрыть навигацию"
 
-#: mkdocs_primer/partials/language.html:16
+#: mkdocs_primer/partials/language.html:26
 msgid "Change language"
 msgstr "Сменить язык"
 
-#: mkdocs_primer/partials/language.html:26
+#: mkdocs_primer/partials/language.html:36
 msgid "Languages"
 msgstr "Языки"
 

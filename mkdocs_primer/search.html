@@ -26,6 +26,13 @@
     the default and switch to the progress message only when there is a term to
     look up, which is also the only case where the container is short-lived.
   #}
+  {#
+    The plugin's main.js renders every hit as an <h3>, which would jump
+    straight from the <h1> above and skip a level. This heading fills the gap;
+    it is redundant next to "Search results", hence hidden from sight.
+  #}
+  <h2 class="sr-only">{% trans %}Results{% endtrans %}</h2>
+
   <div id="mkdocs-search-results"
        data-no-results-text="{% trans %}No results found{% endtrans %}">
     <p>{% trans %}Enter a search term above to search the documentation.{% endtrans %}</p>

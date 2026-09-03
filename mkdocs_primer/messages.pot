@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: mkdocs-primer 0.1.2\n"
 "Report-Msgid-Bugs-To: https://github.com/olegshulyakov/mkdocs-"
 "primer/issues\n"
-"POT-Creation-Date: 2026-09-03 14:32+0300\n"
+"POT-Creation-Date: 2026-09-03 14:45+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -71,25 +71,29 @@ msgstr ""
 msgid "Search the docs"
 msgstr ""
 
-#: mkdocs_primer/search.html:30
+#: mkdocs_primer/search.html:34
+msgid "Results"
+msgstr ""
+
+#: mkdocs_primer/search.html:37
 msgid "No results found"
 msgstr ""
 
-#: mkdocs_primer/search.html:31
+#: mkdocs_primer/search.html:38
 msgid "Enter a search term above to search the documentation."
 msgstr ""
 
-#: mkdocs_primer/search.html:35
+#: mkdocs_primer/search.html:42
 msgid ""
 "Search needs JavaScript. Use your browser's find-on-page, or the "
 "repository's own search, to look through the documentation instead."
 msgstr ""
 
-#: mkdocs_primer/search.html:59
+#: mkdocs_primer/search.html:66
 msgid "Searching…"
 msgstr ""
 
-#: mkdocs_primer/search.html:110
+#: mkdocs_primer/search.html:117
 #, python-format
 msgid "Show results in other languages (%(count)s)"
 msgstr ""
@@ -107,11 +111,11 @@ msgstr ""
 msgid "Authors:"
 msgstr ""
 
-#: mkdocs_primer/partials/footer.html:26 mkdocs_primer/partials/footer.html:29
+#: mkdocs_primer/partials/footer.html:30 mkdocs_primer/partials/footer.html:33
 msgid "This site is open source."
 msgstr ""
 
-#: mkdocs_primer/partials/footer.html:27
+#: mkdocs_primer/partials/footer.html:31
 msgid "Improve this page"
 msgstr ""
 
@@ -119,11 +123,11 @@ msgstr ""
 msgid "Toggle navigation"
 msgstr ""
 
-#: mkdocs_primer/partials/language.html:16
+#: mkdocs_primer/partials/language.html:26
 msgid "Change language"
 msgstr ""
 
-#: mkdocs_primer/partials/language.html:26
+#: mkdocs_primer/partials/language.html:36
 msgid "Languages"
 msgstr ""
 

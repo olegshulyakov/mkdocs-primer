@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: mkdocs-primer 0.1.2\n"
 "Report-Msgid-Bugs-To: https://github.com/olegshulyakov/mkdocs-primer/issues\n"
-"POT-Creation-Date: 2026-09-03 14:32+0300\n"
+"POT-Creation-Date: 2026-09-03 14:45+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: hi\n"
@@ -69,15 +69,19 @@ msgstr "खोज परिणाम"
 msgid "Search the docs"
 msgstr "दस्तावेज़ में खोजें"
 
-#: mkdocs_primer/search.html:30
+#: mkdocs_primer/search.html:34
+msgid "Results"
+msgstr "परिणाम"
+
+#: mkdocs_primer/search.html:37
 msgid "No results found"
 msgstr "कोई परिणाम नहीं मिला"
 
-#: mkdocs_primer/search.html:31
+#: mkdocs_primer/search.html:38
 msgid "Enter a search term above to search the documentation."
 msgstr "दस्तावेज़ में खोजने के लिए ऊपर कोई शब्द लिखें।"
 
-#: mkdocs_primer/search.html:35
+#: mkdocs_primer/search.html:42
 msgid ""
 "Search needs JavaScript. Use your browser's find-on-page, or the repository's own "
 "search, to look through the documentation instead."
@@ -85,11 +89,11 @@ msgstr ""
 "खोज के लिए JavaScript आवश्यक है। इसके बजाय अपने ब्राउज़र की पृष्ठ-में-खोज या "
 "रिपॉज़िटरी की खोज का उपयोग करें।"
 
-#: mkdocs_primer/search.html:59
+#: mkdocs_primer/search.html:66
 msgid "Searching…"
 msgstr "खोज रहे हैं…"
 
-#: mkdocs_primer/search.html:110
+#: mkdocs_primer/search.html:117
 #, python-format
 msgid "Show results in other languages (%(count)s)"
 msgstr "अन्य भाषाओं के परिणाम दिखाएँ (%(count)s)"
@@ -106,11 +110,11 @@ msgstr "अंतिम अद्यतन:"
 msgid "Authors:"
 msgstr "लेखक:"
 
-#: mkdocs_primer/partials/footer.html:26 mkdocs_primer/partials/footer.html:29
+#: mkdocs_primer/partials/footer.html:30 mkdocs_primer/partials/footer.html:33
 msgid "This site is open source."
 msgstr "यह साइट ओपन सोर्स है।"
 
-#: mkdocs_primer/partials/footer.html:27
+#: mkdocs_primer/partials/footer.html:31
 msgid "Improve this page"
 msgstr "इस पृष्ठ को सुधारें"
 
@@ -118,11 +122,11 @@ msgstr "इस पृष्ठ को सुधारें"
 msgid "Toggle navigation"
 msgstr "नेविगेशन दिखाएँ या छिपाएँ"
 
-#: mkdocs_primer/partials/language.html:16
+#: mkdocs_primer/partials/language.html:26
 msgid "Change language"
 msgstr "भाषा बदलें"
 
-#: mkdocs_primer/partials/language.html:26
+#: mkdocs_primer/partials/language.html:36
 msgid "Languages"
 msgstr "भाषाएँ"
 
