@@ -1,0 +1,144 @@
+# English translations for mkdocs-primer.
+# Copyright (C) 2026 Oleg Shulyakov
+# This file is distributed under the same license as the mkdocs-primer
+# project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: mkdocs-primer 0.1.2\n"
+"Report-Msgid-Bugs-To: https://github.com/olegshulyakov/mkdocs-primer/issues\n"
+"POT-Creation-Date: 2026-09-03 14:32+0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: en\n"
+"Language-Team: en <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.18.0\n"
+
+#: mkdocs_primer/404.html:7
+msgid "Sorry, this page could not be found."
+msgstr "Sorry, this page could not be found."
+
+#: mkdocs_primer/404.html:9
+msgid "Back to the home page"
+msgstr "Back to the home page"
+
+#: mkdocs_primer/base.html:123
+msgid "Skip to content"
+msgstr "Skip to content"
+
+#: mkdocs_primer/base.html:137
+msgid "Site navigation"
+msgstr "Site navigation"
+
+#: mkdocs_primer/base.html:173 mkdocs_primer/base.html:174
+msgid "Back to top"
+msgstr "Back to top"
+
+#: mkdocs_primer/base.html:199
+msgid "Copy code"
+msgstr "Copy code"
+
+#: mkdocs_primer/base.html:200
+msgid "Code copied"
+msgstr "Code copied"
+
+#: mkdocs_primer/base.html:201
+msgid "Code copied to clipboard"
+msgstr "Code copied to clipboard"
+
+#: mkdocs_primer/base.html:202
+msgid "Could not copy code to clipboard"
+msgstr "Could not copy code to clipboard"
+
+#: mkdocs_primer/partials/search-box.html:3 mkdocs_primer/partials/search-box.html:4
+#: mkdocs_primer/partials/search-box.html:23 mkdocs_primer/partials/search-box.html:28
+#: mkdocs_primer/search.html:3 mkdocs_primer/search.html:13
+msgid "Search"
+msgstr "Search"
+
+#: mkdocs_primer/search.html:10
+msgid "Search results"
+msgstr "Search results"
+
+#: mkdocs_primer/search.html:18
+msgid "Search the docs"
+msgstr "Search the docs"
+
+#: mkdocs_primer/search.html:30
+msgid "No results found"
+msgstr "No results found"
+
+#: mkdocs_primer/search.html:31
+msgid "Enter a search term above to search the documentation."
+msgstr "Enter a search term above to search the documentation."
+
+#: mkdocs_primer/search.html:35
+msgid ""
+"Search needs JavaScript. Use your browser's find-on-page, or the repository's own "
+"search, to look through the documentation instead."
+msgstr ""
+"Search needs JavaScript. Use your browser's find-on-page, or the repository's own "
+"search, to look through the documentation instead."
+
+#: mkdocs_primer/search.html:59
+msgid "Searching…"
+msgstr "Searching…"
+
+#: mkdocs_primer/search.html:110
+#, python-format
+msgid "Show results in other languages (%(count)s)"
+msgstr "Show results in other languages (%(count)s)"
+
+#: mkdocs_primer/partials/color-mode.html:4 mkdocs_primer/partials/color-mode.html:5
+msgid "Change color mode"
+msgstr "Change color mode"
+
+#: mkdocs_primer/partials/footer.html:16
+msgid "Last updated:"
+msgstr "Last updated:"
+
+#: mkdocs_primer/partials/footer.html:23
+msgid "Authors:"
+msgstr "Authors:"
+
+#: mkdocs_primer/partials/footer.html:26 mkdocs_primer/partials/footer.html:29
+msgid "This site is open source."
+msgstr "This site is open source."
+
+#: mkdocs_primer/partials/footer.html:27
+msgid "Improve this page"
+msgstr "Improve this page"
+
+#: mkdocs_primer/partials/header.html:7
+msgid "Toggle navigation"
+msgstr "Toggle navigation"
+
+#: mkdocs_primer/partials/language.html:16
+msgid "Change language"
+msgstr "Change language"
+
+#: mkdocs_primer/partials/language.html:26
+msgid "Languages"
+msgstr "Languages"
+
+#: mkdocs_primer/partials/pagination.html:2
+msgid "Page navigation"
+msgstr "Page navigation"
+
+#: mkdocs_primer/partials/pagination.html:10
+msgid "Previous"
+msgstr "Previous"
+
+#: mkdocs_primer/partials/pagination.html:16
+msgid "Next"
+msgstr "Next"
+
+#: mkdocs_primer/partials/toc.html:19 mkdocs_primer/partials/toc.html:20
+msgid "On this page"
+msgstr "On this page"
+

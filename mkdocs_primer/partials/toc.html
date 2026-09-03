@@ -16,8 +16,8 @@
   {# One entry is the page itself; there is nothing to navigate between. #}
   {%- if entries | length > 1 %}
     <details class="primer-toc">
-      <summary class="primer-toc-summary">On this page</summary>
-      <nav aria-label="On this page">
+      <summary class="primer-toc-summary">{% trans %}On this page{% endtrans %}</summary>
+      <nav aria-label="{% trans %}On this page{% endtrans %}">
         <ul class="primer-toc-list">
           {%- for toc_item in entries %}
             {% include "partials/toc-item.html" %}

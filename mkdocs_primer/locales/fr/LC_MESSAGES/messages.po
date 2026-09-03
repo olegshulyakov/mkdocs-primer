@@ -1,0 +1,144 @@
+# French translations for mkdocs-primer.
+# Copyright (C) 2026 Oleg Shulyakov
+# This file is distributed under the same license as the mkdocs-primer
+# project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: mkdocs-primer 0.1.2\n"
+"Report-Msgid-Bugs-To: https://github.com/olegshulyakov/mkdocs-primer/issues\n"
+"POT-Creation-Date: 2026-09-03 14:32+0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: fr\n"
+"Language-Team: fr <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.18.0\n"
+
+#: mkdocs_primer/404.html:7
+msgid "Sorry, this page could not be found."
+msgstr "Désolé, cette page est introuvable."
+
+#: mkdocs_primer/404.html:9
+msgid "Back to the home page"
+msgstr "Retour à la page d'accueil"
+
+#: mkdocs_primer/base.html:123
+msgid "Skip to content"
+msgstr "Aller au contenu"
+
+#: mkdocs_primer/base.html:137
+msgid "Site navigation"
+msgstr "Navigation du site"
+
+#: mkdocs_primer/base.html:173 mkdocs_primer/base.html:174
+msgid "Back to top"
+msgstr "Haut de page"
+
+#: mkdocs_primer/base.html:199
+msgid "Copy code"
+msgstr "Copier le code"
+
+#: mkdocs_primer/base.html:200
+msgid "Code copied"
+msgstr "Code copié"
+
+#: mkdocs_primer/base.html:201
+msgid "Code copied to clipboard"
+msgstr "Code copié dans le presse-papiers"
+
+#: mkdocs_primer/base.html:202
+msgid "Could not copy code to clipboard"
+msgstr "Impossible de copier le code dans le presse-papiers"
+
+#: mkdocs_primer/partials/search-box.html:3 mkdocs_primer/partials/search-box.html:4
+#: mkdocs_primer/partials/search-box.html:23 mkdocs_primer/partials/search-box.html:28
+#: mkdocs_primer/search.html:3 mkdocs_primer/search.html:13
+msgid "Search"
+msgstr "Rechercher"
+
+#: mkdocs_primer/search.html:10
+msgid "Search results"
+msgstr "Résultats de la recherche"
+
+#: mkdocs_primer/search.html:18
+msgid "Search the docs"
+msgstr "Rechercher dans la documentation"
+
+#: mkdocs_primer/search.html:30
+msgid "No results found"
+msgstr "Aucun résultat trouvé"
+
+#: mkdocs_primer/search.html:31
+msgid "Enter a search term above to search the documentation."
+msgstr "Saisissez un terme ci-dessus pour rechercher dans la documentation."
+
+#: mkdocs_primer/search.html:35
+msgid ""
+"Search needs JavaScript. Use your browser's find-on-page, or the repository's own "
+"search, to look through the documentation instead."
+msgstr ""
+"La recherche nécessite JavaScript. Utilisez plutôt la recherche dans la page de votre"
+" navigateur, ou celle du dépôt, pour parcourir la documentation."
+
+#: mkdocs_primer/search.html:59
+msgid "Searching…"
+msgstr "Recherche…"
+
+#: mkdocs_primer/search.html:110
+#, python-format
+msgid "Show results in other languages (%(count)s)"
+msgstr "Afficher les résultats dans d'autres langues (%(count)s)"
+
+#: mkdocs_primer/partials/color-mode.html:4 mkdocs_primer/partials/color-mode.html:5
+msgid "Change color mode"
+msgstr "Changer le mode de couleur"
+
+#: mkdocs_primer/partials/footer.html:16
+msgid "Last updated:"
+msgstr "Dernière mise à jour :"
+
+#: mkdocs_primer/partials/footer.html:23
+msgid "Authors:"
+msgstr "Auteurs :"
+
+#: mkdocs_primer/partials/footer.html:26 mkdocs_primer/partials/footer.html:29
+msgid "This site is open source."
+msgstr "Ce site est open source."
+
+#: mkdocs_primer/partials/footer.html:27
+msgid "Improve this page"
+msgstr "Améliorer cette page"
+
+#: mkdocs_primer/partials/header.html:7
+msgid "Toggle navigation"
+msgstr "Afficher ou masquer la navigation"
+
+#: mkdocs_primer/partials/language.html:16
+msgid "Change language"
+msgstr "Changer de langue"
+
+#: mkdocs_primer/partials/language.html:26
+msgid "Languages"
+msgstr "Langues"
+
+#: mkdocs_primer/partials/pagination.html:2
+msgid "Page navigation"
+msgstr "Navigation entre les pages"
+
+#: mkdocs_primer/partials/pagination.html:10
+msgid "Previous"
+msgstr "Précédent"
+
+#: mkdocs_primer/partials/pagination.html:16
+msgid "Next"
+msgstr "Suivant"
+
+#: mkdocs_primer/partials/toc.html:19 mkdocs_primer/partials/toc.html:20
+msgid "On this page"
+msgstr "Sur cette page"
+

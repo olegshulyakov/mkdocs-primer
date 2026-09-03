@@ -1,21 +1,21 @@
 {% extends "base.html" %}
 
-{% block htmltitle %}Search - {{ config.site_name }}{% endblock %}
+{% block htmltitle %}{% trans %}Search{% endtrans %} - {{ config.site_name }}{% endblock %}
 
 {#
   The search plugin's search/main.js needs `base_url` (set in base.html) plus
   these two element ids. It rewrites #mkdocs-search-results in place.
 #}
 {% block content %}
-  <h1 id="search">Search results</h1>
+  <h1 id="search">{% trans %}Search results{% endtrans %}</h1>
 
   <form id="content_search" action="{{ 'search.html' | url }}" method="get" role="search">
-    <label class="sr-only" for="mkdocs-search-query">Search</label>
+    <label class="sr-only" for="mkdocs-search-query">{% trans %}Search{% endtrans %}</label>
     <input class="form-control width-full"
            id="mkdocs-search-query"
            type="search"
            name="q"
-           placeholder="Search the docs"
+           placeholder="{% trans %}Search the docs{% endtrans %}"
            autocomplete="off">
   </form>
 
@@ -26,13 +26,13 @@
     the default and switch to the progress message only when there is a term to
     look up, which is also the only case where the container is short-lived.
   #}
-  <div id="mkdocs-search-results">
-    <p>Enter a search term above to search the documentation.</p>
+  <div id="mkdocs-search-results"
+       data-no-results-text="{% trans %}No results found{% endtrans %}">
+    <p>{% trans %}Enter a search term above to search the documentation.{% endtrans %}</p>
   </div>
 
   <noscript>
-    <p>Search needs JavaScript. Use your browser's find-on-page, or the
-    repository's own search, to look through the documentation instead.</p>
+    <p>{% trans %}Search needs JavaScript. Use your browser's find-on-page, or the repository's own search, to look through the documentation instead.{% endtrans %}</p>
   </noscript>
 
   {#
@@ -56,7 +56,7 @@
       var params = new URLSearchParams(location.search)
       var results = document.getElementById('mkdocs-search-results')
 
-      if (params.get('q')) results.innerHTML = '<p>Searching…</p>'
+      if (params.get('q')) results.innerHTML = '<p>' + {{ gettext('Searching…') | tojson }} + '</p>'
 
       // Locales that live under a path prefix; the default one has none.
       var prefixes = {{ prefixes | tojson }}
@@ -104,8 +104,13 @@
         var button = document.createElement('button')
         button.type = 'button'
         button.className = 'btn-link'
-        button.textContent =
-          hidden === 1 ? 'Show 1 result in another language' : 'Show ' + hidden + ' results in other languages'
+        // Count in parentheses rather than inside the sentence: the label is
+        // built here, out of reach of ngettext, and several of the theme's
+        // locales inflect the noun differently per count.
+        button.textContent = {{ gettext('Show results in other languages (%(count)s)') | tojson }}.replace(
+          '%(count)s',
+          hidden
+        )
         button.addEventListener('click', function () {
           showAll = true
           articles.forEach(function (article) {

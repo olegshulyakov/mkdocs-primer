@@ -1,0 +1,145 @@
+# Russian translations for mkdocs-primer.
+# Copyright (C) 2026 Oleg Shulyakov
+# This file is distributed under the same license as the mkdocs-primer
+# project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: mkdocs-primer 0.1.2\n"
+"Report-Msgid-Bugs-To: https://github.com/olegshulyakov/mkdocs-primer/issues\n"
+"POT-Creation-Date: 2026-09-03 14:32+0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: ru\n"
+"Language-Team: ru <LL@li.org>\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && "
+"(n%100<10 || n%100>=20) ? 1 : 2);\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.18.0\n"
+
+#: mkdocs_primer/404.html:7
+msgid "Sorry, this page could not be found."
+msgstr "Извините, эта страница не найдена."
+
+#: mkdocs_primer/404.html:9
+msgid "Back to the home page"
+msgstr "Вернуться на главную"
+
+#: mkdocs_primer/base.html:123
+msgid "Skip to content"
+msgstr "Перейти к содержимому"
+
+#: mkdocs_primer/base.html:137
+msgid "Site navigation"
+msgstr "Навигация по сайту"
+
+#: mkdocs_primer/base.html:173 mkdocs_primer/base.html:174
+msgid "Back to top"
+msgstr "Наверх"
+
+#: mkdocs_primer/base.html:199
+msgid "Copy code"
+msgstr "Копировать код"
+
+#: mkdocs_primer/base.html:200
+msgid "Code copied"
+msgstr "Код скопирован"
+
+#: mkdocs_primer/base.html:201
+msgid "Code copied to clipboard"
+msgstr "Код скопирован в буфер обмена"
+
+#: mkdocs_primer/base.html:202
+msgid "Could not copy code to clipboard"
+msgstr "Не удалось скопировать код в буфер обмена"
+
+#: mkdocs_primer/partials/search-box.html:3 mkdocs_primer/partials/search-box.html:4
+#: mkdocs_primer/partials/search-box.html:23 mkdocs_primer/partials/search-box.html:28
+#: mkdocs_primer/search.html:3 mkdocs_primer/search.html:13
+msgid "Search"
+msgstr "Поиск"
+
+#: mkdocs_primer/search.html:10
+msgid "Search results"
+msgstr "Результаты поиска"
+
+#: mkdocs_primer/search.html:18
+msgid "Search the docs"
+msgstr "Поиск по документации"
+
+#: mkdocs_primer/search.html:30
+msgid "No results found"
+msgstr "Ничего не найдено"
+
+#: mkdocs_primer/search.html:31
+msgid "Enter a search term above to search the documentation."
+msgstr "Введите поисковый запрос выше, чтобы искать по документации."
+
+#: mkdocs_primer/search.html:35
+msgid ""
+"Search needs JavaScript. Use your browser's find-on-page, or the repository's own "
+"search, to look through the documentation instead."
+msgstr ""
+"Для поиска нужен JavaScript. Воспользуйтесь поиском по странице в браузере или "
+"поиском в репозитории."
+
+#: mkdocs_primer/search.html:59
+msgid "Searching…"
+msgstr "Поиск…"
+
+#: mkdocs_primer/search.html:110
+#, python-format
+msgid "Show results in other languages (%(count)s)"
+msgstr "Показать результаты на других языках (%(count)s)"
+
+#: mkdocs_primer/partials/color-mode.html:4 mkdocs_primer/partials/color-mode.html:5
+msgid "Change color mode"
+msgstr "Сменить цветовую схему"
+
+#: mkdocs_primer/partials/footer.html:16
+msgid "Last updated:"
+msgstr "Последнее обновление:"
+
+#: mkdocs_primer/partials/footer.html:23
+msgid "Authors:"
+msgstr "Авторы:"
+
+#: mkdocs_primer/partials/footer.html:26 mkdocs_primer/partials/footer.html:29
+msgid "This site is open source."
+msgstr "Исходный код сайта открыт."
+
+#: mkdocs_primer/partials/footer.html:27
+msgid "Improve this page"
+msgstr "Улучшить эту страницу"
+
+#: mkdocs_primer/partials/header.html:7
+msgid "Toggle navigation"
+msgstr "Показать или скрыть навигацию"
+
+#: mkdocs_primer/partials/language.html:16
+msgid "Change language"
+msgstr "Сменить язык"
+
+#: mkdocs_primer/partials/language.html:26
+msgid "Languages"
+msgstr "Языки"
+
+#: mkdocs_primer/partials/pagination.html:2
+msgid "Page navigation"
+msgstr "Навигация по страницам"
+
+#: mkdocs_primer/partials/pagination.html:10
+msgid "Previous"
+msgstr "Назад"
+
+#: mkdocs_primer/partials/pagination.html:16
+msgid "Next"
+msgstr "Далее"
+
+#: mkdocs_primer/partials/toc.html:19 mkdocs_primer/partials/toc.html:20
+msgid "On this page"
+msgstr "На этой странице"
+

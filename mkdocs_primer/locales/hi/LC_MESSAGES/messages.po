@@ -1,0 +1,144 @@
+# Hindi translations for mkdocs-primer.
+# Copyright (C) 2026 Oleg Shulyakov
+# This file is distributed under the same license as the mkdocs-primer
+# project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: mkdocs-primer 0.1.2\n"
+"Report-Msgid-Bugs-To: https://github.com/olegshulyakov/mkdocs-primer/issues\n"
+"POT-Creation-Date: 2026-09-03 14:32+0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: hi\n"
+"Language-Team: hi <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.18.0\n"
+
+#: mkdocs_primer/404.html:7
+msgid "Sorry, this page could not be found."
+msgstr "क्षमा करें, यह पृष्ठ नहीं मिला।"
+
+#: mkdocs_primer/404.html:9
+msgid "Back to the home page"
+msgstr "मुख्य पृष्ठ पर वापस जाएँ"
+
+#: mkdocs_primer/base.html:123
+msgid "Skip to content"
+msgstr "सामग्री पर जाएँ"
+
+#: mkdocs_primer/base.html:137
+msgid "Site navigation"
+msgstr "साइट नेविगेशन"
+
+#: mkdocs_primer/base.html:173 mkdocs_primer/base.html:174
+msgid "Back to top"
+msgstr "ऊपर जाएँ"
+
+#: mkdocs_primer/base.html:199
+msgid "Copy code"
+msgstr "कोड कॉपी करें"
+
+#: mkdocs_primer/base.html:200
+msgid "Code copied"
+msgstr "कोड कॉपी हो गया"
+
+#: mkdocs_primer/base.html:201
+msgid "Code copied to clipboard"
+msgstr "कोड क्लिपबोर्ड पर कॉपी हो गया"
+
+#: mkdocs_primer/base.html:202
+msgid "Could not copy code to clipboard"
+msgstr "कोड क्लिपबोर्ड पर कॉपी नहीं हो सका"
+
+#: mkdocs_primer/partials/search-box.html:3 mkdocs_primer/partials/search-box.html:4
+#: mkdocs_primer/partials/search-box.html:23 mkdocs_primer/partials/search-box.html:28
+#: mkdocs_primer/search.html:3 mkdocs_primer/search.html:13
+msgid "Search"
+msgstr "खोजें"
+
+#: mkdocs_primer/search.html:10
+msgid "Search results"
+msgstr "खोज परिणाम"
+
+#: mkdocs_primer/search.html:18
+msgid "Search the docs"
+msgstr "दस्तावेज़ में खोजें"
+
+#: mkdocs_primer/search.html:30
+msgid "No results found"
+msgstr "कोई परिणाम नहीं मिला"
+
+#: mkdocs_primer/search.html:31
+msgid "Enter a search term above to search the documentation."
+msgstr "दस्तावेज़ में खोजने के लिए ऊपर कोई शब्द लिखें।"
+
+#: mkdocs_primer/search.html:35
+msgid ""
+"Search needs JavaScript. Use your browser's find-on-page, or the repository's own "
+"search, to look through the documentation instead."
+msgstr ""
+"खोज के लिए JavaScript आवश्यक है। इसके बजाय अपने ब्राउज़र की पृष्ठ-में-खोज या "
+"रिपॉज़िटरी की खोज का उपयोग करें।"
+
+#: mkdocs_primer/search.html:59
+msgid "Searching…"
+msgstr "खोज रहे हैं…"
+
+#: mkdocs_primer/search.html:110
+#, python-format
+msgid "Show results in other languages (%(count)s)"
+msgstr "अन्य भाषाओं के परिणाम दिखाएँ (%(count)s)"
+
+#: mkdocs_primer/partials/color-mode.html:4 mkdocs_primer/partials/color-mode.html:5
+msgid "Change color mode"
+msgstr "रंग मोड बदलें"
+
+#: mkdocs_primer/partials/footer.html:16
+msgid "Last updated:"
+msgstr "अंतिम अद्यतन:"
+
+#: mkdocs_primer/partials/footer.html:23
+msgid "Authors:"
+msgstr "लेखक:"
+
+#: mkdocs_primer/partials/footer.html:26 mkdocs_primer/partials/footer.html:29
+msgid "This site is open source."
+msgstr "यह साइट ओपन सोर्स है।"
+
+#: mkdocs_primer/partials/footer.html:27
+msgid "Improve this page"
+msgstr "इस पृष्ठ को सुधारें"
+
+#: mkdocs_primer/partials/header.html:7
+msgid "Toggle navigation"
+msgstr "नेविगेशन दिखाएँ या छिपाएँ"
+
+#: mkdocs_primer/partials/language.html:16
+msgid "Change language"
+msgstr "भाषा बदलें"
+
+#: mkdocs_primer/partials/language.html:26
+msgid "Languages"
+msgstr "भाषाएँ"
+
+#: mkdocs_primer/partials/pagination.html:2
+msgid "Page navigation"
+msgstr "पृष्ठ नेविगेशन"
+
+#: mkdocs_primer/partials/pagination.html:10
+msgid "Previous"
+msgstr "पिछला"
+
+#: mkdocs_primer/partials/pagination.html:16
+msgid "Next"
+msgstr "अगला"
+
+#: mkdocs_primer/partials/toc.html:19 mkdocs_primer/partials/toc.html:20
+msgid "On this page"
+msgstr "इस पृष्ठ पर"
+

@@ -13,19 +13,25 @@
       <p class="mb-1">{{ config.copyright }}</p>
     {%- endif %}
     {%- if last_update %}
-      <p class="mb-1">Last updated: {{ last_update }}</p>
+      <p class="mb-1">{% trans %}Last updated:{% endtrans %} {{ last_update }}</p>
     {%- endif %}
     {#
       `git_page_authors` is put on the page context by mkdocs-git-authors-plugin
       as a string of HTML (mailto links), which is why it is not escaped here.
     #}
     {%- if git_page_authors %}
-      <p class="mb-1">Authors: {{ git_page_authors | safe }}</p>
+      <p class="mb-1">{% trans %}Authors:{% endtrans %} {{ git_page_authors | safe }}</p>
     {%- endif %}
     {%- if page and page.edit_url %}
-      <p class="mb-0">This site is open source. <a href="{{ page.edit_url }}">Improve this page</a>.</p>
+      {#
+        No trailing period after the link: it would have to be a Latin one for
+        every locale, and zh and hi end a sentence with 。 and । instead.
+      #}
+      <p class="mb-0">{% trans %}This site is open source.{% endtrans %}
+        <a href="{{ page.edit_url }}">{% trans %}Improve this page{% endtrans %}</a></p>
     {%- elif config.repo_url %}
-      <p class="mb-0">This site is open source. <a href="{{ config.repo_url }}">{{ config.repo_name }}</a>.</p>
+      <p class="mb-0">{% trans %}This site is open source.{% endtrans %}
+        <a href="{{ config.repo_url }}">{{ config.repo_name }}</a></p>
     {%- endif %}
   </footer>
 {%- endif %}
