@@ -437,6 +437,16 @@ a.primer-nav-section-label[aria-current='page'] {
 }
 
 /*
+ * The type colors below tint the whole title, including any inline code in it,
+ * and against Primer's muted code background that pairing falls under 4.5:1.
+ * Inline code already reads as code from its own background, so it does not
+ * need the title color too.
+ */
+.markdown-body .admonition-title code {
+  color: var(--fgColor-default);
+}
+
+/*
  * Type names come from the `admonition` extension. The five that match a
  * GitHub alert take its color; anything else keeps the neutral border above.
  */
