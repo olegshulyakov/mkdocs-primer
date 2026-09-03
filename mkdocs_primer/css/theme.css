@@ -590,10 +590,6 @@ a.primer-nav-section-label[aria-current='page'] {
   text-align: start;
 }
 
-.primer-footer {
-  text-align: end !important;
-}
-
 /* ---------------------------------------------------------------- print -- */
 
 /*
