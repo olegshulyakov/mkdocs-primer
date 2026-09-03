@@ -1,0 +1,44 @@
+{#
+  "On this page" for the current document. MkDocs hands the heading tree to the
+  theme as `page.toc` and nothing else surfaces it, so without this a long page
+  offers no way to see its sections or jump between them.
+
+  python-markdown nests the whole document under its single h1, which is already
+  the page title on screen; descend past it when that is the shape, so the list
+  starts at the h2 level.
+#}
+{%- if page and page.toc %}
+  {%- set entries = page.toc | list %}
+  {%- if entries | length == 1 and entries[0].children %}
+    {%- set entries = entries[0].children | list %}
+  {%- endif %}
+
+  {# One entry is the page itself; there is nothing to navigate between. #}
+  {%- if entries | length > 1 %}
+    <details class="primer-toc">
+      <summary class="primer-toc-summary">On this page</summary>
+      <nav aria-label="On this page">
+        <ul class="primer-toc-list">
+          {%- for toc_item in entries %}
+            {% include "partials/toc-item.html" %}
+          {%- endfor %}
+        </ul>
+      </nav>
+    </details>
+
+    {#
+      The block reads as part of the page, so it belongs under the title — but
+      the title comes from the Markdown, inside page.content, where a template
+      cannot reach. Moving it is cosmetic: with no JavaScript it stays above the
+      article and works exactly the same.
+    #}
+    <script>
+      // Deferred: this runs before the article has been parsed.
+      document.addEventListener('DOMContentLoaded', function () {
+        var toc = document.querySelector('.primer-toc')
+        var heading = document.querySelector('.markdown-body h1')
+        if (toc && heading) heading.insertAdjacentElement('afterend', toc)
+      })
+    </script>
+  {%- endif %}
+{%- endif %}

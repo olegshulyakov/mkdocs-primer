@@ -146,6 +146,10 @@
         goes straight back into the header the visitor just skipped.
       #}
       <main class="primer-main" id="primer-content" tabindex="-1">
+        {%- block toc %}
+          {% include "partials/toc.html" %}
+        {%- endblock %}
+
         <article class="markdown-body">
           {%- block content %}
             {{ page.content }}

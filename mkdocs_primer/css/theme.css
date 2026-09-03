@@ -207,6 +207,86 @@ a.primer-nav-section-label[aria-current='page'] {
   background-color: var(--bgColor-neutral-muted);
 }
 
+/* ------------------------------------------------------------------ toc -- */
+
+/*
+ * "On this page", collapsed by default so it costs one line above the prose.
+ * A script in partials/toc.html moves it under the page title; the margins
+ * below suit either position.
+ */
+.primer-toc {
+  margin-bottom: var(--base-size-24);
+  border-bottom: 1px solid var(--borderColor-muted, var(--borderColor-default));
+}
+
+.primer-toc-summary {
+  display: inline-flex;
+  gap: var(--base-size-4);
+  align-items: center;
+  padding: var(--base-size-4) 0;
+  font-size: 12px;
+  font-weight: var(--base-text-weight-semibold, 600);
+  color: var(--fgColor-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  list-style: none;
+}
+
+.primer-toc-summary::-webkit-details-marker {
+  display: none;
+}
+
+.primer-toc-summary:hover {
+  color: var(--fgColor-default);
+}
+
+/* Disclosure triangle, rotating on open; ::before so it leads the label. */
+.primer-toc-summary::before {
+  display: inline-block;
+  width: 0;
+  height: 0;
+  content: '';
+  border-top: 4px solid transparent;
+  border-bottom: 4px solid transparent;
+  border-inline-start: 5px solid currentcolor;
+  transition: transform 0.1s ease-in-out;
+}
+
+.primer-toc[open] > .primer-toc-summary::before {
+  transform: rotate(90deg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .primer-toc-summary::before {
+    transition: none;
+  }
+}
+
+.primer-toc-list {
+  padding: 0;
+  margin: 0 0 var(--base-size-8);
+  list-style: none;
+}
+
+/* Nested headings indent; the marker is dropped, so padding carries the depth. */
+.primer-toc-list .primer-toc-list {
+  margin-bottom: 0;
+  padding-inline-start: var(--base-size-16);
+}
+
+.primer-toc-item > a {
+  display: block;
+  padding: 2px 0;
+  font-size: 14px;
+  color: var(--fgColor-accent);
+  text-decoration: none;
+}
+
+.primer-toc-item > a:hover {
+  text-decoration: underline;
+}
+
 /* --------------------------------------------------------------- search -- */
 
 .primer-search-disclosure {
@@ -661,6 +741,8 @@ a.primer-nav-section-label[aria-current='page'] {
   .primer-sidebar,
   .primer-pagination,
   .primer-back-to-top,
+  /* Collapsed on paper it would print as a bare "On this page" label. */
+  .primer-toc,
   /* Sits inside .markdown-body, so it survives the header being hidden and
      prints an icon over the first line of every code block. */
   .primer-copy-code {
