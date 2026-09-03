@@ -340,6 +340,27 @@ a.primer-nav-section-label[aria-current='page'] {
   text-align: end;
 }
 
+/*
+ * Inline layout puts ::before on the leading edge and ::after on the trailing
+ * one, so the arrows move to the correct side by themselves; only the glyph has
+ * to be mirrored, because "previous" points right in an RTL document.
+ */
+.primer-pagination-prev .primer-pagination-label::before {
+  content: '\2190\00a0';
+}
+
+.primer-pagination-next .primer-pagination-label::after {
+  content: '\00a0\2192';
+}
+
+[dir='rtl'] .primer-pagination-prev .primer-pagination-label::before {
+  content: '\2192\00a0';
+}
+
+[dir='rtl'] .primer-pagination-next .primer-pagination-label::after {
+  content: '\00a0\2190';
+}
+
 /* ------------------------------------------------------ heading anchors -- */
 
 /*
