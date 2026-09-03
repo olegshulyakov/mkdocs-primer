@@ -151,6 +151,11 @@ body {
   letter-spacing: 0.05em;
 }
 
+/* Lifted out of the muted default to mark the branch holding the current page. */
+.primer-nav-section-label-active {
+  color: var(--fgColor-default);
+}
+
 /* The label is an <a> when the section has an index page (mkdocs-section-index). */
 a.primer-nav-section-label {
   border-radius: var(--borderRadius-medium, 6px);
