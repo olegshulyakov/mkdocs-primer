@@ -48,6 +48,15 @@ body {
   border-radius: var(--borderRadius-medium, 6px);
 }
 
+/*
+ * The skip link focuses .primer-main so the tab order continues from the
+ * content (see base.html). It is a scroll target, not a control, so the ring
+ * the browser would draw around the whole column carries no information.
+ */
+.primer-main:focus {
+  outline: none;
+}
+
 /* --------------------------------------------------------------- header -- */
 
 .primer-header {
