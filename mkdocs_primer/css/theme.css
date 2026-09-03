@@ -544,7 +544,13 @@ a.primer-nav-section-label[aria-current='page'] {
 
 /* ------------------------------------------------------------ responsive -- */
 
-/* Below Primer's md breakpoint the sidebar collapses into the header disclosure. */
+/*
+ * Below Primer's lg breakpoint the sidebar collapses into the header
+ * disclosure. Not md (768px): the sidebar keeps its full 240px there, which
+ * left the prose column at 464px — narrow enough that the tables on the
+ * configuration page start scrolling sideways. Handing that band the full
+ * width and one tap to reach the nav reads better than keeping both.
+ */
 .primer-nav-toggle {
   display: none;
   position: relative;
@@ -574,7 +580,7 @@ a.primer-nav-section-label[aria-current='page'] {
   box-shadow: var(--shadow-floating-small);
 }
 
-@media (max-width: 767px) {
+@media (max-width: 1011.98px) {
   .primer-layout {
     grid-template-columns: minmax(0, 1fr);
   }
