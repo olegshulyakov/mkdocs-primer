@@ -602,7 +602,10 @@ a.primer-nav-section-label[aria-current='page'] {
   .primer-header,
   .primer-sidebar,
   .primer-pagination,
-  .primer-back-to-top {
+  .primer-back-to-top,
+  /* Sits inside .markdown-body, so it survives the header being hidden and
+     prints an icon over the first line of every code block. */
+  .primer-copy-code {
     display: none;
   }
 
