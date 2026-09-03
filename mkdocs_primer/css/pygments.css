@@ -105,6 +105,26 @@
   font-weight: var(--base-text-weight-semibold, 600);
 }
 
+/*
+ * The one place this file departs from GitHub's palette. In dark mode
+ * --color-prettylights-syntax-markup-heading is #1f6feb, which against the
+ * code background is 3.74:1 — under the 4.5:1 WCAG AA needs at this size.
+ * --fgColor-accent is the same hue two steps lighter and reaches 5.7:1.
+ * A diff hunk header (`@@ -1,3 +1,3 @@`) is the common case, and it carries
+ * the line numbers, so it has to be readable.
+ */
+[data-color-mode='dark'] :is(.highlight, .codehilite) :is(.gh, .gu) {
+  color: var(--fgColor-accent);
+}
+
+/* Same rule for `auto`, but only once the system has resolved to dark: in
+   light the vendored token is already 7.4:1 and stays GitHub-exact. */
+@media (prefers-color-scheme: dark) {
+  [data-color-mode='auto'] :is(.highlight, .codehilite) :is(.gh, .gu) {
+    color: var(--fgColor-accent);
+  }
+}
+
 :is(.highlight, .codehilite) .gt {
   color: var(--color-prettylights-syntax-meta-diff-range);
 }
