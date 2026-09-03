@@ -283,7 +283,7 @@ a.primer-nav-section-label[aria-current='page'] {
   background-color: var(--bgColor-neutral-muted);
 }
 
-.primer-language-selector-menu a[aria-current='true'] {
+.primer-language-selector-menu a[aria-current='page'] {
   font-weight: var(--base-text-weight-semibold, 600);
 }
 

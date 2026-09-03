@@ -38,8 +38,9 @@
           {%- set path = locale ~ '/' ~ (page.url | replace(i18n_page_locale ~ '/', '', 1)) %}
         {%- endif %}
         <li>
+          {# `page`, not `true`: these link to the same page in another language. #}
           <a href="{{ path | url }}" lang="{{ locale }}"
-             {%- if locale == i18n_page_locale %} aria-current="true"{% endif %}>
+             {%- if locale == i18n_page_locale %} aria-current="page"{% endif %}>
             {{ language.name }}
           </a>
         </li>
