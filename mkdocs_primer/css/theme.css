@@ -519,6 +519,20 @@ a.primer-nav-section-label[aria-current='page'] {
     order: 1;
   }
 
+  /*
+   * Primer sizes .btn-octicon for dense desktop toolbars, which leaves these
+   * four controls around 26px square — barely over the 24px minimum and well
+   * under a comfortable thumb target. Grow the hit area, not the icon.
+   */
+  .primer-header .btn-octicon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 40px;
+    min-height: 40px;
+    padding: 0;
+  }
+
   .primer-language-selector-label {
     display: none;
   }
