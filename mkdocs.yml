@@ -17,9 +17,12 @@ hooks:
 # needs something from a theme is enabled here, and CI builds with `--strict`.
 # docs/guide/plugins.md explains what each one is here to prove.
 plugins:
-  # Built in. The theme renders the header search box and loads search/main.js
-  # only when this plugin is enabled.
-  - search
+  # Built in. The theme renders the header search box and the plugin supplies
+  # search/main.js only when this plugin is enabled.
+  - search:
+      # MkDocs does not ship wordcut.js, required by its Hindi Lunr adapter.
+      # Keep Hindi pages in the shared index without loading the broken adapter.
+      lang: [en, es, zh, pt, ru, fr]
 
   # Nav comes from docs/.nav.yml instead of a `nav:` key below. Must run before
   # section-index, which rewrites the nav it produces.
@@ -30,6 +33,8 @@ plugins:
   # fall back to their English source.
   - i18n:
       docs_structure: suffix
+      # Do not let i18n re-add Hindi to the search adapter list above.
+      reconfigure_search: false
       languages:
         - locale: en
           default: true
