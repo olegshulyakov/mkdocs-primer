@@ -30,7 +30,11 @@
 
   function copy(text) {
     if (navigator.clipboard && window.isSecureContext) {
-      return navigator.clipboard.writeText(text)
+      // writeText resolves with undefined; report success explicitly so the
+      // caller can treat a falsy value as the failure it is.
+      return navigator.clipboard.writeText(text).then(function () {
+        return true
+      })
     }
     return Promise.resolve(fallbackCopy(text))
   }
@@ -50,6 +54,8 @@
     block.appendChild(button)
     block.appendChild(status)
 
+    var reset
+
     button.addEventListener('click', function () {
       copy(code.innerText)
         .then(function (copied) {
@@ -58,6 +64,15 @@
           button.setAttribute('aria-label', 'Code copied')
           button.setAttribute('title', 'Code copied')
           announce(button, 'Code copied to clipboard')
+          // Back to the idle icon, so a second copy of the same block still
+          // reads as an action rather than an already-finished one.
+          clearTimeout(reset)
+          reset = setTimeout(function () {
+            button.innerHTML = copyIcon
+            button.setAttribute('aria-label', 'Copy code')
+            button.setAttribute('title', 'Copy code')
+            announce(button, '')
+          }, 2000)
         })
         .catch(function () {
           announce(button, 'Could not copy code to clipboard')
