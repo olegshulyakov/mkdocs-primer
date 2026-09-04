@@ -1,5 +1,6 @@
 <header class="primer-header">
-  <div class="container-xl px-3 d-flex flex-items-center">
+  {# Edge to edge, like the layout below it — not a centred container. #}
+  <div class="primer-header-inner d-flex flex-items-center">
     {# Same locale caveat as the sidebar in base.html. #}
     {%- if config.theme.include_sidebar and nav and (page or not config.plugins.get('i18n')) %}
       {# The mobile hamburger comes first, matching the usual left-edge placement. #}

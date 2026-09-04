@@ -126,46 +126,49 @@
       {% include "partials/header.html" %}
     {%- endblock %}
 
-    <div class="primer-layout container-xl px-3">
+    {#
+      Suppressed in a static template on a translated site: `nav` there is the
+      last locale mkdocs-static-i18n built, so every link would point out of the
+      locale the visitor is actually in. See partials/header.html.
+    #}
+    {%- set show_sidebar = config.theme.include_sidebar and nav and (page or not config.plugins.get('i18n')) %}
+    <div class="primer-layout{{ ' primer-layout-with-sidebar' if show_sidebar }}">
       {%- block site_nav %}
-        {#
-          Suppressed in a static template on a translated site: `nav` there is
-          the last locale mkdocs-static-i18n built, so every link would point
-          out of the locale the visitor is actually in. See partials/header.html.
-        #}
-        {%- if config.theme.include_sidebar and nav and (page or not config.plugins.get('i18n')) %}
+        {%- if show_sidebar %}
           <aside class="primer-sidebar" aria-label="{% trans %}Site navigation{% endtrans %}">
             {% include "partials/nav.html" %}
           </aside>
         {%- endif %}
       {%- endblock %}
 
-      {#
-        tabindex="-1" is what makes the skip link work: without it the browser
-        scrolls but leaves focus at the top of the document, so the next Tab
-        goes straight back into the header the visitor just skipped.
-      #}
-      <main class="primer-main" id="primer-content" tabindex="-1">
-        {%- block toc %}
-          {% include "partials/toc.html" %}
-        {%- endblock %}
-
-        <article class="markdown-body">
-          {%- block content %}
-            {{ page.content }}
+      <div class="primer-content">
+        {#
+          tabindex="-1" is what makes the skip link work: without it the browser
+          scrolls but leaves focus at the top of the document, so the next Tab
+          goes straight back into the header the visitor just skipped.
+        #}
+        <main class="primer-main" id="primer-content" tabindex="-1">
+          {%- block toc %}
+            {% include "partials/toc.html" %}
           {%- endblock %}
-        </article>
 
-        {%- block pagination %}
-          {% include "partials/pagination.html" %}
-        {%- endblock %}
+          <article class="markdown-body">
+            {%- block content %}
+              {{ page.content }}
+            {%- endblock %}
+          </article>
 
-        {%- block footer %}
-          {%- if config.theme.show_footer %}
-            {% include "partials/footer.html" %}
-          {%- endif %}
-        {%- endblock %}
-      </main>
+          {%- block pagination %}
+            {% include "partials/pagination.html" %}
+          {%- endblock %}
+
+          {%- block footer %}
+            {%- if config.theme.show_footer %}
+              {% include "partials/footer.html" %}
+            {%- endif %}
+          {%- endblock %}
+        </main>
+      </div>
     </div>
 
     <button class="btn btn-octicon primer-back-to-top" type="button"

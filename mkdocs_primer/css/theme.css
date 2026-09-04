@@ -6,7 +6,19 @@
  */
 
 :root {
-  --primer-sidebar-width: 240px;
+  /* Navigation column, its own padding included. */
+  --primer-sidebar-width: 288px;
+  /* Third column, on screens wide enough for one. */
+  --primer-rail-width: 256px;
+  /*
+   * How wide the prose is allowed to get. It grows with the window rather than
+   * sitting at a fixed measure, but an ultra-wide monitor would otherwise give
+   * it 2000px lines, so it stops here — Primer's container-lg, around a hundred
+   * characters at the body size.
+   */
+  --primer-article-max: 1012px;
+  /* Distance from the window edge, and from the navigation column. */
+  --primer-gutter: var(--base-size-16);
   --primer-header-height: 56px;
 }
 
@@ -74,9 +86,10 @@ body {
   border-bottom: 1px solid var(--borderColor-default);
 }
 
-.primer-header > .container-xl {
+.primer-header-inner {
   height: 100%;
   gap: var(--base-size-8);
+  padding-inline: var(--primer-gutter);
 }
 
 /*
@@ -115,19 +128,49 @@ body {
 
 /* --------------------------------------------------------------- layout -- */
 
+/*
+ * The page runs edge to edge, as GitHub's own documentation does: navigation
+ * against the left edge, and the reading column centred in what is left of the
+ * window. Without the sidebar the grid would drop the article into the
+ * navigation's narrow track, so the second shape is spelled out.
+ */
 .primer-layout {
   display: grid;
-  grid-template-columns: var(--primer-sidebar-width) minmax(0, 1fr);
-  gap: var(--base-size-32);
+  grid-template-columns: minmax(0, 1fr);
   align-items: start;
 }
 
+.primer-layout-with-sidebar {
+  grid-template-columns: var(--primer-sidebar-width) minmax(0, 1fr);
+}
+
+/*
+ * A fixed height rather than a ceiling, so the rule down its edge runs the
+ * whole window the way it does on GitHub's documentation, instead of stopping
+ * wherever the last nav item happens to fall.
+ */
 .primer-sidebar {
   position: sticky;
   top: var(--primer-header-height);
-  max-height: calc(100vh - var(--primer-header-height));
-  padding-top: var(--base-size-24);
+  height: calc(100vh - var(--primer-header-height));
+  padding: var(--base-size-24) var(--primer-gutter);
   overflow-y: auto;
+  border-inline-end: 1px solid var(--borderColor-default);
+}
+
+/*
+ * Article and outline together. The width ceiling is on this pair rather than
+ * on the prose alone, so the two stay centred as one block on a wide monitor
+ * instead of drifting apart.
+ */
+.primer-content {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--base-size-32);
+  width: 100%;
+  max-width: calc(var(--primer-article-max) + 2 * var(--primer-gutter));
+  padding-inline: var(--primer-gutter);
+  margin-inline: auto;
 }
 
 .primer-main {
@@ -136,9 +179,9 @@ body {
   padding-bottom: var(--base-size-32);
 }
 
-/* Primer caps .markdown-body at full width; keep prose readable. */
+/* The ceiling lives on .primer-content now, so the prose fills its column. */
 .primer-main .markdown-body {
-  max-width: 900px;
+  max-width: none;
 }
 
 /* -------------------------------------------------------------- sidebar -- */
@@ -702,7 +745,7 @@ a.primer-toc-link:hover {
 }
 
 @media (max-width: 1011.98px) {
-  .primer-layout {
+  .primer-layout-with-sidebar {
     grid-template-columns: minmax(0, 1fr);
   }
 
@@ -735,8 +778,8 @@ a.primer-toc-link:hover {
   }
 
   .primer-search-disclosure[open] > .primer-search {
-    /* Lines up with the container's px-3, and so with the controls above it. */
-    inset-inline-end: var(--base-size-16);
+    /* Lines up with the header's own gutter, and so with the controls above. */
+    inset-inline-end: var(--primer-gutter);
   }
 
   /*
