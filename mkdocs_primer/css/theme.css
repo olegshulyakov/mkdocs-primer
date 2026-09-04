@@ -273,10 +273,22 @@ ol.primer-breadcrumbs-list {
   display: none;
 }
 
-/* On its own this lays out as the bare label did; js/nav-sections.js adds the toggle. */
+/*
+ * On its own this lays out as the bare label did; js/nav-sections.js adds the
+ * toggle. Whatever it adds, the row is one surface: the fill covers the label
+ * and the chevron together, so the two never read as separate controls sharing
+ * a line. The hover is guarded on a control being there, since with no
+ * JavaScript, and no page of its own, the row is inert text.
+ */
 .primer-nav-section-header {
   display: flex;
   align-items: center;
+  border-radius: var(--borderRadius-medium, 6px);
+}
+
+.primer-nav-section-row:hover,
+.primer-nav-section-header:has(> .primer-nav-section-toggle):hover {
+  background-color: var(--bgColor-neutral-muted);
 }
 
 /*
@@ -296,17 +308,41 @@ ol.primer-breadcrumbs-list {
 }
 
 /*
- * The chevron. Drawn with borders rather than an icon because this button is
- * built in JavaScript, and neither icon set the theme ships would be reachable
- * from there without copying its markup into a second place.
+ * A section with no page of its own has nothing else in the row to click, so
+ * the row is the button and the chevron is drawn inside it — the label moves
+ * in, and the button is named by the text it now holds. js/nav-sections.js
+ * decides which of the two shapes a section gets.
+ */
+.primer-nav-section-row {
+  display: flex;
+  flex: 1 1 auto;
+  align-items: center;
+  min-width: 0;
+  padding: 0 var(--base-size-8) 0 0;
+  font: inherit;
+  /* The chevron's colour; the label inside states its own. */
+  color: var(--fgColor-muted);
+  text-align: start;
+  cursor: pointer;
+  background: none;
+  border: 0;
+  border-radius: var(--borderRadius-medium, 6px);
+}
+
+/*
+ * The other shape: mkdocs-section-index gave the section a page, the label is
+ * a link, and a link cannot be nested in a button — so opening the section is
+ * a control of its own beside it. It stands as tall as the row it sits in, so
+ * the target is the height of the thing it belongs to rather than a square
+ * floating in the middle of it.
  */
 .primer-nav-section-toggle {
   display: flex;
   flex: 0 0 auto;
+  align-self: stretch;
   align-items: center;
   justify-content: center;
   width: var(--base-size-24);
-  height: var(--base-size-24);
   padding: 0;
   color: var(--fgColor-muted);
   cursor: pointer;
@@ -315,12 +351,19 @@ ol.primer-breadcrumbs-list {
   border-radius: var(--borderRadius-medium, 6px);
 }
 
-.primer-nav-section-toggle:hover {
+/* The row carries the fill for both; only the mark itself lifts. */
+.primer-nav-section-row:hover,
+.primer-nav-section-header:hover > .primer-nav-section-toggle {
   color: var(--fgColor-default);
-  background-color: var(--bgColor-neutral-muted);
 }
 
-.primer-nav-section-toggle::before {
+/*
+ * The chevron. Drawn with borders rather than an icon because these buttons are
+ * built in JavaScript, and neither icon set the theme ships would be reachable
+ * from there without copying its markup into a second place.
+ */
+.primer-nav-section-toggle::before,
+.primer-nav-section-row::after {
   width: 0;
   height: 0;
   content: '';
@@ -330,14 +373,23 @@ ol.primer-breadcrumbs-list {
   transition: transform 0.1s ease-in-out;
 }
 
-.primer-nav-section-toggle[aria-expanded='true']::before {
+.primer-nav-section-toggle[aria-expanded='true']::before,
+.primer-nav-section-row[aria-expanded='true']::after {
   transform: rotate(90deg);
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .primer-nav-section-toggle::before {
+  .primer-nav-section-toggle::before,
+  .primer-nav-section-row::after {
     transition: none;
   }
+}
+
+/* Primer's own ring, as .primer-header does for its <summary> triggers. */
+.primer-nav-section-row:focus-visible,
+.primer-nav-section-toggle:focus-visible {
+  outline: 2px solid var(--focus-outlineColor, var(--fgColor-accent));
+  outline-offset: -2px;
 }
 
 /*
@@ -356,22 +408,27 @@ a.primer-nav-section-label {
 }
 
 /*
- * Accent on hover, as the breadcrumbs and the header title do: the resting
- * colour is the default one now, so a fill would have been the only cue left.
+ * Accent on hover, as the breadcrumbs and the header title do. The fill is the
+ * row's, so hovering the label lights the chevron beside it too.
  */
 a.primer-nav-section-label:hover {
   color: var(--fgColor-accent);
-  background-color: var(--bgColor-neutral-muted);
 }
 
 /*
  * The fill Primer gives a selected .SideNav-item, named here because a section
  * label is not one: a section that is itself the current page should not look
- * like a different kind of current from a leaf that is.
+ * like a different kind of current from a leaf that is. On the row rather than
+ * on the label, so it does not stop short of the chevron; the label keeps it as
+ * well, for a browser without `:has`, and the two are the same colour.
  */
+.primer-nav-section-header:has(> [aria-current='page']),
+a.primer-nav-section-label[aria-current='page'] {
+  background-color: var(--sideNav-bgColor-selected);
+}
+
 a.primer-nav-section-label[aria-current='page'] {
   color: var(--fgColor-default);
-  background-color: var(--sideNav-bgColor-selected);
 }
 
 /*

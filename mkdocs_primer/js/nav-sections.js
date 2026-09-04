@@ -31,16 +31,28 @@
 
     var button = document.createElement('button')
     button.type = 'button'
-    button.className = 'primer-nav-section-toggle'
-    // The section's own name, so the control reads as "Guide, collapsed" rather
-    // than needing a phrase of its own in every catalog.
-    button.setAttribute('aria-label', label.textContent.trim())
     button.setAttribute('aria-expanded', section.hasAttribute('data-primer-nav-open') ? 'true' : 'false')
 
     button.addEventListener('click', function () {
       toggle(section, button)
     })
 
-    header.appendChild(button)
+    if (label.tagName === 'A') {
+      // mkdocs-section-index folded a page into this section, so the label is a
+      // link, and a link cannot be nested inside a button. Opening the section
+      // is a second action on the row, and needs a control of its own.
+      button.className = 'primer-nav-section-toggle'
+      // The section's own name, so the control reads as "Guide, collapsed"
+      // rather than needing a phrase of its own in every catalog.
+      button.setAttribute('aria-label', label.textContent.trim())
+      header.appendChild(button)
+    } else {
+      // Nothing else in the row does anything, so the row is the button: the
+      // label moves inside it, which both names the control and makes the whole
+      // of it — the chevron included — the thing the reader clicks.
+      button.className = 'primer-nav-section-row'
+      header.insertBefore(button, label)
+      button.appendChild(label)
+    }
   })
 })()
