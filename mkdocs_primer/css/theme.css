@@ -957,6 +957,20 @@ a.primer-toc-link[aria-current] {
   }
 }
 
+/* ---------------------------------------------------------------- tables -- */
+
+/*
+ * A column is aligned only when the row of dashes asks for it, and then
+ * python-markdown writes that on the cell as an inline style. Everything else
+ * falls to the browser, which centres a header over cells it ranges left — so
+ * a plain table reads down two edges at once. GitHub renders the same markdown
+ * down one, and a column that did ask for `:---:` still gets it, an inline
+ * style outranking a stylesheet.
+ */
+.markdown-body table th {
+  text-align: start;
+}
+
 /* ---------------------------------------------------------------- quotes -- */
 
 /*
