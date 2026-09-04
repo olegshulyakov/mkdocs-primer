@@ -741,12 +741,19 @@ a.primer-toc-link[aria-current] {
   font-weight: var(--base-text-weight-semibold, 600);
   color: var(--fgColor-accent);
   text-decoration: none;
+  /*
+   * The button tokens rather than --bgColor-muted: these are cards the reader
+   * clicks, and they need a resting fill and a hover fill that differ. In light
+   * mode --bgColor-muted and --bgColor-inset are the same color, so the pair
+   * would have had nowhere to go.
+   */
+  background-color: var(--button-default-bgColor-rest);
   border: 1px solid var(--borderColor-default);
   border-radius: var(--borderRadius-medium, 6px);
 }
 
 .primer-pagination a:hover {
-  background-color: var(--bgColor-muted);
+  background-color: var(--button-default-bgColor-hover);
 }
 
 .primer-pagination-next {
@@ -843,6 +850,24 @@ a.primer-toc-link[aria-current] {
   }
 }
 
+/* ---------------------------------------------------------------- quotes -- */
+
+/*
+ * Primer marks a quote with a leading rule and nothing else, so on the page it
+ * carries no more weight than an indent. The fill is the lighter cousin of the
+ * one the admonitions take below — neutral, and with half their padding, since
+ * a quote should not shout the way an alert does.
+ *
+ * The vertical padding is what the fill needs to stand on: Primer flattens the
+ * first and last child's margins to zero, so without it the tint would close
+ * on the text.
+ */
+.markdown-body blockquote {
+  padding-block: var(--base-size-8);
+  background-color: var(--bgColor-muted);
+  border-radius: var(--borderRadius-medium, 6px);
+}
+
 /* ----------------------------------------------------------- admonitions -- */
 
 /*
@@ -852,24 +877,36 @@ a.primer-toc-link[aria-current] {
  * below, every `!!! note` renders as an undecorated block.
  *
  * Geometry follows GitHub's alerts: a colored leading rule and a colored title.
+ * The tint below is the one departure — GitHub leaves its alerts unfilled, but
+ * on a page of body text those blocks are the only place a document has color
+ * to give, and an outline alone barely registers.
+ *
+ * The rule stays, so the type is still told apart without relying on color.
  * The octicon GitHub puts beside the title is not reproduced; there are five
  * of them and they would cost more than they are worth here.
  */
 .markdown-body .admonition {
-  padding: 0 var(--base-size-16);
+  /* Real padding rather than margins on the children: a filled box has to hold
+     its own spacing, and a top margin on the first child would collapse
+     straight out through a parent with no padding of its own. */
+  padding: var(--base-size-16);
   margin-bottom: var(--base-size-16);
   color: inherit;
+  /* Neutral until a type below claims it, so a block the extension emits that
+     GitHub has no alert for still reads as one of the family. */
+  background-color: var(--bgColor-muted);
   /* 0.25em, not --borderWidth-thick (2px): matches the rule Primer draws down
      the side of a blockquote, so the two read as the same family. */
   border-inline-start: 0.25em solid var(--borderColor-default);
+  border-radius: var(--borderRadius-medium, 6px);
 }
 
 .markdown-body .admonition > :first-child {
-  margin-top: var(--base-size-16);
+  margin-top: 0;
 }
 
 .markdown-body .admonition > :last-child {
-  margin-bottom: var(--base-size-16);
+  margin-bottom: 0;
 }
 
 .markdown-body .admonition-title {
@@ -889,8 +926,14 @@ a.primer-toc-link[aria-current] {
 /*
  * Type names come from the `admonition` extension. The five that match a
  * GitHub alert take its color; anything else keeps the neutral border above.
+ *
+ * Each tint is paired with the title color Primer intends to sit on it, which
+ * is what keeps them legible — but only just: in light mode every one of the
+ * five measures between 4.52 and 4.57:1, so there is nothing here to darken a
+ * shade or lighten a shade without dropping under AA.
  */
 .markdown-body .admonition.note {
+  background-color: var(--bgColor-accent-muted);
   border-inline-start-color: var(--borderColor-accent-emphasis);
 }
 
@@ -900,6 +943,7 @@ a.primer-toc-link[aria-current] {
 
 .markdown-body .admonition.tip,
 .markdown-body .admonition.hint {
+  background-color: var(--bgColor-success-muted);
   border-inline-start-color: var(--borderColor-success-emphasis);
 }
 
@@ -909,6 +953,7 @@ a.primer-toc-link[aria-current] {
 }
 
 .markdown-body .admonition.important {
+  background-color: var(--bgColor-done-muted);
   border-inline-start-color: var(--borderColor-done-emphasis);
 }
 
@@ -919,6 +964,7 @@ a.primer-toc-link[aria-current] {
 .markdown-body .admonition.warning,
 .markdown-body .admonition.attention,
 .markdown-body .admonition.caution {
+  background-color: var(--bgColor-attention-muted);
   border-inline-start-color: var(--borderColor-attention-emphasis);
 }
 
@@ -931,6 +977,7 @@ a.primer-toc-link[aria-current] {
 .markdown-body .admonition.danger,
 .markdown-body .admonition.error,
 .markdown-body .admonition.bug {
+  background-color: var(--bgColor-danger-muted);
   border-inline-start-color: var(--borderColor-danger-emphasis);
 }
 
