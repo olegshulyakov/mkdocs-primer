@@ -137,7 +137,7 @@ markdown_extensions:
   - pymdownx.tilde
 ```
 
-`admonition` es el que vale la pena mencionar: la extensión emite marcado y no CSS propio, y `@primer/css` tampoco tiene ninguna regla para ello, por lo que un sin estilo la amonestación es una sorpresa común. El tema llena ese vacío (ver [los ejemplos](nested/deep-page.md#admonitions).
+`admonition` es el que vale la pena mencionar: la extensión emite marcado y no CSS propio, y `@primer/css` tampoco tiene ninguna regla para ello, por lo que un sin estilo la amonestación es una sorpresa común. El tema llena ese vacío (ver [los ejemplos](../elements.md#admonitions).
 
 ## CSS y JavaScript personalizados
 

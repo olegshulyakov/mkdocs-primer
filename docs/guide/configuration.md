@@ -180,7 +180,7 @@ markdown_extensions:
   - pymdownx.tilde
 ```
 
-`admonition` is the one worth calling out: the extension emits markup and no CSS of its own, and `@primer/css` has no rule for it either, so an unstyled admonition is a common surprise. The theme fills that gap — see [the examples](nested/deep-page.md#admonitions).
+`admonition` is the one worth calling out: the extension emits markup and no CSS of its own, and `@primer/css` has no rule for it either, so an unstyled admonition is a common surprise. The theme fills that gap — see [the examples](../elements.md#admonitions).
 
 ## Custom CSS and JavaScript
 

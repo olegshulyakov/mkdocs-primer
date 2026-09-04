@@ -137,7 +137,7 @@ markdown_extensions:
   - pymdownx.tilde
 ```
 
-`admonition` 是值得一提的：该扩展发出标记并且没有 CSS 它自己的，`@primer/css` 也没有规则，所以一个无样式的 警告是一种常见的惊喜。该主题填补了这一空白 - 请参阅 [示例](nested/deep-page.md#admonitions)。
+`admonition` 是值得一提的：该扩展发出标记并且没有 CSS 它自己的，`@primer/css` 也没有规则，所以一个无样式的 警告是一种常见的惊喜。该主题填补了这一空白 - 请参阅 [示例](../elements.md#admonitions)。
 
 ## 自定义 CSS 和 JavaScript
 

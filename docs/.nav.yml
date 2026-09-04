@@ -3,5 +3,6 @@
 nav:
   - index.md
   - guide
+  - elements.md
   - reference.md
   - another-page.md
