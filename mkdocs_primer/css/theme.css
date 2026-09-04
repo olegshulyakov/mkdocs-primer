@@ -396,6 +396,8 @@ section.primer-toc {
  * aria-labelledby, so assistive technology still announces the landmark.
  */
 .primer-toc-heading {
+  /* Lines up with the link text, which is inset by its own accent bar. */
+  padding-inline-start: calc(var(--base-size-8) + 2px);
   margin-bottom: var(--base-size-8);
   font-size: 14px;
   font-weight: var(--base-text-weight-semibold, 600);
@@ -471,17 +473,30 @@ ul.primer-toc-list ul.primer-toc-list {
   margin-top: 0;
 }
 
+/*
+ * The bar is on every entry, transparent until js/toc-active.js marks one. Its
+ * width is reserved either way, so nothing shifts sideways as the mark follows
+ * the reader down the page.
+ */
 a.primer-toc-link {
   display: block;
-  padding: var(--base-size-4) 0;
+  padding-block: var(--base-size-4);
+  padding-inline: var(--base-size-8) 0;
   font-size: 14px;
   color: var(--fgColor-muted);
   text-decoration: none;
+  border-inline-start: 2px solid transparent;
 }
 
 a.primer-toc-link:hover {
   color: var(--fgColor-accent);
   text-decoration: underline;
+}
+
+/* The heading the reader has most recently scrolled past. */
+a.primer-toc-link[aria-current] {
+  color: var(--fgColor-default);
+  border-inline-start-color: var(--borderColor-accent-emphasis);
 }
 
 /*
