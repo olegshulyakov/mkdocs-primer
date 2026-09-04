@@ -481,6 +481,16 @@ a.primer-nav-section-label[aria-current='page'] {
   font-weight: var(--base-text-weight-semibold, 600);
 }
 
+/*
+ * The bar itself, which Primer draws in --underlineNav-borderColor-active: the
+ * coral of the active tab on github.com, and the one warm accent in a theme
+ * whose links, focus ring and current branch are all blue. The selector is the
+ * one Primer uses, so this does not outrank it — it simply comes later.
+ */
+.SideNav-item[aria-current]:not([aria-current='false'])::before {
+  background-color: var(--borderColor-accent-emphasis);
+}
+
 /* ------------------------------------------------------------------ toc -- */
 
 /*
