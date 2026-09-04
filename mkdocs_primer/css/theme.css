@@ -673,9 +673,20 @@ a.primer-nav-section-label[aria-current='page'] {
     display: block;
   }
 
-  /* Keep the search trigger at the edge so its popover stays in the viewport. */
+  /*
+   * The popover is wider than the room left beside the trigger, so hanging it
+   * off the trigger ran it past the edge of a narrow screen. Anchor it to the
+   * header instead — the sticky header is the positioned ancestor once the
+   * disclosure stops being one — and the three controls can keep the order
+   * they have on the desktop.
+   */
   .primer-search-disclosure {
-    order: 1;
+    position: static;
+  }
+
+  .primer-search-disclosure[open] > .primer-search {
+    /* Lines up with the container's px-3, and so with the controls above it. */
+    inset-inline-end: var(--base-size-16);
   }
 
   /*
