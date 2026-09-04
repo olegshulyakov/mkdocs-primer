@@ -345,9 +345,14 @@ a.primer-nav-section-label:hover {
   background-color: var(--bgColor-neutral-muted);
 }
 
+/*
+ * The fill Primer gives a selected .SideNav-item, named here because a section
+ * label is not one: a section that is itself the current page should not look
+ * like a different kind of current from a leaf that is.
+ */
 a.primer-nav-section-label[aria-current='page'] {
   color: var(--fgColor-default);
-  background-color: var(--bgColor-neutral-muted);
+  background-color: var(--sideNav-bgColor-selected);
 }
 
 /* Nested sections indent; Primer's SideNav has no depth of its own. */
@@ -379,10 +384,19 @@ a.primer-nav-section-label[aria-current='page'] {
   box-shadow: none;
 }
 
-/* Primer draws the active accent bar through .SideNav-item::before. */
+/*
+ * Primer marks the current item itself: the accent bar through
+ * .SideNav-item::before, and a fill of --sideNav-bgColor-selected. It does that
+ * from .SideNav-item[aria-current]:not([aria-current=false]), which no
+ * selector this short can outrank — so a `background-color` here would be a
+ * declaration that reads as the answer and changes nothing.
+ *
+ * That fill is the one to want in any case now that the navigation sits on
+ * --bgColor-inset: it lifts the current item off the surface around it, which
+ * is the effect the component was drawn for. Only the weight is left to set.
+ */
 .SideNav-item[aria-current='page'] {
   font-weight: var(--base-text-weight-semibold, 600);
-  background-color: var(--bgColor-neutral-muted);
 }
 
 /* ------------------------------------------------------------------ toc -- */
