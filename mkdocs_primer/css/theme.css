@@ -12,11 +12,14 @@
   --primer-rail-width: 256px;
   /*
    * How wide the prose is allowed to get. It grows with the window rather than
-   * sitting at a fixed measure, but an ultra-wide monitor would otherwise give
-   * it 2000px lines, so it stops here — Primer's container-lg, around a hundred
-   * characters at the body size.
+   * sitting at a fixed measure, but a line has a length past which the eye
+   * loses the start of the next one, so it stops here: 45em at the body size,
+   * about ninety characters. Primer's container-lg, which this was, is 1012px
+   * — a measure that made sense while the outline was in the flow and the
+   * article had the window to itself, and half as long again as it reads now
+   * beside a 256px rail.
    */
-  --primer-article-max: 1012px;
+  --primer-article-max: 720px;
   /* Distance from the window edge, and from the navigation column. */
   --primer-gutter: var(--base-size-16);
   --primer-header-height: 56px;
