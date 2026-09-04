@@ -252,8 +252,15 @@ ol.primer-breadcrumbs-list {
 
 /* -------------------------------------------------------------- sidebar -- */
 
-.primer-nav-section + .primer-nav-section {
-  margin-top: var(--base-size-16);
+/*
+ * The gap belongs to the edge of a section, not to sections alone: a folder
+ * usually holds pages and subfolders together, and spacing only between two
+ * sections left the gaps in one list depending on the order of its items.
+ */
+.primer-nav-section + .primer-nav-section,
+.SideNav-item + .primer-nav-section,
+.primer-nav-section + .SideNav-item {
+  margin-top: var(--base-size-8);
 }
 
 /*
@@ -272,16 +279,20 @@ ol.primer-breadcrumbs-list {
   align-items: center;
 }
 
+/*
+ * A section reads as the parent of the rows under it: same size as a page, one
+ * weight heavier, in the default colour. Small muted capitals looked like a
+ * caption over items that outranked it, and this nav nests without a bound, so
+ * that treatment repeated at every depth and the tree read bottom-up.
+ */
 .primer-nav-section-label {
   display: block;
   flex: 1 1 auto;
   min-width: 0;
-  padding: var(--base-size-4) var(--base-size-8);
-  font-size: 12px;
+  padding: 6px var(--base-size-8); /* the row height of a .SideNav-item */
+  font-size: 14px;
   font-weight: var(--base-text-weight-semibold, 600);
-  color: var(--fgColor-muted);
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
+  color: var(--fgColor-default);
 }
 
 /*
@@ -329,9 +340,13 @@ ol.primer-breadcrumbs-list {
   }
 }
 
-/* Lifted out of the muted default to mark the branch holding the current page. */
+/*
+ * The branch holding the current page. Colour rather than weight: the label is
+ * already the heaviest thing in its list, and with no JavaScript nothing is
+ * collapsed, so this trail is the only thing that says where the reader is.
+ */
 .primer-nav-section-label-active {
-  color: var(--fgColor-default);
+  color: var(--fgColor-accent);
 }
 
 /* The label is an <a> when the section has an index page (mkdocs-section-index). */
@@ -340,8 +355,12 @@ a.primer-nav-section-label {
   text-decoration: none;
 }
 
+/*
+ * Accent on hover, as the breadcrumbs and the header title do: the resting
+ * colour is the default one now, so a fill would have been the only cue left.
+ */
 a.primer-nav-section-label:hover {
-  color: var(--fgColor-default);
+  color: var(--fgColor-accent);
   background-color: var(--bgColor-neutral-muted);
 }
 
@@ -355,9 +374,15 @@ a.primer-nav-section-label[aria-current='page'] {
   background-color: var(--sideNav-bgColor-selected);
 }
 
-/* Nested sections indent; Primer's SideNav has no depth of its own. */
-.primer-nav-section-items .primer-nav-section {
-  padding-inline-start: var(--base-size-8);
+/*
+ * Depth, which Primer's SideNav has none of. It is the container that carries
+ * it, so a page and a subsection inside the same section are indented alike:
+ * indenting only the nested sections put a page level with the label of the
+ * section holding it, and its subsections further right than the pages beside
+ * them — the tree drew a depth that was not the depth in the navigation.
+ */
+.primer-nav-section-items {
+  padding-inline-start: var(--base-size-12);
 }
 
 /*
