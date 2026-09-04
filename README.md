@@ -71,8 +71,14 @@ To preview the demo site:
 
 ```console
 $ pip install -e . -r requirements-docs.txt
-$ mkdocs serve
+$ mkdocs serve --watch-theme
 ```
+
+It is served at <http://127.0.0.1:8000/mkdocs-primer/> — `site_url` gives the site that path, and the dev server mounts it there.
+`--watch-theme` is what makes the loop work while editing the theme: without it MkDocs watches `docs/` and `mkdocs.yml` only, and a change under `mkdocs_primer/` never reaches the browser.
+
+VS Code users get this from `.vscode/`: **Run Task → Serve the demo site**, or `F5` for the same thing with a browser attached, at full width or under the theme's 1012px breakpoint.
+`Build every site CI builds` runs the four strict builds below in order.
 
 ### Offline build
 

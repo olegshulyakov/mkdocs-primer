@@ -1,0 +1,37 @@
+{
+  // Both configurations start the "Serve the demo site" task first and wait for
+  // it to report the site as ready. Swap "chrome" for "msedge" to use Edge.
+  "version": "0.2.0",
+  "configurations": [
+    {
+      // The path is not optional: site_url in mkdocs.yml ends in
+      // /mkdocs-primer/, and the dev server mounts the site there, so plain
+      // http://127.0.0.1:8000/ answers 404.
+      "name": "Open the demo site",
+      "type": "chrome",
+      "request": "launch",
+      "url": "http://127.0.0.1:8000/mkdocs-primer/",
+      "preLaunchTask": "Serve the demo site",
+      // Styles edited in the browser's Sources panel land in the theme itself
+      // rather than in the copy MkDocs built, so a change survives the reload.
+      "pathMapping": {
+        "/mkdocs-primer/css": "${workspaceFolder}/mkdocs_primer/css",
+        "/mkdocs-primer/js": "${workspaceFolder}/mkdocs_primer/js"
+      }
+    },
+    {
+      // Opens under the theme's one layout breakpoint (1012px), where the
+      // sidebar gives way to the nav toggle and the outline starts collapsed.
+      "name": "Open the demo site (narrow window)",
+      "type": "chrome",
+      "request": "launch",
+      "url": "http://127.0.0.1:8000/mkdocs-primer/",
+      "preLaunchTask": "Serve the demo site",
+      "runtimeArgs": ["--window-size=760,900"],
+      "pathMapping": {
+        "/mkdocs-primer/css": "${workspaceFolder}/mkdocs_primer/css",
+        "/mkdocs-primer/js": "${workspaceFolder}/mkdocs_primer/js"
+      }
+    }
+  ]
+}

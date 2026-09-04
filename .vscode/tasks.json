@@ -1,0 +1,98 @@
+{
+  // Every task runs MkDocs as a module of the interpreter selected in the
+  // status bar, so a checkout whose virtualenv lives in .venv/ needs nothing on
+  // PATH and Windows needs no second spelling of the command.
+  //
+  //   python -m venv .venv
+  //   .venv/bin/pip install -e . -r requirements-docs.txt
+  "version": "2.0.0",
+  "tasks": [
+    {
+      // --watch-theme is the point: without it MkDocs watches docs/ and
+      // mkdocs.yml only, and an edit under mkdocs_primer/ changes nothing on
+      // screen. The address is spelled out because launch.json opens it.
+      "label": "Serve the demo site",
+      "detail": "mkdocs serve --watch-theme — rebuilds on edits to docs/ and to the theme",
+      "type": "shell",
+      "command": "${command:python.interpreterPath}",
+      "args": [
+        "-m",
+        "mkdocs",
+        "serve",
+        "--watch-theme",
+        "--dev-addr",
+        "127.0.0.1:8000"
+      ],
+      "isBackground": true,
+      "problemMatcher": {
+        "owner": "mkdocs",
+        // MkDocs names pages relative to docs_dir, so a warning about a broken
+        // link opens the Markdown source rather than the built page.
+        "fileLocation": ["relative", "${workspaceFolder}/docs"],
+        "severity": "warning",
+        "pattern": {
+          "regexp": "^(?:WARNING|ERROR)\\s+-\\s+Doc file '([^']+)'\\s+(.+)$",
+          "file": 1,
+          "message": 2
+        },
+        // What tells the editor a rebuild is under way, and when the site is
+        // ready again — the first build ends with "Serving on", later ones with
+        // "Reloading browsers".
+        "background": {
+          "activeOnStart": true,
+          "beginsPattern": "^INFO\\s+-\\s+(?:\\[[^\\]]+\\]\\s+)?(?:Building documentation|Detected file changes)",
+          "endsPattern": "^INFO\\s+-\\s+\\[[^\\]]+\\]\\s+(?:Serving on|Reloading browsers)"
+        }
+      },
+      "presentation": { "panel": "dedicated", "clear": true },
+      "group": { "kind": "build", "isDefault": true }
+    },
+    {
+      "label": "Build the demo site (strict)",
+      "detail": "mkdocs build --strict — the build CI runs, and it cleans site/",
+      "type": "shell",
+      "command": "${command:python.interpreterPath}",
+      "args": ["-m", "mkdocs", "build", "--strict"],
+      // MkDocs prints what failed in the terminal; nothing here parses it into
+      // the Problems panel, so the task does not ask which matcher to use.
+      "problemMatcher": [],
+      "group": "build"
+    },
+    {
+      "label": "Build the RSS example (strict)",
+      "type": "shell",
+      "command": "${command:python.interpreterPath}",
+      "args": ["-m", "mkdocs", "build", "--strict", "-f", "examples/rss/mkdocs.yml"],
+      "problemMatcher": []
+    },
+    {
+      "label": "Build the gen-files example (strict)",
+      "type": "shell",
+      "command": "${command:python.interpreterPath}",
+      "args": ["-m", "mkdocs", "build", "--strict", "-f", "examples/gen-files/mkdocs.yml"],
+      "problemMatcher": []
+    },
+    {
+      "label": "Build the diagrams example (strict)",
+      "type": "shell",
+      "command": "${command:python.interpreterPath}",
+      "args": ["-m", "mkdocs", "build", "--strict", "-f", "examples/diagrams/mkdocs.yml"],
+      "problemMatcher": []
+    },
+    {
+      // In sequence, and the demo site first: the examples build into
+      // site/examples/ and `mkdocs build` cleans site/ before it starts.
+      "label": "Build every site CI builds",
+      "detail": "The demo site and the three examples, in the order CI runs them",
+      "dependsOrder": "sequence",
+      "dependsOn": [
+        "Build the demo site (strict)",
+        "Build the RSS example (strict)",
+        "Build the gen-files example (strict)",
+        "Build the diagrams example (strict)"
+      ],
+      "problemMatcher": [],
+      "group": "build"
+    }
+  ]
+}

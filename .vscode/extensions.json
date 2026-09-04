@@ -1,0 +1,6 @@
+{
+  // The tasks resolve ${command:python.interpreterPath} through this extension.
+  // Everything else they need — the terminal, the browser debugger behind
+  // launch.json — ships with VS Code.
+  "recommendations": ["ms-python.python"]
+}
