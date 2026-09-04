@@ -50,9 +50,11 @@
       reached = headings[i]
     }
 
-    // Nothing above the line yet: the reader is still in the text before the
-    // first heading, and marking an entry there would point at the wrong one.
-    activate(reached ? linkFor.get(reached) : null)
+    // Nothing above the line yet: the reader is in the text before the first
+    // heading, which the outline has no entry of its own for. The first entry
+    // is marked there rather than none, so the rail reads as a position from
+    // the moment the page opens instead of only once it has been scrolled.
+    activate(linkFor.get(reached || headings[0]))
   }
 
   // Straight off the scroll event, as back-to-top.js does. Browsers already
