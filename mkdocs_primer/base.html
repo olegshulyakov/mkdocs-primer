@@ -109,6 +109,12 @@
     #}
     <script>
       (function () {
+        // Marks the document as scriptable before anything is painted, so the
+        // stylesheet can collapse what js/nav-sections.js is about to take
+        // charge of. Without this the reader would watch the navigation fold
+        // itself up a moment after the page appeared.
+        document.documentElement.classList.add('primer-js')
+
         try {
           var mode = localStorage.getItem('mkdocs-primer-color-mode')
           if (mode) document.documentElement.setAttribute('data-color-mode', mode)
@@ -214,6 +220,7 @@
       <script src="{{ 'js/copy-code.js' | url }}" defer></script>
       <script src="{{ 'js/back-to-top.js' | url }}" defer></script>
       <script src="{{ 'js/scrollable.js' | url }}" defer></script>
+      <script src="{{ 'js/nav-sections.js' | url }}" defer></script>
       {# Unconditional: the language and navigation popovers exist with or without search. #}
       <script src="{{ 'js/disclosure.js' | url }}" defer></script>
       {%- if config.theme.offline %}

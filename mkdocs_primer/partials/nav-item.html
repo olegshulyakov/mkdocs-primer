@@ -4,7 +4,14 @@
   which is what makes the recursion work (same trick as mkdocs-basic-theme).
 #}
 {%- if nav_item.children %}
-  <div class="primer-nav-section">
+  {#
+    `data-primer-nav-open` is the section's expanded state, and the only one.
+    The stylesheet hides the children of a section without it once the document
+    is known to be scriptable, and js/nav-sections.js moves the attribute when
+    the reader works the toggle. With no JavaScript nothing is hidden and every
+    section stays open, which is what this nav did before.
+  #}
+  <div class="primer-nav-section"{{ ' data-primer-nav-open' if nav_item.active }}>
     {#
       A section normally has no url. mkdocs-section-index gives it one by
       folding the section's index page into the section itself, and then the
@@ -17,13 +24,16 @@
       aria-current says nothing about its ancestors.
     #}
     {%- set section_label_class = 'primer-nav-section-label' ~ (' primer-nav-section-label-active' if nav_item.active else '') %}
-    {%- if nav_item.url %}
-      <a class="{{ section_label_class }}"
-         href="{{ nav_item.url | url }}"
-         {% if nav_item == page %}aria-current="page"{% endif %}>{{ nav_item.title }}</a>
-    {%- else %}
-      <div class="{{ section_label_class }}">{{ nav_item.title }}</div>
-    {%- endif %}
+    {# The row the toggle button is appended to; on its own it lays out as the label did. #}
+    <div class="primer-nav-section-header">
+      {%- if nav_item.url %}
+        <a class="{{ section_label_class }}"
+           href="{{ nav_item.url | url }}"
+           {% if nav_item == page %}aria-current="page"{% endif %}>{{ nav_item.title }}</a>
+      {%- else %}
+        <div class="{{ section_label_class }}">{{ nav_item.title }}</div>
+      {%- endif %}
+    </div>
     <div class="primer-nav-section-items">
       {%- for nav_item in nav_item.children %}
         {% include "partials/nav-item.html" %}

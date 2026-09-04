@@ -190,14 +190,77 @@ body {
   margin-top: var(--base-size-16);
 }
 
+/*
+ * A section is open only when it holds the current page. `.primer-js` is set
+ * on <html> by the inline script in base.html, so a reader without JavaScript
+ * — who would have no toggle to open anything with — sees every section, the
+ * way this navigation always worked.
+ */
+.primer-js .primer-nav-section:not([data-primer-nav-open]) > .primer-nav-section-items {
+  display: none;
+}
+
+/* On its own this lays out as the bare label did; js/nav-sections.js adds the toggle. */
+.primer-nav-section-header {
+  display: flex;
+  align-items: center;
+}
+
 .primer-nav-section-label {
   display: block;
+  flex: 1 1 auto;
+  min-width: 0;
   padding: var(--base-size-4) var(--base-size-8);
   font-size: 12px;
   font-weight: var(--base-text-weight-semibold, 600);
   color: var(--fgColor-muted);
   text-transform: uppercase;
   letter-spacing: 0.05em;
+}
+
+/*
+ * The chevron. Drawn with borders rather than an icon because this button is
+ * built in JavaScript, and neither icon set the theme ships would be reachable
+ * from there without copying its markup into a second place.
+ */
+.primer-nav-section-toggle {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  width: var(--base-size-24);
+  height: var(--base-size-24);
+  padding: 0;
+  color: var(--fgColor-muted);
+  cursor: pointer;
+  background: none;
+  border: 0;
+  border-radius: var(--borderRadius-medium, 6px);
+}
+
+.primer-nav-section-toggle:hover {
+  color: var(--fgColor-default);
+  background-color: var(--bgColor-neutral-muted);
+}
+
+.primer-nav-section-toggle::before {
+  width: 0;
+  height: 0;
+  content: '';
+  border-top: 4px solid transparent;
+  border-bottom: 4px solid transparent;
+  border-inline-start: 5px solid currentcolor;
+  transition: transform 0.1s ease-in-out;
+}
+
+.primer-nav-section-toggle[aria-expanded='true']::before {
+  transform: rotate(90deg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .primer-nav-section-toggle::before {
+    transition: none;
+  }
 }
 
 /* Lifted out of the muted default to mark the branch holding the current page. */
