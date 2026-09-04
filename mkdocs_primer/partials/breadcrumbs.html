@@ -1,0 +1,33 @@
+{#
+  Where the current page sits in the nav. A reader who arrived from a search
+  engine lands with no context at all, and on a narrow screen the sidebar that
+  would have supplied it is behind the hamburger.
+
+  `page.ancestors` is MkDocs core — nearest parent first, so it is reversed
+  here. A section carries a `url` only when something folded an index page into
+  it, mkdocs-section-index being the usual cause; without one it has no page to
+  link to and renders as plain text, the way partials/nav-item.html treats the
+  same case.
+
+  A page with no ancestors is already at the top of the tree: a trail holding
+  only itself says nothing, so the bar is left out entirely.
+#}
+{%- if page and page.ancestors %}
+  <nav class="primer-breadcrumbs" aria-label="{% trans %}Breadcrumb{% endtrans %}">
+    <ol class="primer-breadcrumbs-list">
+      {%- for ancestor in page.ancestors | reverse %}
+        <li class="primer-breadcrumbs-item">
+          {%- if ancestor.url %}
+            <a href="{{ ancestor.url | url }}">{{ ancestor.title }}</a>
+          {%- else %}
+            <span>{{ ancestor.title }}</span>
+          {%- endif %}
+        </li>
+      {%- endfor %}
+      {# The last crumb is where the reader already is, so it is not a link. #}
+      <li class="primer-breadcrumbs-item">
+        <span class="primer-breadcrumbs-current" aria-current="page">{{ page.title }}</span>
+      </li>
+    </ol>
+  </nav>
+{%- endif %}

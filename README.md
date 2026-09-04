@@ -21,7 +21,7 @@ theme:
 - Syntax highlighting mapped onto Primer's `prettylights` variables, so code colors follow the color mode. Works with both `pymdownx.highlight` and `codehilite`.
 - Copy buttons for Pygments code blocks and an accessible back-to-top control that respects reduced-motion preferences.
 - Admonitions styled after GitHub's alerts. The `admonition` extension ships no CSS and `@primer/css` has no rule for it, so most themes render `!!! note` undecorated.
-- Sidebar navigation with unlimited nesting, prev/next links, a search results page, and a 404 page.
+- Sidebar navigation with unlimited nesting, collapsed down to the section the reader is in, plus a breadcrumb trail, prev/next links, a search results page, and a 404 page.
 - Optional Workbox-powered offline support for sites served over HTTPS.
 - "Improve this page" footer, as in the Jekyll theme, with a "Last updated" line when `mkdocs-git-revision-date-localized` is enabled.
 - Native support for the plugins that need it: `mkdocs-section-index` (section labels render as links) and `mkdocs-static-i18n` (translated pages get the right `<html lang>` and can use the header language selector). See [Plugins](https://olegshulyakov.github.io/mkdocs-primer/guide/plugins/).

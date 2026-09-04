@@ -7,14 +7,15 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: mkdocs-primer 0.1.3\n"
-"Report-Msgid-Bugs-To: https://github.com/olegshulyakov/mkdocs-primer/issues\n"
-"POT-Creation-Date: 2026-09-03 14:45+0300\n"
+"Report-Msgid-Bugs-To: https://github.com/olegshulyakov/mkdocs-"
+"primer/issues\n"
+"POT-Creation-Date: 2026-09-04 12:19+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ru\n"
 "Language-Team: ru <LL@li.org>\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && "
-"(n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -28,37 +29,39 @@ msgstr "Извините, эта страница не найдена."
 msgid "Back to the home page"
 msgstr "Вернуться на главную"
 
-#: mkdocs_primer/base.html:123
+#: mkdocs_primer/base.html:129
 msgid "Skip to content"
 msgstr "Перейти к содержимому"
 
-#: mkdocs_primer/base.html:137
+#: mkdocs_primer/base.html:148
 msgid "Site navigation"
 msgstr "Навигация по сайту"
 
-#: mkdocs_primer/base.html:173 mkdocs_primer/base.html:174
+#: mkdocs_primer/base.html:191 mkdocs_primer/base.html:192
 msgid "Back to top"
 msgstr "Наверх"
 
-#: mkdocs_primer/base.html:199
+#: mkdocs_primer/base.html:217
 msgid "Copy code"
 msgstr "Копировать код"
 
-#: mkdocs_primer/base.html:200
+#: mkdocs_primer/base.html:218
 msgid "Code copied"
 msgstr "Код скопирован"
 
-#: mkdocs_primer/base.html:201
+#: mkdocs_primer/base.html:219
 msgid "Code copied to clipboard"
 msgstr "Код скопирован в буфер обмена"
 
-#: mkdocs_primer/base.html:202
+#: mkdocs_primer/base.html:220
 msgid "Could not copy code to clipboard"
 msgstr "Не удалось скопировать код в буфер обмена"
 
-#: mkdocs_primer/partials/search-box.html:3 mkdocs_primer/partials/search-box.html:4
-#: mkdocs_primer/partials/search-box.html:23 mkdocs_primer/partials/search-box.html:28
-#: mkdocs_primer/search.html:3 mkdocs_primer/search.html:13
+#: mkdocs_primer/partials/search-box.html:3
+#: mkdocs_primer/partials/search-box.html:4
+#: mkdocs_primer/partials/search-box.html:23
+#: mkdocs_primer/partials/search-box.html:28 mkdocs_primer/search.html:3
+#: mkdocs_primer/search.html:13
 msgid "Search"
 msgstr "Поиск"
 
@@ -84,11 +87,11 @@ msgstr "Введите поисковый запрос выше, чтобы ис
 
 #: mkdocs_primer/search.html:42
 msgid ""
-"Search needs JavaScript. Use your browser's find-on-page, or the repository's own "
-"search, to look through the documentation instead."
+"Search needs JavaScript. Use your browser's find-on-page, or the "
+"repository's own search, to look through the documentation instead."
 msgstr ""
-"Для поиска нужен JavaScript. Воспользуйтесь поиском по странице в браузере или "
-"поиском в репозитории."
+"Для поиска нужен JavaScript. Воспользуйтесь поиском по странице в "
+"браузере или поиском в репозитории."
 
 #: mkdocs_primer/search.html:66
 msgid "Searching…"
@@ -99,7 +102,12 @@ msgstr "Поиск…"
 msgid "Show results in other languages (%(count)s)"
 msgstr "Показать результаты на других языках (%(count)s)"
 
-#: mkdocs_primer/partials/color-mode.html:4 mkdocs_primer/partials/color-mode.html:5
+#: mkdocs_primer/partials/breadcrumbs.html:16
+msgid "Breadcrumb"
+msgstr "Навигационная цепочка"
+
+#: mkdocs_primer/partials/color-mode.html:4
+#: mkdocs_primer/partials/color-mode.html:5
 msgid "Change color mode"
 msgstr "Сменить цветовую схему"
 
@@ -119,7 +127,7 @@ msgstr "Исходный код сайта открыт."
 msgid "Improve this page"
 msgstr "Улучшить эту страницу"
 
-#: mkdocs_primer/partials/header.html:7
+#: mkdocs_primer/partials/header.html:8
 msgid "Toggle navigation"
 msgstr "Показать или скрыть навигацию"
 
@@ -143,7 +151,7 @@ msgstr "Назад"
 msgid "Next"
 msgstr "Далее"
 
-#: mkdocs_primer/partials/toc.html:19 mkdocs_primer/partials/toc.html:20
+#: mkdocs_primer/partials/toc.html:34
 msgid "On this page"
 msgstr "На этой странице"
 

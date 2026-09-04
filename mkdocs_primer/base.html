@@ -132,6 +132,10 @@
       {% include "partials/header.html" %}
     {%- endblock %}
 
+    {%- block breadcrumbs %}
+      {% include "partials/breadcrumbs.html" %}
+    {%- endblock %}
+
     {#
       Suppressed in a static template on a translated site: `nav` there is the
       last locale mkdocs-static-i18n built, so every link would point out of the

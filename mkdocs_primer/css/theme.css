@@ -126,6 +126,51 @@ body {
   width: auto;
 }
 
+/* ---------------------------------------------------------- breadcrumbs -- */
+
+/*
+ * A bar of its own under the header, spanning the window like everything else
+ * on this page. Not sticky: the header already takes a strip off the top of
+ * every screen, and a second one would cost more than the trail is worth.
+ */
+.primer-breadcrumbs {
+  padding: var(--base-size-8) var(--primer-gutter);
+  border-bottom: 1px solid var(--borderColor-default);
+}
+
+ol.primer-breadcrumbs-list {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 0;
+  margin: 0;
+  font-size: 12px;
+  list-style: none;
+}
+
+/*
+ * The separator is drawn rather than written, so it stays out of the trail's
+ * accessible name — a screen reader announces the crumbs, not a row of slashes.
+ */
+.primer-breadcrumbs-item + .primer-breadcrumbs-item::before {
+  margin-inline: var(--base-size-8);
+  color: var(--fgColor-muted);
+  content: '/';
+}
+
+.primer-breadcrumbs-item a {
+  color: var(--fgColor-muted);
+  text-decoration: none;
+}
+
+.primer-breadcrumbs-item a:hover {
+  color: var(--fgColor-accent);
+  text-decoration: underline;
+}
+
+.primer-breadcrumbs-current {
+  color: var(--fgColor-default);
+}
+
 /* --------------------------------------------------------------- layout -- */
 
 /*
@@ -948,6 +993,7 @@ a.primer-toc-link:hover {
 @media print {
   .primer-header,
   .primer-sidebar,
+  .primer-breadcrumbs,
   .primer-pagination,
   .primer-back-to-top,
   /* A list of links to jump to is of no use once the page is on paper. */
