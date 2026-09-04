@@ -15,7 +15,7 @@
 
   {# One entry is the page itself; there is nothing to navigate between. #}
   {%- if entries | length > 1 %}
-    <details class="primer-toc">
+    <details class="primer-toc" open>
       <summary class="primer-toc-summary">{% trans %}On this page{% endtrans %}</summary>
       <nav aria-label="{% trans %}On this page{% endtrans %}">
         <ul class="primer-toc-list">
@@ -27,18 +27,35 @@
     </details>
 
     {#
-      The block reads as part of the page, so it belongs under the title — but
-      the title comes from the Markdown, inside page.content, where a template
-      cannot reach. Moving it is cosmetic: with no JavaScript it stays above the
-      article and works exactly the same.
+      Two things the markup on its own cannot say.
+
+      The outline opens above, because closed it reads as a single grey line
+      that a visitor never thinks to click — the page looks as if it has no
+      outline at all. Where the layout has no room for the list, the script
+      closes it again; without JavaScript it stays open, which is the safe way
+      round.
+
+      And the block reads as part of the page, so it belongs under the title —
+      but the title comes from the Markdown, inside page.content, where a
+      template cannot reach. Moving it is cosmetic: with no JavaScript it stays
+      above the article and works exactly the same.
     #}
     <script>
-      // Deferred: this runs before the article has been parsed.
-      document.addEventListener('DOMContentLoaded', function () {
+      ;(function () {
         var toc = document.querySelector('.primer-toc')
-        var heading = document.querySelector('.markdown-body h1')
-        if (toc && heading) heading.insertAdjacentElement('afterend', toc)
-      })
+        if (!toc) return
+
+        // Immediate: the outline is parsed by now, and closing it before the
+        // first paint spares a narrow screen the flash of an open list.
+        var expanded = getComputedStyle(toc).getPropertyValue('--primer-toc-expanded')
+        if (expanded.trim() === '0') toc.open = false
+
+        // Deferred: this runs before the article has been parsed.
+        document.addEventListener('DOMContentLoaded', function () {
+          var heading = document.querySelector('.markdown-body h1')
+          if (heading) heading.insertAdjacentElement('afterend', toc)
+        })
+      })()
     </script>
   {%- endif %}
 {%- endif %}

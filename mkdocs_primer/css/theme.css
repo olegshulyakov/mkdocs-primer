@@ -210,11 +210,17 @@ a.primer-nav-section-label[aria-current='page'] {
 /* ------------------------------------------------------------------ toc -- */
 
 /*
- * "On this page", collapsed by default so it costs one line above the prose.
- * A script in partials/toc.html moves it under the page title; the margins
- * below suit either position.
+ * "On this page", open wherever the page has room for it. A script in
+ * partials/toc.html moves it under the page title; the margins below suit
+ * either position.
+ *
+ * --primer-toc-expanded is how the script learns whether there is room. The
+ * media query further down is the one place this theme states its breakpoint;
+ * reading the flag back out keeps that number from being written twice.
  */
 .primer-toc {
+  --primer-toc-expanded: 1;
+
   margin-bottom: var(--base-size-24);
   border-bottom: 1px solid var(--borderColor-muted, var(--borderColor-default));
 }
@@ -261,6 +267,18 @@ a.primer-nav-section-label[aria-current='page'] {
   .primer-toc-summary::before {
     transition: none;
   }
+}
+
+/*
+ * The outline sits above the prose, so an unbounded one on a page with dozens
+ * of headings would push the first paragraph off the screen. Keep half the
+ * window for the page itself and let the rest of the list scroll, the way the
+ * site navigation next to it already does. Ordinary pages stay well under the
+ * cap and show no scrollbar at all.
+ */
+.primer-toc > nav {
+  max-height: 50vh;
+  overflow-y: auto;
 }
 
 .primer-toc-list {
@@ -673,6 +691,11 @@ a.primer-nav-section-label[aria-current='page'] {
     display: block;
   }
 
+  /* No room for the outline here: it would fill the first screen on its own. */
+  .primer-toc {
+    --primer-toc-expanded: 0;
+  }
+
   /*
    * The popover is wider than the room left beside the trigger, so hanging it
    * off the trigger ran it past the edge of a narrow screen. Anchor it to the
@@ -752,7 +775,7 @@ a.primer-nav-section-label[aria-current='page'] {
   .primer-sidebar,
   .primer-pagination,
   .primer-back-to-top,
-  /* Collapsed on paper it would print as a bare "On this page" label. */
+  /* A list of links to jump to is of no use once the page is on paper. */
   .primer-toc,
   /* Sits inside .markdown-body, so it survives the header being hidden and
      prints an icon over the first line of every code block. */
