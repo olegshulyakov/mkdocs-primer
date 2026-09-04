@@ -523,8 +523,18 @@ a.primer-toc-link:hover {
 
 /* --------------------------------------------------------------- search -- */
 
+/*
+ * One field, two shapes. A header with room for it carries the input itself,
+ * the way GitHub's documentation does, and the button that would have opened
+ * it is dropped; a narrower one keeps the button, and the input is the popover
+ * it opens.
+ *
+ * The form is a sibling of the disclosure rather than its child, which is what
+ * lets the wide case work with no script at all — CSS cannot hold a <details>
+ * open, so a nested form would have had to be opened by JavaScript on every
+ * page load and defended from the dismissal handlers in js/disclosure.js.
+ */
 .primer-search-disclosure {
-  position: relative;
   flex: 0 0 auto;
   max-width: none;
 }
@@ -538,22 +548,46 @@ a.primer-toc-link:hover {
   display: none;
 }
 
-.primer-search-disclosure:not([open]) > .primer-search {
-  display: none;
+.primer-search {
+  flex: 0 1 480px;
 }
 
-.primer-search-disclosure[open] > .primer-search {
-  position: absolute;
-  top: calc(100% + var(--base-size-8));
-  inset-inline-end: 0;
-  z-index: 32;
-  display: block;
-  width: min(320px, calc(100vw - var(--base-size-32)));
-  padding: var(--base-size-8);
-  background-color: var(--overlay-bgColor, var(--bgColor-default));
-  border: 1px solid var(--borderColor-default);
-  border-radius: var(--borderRadius-medium, 6px);
-  box-shadow: var(--shadow-floating-small);
+/* Primer sizes the control to its content; here it should fill the field. */
+.primer-search .form-control {
+  width: 100%;
+}
+
+@media (min-width: 1012px) {
+  .primer-search-disclosure {
+    display: none;
+  }
+}
+
+@media (max-width: 1011.98px) {
+  .primer-search {
+    display: none;
+  }
+
+  /*
+   * Anchored to the header, which is the positioned ancestor because it is
+   * sticky. The popover is wider than the room beside the button, so hanging
+   * it off the button itself ran it past the edge of a narrow screen; the
+   * inset here lines it up with the header's own gutter, and so with the
+   * controls above it.
+   */
+  .primer-search-disclosure[open] ~ .primer-search {
+    position: absolute;
+    top: calc(100% + var(--base-size-8));
+    inset-inline-end: var(--primer-gutter);
+    z-index: 32;
+    display: block;
+    width: min(320px, calc(100vw - var(--base-size-32)));
+    padding: var(--base-size-8);
+    background-color: var(--overlay-bgColor, var(--bgColor-default));
+    border: 1px solid var(--borderColor-default);
+    border-radius: var(--borderRadius-medium, 6px);
+    box-shadow: var(--shadow-floating-small);
+  }
 }
 
 /* ------------------------------------------------------------ languages -- */
@@ -914,22 +948,6 @@ a.primer-toc-link:hover {
    */
   details.primer-toc {
     --primer-toc-expanded: 0;
-  }
-
-  /*
-   * The popover is wider than the room left beside the trigger, so hanging it
-   * off the trigger ran it past the edge of a narrow screen. Anchor it to the
-   * header instead — the sticky header is the positioned ancestor once the
-   * disclosure stops being one — and the three controls can keep the order
-   * they have on the desktop.
-   */
-  .primer-search-disclosure {
-    position: static;
-  }
-
-  .primer-search-disclosure[open] > .primer-search {
-    /* Lines up with the header's own gutter, and so with the controls above. */
-    inset-inline-end: var(--primer-gutter);
   }
 
   /*

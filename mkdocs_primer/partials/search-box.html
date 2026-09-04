@@ -10,7 +10,15 @@
       </svg>
     {%- endif %}
   </summary>
-  <form class="primer-search" action="{{ 'search.html' | url }}" method="get" role="search">
+</details>
+{#
+  A sibling of the disclosure, not its child. On a header wide enough to hold
+  the field the disclosure is hidden and this is simply a form in the header;
+  narrower, the button opens it as a popover. Nesting it would have meant
+  holding a <details> open on the desktop, which CSS cannot do — so the wide
+  case would have needed a script to work at all.
+#}
+<form class="primer-search" action="{{ 'search.html' | url }}" method="get" role="search">
     {#
       One search index covers every locale, and there is only one search page —
       the plugin builds it at the site root. Carrying the locale across lets
@@ -27,5 +35,4 @@
            name="q"
            placeholder="{% trans %}Search{% endtrans %}"
            autocomplete="off">
-  </form>
-</details>
+</form>
