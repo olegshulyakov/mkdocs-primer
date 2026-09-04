@@ -33,11 +33,20 @@
       {{ config.site_name }}
     </a>
 
+    {#
+      One spacer either side of the search field, so it sits in the middle of
+      the header rather than against the controls on the right. The trailing one
+      is dropped on a narrow window, where the field is a popover and what is
+      left in the row is the button that opens it — that belongs with the
+      controls at the right edge, in the same order as the field it replaces.
+    #}
     <div class="flex-auto"></div>
 
     {%- if 'search' in config.plugins %}
       {% include "partials/search-box.html" %}
     {%- endif %}
+
+    <div class="flex-auto primer-header-spacer-end"></div>
 
     {% include "partials/language.html" %}
     {% include "partials/color-mode.html" %}

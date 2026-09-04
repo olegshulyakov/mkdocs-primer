@@ -637,8 +637,14 @@ a.primer-toc-link[aria-current] {
   display: none;
 }
 
+/*
+ * The width GitHub's documentation gives the field. Wider than this it reads as
+ * the subject of the header rather than one of its controls, and it is a jump
+ * to the search page, not a box anyone types a paragraph into. The spacer on
+ * either side of it in header.html is what centres it.
+ */
 .primer-search {
-  flex: 0 1 480px;
+  flex: 0 1 320px;
 }
 
 /* Primer sizes the control to its content; here it should fill the field. */
@@ -654,6 +660,11 @@ a.primer-toc-link[aria-current] {
 
 @media (max-width: 1011.98px) {
   .primer-search {
+    display: none;
+  }
+
+  /* Nothing left to centre, and the button belongs to the cluster on the right. */
+  .primer-header-spacer-end {
     display: none;
   }
 
