@@ -11,8 +11,8 @@ Pushing a tag named `v<version>` starts the [release workflow](.github/workflows
 4. If any translatable string in a template changed, refresh the catalogs and commit them:
 
    ```console
-   pybabel extract -F babel.cfg -o mkdocs_primer/messages.pot mkdocs_primer
-   pybabel update -i mkdocs_primer/messages.pot -d mkdocs_primer/locales --no-fuzzy-matching
+   pybabel extract -F babel.cfg -o mkdocs_primer/locales/messages.pot mkdocs_primer
+   pybabel update -i mkdocs_primer/locales/messages.pot -d mkdocs_primer/locales --no-fuzzy-matching
    # fill in the new msgstr values in mkdocs_primer/locales/*/LC_MESSAGES/messages.po
    pybabel compile -d mkdocs_primer/locales --statistics
    ```
