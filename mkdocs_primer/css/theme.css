@@ -508,6 +508,12 @@ a.primer-toc-link:hover {
 
     position: sticky;
     top: calc(var(--primer-header-height) + var(--base-size-24));
+    /*
+     * Without this the grid stretches the outline over the whole row — as tall
+     * as the article — and a box that already fills its grid area has nowhere
+     * to travel inside it, so `sticky` does nothing at all.
+     */
+    align-self: start;
     grid-area: 1 / 2;
     padding-bottom: 0;
     margin-top: var(--base-size-24);
