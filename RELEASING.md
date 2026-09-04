@@ -8,16 +8,19 @@ Pushing a tag named `v<version>` starts the [release workflow](.github/workflows
 1. Choose the next [Semantic Versioning](https://semver.org/) version.
 2. Update `version` in `pyproject.toml` to that version, without the `v` prefix. `package.json` is for the private CSS-vendoring tool and does not need to change for a Python package release.
 3. If Primer dependencies changed, run `npm ci && npm run vendor` and commit the resulting files under `mkdocs_primer/css/vendor/`.
-4. If any translatable string in a template changed, refresh the catalogs and commit them:
+4. Put the new version in the catalog headers, and — if any translatable string in a template changed — refresh the messages as well. Commit the result:
 
    ```console
-   pybabel extract -F babel.cfg -o mkdocs_primer/locales/messages.pot mkdocs_primer
+   pybabel extract -F babel.cfg --project mkdocs-primer --version 0.1.3 \
+       --copyright-holder "Oleg Shulyakov" \
+       --msgid-bugs-address https://github.com/olegshulyakov/mkdocs-primer/issues \
+       -o mkdocs_primer/locales/messages.pot mkdocs_primer
    pybabel update -i mkdocs_primer/locales/messages.pot -d mkdocs_primer/locales --no-fuzzy-matching
    # fill in the new msgstr values in mkdocs_primer/locales/*/LC_MESSAGES/messages.po
    pybabel compile -d mkdocs_primer/locales --statistics
    ```
 
-   The compiled `.mo` files are committed, because that is what ships in the wheel.
+   `extract` builds the template header out of those four options; leave them off and it drops the copyright holder and the bug address. `update` keeps whatever `Project-Id-Version` each catalog already had, so edit that line in the `.po` files by hand before compiling. The compiled `.mo` files are committed, because that is what ships in the wheel.
 5. Run the release checks locally with Python 3.13:
 
    ```console
