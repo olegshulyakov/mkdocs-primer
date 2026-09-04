@@ -13,11 +13,14 @@
 | `direction` | `ltr` | Dirección del documento: `ltr` o `rtl`. |
 | `include_sidebar` | `true` | Representa la barra lateral de navegación. |
 | `show_footer` | `true` | Representa el pie de página "Mejorar esta página". |
+| `toc` | `auto` | Esquema "En esta página": `auto`, `expanded`, `collapsed` u `hidden`. |
 | `color_mode` | `auto` | Modo de color inicial: `auto`, `light` o `dark`. |
 | `light_theme` | `light` | Tema básico utilizado en modo claro. |
 | `dark_theme` | `dark` | Tema básico utilizado en modo oscuro. |
 
 `color_mode` solo establece el modo *inicial*. Los visitantes pueden cambiarlo con el encabezado. alternar y su elección se almacena en `localStorage`.
+
+`toc` decide qué ocurre con el esquema construido a partir de los encabezados de la página. `auto` lo abre donde el diseño tiene espacio y lo deja cerrado por debajo del punto de ruptura de la barra lateral, donde la lista ocuparía toda la primera pantalla. `expanded` y `collapsed` lo fijan en un estado; `hidden` — o `false` — lo omite.
 
 ## Iconos
 

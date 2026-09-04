@@ -3,11 +3,22 @@
   theme as `page.toc` and nothing else surfaces it, so without this a long page
   offers no way to see its sections or jump between them.
 
+  `theme.toc` says what the reader gets:
+
+    auto       open where the layout has room, closed on a narrow screen
+    expanded   always open
+    collapsed  always closed, one line above the prose
+    hidden     not rendered at all; `false` does the same
+
+  An unrecognised value falls through to the `auto` behaviour, which is how the
+  theme treats the rest of its options.
+
   python-markdown nests the whole document under its single h1, which is already
   the page title on screen; descend past it when that is the shape, so the list
   starts at the h2 level.
 #}
-{%- if page and page.toc %}
+{%- set toc_mode = config.theme.toc %}
+{%- if toc_mode and toc_mode != 'hidden' and page and page.toc %}
   {%- set entries = page.toc | list %}
   {%- if entries | length == 1 and entries[0].children %}
     {%- set entries = entries[0].children | list %}
@@ -15,7 +26,7 @@
 
   {# One entry is the page itself; there is nothing to navigate between. #}
   {%- if entries | length > 1 %}
-    <details class="primer-toc" open>
+    <details class="primer-toc"{% if toc_mode != 'collapsed' %} open{% endif %}>
       <summary class="primer-toc-summary">{% trans %}On this page{% endtrans %}</summary>
       <nav aria-label="{% trans %}On this page{% endtrans %}">
         <ul class="primer-toc-list">
@@ -27,28 +38,27 @@
     </details>
 
     {#
-      Two things the markup on its own cannot say.
+      The card reads as part of the page, so it belongs under the title — but
+      the title comes from the Markdown, inside page.content, where a template
+      cannot reach. Moving it is cosmetic: with no JavaScript it stays above the
+      article and works exactly the same.
 
-      The outline opens above, because closed it reads as a single grey line
-      that a visitor never thinks to click — the page looks as if it has no
-      outline at all. Where the layout has no room for the list, the script
-      closes it again; without JavaScript it stays open, which is the safe way
-      round.
-
-      And the block reads as part of the page, so it belongs under the title —
-      but the title comes from the Markdown, inside page.content, where a
-      template cannot reach. Moving it is cosmetic: with no JavaScript it stays
-      above the article and works exactly the same.
+      Under `auto` the same script also closes the card where the layout has no
+      room for the list. It opens in the markup and closes here rather than the
+      other way round, so a reader without JavaScript is left with the outline
+      showing rather than with a line they have to think to click.
     #}
     <script>
       ;(function () {
         var toc = document.querySelector('.primer-toc')
         if (!toc) return
 
+        {%- if toc_mode not in ['expanded', 'collapsed'] %}
         // Immediate: the outline is parsed by now, and closing it before the
         // first paint spares a narrow screen the flash of an open list.
         var expanded = getComputedStyle(toc).getPropertyValue('--primer-toc-expanded')
         if (expanded.trim() === '0') toc.open = false
+        {%- endif %}
 
         // Deferred: this runs before the article has been parsed.
         document.addEventListener('DOMContentLoaded', function () {

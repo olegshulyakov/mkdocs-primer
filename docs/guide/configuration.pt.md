@@ -13,11 +13,14 @@
 | `direction` | `ltr` | Direção do documento: `ltr` ou `rtl`. |
 | `include_sidebar` | `true` | Renderize a barra lateral de navegação. |
 | `show_footer` | `true` | Renderize o rodapé "Melhorar esta página". |
+| `toc` | `auto` | Sumário "Nesta página": `auto`, `expanded`, `collapsed` ou `hidden`. |
 | `color_mode` | `auto` | Modo de cor inicial: `auto`, `light` ou `dark`. |
 | `light_theme` | `light` | Tema Primer usado no modo claro. |
 | `dark_theme` | `dark` | Tema Primer usado no modo escuro. |
 
 `color_mode` define apenas o modo *inicial*. Os visitantes podem alterá-lo com o cabeçalho alternam e sua escolha é armazenada em `localStorage`.
+
+`toc` decide o que acontece com o sumário construído a partir dos títulos da página. `auto` o abre onde o layout tem espaço e o deixa fechado abaixo do ponto de quebra da barra lateral, onde a lista ocuparia toda a primeira tela. `expanded` e `collapsed` o fixam em um estado; `hidden` — ou `false` — o omite.
 
 ## Ícones
 

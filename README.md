@@ -35,6 +35,7 @@ theme:
 | `locale` | `en` | Language of the theme's own text. Catalogs ship for `en`, `es`, `fr`, `hi`, `pt`, `ru` and `zh`. |
 | `include_sidebar` | `true` | Render the navigation sidebar. |
 | `show_footer` | `true` | Render the "Improve this page" footer. |
+| `toc` | `auto` | "On this page" outline: `auto`, `expanded`, `collapsed` or `hidden`. |
 | `color_mode` | `auto` | Initial color mode: `auto`, `light` or `dark`. |
 | `light_theme` | `light` | Primer theme used in light mode. |
 | `dark_theme` | `dark` | Primer theme used in dark mode. |

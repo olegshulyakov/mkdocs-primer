@@ -13,11 +13,14 @@
 | `direction` | `ltr` | Direction du document : `ltr` ou `rtl`. |
 | `include_sidebar` | `true` | Afficher la barre latérale de navigation. |
 | `show_footer` | `true` | Afficher le pied de page « Améliorer cette page ». |
+| `toc` | `auto` | Sommaire « Sur cette page » : `auto`, `expanded`, `collapsed` ou `hidden`. |
 | `color_mode` | `auto` | Mode couleur initial : `auto`, `light` ou `dark`. |
 | `light_theme` | `light` | Thème Primer utilisé en mode clair. |
 | `dark_theme` | `dark` | Thème Primer utilisé en mode sombre. |
 
 `color_mode` définit uniquement le mode *initial*. Les visiteurs peuvent le modifier avec l'en-tête basculer, et leur choix est stocké dans `localStorage`.
+
+`toc` décide du sort du sommaire construit à partir des titres de la page. `auto` l'ouvre là où la mise en page a de la place et le laisse fermé sous le point de rupture de la barre latérale, où la liste occuperait tout le premier écran. `expanded` et `collapsed` le figent dans un état ; `hidden` — ou `false` — le supprime.
 
 ## Icônes
 

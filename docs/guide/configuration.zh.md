@@ -13,11 +13,14 @@
 | `direction` | `ltr` |文件方向：`ltr` 或 `rtl`。 |
 | `include_sidebar` | `true` |渲染导航侧边栏。 |
 | `show_footer` | `true` |渲染“改进此页面”页脚。 |
+| `toc` | `auto` |“本页内容”目录：`auto`、`expanded`、`collapsed` 或 `hidden`。 |
 | `color_mode` | `auto` |初始颜色模式：`auto`、`light` 或 `dark`。 |
 | `light_theme` | `light` |浅色模式下使用的底漆主题。 |
 | `dark_theme` | `dark_theme` | `dark` |深色模式下使用的入门主题。 |
 
 `color_mode` 仅设置*初始*模式。访客可以通过标题更改它 切换，他们的选择存储在 `localStorage` 中。
+
+`toc` 决定由当前页面标题生成的目录如何显示。`auto` 在版面有空间时展开它，在侧边栏断点以下保持折叠——那里这份列表会占满整个首屏。`expanded` 和 `collapsed` 将其固定为一种状态；`hidden`（或 `false`）则完全不渲染。
 
 ## 图标
 

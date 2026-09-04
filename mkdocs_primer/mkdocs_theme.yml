@@ -29,6 +29,12 @@ direction: ltr
 # Chrome toggles.
 include_sidebar: true
 show_footer: true
+# "On this page", the outline built from the headings of the current page.
+#   auto       open where the layout has room for it, closed on narrow screens
+#   expanded   always open
+#   collapsed  always closed, one line above the prose
+#   hidden     not rendered at all; `false` does the same
+toc: auto
 # Register a Workbox-generated service worker. The application using the theme
 # must generate it as part of its site build; see the project offline example.
 offline: false

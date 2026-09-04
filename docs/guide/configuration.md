@@ -14,11 +14,14 @@
 | `direction` | `ltr` | Document direction: `ltr` or `rtl`. |
 | `include_sidebar` | `true` | Render the navigation sidebar. |
 | `show_footer` | `true` | Render the "Improve this page" footer. |
+| `toc` | `auto` | "On this page" outline: `auto`, `expanded`, `collapsed` or `hidden`. |
 | `color_mode` | `auto` | Initial color mode: `auto`, `light` or `dark`. |
 | `light_theme` | `light` | Primer theme used in light mode. |
 | `dark_theme` | `dark` | Primer theme used in dark mode. |
 
 `color_mode` only sets the *initial* mode. Visitors can change it with the header toggle, and their choice is stored in `localStorage`.
+
+`toc` chooses what happens to the outline built from the current page's headings. `auto` opens it where the layout has room and leaves it closed below the sidebar breakpoint, where the list would take the whole first screen. `expanded` and `collapsed` fix it either way; `hidden` — or `false` — leaves it out.
 
 ## Icons
 
