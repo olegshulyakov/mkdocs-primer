@@ -5,7 +5,7 @@
   work (same trick as partials/nav-item.html).
 #}
 <li class="primer-toc-item">
-  <a href="{{ toc_item.url }}">{{ toc_item.title }}</a>
+  <a class="primer-toc-link" href="{{ toc_item.url }}">{{ toc_item.title }}</a>
   {%- if toc_item.children %}
     <ul class="primer-toc-list">
       {%- for toc_item in toc_item.children %}

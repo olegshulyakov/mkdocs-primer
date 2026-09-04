@@ -25,8 +25,14 @@ body {
   background-color: var(--bgColor-default);
 }
 
-/* Links in prose need a non-color cue in their resting state. */
-.markdown-body a:not(.anchor):not(.btn),
+/*
+ * Links in prose need a non-color cue in their resting state. The outline is
+ * left out: a script drops it inside .markdown-body, but it is navigation — a
+ * list in which every item is a link — and the sidebar is not underlined
+ * either. Underlining it would also make the page look different depending on
+ * whether that script had run.
+ */
+.markdown-body a:not(.anchor):not(.btn):not(.primer-toc-link),
 .primer-footer a {
   text-decoration: underline;
   text-underline-offset: 0.15em;
@@ -210,31 +216,44 @@ a.primer-nav-section-label[aria-current='page'] {
 /* ------------------------------------------------------------------ toc -- */
 
 /*
- * "On this page", open wherever the page has room for it. A script in
- * partials/toc.html moves it under the page title; the margins below suit
- * either position.
+ * "On this page", shaped like the panel Confluence's Table of Contents macro
+ * draws: a bordered card above the prose, a plain bold label, a bulleted list
+ * of links. The colours are Primer tokens rather than Atlassian's palette, so
+ * the card follows the rest of the theme into dark mode.
  *
- * --primer-toc-expanded is how the script learns whether there is room. The
- * media query further down is the one place this theme states its breakpoint;
- * reading the flag back out keeps that number from being written twice.
+ * The card sizes to its content, as that macro does — full width would leave a
+ * mostly empty box beside three short headings. A script in partials/toc.html
+ * moves it under the page title; the margin below suits either position.
+ *
+ * That move drops the card inside .markdown-body, where Primer has rules for
+ * `details` and `ul` of its own. The selectors here carry the element name so
+ * they match that specificity and win on order — theme.css is the last
+ * stylesheet — and the card looks the same whether the script ran or not.
+ *
+ * --primer-toc-expanded is how the script learns whether there is room for the
+ * list. The media query further down is the one place this theme states its
+ * breakpoint; reading the flag back out keeps that number from being written
+ * a second time in JavaScript.
  */
-.primer-toc {
+details.primer-toc {
   --primer-toc-expanded: 1;
 
+  width: fit-content;
+  max-width: 100%;
+  padding: var(--base-size-12) var(--base-size-16);
   margin-bottom: var(--base-size-24);
-  border-bottom: 1px solid var(--borderColor-muted, var(--borderColor-default));
+  background-color: var(--bgColor-muted);
+  border: 1px solid var(--borderColor-default);
+  border-radius: var(--borderRadius-medium);
 }
 
 .primer-toc-summary {
   display: inline-flex;
-  gap: var(--base-size-4);
+  gap: var(--base-size-8);
   align-items: center;
-  padding: var(--base-size-4) 0;
-  font-size: 12px;
+  font-size: 14px;
   font-weight: var(--base-text-weight-semibold, 600);
-  color: var(--fgColor-muted);
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
+  color: var(--fgColor-default);
   cursor: pointer;
   list-style: none;
 }
@@ -244,7 +263,7 @@ a.primer-nav-section-label[aria-current='page'] {
 }
 
 .primer-toc-summary:hover {
-  color: var(--fgColor-default);
+  color: var(--fgColor-accent);
 }
 
 /* Disclosure triangle, rotating on open; ::before so it leads the label. */
@@ -278,22 +297,26 @@ a.primer-nav-section-label[aria-current='page'] {
  */
 .primer-toc > nav {
   max-height: 50vh;
+  margin-top: var(--base-size-8);
   overflow-y: auto;
 }
 
-.primer-toc-list {
-  padding: 0;
-  margin: 0 0 var(--base-size-8);
-  list-style: none;
+/*
+ * Bulleted, as the macro renders it. The list is left to the browser's own
+ * marker sequence — disc, then circle, then square — so heading depth reads
+ * off the bullet as well as off the indent.
+ */
+ul.primer-toc-list {
+  padding-inline-start: var(--base-size-20);
+  margin: 0;
 }
 
-/* Nested headings indent; the marker is dropped, so padding carries the depth. */
-.primer-toc-list .primer-toc-list {
-  margin-bottom: 0;
-  padding-inline-start: var(--base-size-16);
+/* Primer spaces adjacent list items apart; the outline reads better tight. */
+.primer-toc-item + .primer-toc-item {
+  margin-top: 0;
 }
 
-.primer-toc-item > a {
+a.primer-toc-link {
   display: block;
   padding: 2px 0;
   font-size: 14px;
@@ -301,7 +324,7 @@ a.primer-nav-section-label[aria-current='page'] {
   text-decoration: none;
 }
 
-.primer-toc-item > a:hover {
+a.primer-toc-link:hover {
   text-decoration: underline;
 }
 
@@ -691,8 +714,12 @@ a.primer-nav-section-label[aria-current='page'] {
     display: block;
   }
 
-  /* No room for the outline here: it would fill the first screen on its own. */
-  .primer-toc {
+  /*
+   * No room for the outline here: it would fill the first screen on its own.
+   * Spelled with the element name to match where the flag is set, since a
+   * media query adds no specificity of its own.
+   */
+  details.primer-toc {
     --primer-toc-expanded: 0;
   }
 
