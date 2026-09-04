@@ -1,8 +1,13 @@
+{# Same locale caveat as the sidebar in base.html. #}
+{%- set has_sidebar = config.theme.include_sidebar and nav and (page or not config.plugins.get('i18n')) %}
 <header class="primer-header">
-  {# Edge to edge, like the layout below it — not a centred container. #}
-  <div class="primer-header-inner d-flex flex-items-center">
-    {# Same locale caveat as the sidebar in base.html. #}
-    {%- if config.theme.include_sidebar and nav and (page or not config.plugins.get('i18n')) %}
+  {#
+    Edge to edge, like the layout below it — not a centred container. The class
+    tells the stylesheet there is a navigation column for the title to stand
+    over; without one the header is the plain row it always was.
+  #}
+  <div class="primer-header-inner d-flex flex-items-center{{ ' primer-header-inner-with-sidebar' if has_sidebar }}">
+    {%- if has_sidebar %}
       {# The mobile hamburger comes first, matching the usual left-edge placement. #}
       <details class="primer-nav-toggle">
         <summary class="btn btn-octicon" aria-label="{% trans %}Toggle navigation{% endtrans %}">

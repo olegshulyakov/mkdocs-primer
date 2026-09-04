@@ -137,6 +137,25 @@ body {
   width: auto;
 }
 
+/*
+ * Where there is a navigation column, the title stands over it: held to the
+ * column's width, and inset by the 8px a nav row adds on top of the sidebar's
+ * own padding, so the site name and the pages under it start on one line. What
+ * follows then begins at the reading column, which is what centres the search
+ * field over the prose rather than over the window.
+ *
+ * The controls at the other end stay against the window edge. .primer-content
+ * is wider on a page that put its outline in the rail than on one that did
+ * not, and the header cannot know which it is standing on — so there is no one
+ * edge for them to line up with.
+ */
+@media (min-width: 1012px) {
+  .primer-header-inner-with-sidebar > .primer-header-title {
+    min-width: calc(var(--primer-sidebar-width) - var(--primer-gutter));
+    padding-inline-start: var(--base-size-8);
+  }
+}
+
 /* ---------------------------------------------------------- breadcrumbs -- */
 
 /*
