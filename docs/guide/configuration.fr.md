@@ -20,7 +20,7 @@
 
 `color_mode` définit uniquement le mode *initial*. Les visiteurs peuvent le modifier avec l'en-tête basculer, et leur choix est stocké dans `localStorage`.
 
-`toc` décide du sort du sommaire construit à partir des titres de la page. `auto` l'ouvre là où la mise en page a de la place et le laisse fermé sous le point de rupture de la barre latérale, où la liste occuperait tout le premier écran. `expanded` et `collapsed` le figent dans un état ; `hidden` — ou `false` — le supprime.
+`toc` décide où va le sommaire construit à partir des titres de la page. `auto` le place dans la colonne de droite quand la fenêtre laisse la place à une troisième colonne, et dans le flux sous le titre de la page sinon, déplié dans les deux cas. `expanded` le garde dans le flux et hors de la colonne, `collapsed` en fait un bloc dépliable, et `hidden` — ou `false` — le supprime.
 
 ## Icônes
 

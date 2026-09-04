@@ -259,37 +259,42 @@ a.primer-nav-section-label[aria-current='page'] {
 /* ------------------------------------------------------------------ toc -- */
 
 /*
- * "On this page", shaped like the panel Confluence's Table of Contents macro
- * draws: a bordered card above the prose, a plain bold label, a bulleted list
- * of links. The colours are Primer tokens rather than Atlassian's palette, so
- * the card follows the rest of the theme into dark mode.
+ * "On this page". On a wide window it sits in the third column beside the
+ * prose and scrolls with it, the way GitHub's documentation renders it: a
+ * label over a plain list, no border, no bullets, nothing to click open.
+ * Narrower than that the same list moves into the flow under the page title,
+ * still expanded, with a rule under it.
  *
- * The card sizes to its content, as that macro does — full width would leave a
- * mostly empty box beside three short headings. A script in partials/toc.html
- * moves it under the page title; the margin below suits either position.
+ * The selectors name the element because a script drops the block inside
+ * .markdown-body, where Primer styles `details` and `ul` of its own; naming it
+ * ties that specificity and wins on order, theme.css being the last sheet.
  *
- * That move drops the card inside .markdown-body, where Primer has rules for
- * `details` and `ul` of its own. The selectors here carry the element name so
- * they match that specificity and win on order — theme.css is the last
- * stylesheet — and the card looks the same whether the script ran or not.
- *
- * --primer-toc-expanded is how the script learns whether there is room for the
- * list. The media query further down is the one place this theme states its
- * breakpoint; reading the flag back out keeps that number from being written
- * a second time in JavaScript.
+ * --primer-toc-rail tells that script whether the rail is in play. The media
+ * query at the bottom is the only place the theme states that width.
  */
-details.primer-toc {
-  --primer-toc-expanded: 1;
+details.primer-toc,
+section.primer-toc {
+  --primer-toc-rail: 0;
 
-  width: fit-content;
-  max-width: 100%;
-  padding: var(--base-size-12) var(--base-size-16);
+  padding-bottom: var(--base-size-16);
   margin-bottom: var(--base-size-24);
-  background-color: var(--bgColor-muted);
-  border: 1px solid var(--borderColor-default);
-  border-radius: var(--borderRadius-medium);
+  border-bottom: 1px solid var(--borderColor-muted, var(--borderColor-default));
 }
 
+/*
+ * A div rather than a heading: the outline is rendered before the article, and
+ * a real h2 there would land above the page's own h1 and break the document's
+ * heading order. `nav` takes its accessible name from this through
+ * aria-labelledby, so assistive technology still announces the landmark.
+ */
+.primer-toc-heading {
+  margin-bottom: var(--base-size-8);
+  font-size: 14px;
+  font-weight: var(--base-text-weight-semibold, 600);
+  color: var(--fgColor-default);
+}
+
+/* Only the `collapsed` mode renders a disclosure, and only it needs a marker. */
 .primer-toc-summary {
   display: inline-flex;
   gap: var(--base-size-8);
@@ -332,11 +337,9 @@ details.primer-toc {
 }
 
 /*
- * The outline sits above the prose, so an unbounded one on a page with dozens
- * of headings would push the first paragraph off the screen. Keep half the
- * window for the page itself and let the rest of the list scroll, the way the
- * site navigation next to it already does. Ordinary pages stay well under the
- * cap and show no scrollbar at all.
+ * In the flow the outline sits above the prose, so an unbounded one on a page
+ * with dozens of headings would push the first paragraph off the screen. Keep
+ * half the window for the page itself and let the rest of the list scroll.
  */
 .primer-toc > nav {
   max-height: 50vh;
@@ -344,14 +347,15 @@ details.primer-toc {
   overflow-y: auto;
 }
 
-/*
- * Bulleted, as the macro renders it. The list is left to the browser's own
- * marker sequence — disc, then circle, then square — so heading depth reads
- * off the bullet as well as off the indent.
- */
 ul.primer-toc-list {
-  padding-inline-start: var(--base-size-20);
+  padding: 0;
   margin: 0;
+  list-style: none;
+}
+
+/* No markers, so the padding is what carries heading depth. */
+ul.primer-toc-list ul.primer-toc-list {
+  padding-inline-start: var(--base-size-16);
 }
 
 /* Primer spaces adjacent list items apart; the outline reads better tight. */
@@ -361,15 +365,53 @@ ul.primer-toc-list {
 
 a.primer-toc-link {
   display: block;
-  padding: 2px 0;
+  padding: var(--base-size-4) 0;
   font-size: 14px;
-  color: var(--fgColor-accent);
+  color: var(--fgColor-muted);
   text-decoration: none;
 }
 
 a.primer-toc-link:hover {
+  color: var(--fgColor-accent);
   text-decoration: underline;
 }
+
+/*
+ * The third column. `:has` is what keeps it honest — the rail only opens when
+ * there is an outline to put in it, so a page with one heading, or a site with
+ * `toc: collapsed`, keeps the full reading width. Where `:has` is missing the
+ * outline stays in the flow, which is the same thing a narrow window gets.
+ */
+@media (min-width: 1280px) {
+  .primer-content:has(> .primer-toc-in-rail) {
+    grid-template-columns: minmax(0, 1fr) var(--primer-rail-width);
+    max-width: calc(
+      var(--primer-article-max) + var(--base-size-32) + var(--primer-rail-width) +
+        2 * var(--primer-gutter)
+    );
+  }
+
+  .primer-content:has(> .primer-toc-in-rail) > .primer-main {
+    grid-area: 1 / 1;
+  }
+
+  .primer-content:has(> .primer-toc-in-rail) > .primer-toc-in-rail {
+    --primer-toc-rail: 1;
+
+    position: sticky;
+    top: calc(var(--primer-header-height) + var(--base-size-24));
+    grid-area: 1 / 2;
+    padding-bottom: 0;
+    margin-top: var(--base-size-24);
+    margin-bottom: 0;
+    border-bottom: 0;
+  }
+
+  .primer-content:has(> .primer-toc-in-rail) > .primer-toc-in-rail > nav {
+    max-height: calc(100vh - var(--primer-header-height) - var(--base-size-64));
+  }
+}
+
 
 /* --------------------------------------------------------------- search -- */
 

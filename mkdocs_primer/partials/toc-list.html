@@ -1,0 +1,9 @@
+{#
+  The heading list, shared by the two shapes partials/toc.html can render.
+  `entries` comes from the including template.
+#}
+<ul class="primer-toc-list">
+  {%- for toc_item in entries %}
+    {% include "partials/toc-item.html" %}
+  {%- endfor %}
+</ul>

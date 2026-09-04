@@ -20,7 +20,7 @@
 
 `color_mode` solo establece el modo *inicial*. Los visitantes pueden cambiarlo con el encabezado. alternar y su elección se almacena en `localStorage`.
 
-`toc` decide qué ocurre con el esquema construido a partir de los encabezados de la página. `auto` lo abre donde el diseño tiene espacio y lo deja cerrado por debajo del punto de ruptura de la barra lateral, donde la lista ocuparía toda la primera pantalla. `expanded` y `collapsed` lo fijan en un estado; `hidden` — o `false` — lo omite.
+`toc` decide dónde va el esquema construido a partir de los encabezados de la página. `auto` lo coloca en la columna derecha cuando la ventana da para una tercera columna, y en el flujo bajo el título de la página en caso contrario, desplegado en ambos casos. `expanded` lo mantiene en el flujo y fuera de la columna, `collapsed` lo convierte en un desplegable, y `hidden` — o `false` — lo omite.
 
 ## Iconos
 

@@ -5,13 +5,18 @@
 
   `theme.toc` says what the reader gets:
 
-    auto       open where the layout has room, closed on a narrow screen
-    expanded   always open
-    collapsed  always closed, one line above the prose
+    auto       the right rail where the window is wide enough for a third
+               column, otherwise in the flow under the page title — expanded
+               either way, which is how GitHub's own documentation reads
+    expanded   always in the flow, expanded; never takes the rail
+    collapsed  always in the flow, as a disclosure the reader opens
     hidden     not rendered at all; `false` does the same
 
   An unrecognised value falls through to the `auto` behaviour, which is how the
   theme treats the rest of its options.
+
+  Only `collapsed` is a <details>: the other shapes have nothing to click open,
+  so giving them a disclosure would promise a control that does nothing useful.
 
   python-markdown nests the whole document under its single h1, which is already
   the page title on screen; descend past it when that is the shape, so the list
@@ -26,39 +31,35 @@
 
   {# One entry is the page itself; there is nothing to navigate between. #}
   {%- if entries | length > 1 %}
-    <details class="primer-toc"{% if toc_mode != 'collapsed' %} open{% endif %}>
-      <summary class="primer-toc-summary">{% trans %}On this page{% endtrans %}</summary>
-      <nav aria-label="{% trans %}On this page{% endtrans %}">
-        <ul class="primer-toc-list">
-          {%- for toc_item in entries %}
-            {% include "partials/toc-item.html" %}
-          {%- endfor %}
-        </ul>
-      </nav>
-    </details>
+    {%- set toc_label = gettext('On this page') %}
+    {%- if toc_mode == 'collapsed' %}
+      <details class="primer-toc">
+        <summary class="primer-toc-summary">{{ toc_label }}</summary>
+        <nav aria-label="{{ toc_label }}">
+          {% include "partials/toc-list.html" %}
+        </nav>
+      </details>
+    {%- else %}
+      <section class="primer-toc{{ ' primer-toc-in-rail' if toc_mode != 'expanded' }}">
+        <div class="primer-toc-heading" id="primer-toc-label">{{ toc_label }}</div>
+        <nav aria-labelledby="primer-toc-label">
+          {% include "partials/toc-list.html" %}
+        </nav>
+      </section>
+    {%- endif %}
 
     {#
-      The card reads as part of the page, so it belongs under the title — but
-      the title comes from the Markdown, inside page.content, where a template
-      cannot reach. Moving it is cosmetic: with no JavaScript it stays above the
-      article and works exactly the same.
-
-      Under `auto` the same script also closes the card where the layout has no
-      room for the list. It opens in the markup and closes here rather than the
-      other way round, so a reader without JavaScript is left with the outline
-      showing rather than with a line they have to think to click.
+      In the rail the outline is already where it belongs. In the flow it reads
+      as part of the page, so it belongs under the title — but the title comes
+      from the Markdown, inside page.content, where a template cannot reach.
+      Moving it is cosmetic: with no JavaScript it stays above the article and
+      works exactly the same.
     #}
     <script>
       ;(function () {
         var toc = document.querySelector('.primer-toc')
         if (!toc) return
-
-        {%- if toc_mode not in ['expanded', 'collapsed'] %}
-        // Immediate: the outline is parsed by now, and closing it before the
-        // first paint spares a narrow screen the flash of an open list.
-        var expanded = getComputedStyle(toc).getPropertyValue('--primer-toc-expanded')
-        if (expanded.trim() === '0') toc.open = false
-        {%- endif %}
+        if (getComputedStyle(toc).getPropertyValue('--primer-toc-rail').trim() === '1') return
 
         // Deferred: this runs before the article has been parsed.
         document.addEventListener('DOMContentLoaded', function () {

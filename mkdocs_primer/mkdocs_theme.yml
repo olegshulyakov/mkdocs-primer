@@ -30,9 +30,10 @@ direction: ltr
 include_sidebar: true
 show_footer: true
 # "On this page", the outline built from the headings of the current page.
-#   auto       open where the layout has room for it, closed on narrow screens
-#   expanded   always open
-#   collapsed  always closed, one line above the prose
+#   auto       the right rail where the window has room for a third column,
+#              otherwise in the flow under the page title — expanded either way
+#   expanded   always in the flow, expanded; never takes the rail
+#   collapsed  always in the flow, as a disclosure the reader opens
 #   hidden     not rendered at all; `false` does the same
 toc: auto
 # Register a Workbox-generated service worker. The application using the theme

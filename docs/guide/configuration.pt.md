@@ -20,7 +20,7 @@
 
 `color_mode` define apenas o modo *inicial*. Os visitantes podem alterá-lo com o cabeçalho alternam e sua escolha é armazenada em `localStorage`.
 
-`toc` decide o que acontece com o sumário construído a partir dos títulos da página. `auto` o abre onde o layout tem espaço e o deixa fechado abaixo do ponto de quebra da barra lateral, onde a lista ocuparia toda a primeira tela. `expanded` e `collapsed` o fixam em um estado; `hidden` — ou `false` — o omite.
+`toc` decide para onde vai o sumário construído a partir dos títulos da página. `auto` o coloca na coluna da direita quando a janela comporta uma terceira coluna, e no fluxo sob o título da página caso contrário, expandido nos dois casos. `expanded` o mantém no fluxo e fora da coluna, `collapsed` o transforma num bloco que o leitor abre, e `hidden` — ou `false` — o omite.
 
 ## Ícones
 
