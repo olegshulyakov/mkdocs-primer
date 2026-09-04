@@ -1,0 +1,30 @@
+name: Feature request
+description: Ask for something the theme cannot do yet.
+title: "[Feature]: "
+labels: ["enhancement"]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: What problem does this solve?
+      description: What you are trying to build, and where the theme gets in the way today.
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposal
+    attributes:
+      label: What should it do?
+      description: >
+        The behaviour you want, and how it would be configured or used —
+        a sketch of the `mkdocs.yml` block or the template override, if that applies.
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: What you tried instead
+      description: Workarounds, other themes or plugins that do this, or prior art in Primer itself.
+    validations:
+      required: false
