@@ -129,13 +129,16 @@ body {
 /* ---------------------------------------------------------- breadcrumbs -- */
 
 /*
- * A bar of its own under the header, spanning the window like everything else
- * on this page. Not sticky: the header already takes a strip off the top of
- * every screen, and a second one would cost more than the trail is worth.
+ * The first line of the reading column, above the title it leads to. It sits
+ * inside .primer-content, which already supplies the gutters and the width
+ * ceiling, so the trail needs neither of its own — and no rule under it, which
+ * at this width would read as a divider inside the article rather than as the
+ * page furniture the full-width bar was.
+ *
+ * The article's own top padding is the gap down to the title.
  */
 .primer-breadcrumbs {
-  padding: var(--base-size-8) var(--primer-gutter);
-  border-bottom: 1px solid var(--borderColor-default);
+  padding-top: var(--base-size-24);
 }
 
 ol.primer-breadcrumbs-list {
@@ -204,18 +207,27 @@ ol.primer-breadcrumbs-list {
 }
 
 /*
- * Article and outline together. The width ceiling is on this pair rather than
- * on the prose alone, so the two stay centred as one block on a wide monitor
- * instead of drifting apart.
+ * Breadcrumbs, article and outline together. The width ceiling is on the whole
+ * group rather than on the prose alone, so it stays centred as one block on a
+ * wide monitor instead of drifting apart.
  */
 .primer-content {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  gap: var(--base-size-32);
   width: 100%;
   max-width: calc(var(--primer-article-max) + 2 * var(--primer-gutter));
   padding-inline: var(--primer-gutter);
   margin-inline: auto;
+}
+
+/*
+ * Article and outline side by side. A box of its own rather than the trail
+ * being made a third grid item: the trail is optional, and a grid that has to
+ * place its columns around something that may not be there needs a row it
+ * cannot collapse when the page has no ancestors.
+ */
+.primer-columns {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--base-size-32);
 }
 
 .primer-main {
@@ -506,19 +518,27 @@ a.primer-toc-link[aria-current] {
  * outline stays in the flow, which is the same thing a narrow window gets.
  */
 @media (min-width: 1280px) {
-  .primer-content:has(> .primer-toc-in-rail) {
-    grid-template-columns: minmax(0, 1fr) var(--primer-rail-width);
+  /*
+   * Spelled out through .primer-columns rather than as a descendant: in the
+   * flow the outline is moved into the article, and a looser test would keep
+   * widening the group after a resize while the columns themselves had gone.
+   */
+  .primer-content:has(> .primer-columns > .primer-toc-in-rail) {
     max-width: calc(
       var(--primer-article-max) + var(--base-size-32) + var(--primer-rail-width) +
         2 * var(--primer-gutter)
     );
   }
 
-  .primer-content:has(> .primer-toc-in-rail) > .primer-main {
+  .primer-columns:has(> .primer-toc-in-rail) {
+    grid-template-columns: minmax(0, 1fr) var(--primer-rail-width);
+  }
+
+  .primer-columns:has(> .primer-toc-in-rail) > .primer-main {
     grid-area: 1 / 1;
   }
 
-  .primer-content:has(> .primer-toc-in-rail) > .primer-toc-in-rail {
+  .primer-columns:has(> .primer-toc-in-rail) > .primer-toc-in-rail {
     --primer-toc-rail: 1;
 
     position: sticky;
@@ -536,7 +556,7 @@ a.primer-toc-link[aria-current] {
     border-bottom: 0;
   }
 
-  .primer-content:has(> .primer-toc-in-rail) > .primer-toc-in-rail > nav {
+  .primer-columns:has(> .primer-toc-in-rail) > .primer-toc-in-rail > nav {
     max-height: calc(100vh - var(--primer-header-height) - var(--base-size-64));
   }
 }

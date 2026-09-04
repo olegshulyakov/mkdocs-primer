@@ -132,10 +132,6 @@
       {% include "partials/header.html" %}
     {%- endblock %}
 
-    {%- block breadcrumbs %}
-      {% include "partials/breadcrumbs.html" %}
-    {%- endblock %}
-
     {#
       Suppressed in a static template on a translated site: `nav` there is the
       last locale mkdocs-static-i18n built, so every link would point out of the
@@ -153,36 +149,46 @@
 
       <div class="primer-content">
         {#
-          A sibling of the article, not a child of it: on a wide window the
-          stylesheet lifts it into the third column, and where there is no room
-          for one it stays here, above the prose. See partials/toc.html.
+          Above the columns rather than beside them, so the trail starts where
+          the page title does and shares the reading column's width.
         #}
-        {%- block toc %}
-          {% include "partials/toc.html" %}
+        {%- block breadcrumbs %}
+          {% include "partials/breadcrumbs.html" %}
         {%- endblock %}
 
-        {#
-          tabindex="-1" is what makes the skip link work: without it the browser
-          scrolls but leaves focus at the top of the document, so the next Tab
-          goes straight back into the header the visitor just skipped.
-        #}
-        <main class="primer-main" id="primer-content" tabindex="-1">
-          <article class="markdown-body">
-            {%- block content %}
-              {{ page.content }}
+        <div class="primer-columns">
+          {#
+            A sibling of the article, not a child of it: on a wide window the
+            stylesheet lifts it into the third column, and where there is no room
+            for one it stays here, above the prose. See partials/toc.html.
+          #}
+          {%- block toc %}
+            {% include "partials/toc.html" %}
+          {%- endblock %}
+
+          {#
+            tabindex="-1" is what makes the skip link work: without it the browser
+            scrolls but leaves focus at the top of the document, so the next Tab
+            goes straight back into the header the visitor just skipped.
+          #}
+          <main class="primer-main" id="primer-content" tabindex="-1">
+            <article class="markdown-body">
+              {%- block content %}
+                {{ page.content }}
+              {%- endblock %}
+            </article>
+
+            {%- block pagination %}
+              {% include "partials/pagination.html" %}
             {%- endblock %}
-          </article>
 
-          {%- block pagination %}
-            {% include "partials/pagination.html" %}
-          {%- endblock %}
-
-          {%- block footer %}
-            {%- if config.theme.show_footer %}
-              {% include "partials/footer.html" %}
-            {%- endif %}
-          {%- endblock %}
-        </main>
+            {%- block footer %}
+              {%- if config.theme.show_footer %}
+                {% include "partials/footer.html" %}
+              {%- endif %}
+            {%- endblock %}
+          </main>
+        </div>
       </div>
     </div>
 
