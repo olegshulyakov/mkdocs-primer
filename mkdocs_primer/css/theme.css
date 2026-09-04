@@ -77,12 +77,20 @@ body {
 
 /* --------------------------------------------------------------- header -- */
 
+/*
+ * Navigation sits on the inset surface and the article keeps the default one,
+ * so the two read as separate planes instead of one sheet divided by a
+ * hairline. Light mode lays grey under white; dark mode's inset is darker than
+ * its default, so there it is near-black under dark grey. Either way the prose
+ * keeps the surface Primer measures body text against, and reading contrast is
+ * untouched. .primer-sidebar carries it for the same reason.
+ */
 .primer-header {
   position: sticky;
   top: 0;
   z-index: 32;
   height: var(--primer-header-height);
-  background-color: var(--bgColor-default);
+  background-color: var(--bgColor-inset);
   border-bottom: 1px solid var(--borderColor-default);
 }
 
@@ -203,6 +211,7 @@ ol.primer-breadcrumbs-list {
   height: calc(100vh - var(--primer-header-height));
   padding: var(--base-size-24) var(--primer-gutter);
   overflow-y: auto;
+  background-color: var(--bgColor-inset); /* see .primer-header */
   border-inline-end: 1px solid var(--borderColor-default);
 }
 
