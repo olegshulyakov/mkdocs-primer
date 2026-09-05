@@ -822,8 +822,14 @@ a.primer-toc-link[aria-current] {
   max-width: none;
 }
 
+/*
+ * A <summary> is a list-item, and would draw a marker beside the icon. Any
+ * other display drops it — so this states the one the control already has,
+ * rather than `block`, which came later in the sheet than the rule that centres
+ * the icon and left it in the corner of the button.
+ */
 .primer-search-disclosure > summary {
-  display: block;
+  display: inline-flex;
   list-style: none;
 }
 
