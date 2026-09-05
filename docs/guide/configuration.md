@@ -21,7 +21,7 @@
 
 `color_mode` only sets the *initial* mode. Visitors can change it with the header toggle, and their choice is stored in `localStorage`.
 
-`toc` chooses where the outline built from the current page's headings goes. `auto` puts it in the right rail on a window wide enough for a third column and in the flow under the page title otherwise, expanded either way. `expanded` keeps it in the flow and out of the rail, `collapsed` makes it a disclosure the reader opens, and `hidden` — or `false` — leaves it out.
+`toc` chooses where the outline built from the current page's headings goes. `auto` puts it in the right rail on a window wide enough for a third column and under the page title otherwise, where it is a disclosure the reader opens rather than a list standing between the title and the first paragraph. `expanded` keeps it in the flow and out of the rail, `collapsed` makes it a disclosure the reader opens, and `hidden` — or `false` — leaves it out.
 
 ## Icons
 

@@ -6,8 +6,8 @@
   `theme.toc` says what the reader gets:
 
     auto       the right rail where the window is wide enough for a third
-               column, otherwise in the flow under the page title — expanded
-               either way, which is how GitHub's own documentation reads
+               column, otherwise under the page title as a disclosure the
+               reader opens, which is how GitHub's own documentation reads
     expanded   always in the flow, expanded; never takes the rail
     collapsed  always in the flow, as a disclosure the reader opens
     hidden     not rendered at all; `false` does the same
@@ -15,8 +15,11 @@
   An unrecognised value falls through to the `auto` behaviour, which is how the
   theme treats the rest of its options.
 
-  Only `collapsed` is a <details>: the other shapes have nothing to click open,
-  so giving them a disclosure would promise a control that does nothing useful.
+  Only `collapsed` is a <details>. `expanded` and the rail have nothing to click
+  open, so giving them a disclosure would promise a control that does nothing
+  useful; `auto` in the flow is one, but js/toc-collapse.js builds it out of the
+  heading, which is what keeps the list where the placement below put it — and
+  keeps the outline expanded for a reader with no JavaScript.
 
   python-markdown nests the whole document under its single h1, which is already
   the page title on screen; descend past it when that is the shape, so the list

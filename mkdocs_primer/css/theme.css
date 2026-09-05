@@ -658,15 +658,24 @@ section.primer-toc {
   color: var(--fgColor-default);
 }
 
-/* Only the `collapsed` mode renders a disclosure, and only it needs a marker. */
+/*
+ * The label of an outline the reader opens: the `collapsed` mode's <summary>,
+ * and the button js/toc-collapse.js puts in its place when `auto` lands in the
+ * flow. The declarations a <summary> does not need are for the button.
+ */
 .primer-toc-summary {
   display: inline-flex;
   gap: var(--base-size-8);
   align-items: center;
+  padding: 0;
+  font: inherit;
   font-size: 14px;
   font-weight: var(--base-text-weight-semibold, 600);
   color: var(--fgColor-default);
+  text-align: start;
   cursor: pointer;
+  background: none;
+  border: 0;
   list-style: none;
 }
 
@@ -690,7 +699,8 @@ section.primer-toc {
   transition: transform 0.1s ease-in-out;
 }
 
-.primer-toc[open] > .primer-toc-summary::before {
+.primer-toc[open] > .primer-toc-summary::before,
+.primer-toc-summary[aria-expanded='true']::before {
   transform: rotate(90deg);
 }
 
@@ -701,14 +711,20 @@ section.primer-toc {
 }
 
 /*
- * In the flow the outline sits above the prose, so an unbounded one on a page
- * with dozens of headings would push the first paragraph off the screen. Keep
- * half the window for the page itself and let the rest of the list scroll.
+ * The list runs to its full height. It used to stop at half the window and
+ * scroll the rest, so that a page with dozens of headings did not push its own
+ * first paragraph off the screen — but that put a scrolling box between the
+ * title and the prose, where a swipe on a touch screen moved the outline
+ * instead of the page. Every shape that is open in the flow is now one the
+ * reader or the author asked to be open: `auto` is a disclosure there.
  */
 .primer-toc > nav {
-  max-height: 50vh;
   margin-top: var(--base-size-8);
-  overflow-y: auto;
+}
+
+/* Set by js/toc-collapse.js, which is also what puts the button there to undo it. */
+.primer-toc[data-primer-toc-collapsed] > nav {
+  display: none;
 }
 
 ul.primer-toc-list {
@@ -798,8 +814,14 @@ a.primer-toc-link[aria-current] {
     border-bottom: 0;
   }
 
+  /*
+   * A column of its own, so an outline longer than the window scrolls inside
+   * it rather than running past the bottom of a sticky box. In the flow the
+   * list has no ceiling at all — see the rule that sets its margin.
+   */
   .primer-columns:has(> .primer-toc-in-rail) > .primer-toc-in-rail > nav {
     max-height: calc(100vh - var(--primer-header-height) - var(--base-size-64));
+    overflow-y: auto;
   }
 }
 
