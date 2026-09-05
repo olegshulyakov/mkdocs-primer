@@ -440,15 +440,15 @@ a.primer-nav-section-label:hover {
 }
 
 /*
- * The fill Primer gives a selected .SideNav-item, named here because a section
- * label is not one: a section that is itself the current page should not look
- * like a different kind of current from a leaf that is. On the row rather than
- * on the label, so it does not stop short of the chevron; the label keeps it as
+ * The fill of a selected item, named here because a section label is not a
+ * .SideNav-item: a section that is itself the current page should not look like
+ * a different kind of current from a leaf that is. On the row rather than on
+ * the label, so it does not stop short of the chevron; the label keeps it as
  * well, for a browser without `:has`, and the two are the same colour.
  */
 .primer-nav-section-header:has(> [aria-current='page']),
 a.primer-nav-section-label[aria-current='page'] {
-  background-color: var(--sideNav-bgColor-selected);
+  background-color: var(--control-transparent-bgColor-selected);
 }
 
 /*
@@ -504,19 +504,24 @@ a.primer-nav-section-label[aria-current='page'] {
   );
 }
 
-/*
- * Primer marks the current item itself: the accent bar through
- * .SideNav-item::before, and a fill of --sideNav-bgColor-selected. It does that
- * from .SideNav-item[aria-current]:not([aria-current=false]), which no
- * selector this short can outrank — so a `background-color` here would be a
- * declaration that reads as the answer and changes nothing.
- *
- * That fill is the one to want in any case now that the navigation sits on
- * --bgColor-inset: it lifts the current item off the surface around it, which
- * is the effect the component was drawn for. Only the weight is left to set.
- */
+/* The weight, which Primer gives a selected item and this one does not carry. */
 .SideNav-item[aria-current='page'] {
   font-weight: var(--base-text-weight-semibold, 600);
+}
+
+/*
+ * The fill. SideNav's own is --sideNav-bgColor-selected, an opaque #ffffff in
+ * light mode and #212830 in dark — drawn for a list on the default surface,
+ * where white reads as raised. This navigation sits on --bgColor-inset and is
+ * drawn a second time on an overlay in the mobile panel, and against either of
+ * those a white plate reads as a different material rather than a selection.
+ *
+ * NavList's fill is the translucent one, and it darkens whatever it is over.
+ * The selector is the one Primer uses, so this does not outrank it — theme.css
+ * is the last sheet, and simply comes later.
+ */
+.SideNav-item[aria-current]:not([aria-current='false']) {
+  background-color: var(--control-transparent-bgColor-selected);
 }
 
 /*
