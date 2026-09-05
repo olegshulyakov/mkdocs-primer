@@ -156,6 +156,64 @@ body {
   }
 }
 
+/* ------------------------------------------------------------- controls -- */
+
+/*
+ * Every icon control the theme draws is Primer's .btn-octicon: the three
+ * toggles in the header, the copy button on a code block, back to top. The
+ * class predates the icon button Primer draws now — it puts 5px of padding
+ * around a 16px icon, which lands the target at 26px square, and it leaves the
+ * hover to .btn, which these elements also carry. That pair gives a borderless
+ * control the solid fill of a bordered one and turns the icon accent blue over
+ * it, which is the one place left in the theme where hovering means recolour
+ * rather than fill.
+ *
+ * This is the treatment Primer draws now, its `invisible` variant: the medium
+ * control size, and a fill from the transparent scale — the same token the
+ * navigation rows take. The icon only lifts out of muted, as the chevron beside
+ * a section label does.
+ *
+ * The language selector is here too. It shows a name beside its globe, so it is
+ * a text button rather than an icon one, and it is the width of what it holds;
+ * everything else about it is the same control.
+ */
+.btn-octicon,
+.primer-language-selector-summary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: var(--control-medium-size, 32px);
+  margin: 0; /* the header spaces its controls with a gap of its own */
+  color: var(--fgColor-muted);
+  background-color: transparent;
+  border: 0;
+  border-radius: var(--borderRadius-medium, 6px);
+  box-shadow: none;
+}
+
+/* Square around a 16px icon; the language selector is sized by its label. */
+.btn-octicon {
+  width: var(--control-medium-size, 32px);
+  padding: 0;
+}
+
+.btn-octicon:hover,
+.btn-octicon:active,
+.primer-language-selector-summary:hover,
+.primer-language-selector-summary:active {
+  color: var(--fgColor-default);
+}
+
+.btn-octicon:hover,
+.primer-language-selector-summary:hover {
+  background-color: var(--control-transparent-bgColor-hover);
+}
+
+.btn-octicon:active,
+.primer-language-selector-summary:active {
+  background-color: var(--control-transparent-bgColor-active);
+}
+
 /* ---------------------------------------------------------- breadcrumbs -- */
 
 /*
@@ -1310,17 +1368,13 @@ a.primer-toc-link[aria-current] {
   }
 
   /*
-   * Primer sizes .btn-octicon for dense desktop toolbars, which leaves these
-   * four controls around 26px square — barely over the 24px minimum and well
-   * under a comfortable thumb target. Grow the hit area, not the icon.
+   * A medium control is 32px, which is a comfortable target with a mouse and a
+   * small one under a thumb. Grow the hit area on a touch-sized window, not the
+   * icon; everything else about them is set with the other controls, above.
    */
   .primer-header .btn-octicon {
-    display: flex;
-    align-items: center;
-    justify-content: center;
     min-width: 40px;
     min-height: 40px;
-    padding: 0;
   }
 
   .primer-language-selector-label {
