@@ -29,7 +29,8 @@
       <input type="hidden" name="lang" value="{{ i18n_page_locale }}">
     {%- endif %}
     <label class="sr-only" for="primer-search-input">{% trans %}Search{% endtrans %}</label>
-    <input class="form-control input-sm"
+    {# .form-control at its own size: input-sm sets 12px text in a 28px box. #}
+    <input class="form-control"
            id="primer-search-input"
            type="search"
            name="q"

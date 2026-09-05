@@ -835,18 +835,23 @@ a.primer-toc-link[aria-current] {
 }
 
 /*
- * The width GitHub's documentation gives the field. Wider than this it reads as
- * the subject of the header rather than one of its controls, and it is a jump
- * to the search page, not a box anyone types a paragraph into. The spacer on
- * either side of it in header.html is what centres it.
+ * A ceiling rather than a width: the field takes what the header can spare and
+ * stops here, which is about where GitHub's documentation holds its own — 640px
+ * on a 1400px window. It is a jump to the search page, not a box anyone types a
+ * paragraph into, so it does not follow the header out to any width. The spacer
+ * on either side of it in header.html is what centres it.
  */
 .primer-search {
-  flex: 0 1 320px;
+  flex: 0 1 480px;
 }
 
-/* Primer sizes the control to its content; here it should fill the field. */
+/*
+ * Primer sizes the control to its content; here it should fill the field. The
+ * height is the one the other controls in this header now stand at.
+ */
 .primer-search .form-control {
   width: 100%;
+  height: var(--control-medium-size, 32px);
 }
 
 @media (min-width: 1012px) {
