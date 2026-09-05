@@ -21,6 +21,21 @@ jobs:
       - name: Check for drift
         run: git diff --exit-code -- mkdocs_primer/css/vendor
 
+  locales:
+    name: Compiled catalogs are up to date
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - run: pip install babel
+      - run: pybabel compile -d mkdocs_primer/locales
+      # MkDocs reads only the compiled .mo, never the .po beside it, so a
+      # translation edited without a recompile ships as the old string.
+      - name: Check for drift
+        run: git diff --exit-code -- mkdocs_primer/locales
+
   minimum-python:
     name: Theme builds on Python 3.9
     runs-on: ubuntu-latest
