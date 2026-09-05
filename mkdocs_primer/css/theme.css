@@ -1401,7 +1401,8 @@ a.primer-toc-link[aria-current] {
    * small one under a thumb. Grow the hit area on a touch-sized window, not the
    * icon; everything else about them is set with the other controls, above.
    */
-  .primer-header .btn-octicon {
+  .primer-header .btn-octicon,
+  .primer-language-selector-summary {
     min-width: 40px;
     min-height: 40px;
   }
