@@ -33,7 +33,7 @@ theme:
   icon: lucide
 ```
 
-Both sets are included in the theme, so neither option adds a CDN request. Icon selection applies only to the theme's HTML controls. The language selector always uses an Octicon globe and Primer's `btn-octicon` treatment so it matches the rest of the Primer header. Markdown icon syntax and arbitrary third-party icon packs are deliberately unsupported.
+Both sets are included in the theme, so neither option adds a CDN request. Icon selection applies only to the theme's HTML controls. The language selector always uses an Octicon globe. Markdown icon syntax and arbitrary third-party icon packs are deliberately unsupported.
 
 ## Fonts
 

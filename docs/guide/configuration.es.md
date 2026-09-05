@@ -32,7 +32,7 @@ theme:
   icon: lucide
 ```
 
-Ambos conjuntos están incluidos en el tema, por lo que ninguna de las opciones agrega una solicitud CDN. Icono La selección se aplica sólo a los controles HTML del tema. El selector de idioma siempre utiliza un globo Octicon y el tratamiento `btn-octicon` de Primer para que coincida el resto del encabezado de Primer. Sintaxis de iconos de Markdown y terceros arbitrarios Los paquetes de iconos no son compatibles deliberadamente.
+Ambos conjuntos están incluidos en el tema, por lo que ninguna de las opciones agrega una solicitud CDN. Icono La selección se aplica sólo a los controles HTML del tema. El selector de idioma siempre utiliza un globo Octicon. Sintaxis de iconos de Markdown y terceros arbitrarios Los paquetes de iconos no son compatibles deliberadamente.
 
 ## Fuentes
 

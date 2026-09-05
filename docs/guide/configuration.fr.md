@@ -32,7 +32,7 @@ theme:
   icon: lucide
 ```
 
-Les deux ensembles sont inclus dans le thème, donc aucune des deux options n'ajoute de requête CDN. Icône la sélection s'applique uniquement aux contrôles HTML du thème. Le sélecteur de langue utilise toujours un globe Octicon et le traitement `btn-octicon` de Primer pour qu'il corresponde le reste de l’en-tête Primer. Syntaxe des icônes Markdown et tiers arbitraires les packs d'icônes ne sont délibérément pas pris en charge.
+Les deux ensembles sont inclus dans le thème, donc aucune des deux options n'ajoute de requête CDN. Icône la sélection s'applique uniquement aux contrôles HTML du thème. Le sélecteur de langue utilise toujours un globe Octicon. Syntaxe des icônes Markdown et tiers arbitraires les packs d'icônes ne sont délibérément pas pris en charge.
 
 ## Polices
 
