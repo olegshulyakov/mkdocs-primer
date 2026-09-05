@@ -105,9 +105,11 @@
 
 ## 已知插件冲突
 
-并非所有的失败都是主题的。四个值得了解的内容，全部可复制 在任何主题下。
+并非所有的失败都是主题的。五个值得了解的内容，全部可复制 在任何主题下。
 
-其中两个原因是该站点不是存储库中唯一构建的原因： 涉及的插件无法与此处已启用的插件共享配置，因此 他们在 `examples/` 下获得了自己的网站，该网站由 `--strict` 构建 同样的 CI 工作。
+其中三个原因是该站点不是存储库中唯一构建的原因： 涉及的插件无法与此处已启用的插件共享配置，因此 他们在 `examples/` 下获得了自己的网站，该网站由 `--strict` 构建 同样的 CI 工作。
+
+[Examples](../examples.md) 页面介绍了它们各自展示的内容。
 
 - **mkdocs-rss-plugin 和 mkdocs-static-i18n** — RSS 插件重写了它的
   期间将自己的 `date_from_meta.default_time` 从字符串转换为 `datetime` `on_config`。 i18n 插件每种语言运行 `on_config` 一次，因此第二个 pass 重新解析 `datetime` 并发出警告，中止 `--strict` 构建。展示了 而是在 [examples/rss/]({{ config.site_url }}examples/rss/)。

@@ -95,13 +95,14 @@ This precaches the generated site for offline use after the first visit. Service
 The demo site doubles as the theme's plugin compatibility test: `mkdocs.yml` enables every plugin that needs something from a theme, and CI builds it with `--strict`.
 Those plugins need Python 3.10+, so CI checks the theme's own floor of 3.9 against a plugin-free site.
 
-A few plugins cannot share that config — `rss` and `gen-files` both break under `static-i18n` — so they get their own sites under `examples/`, published beside the main one.
+A few plugins cannot share that config — `rss` and `gen-files` both break under `static-i18n`, and Mermaid breaks under `minify_html` — so they get their own sites under `examples/`, published beside the main one and described on the [Examples](https://olegshulyakov.github.io/mkdocs-primer/examples/) page.
 Build them after it, since `mkdocs build` cleans `site/`:
 
 ```console
 $ mkdocs build --strict
 $ mkdocs build --strict -f examples/rss/mkdocs.yml
 $ mkdocs build --strict -f examples/gen-files/mkdocs.yml
+$ mkdocs build --strict -f examples/diagrams/mkdocs.yml
 ```
 
 ## License

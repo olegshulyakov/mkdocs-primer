@@ -103,9 +103,11 @@ Nav- and file-level plugins — [mkdocs-literate-nav][literate-nav], [mkdocs-awe
 
 ## Known plugin conflicts
 
-Not every failure is the theme's. Four worth knowing about, all reproducible under any theme.
+Not every failure is the theme's. Five worth knowing about, all reproducible under any theme.
 
-Two of them are why this site is not the only build in the repository: the plugins involved cannot share a config with the ones already enabled here, so they get a site of their own under `examples/`, built with `--strict` by the same CI job.
+Three of them are why this site is not the only build in the repository: the plugins involved cannot share a config with the ones already enabled here, so they get a site of their own under `examples/`, built with `--strict` by the same CI job.
+
+The [Examples](../examples.md) page covers what each of them shows.
 
 - **mkdocs-rss-plugin with mkdocs-static-i18n** — the RSS plugin rewrites its
   own `date_from_meta.default_time` from a string to a `datetime` during `on_config`. The i18n plugin runs `on_config` once per language, so the second pass re-parses a `datetime` and warns, aborting a `--strict` build. Demonstrated instead at [examples/rss/]({{ config.site_url }}examples/rss/).

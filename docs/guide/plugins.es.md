@@ -105,9 +105,11 @@ Complementos de navegación y a nivel de archivos: [mkdocs-literate-nav][literat
 
 ## Conflictos de complementos conocidos
 
-No todos los fracasos son del tema. Cuatro que vale la pena conocer, todos reproducibles. bajo cualquier tema.
+No todos los fracasos son del tema. Cinco que vale la pena conocer, todos reproducibles. bajo cualquier tema.
 
-Dos de ellos explican por qué este sitio no es la única compilación en el repositorio: el Los complementos involucrados no pueden compartir una configuración con los que ya están habilitados aquí, por lo que obtienen un sitio propio bajo `examples/`, creado con `--strict` por el mismo trabajo de CI.
+Tres de ellos explican por qué este sitio no es la única compilación en el repositorio: el Los complementos involucrados no pueden compartir una configuración con los que ya están habilitados aquí, por lo que obtienen un sitio propio bajo `examples/`, creado con `--strict` por el mismo trabajo de CI.
+
+La página [Examples](../examples.md) explica qué muestra cada uno de ellos.
 
 - **mkdocs-rss-plugin con mkdocs-static-i18n** — el complemento RSS reescribe su
   propio `date_from_meta.default_time` de una cadena a un `datetime` durante `on_config`. El complemento i18n ejecuta `on_config` una vez por idioma, por lo que el segundo pass vuelve a analizar un `datetime` y advierte, abortando una compilación de `--strict`. demostrado en su lugar en [examples/rss/]({{ config.site_url }}examples/rss/).

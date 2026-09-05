@@ -105,9 +105,11 @@ Plugins de navegação e nível de arquivo — [mkdocs-literate-nav][literate-na
 
 ## Conflitos de plugins conhecidos
 
-Nem todo fracasso é do tema. Quatro que vale a pena conhecer, todos reproduzíveis sob qualquer tema.
+Nem todo fracasso é do tema. Cinco que vale a pena conhecer, todos reproduzíveis sob qualquer tema.
 
-Dois deles são o motivo pelo qual este site não é a única compilação no repositório: o plugins envolvidos não podem compartilhar uma configuração com aqueles já habilitados aqui, então eles obtêm um site próprio sob `examples/`, construído com `--strict` pelo mesmo trabalho de CI.
+Três deles são o motivo pelo qual este site não é a única compilação no repositório: o plugins envolvidos não podem compartilhar uma configuração com aqueles já habilitados aqui, então eles obtêm um site próprio sob `examples/`, construído com `--strict` pelo mesmo trabalho de CI.
+
+A página [Examples](../examples.md) descreve o que cada um deles mostra.
 
 - **mkdocs-rss-plugin com mkdocs-static-i18n** — o plugin RSS reescreve seu
   próprio `date_from_meta.default_time` de uma string para um `datetime` durante `on_config`. O plugin i18n executa `on_config` uma vez por idioma, então o segundo pass analisa novamente um `datetime` e avisa, abortando uma compilação `--strict`. Demonstrado em vez disso, em [examples/rss/]({{ config.site_url }}examples/rss/).
