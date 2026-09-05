@@ -314,10 +314,12 @@ ol.primer-breadcrumbs-list {
 }
 
 /*
- * A section reads as the parent of the rows under it: same size as a page, one
- * weight heavier, in the default colour. Small muted capitals looked like a
- * caption over items that outranked it, and this nav nests without a bound, so
- * that treatment repeated at every depth and the tree read bottom-up.
+ * A section reads as a row of the same list as the pages under it — same size,
+ * same weight, same colour — told apart by the arrow it has and they do not.
+ * Small muted capitals looked like a caption over items that outranked it, and
+ * this nav nests without a bound, so any treatment of a section repeats at
+ * every depth: set in bold, most of a deep tree outweighed the pages it leads
+ * to, and the weight Primer spends on the current item stopped standing out.
  */
 .primer-nav-section-label {
   display: block;
@@ -325,7 +327,6 @@ ol.primer-breadcrumbs-list {
   min-width: 0;
   padding: 6px var(--base-size-8); /* the row height of a .SideNav-item */
   font-size: 14px;
-  font-weight: var(--base-text-weight-semibold, 600);
   color: var(--fgColor-default);
 }
 
@@ -415,9 +416,10 @@ ol.primer-breadcrumbs-list {
 }
 
 /*
- * The branch holding the current page. Colour rather than weight: the label is
- * already the heaviest thing in its list, and with no JavaScript nothing is
- * collapsed, so this trail is the only thing that says where the reader is.
+ * The branch holding the current page. Colour rather than weight, which is the
+ * current page's: an ancestor is where the reader came through, not where they
+ * are. With no JavaScript nothing is collapsed, so this trail is the only thing
+ * that says where in the tree they are.
  */
 .primer-nav-section-label-active {
   color: var(--fgColor-accent);
@@ -449,7 +451,13 @@ a.primer-nav-section-label[aria-current='page'] {
   background-color: var(--sideNav-bgColor-selected);
 }
 
+/*
+ * And the weight, which Primer gives a selected .SideNav-item and this label
+ * no longer carries by default. In the default colour, not the branch accent:
+ * the reader is on this page, not passing through it.
+ */
 a.primer-nav-section-label[aria-current='page'] {
+  font-weight: var(--base-text-weight-semibold, 600);
   color: var(--fgColor-default);
 }
 
