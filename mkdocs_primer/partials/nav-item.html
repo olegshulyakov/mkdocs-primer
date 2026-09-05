@@ -3,6 +3,15 @@
   for each of its children. The inner `for` rebinds `nav_item` in loop scope,
   which is what makes the recursion work (same trick as mkdocs-basic-theme).
 #}
+{#
+  How deep this item sits, counted from the top of the tree. The stylesheet
+  spends it on the label's padding rather than on the container holding the
+  items, so a nested row keeps the full width of the list and every fill and
+  every current-item bar in the tree stands on the same left edge. `include`
+  hands the included template a copy of this context, which is what carries the
+  count down; a copy is also why nothing assigned in there comes back up.
+#}
+{%- set depth = depth | default(0) %}
 {%- if nav_item.children %}
   {#
     `data-primer-nav-open` is the section's expanded state, and the only one.
@@ -28,13 +37,16 @@
     <div class="primer-nav-section-header">
       {%- if nav_item.url %}
         <a class="{{ section_label_class }}"
+           {% if depth %}style="--primer-nav-depth: {{ depth }}"{% endif %}
            href="{{ nav_item.url | url }}"
            {% if nav_item == page %}aria-current="page"{% endif %}>{{ nav_item.title }}</a>
       {%- else %}
-        <div class="{{ section_label_class }}">{{ nav_item.title }}</div>
+        <div class="{{ section_label_class }}"
+             {% if depth %}style="--primer-nav-depth: {{ depth }}"{% endif %}>{{ nav_item.title }}</div>
       {%- endif %}
     </div>
     <div class="primer-nav-section-items">
+      {%- set depth = depth + 1 %}
       {%- for nav_item in nav_item.children %}
         {% include "partials/nav-item.html" %}
       {%- endfor %}
@@ -42,6 +54,7 @@
   </div>
 {%- else %}
   <a class="SideNav-item"
+     {% if depth %}style="--primer-nav-depth: {{ depth }}"{% endif %}
      href="{{ nav_item.url | url }}"
      {% if nav_item.active %}aria-current="page"{% endif %}>{{ nav_item.title }}</a>
 {%- endif %}

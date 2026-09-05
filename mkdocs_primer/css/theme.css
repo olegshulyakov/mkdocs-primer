@@ -462,17 +462,6 @@ a.primer-nav-section-label[aria-current='page'] {
 }
 
 /*
- * Depth, which Primer's SideNav has none of. It is the container that carries
- * it, so a page and a subsection inside the same section are indented alike:
- * indenting only the nested sections put a page level with the label of the
- * section holding it, and its subsections further right than the pages beside
- * them — the tree drew a depth that was not the depth in the navigation.
- */
-.primer-nav-section-items {
-  padding-inline-start: var(--base-size-12);
-}
-
-/*
  * Scoped to .SideNav itself, not to .primer-sidebar: the same nav is rendered
  * twice, once in the sidebar and once inside the mobile disclosure panel, and
  * both need these resets.
@@ -494,6 +483,25 @@ a.primer-nav-section-label[aria-current='page'] {
 
 .SideNav-item:last-child {
   box-shadow: none;
+}
+
+/*
+ * Depth, which Primer's SideNav has none of. NavList spends it inside the row —
+ * a spacer of eight pixels a level ahead of the label — rather than on the
+ * container, and that is the part worth copying: the row keeps the full width
+ * of the list at every level, so the hover fill, the fill under the current
+ * page and the bar beside it all stand on one left edge instead of stepping
+ * right with the depth of the page. --primer-nav-depth is set per item by
+ * partials/nav-item.html; it is unset at the top of the tree, hence the 0.
+ *
+ * Below .SideNav-item rather than beside its sibling rule, because that one
+ * sets `padding` and would otherwise overwrite this from further down.
+ */
+.SideNav-item,
+.primer-nav-section-label {
+  padding-inline-start: calc(
+    var(--base-size-8) + var(--primer-nav-depth, 0) * var(--base-size-8)
+  );
 }
 
 /*
