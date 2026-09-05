@@ -141,9 +141,15 @@
     <div class="primer-layout{{ ' primer-layout-with-sidebar' if show_sidebar }}">
       {%- block site_nav %}
         {%- if show_sidebar %}
-          <aside class="primer-sidebar" aria-label="{% trans %}Site navigation{% endtrans %}">
+          {#
+            A plain box: the column holds the navigation and nothing else, and
+            the name now sits on the <nav> inside it. As an <aside> it was a
+            complementary landmark wrapping a navigation landmark, and a screen
+            reader announced the same name twice on the way in.
+          #}
+          <div class="primer-sidebar">
             {% include "partials/nav.html" %}
-          </aside>
+          </div>
         {%- endif %}
       {%- endblock %}
 

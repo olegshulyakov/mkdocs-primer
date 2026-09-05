@@ -24,14 +24,24 @@
     button.setAttribute('aria-expanded', open ? 'true' : 'false')
   }
 
-  sections.forEach(function (section) {
+  sections.forEach(function (section, index) {
     var header = section.querySelector(':scope > .primer-nav-section-header')
     var label = header && header.querySelector(':scope > .primer-nav-section-label')
+    var items = section.querySelector(':scope > .primer-nav-section-items')
     if (!header || !label) return
 
     var button = document.createElement('button')
     button.type = 'button'
     button.setAttribute('aria-expanded', section.hasAttribute('data-primer-nav-open') ? 'true' : 'false')
+
+    // Which list the aria-expanded above is about. The nav is rendered twice on
+    // a page, so a number taken from a section's position within its own copy
+    // would collide with the same position in the other; this one is counted
+    // over the whole document, both copies included, so it cannot.
+    if (items) {
+      if (!items.id) items.id = 'primer-nav-section-' + index
+      button.setAttribute('aria-controls', items.id)
+    }
 
     button.addEventListener('click', function () {
       toggle(section, button)

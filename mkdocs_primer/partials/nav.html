@@ -1,4 +1,11 @@
-<nav class="SideNav">
+{#
+  Named, because a navigation landmark with no name is announced as "navigation"
+  and nothing else — and this template renders twice, once in the sidebar and
+  once in the header's disclosure panel. Only one of the two is ever in the
+  accessibility tree, the other being display:none at that width, so both can
+  carry the same name.
+#}
+<nav class="SideNav" aria-label="{% trans %}Site navigation{% endtrans %}">
   {%- for nav_item in nav %}
     {% include "partials/nav-item.html" %}
   {%- endfor %}
