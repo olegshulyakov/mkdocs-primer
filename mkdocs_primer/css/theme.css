@@ -525,7 +525,26 @@ a.primer-nav-section-label[aria-current='page'] {
 }
 
 /*
- * The bar itself, which Primer draws in --underlineNav-borderColor-active: the
+ * The bar beside it. SideNav draws a 2px rule the full height of the row and
+ * flush to its left edge; NavList draws a shorter, rounder mark, and stands it
+ * outside the row rather than in it — which is what leaves the row's own eight
+ * pixels of padding to the label and keeps the mark clear of the rounded corner
+ * of the fill. The measurements are its: 4px wide, inset 4px top and bottom,
+ * 8px to the left, radius 6px.
+ *
+ * The room it needs is the padding of whatever the nav is drawn in — 16px in
+ * the sidebar, 8px in the mobile panel, where it ends up flush to the border.
+ */
+.SideNav-item::before {
+  top: var(--base-size-4);
+  bottom: var(--base-size-4);
+  left: calc(-1 * var(--base-size-8));
+  width: var(--base-size-4);
+  border-radius: var(--borderRadius-medium, 6px);
+}
+
+/*
+ * Its colour, which Primer draws in --underlineNav-borderColor-active: the
  * coral of the active tab on github.com, and the one warm accent in a theme
  * whose links, focus ring and current branch are all blue. The selector is the
  * one Primer uses, so this does not outrank it — it simply comes later.
