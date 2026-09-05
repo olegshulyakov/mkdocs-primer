@@ -1413,15 +1413,6 @@ a.primer-toc-link[aria-current] {
   }
 
   /*
-   * No room for the outline here: it would fill the first screen on its own.
-   * Spelled with the element name to match where the flag is set, since a
-   * media query adds no specificity of its own.
-   */
-  details.primer-toc {
-    --primer-toc-expanded: 0;
-  }
-
-  /*
    * A medium control is 32px, which is a comfortable target with a mouse and a
    * small one under a thumb. Grow the hit area on a touch-sized window, not the
    * icon; everything else about them is set with the other controls, above.
