@@ -153,6 +153,8 @@ extra_javascript:
     type: module
 ```
 
+[Styling](../styling.md) descreve o que colocar nela: as variáveis de layout do próprio tema e por que substituir um token de cor do Primer em `:root` é descartado, enquanto a mesma regra sob dois seletores de atributo se aplica.
+
 `extra_javascript` é emitido no final de `<body>`, após o próprio tema roteiros.
 
 !!! note "Plugins que injetam seus próprios ativos"

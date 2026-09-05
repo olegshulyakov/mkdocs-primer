@@ -153,6 +153,8 @@ extra_javascript:
     type: module
 ```
 
+[Styling](../styling.md) 说明该在其中写什么：主题自己的布局变量，以及为什么在 `:root` 中覆盖 Primer 的颜色令牌会被丢弃，而同一条规则放在两个属性选择器下就会生效。
+
 `extra_javascript` 在 `<body>` 的末尾发出，在主题自己的之后 脚本。
 
 !!!注意“注入自己资产的插件”

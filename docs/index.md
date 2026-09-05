@@ -56,6 +56,11 @@ renders the `nav` MkDocs has already built. See [Installation](guide/installatio
 :   Every block the theme styles inside an article, drawn once — admonitions,
     quotes, code, tables, images.
 
+[Styling](styling.md)
+
+:   The variables to set in a stylesheet of your own, and the one Primer token
+    override that does not work the way it looks like it should.
+
 [Examples](examples.md)
 
 :   Three complete sites showing what the theme does with feeds, generated

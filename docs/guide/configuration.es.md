@@ -153,6 +153,8 @@ extra_javascript:
     type: module
 ```
 
+[Styling](../styling.md) explica qué poner en ella: las variables de disposición propias del tema y por qué una anulación de un token de color de Primer en `:root` se descarta mientras que la misma regla bajo dos selectores de atributo sí se aplica.
+
 `extra_javascript` se emite al final de `<body>`, después del propio tema. guiones.
 
 !!! nota "Complementos que inyectan sus propios activos"

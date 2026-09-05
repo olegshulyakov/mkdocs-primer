@@ -196,6 +196,8 @@ extra_javascript:
     type: module
 ```
 
+[Styling](../styling.md) covers what to put in it: the theme's own layout variables, and why a `:root` override of a Primer color token is discarded while the same rule under two attribute selectors applies.
+
 `extra_javascript` is emitted at the end of `<body>`, after the theme's own scripts.
 
 !!! note "Plugins that inject their own assets"

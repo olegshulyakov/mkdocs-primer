@@ -153,6 +153,8 @@ extra_javascript:
     type: module
 ```
 
+[Styling](../styling.md) décrit quoi y mettre : les variables de mise en page propres au thème, et pourquoi une redéfinition d'un jeton de couleur Primer dans `:root` est ignorée alors que la même règle sous deux sélecteurs d'attribut s'applique.
+
 `extra_javascript` est émis à la fin de `<body>`, après le thème propre scripts.
 
 !!! note "Plugins qui injectent leurs propres atouts"
