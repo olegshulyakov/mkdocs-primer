@@ -6,10 +6,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: mkdocs-primer 0.2.0\n"
+"Project-Id-Version: mkdocs-primer 0.3.0\n"
 "Report-Msgid-Bugs-To: https://github.com/olegshulyakov/mkdocs-"
 "primer/issues\n"
-"POT-Creation-Date: 2026-09-04 14:26+0300\n"
+"POT-Creation-Date: 2026-09-06 00:43+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: pt\n"
@@ -32,34 +32,30 @@ msgstr "Voltar à página inicial"
 msgid "Skip to content"
 msgstr "Ir para o conteúdo"
 
-#: mkdocs_primer/base.html:144
-msgid "Site navigation"
-msgstr "Navegação do site"
-
-#: mkdocs_primer/base.html:197 mkdocs_primer/base.html:198
+#: mkdocs_primer/base.html:203 mkdocs_primer/base.html:204
 msgid "Back to top"
 msgstr "Voltar ao topo"
 
-#: mkdocs_primer/base.html:223
+#: mkdocs_primer/base.html:229
 msgid "Copy code"
 msgstr "Copiar código"
 
-#: mkdocs_primer/base.html:224
+#: mkdocs_primer/base.html:230
 msgid "Code copied"
 msgstr "Código copiado"
 
-#: mkdocs_primer/base.html:225
+#: mkdocs_primer/base.html:231
 msgid "Code copied to clipboard"
 msgstr "Código copiado para a área de transferência"
 
-#: mkdocs_primer/base.html:226
+#: mkdocs_primer/base.html:232
 msgid "Could not copy code to clipboard"
 msgstr "Não foi possível copiar o código para a área de transferência"
 
 #: mkdocs_primer/partials/search-box.html:3
 #: mkdocs_primer/partials/search-box.html:4
 #: mkdocs_primer/partials/search-box.html:31
-#: mkdocs_primer/partials/search-box.html:36 mkdocs_primer/search.html:3
+#: mkdocs_primer/partials/search-box.html:37 mkdocs_primer/search.html:3
 #: mkdocs_primer/search.html:13
 msgid "Search"
 msgstr "Pesquisar"
@@ -126,17 +122,21 @@ msgstr "Este site é de código aberto."
 msgid "Improve this page"
 msgstr "Melhorar esta página"
 
-#: mkdocs_primer/partials/header.html:8
+#: mkdocs_primer/partials/header.html:13
 msgid "Toggle navigation"
 msgstr "Mostrar ou ocultar a navegação"
 
-#: mkdocs_primer/partials/language.html:26
+#: mkdocs_primer/partials/language.html:27
 msgid "Change language"
 msgstr "Mudar de idioma"
 
-#: mkdocs_primer/partials/language.html:36
+#: mkdocs_primer/partials/language.html:37
 msgid "Languages"
 msgstr "Idiomas"
+
+#: mkdocs_primer/partials/nav.html:8
+msgid "Site navigation"
+msgstr "Navegação do site"
 
 #: mkdocs_primer/partials/pagination.html:2
 msgid "Page navigation"
@@ -150,7 +150,7 @@ msgstr "Anterior"
 msgid "Next"
 msgstr "Seguinte"
 
-#: mkdocs_primer/partials/toc.html:34
+#: mkdocs_primer/partials/toc.html:37
 msgid "On this page"
 msgstr "Nesta página"
 

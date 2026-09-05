@@ -6,10 +6,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: mkdocs-primer 0.2.0\n"
+"Project-Id-Version: mkdocs-primer 0.3.0\n"
 "Report-Msgid-Bugs-To: https://github.com/olegshulyakov/mkdocs-"
 "primer/issues\n"
-"POT-Creation-Date: 2026-09-04 14:26+0300\n"
+"POT-Creation-Date: 2026-09-06 00:43+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ru\n"
@@ -33,34 +33,30 @@ msgstr "Вернуться на главную"
 msgid "Skip to content"
 msgstr "Перейти к содержимому"
 
-#: mkdocs_primer/base.html:144
-msgid "Site navigation"
-msgstr "Навигация по сайту"
-
-#: mkdocs_primer/base.html:197 mkdocs_primer/base.html:198
+#: mkdocs_primer/base.html:203 mkdocs_primer/base.html:204
 msgid "Back to top"
 msgstr "Наверх"
 
-#: mkdocs_primer/base.html:223
+#: mkdocs_primer/base.html:229
 msgid "Copy code"
 msgstr "Копировать код"
 
-#: mkdocs_primer/base.html:224
+#: mkdocs_primer/base.html:230
 msgid "Code copied"
 msgstr "Код скопирован"
 
-#: mkdocs_primer/base.html:225
+#: mkdocs_primer/base.html:231
 msgid "Code copied to clipboard"
 msgstr "Код скопирован в буфер обмена"
 
-#: mkdocs_primer/base.html:226
+#: mkdocs_primer/base.html:232
 msgid "Could not copy code to clipboard"
 msgstr "Не удалось скопировать код в буфер обмена"
 
 #: mkdocs_primer/partials/search-box.html:3
 #: mkdocs_primer/partials/search-box.html:4
 #: mkdocs_primer/partials/search-box.html:31
-#: mkdocs_primer/partials/search-box.html:36 mkdocs_primer/search.html:3
+#: mkdocs_primer/partials/search-box.html:37 mkdocs_primer/search.html:3
 #: mkdocs_primer/search.html:13
 msgid "Search"
 msgstr "Поиск"
@@ -127,17 +123,21 @@ msgstr "Исходный код сайта открыт."
 msgid "Improve this page"
 msgstr "Улучшить эту страницу"
 
-#: mkdocs_primer/partials/header.html:8
+#: mkdocs_primer/partials/header.html:13
 msgid "Toggle navigation"
 msgstr "Показать или скрыть навигацию"
 
-#: mkdocs_primer/partials/language.html:26
+#: mkdocs_primer/partials/language.html:27
 msgid "Change language"
 msgstr "Сменить язык"
 
-#: mkdocs_primer/partials/language.html:36
+#: mkdocs_primer/partials/language.html:37
 msgid "Languages"
 msgstr "Языки"
+
+#: mkdocs_primer/partials/nav.html:8
+msgid "Site navigation"
+msgstr "Навигация по сайту"
 
 #: mkdocs_primer/partials/pagination.html:2
 msgid "Page navigation"
@@ -151,7 +151,7 @@ msgstr "Назад"
 msgid "Next"
 msgstr "Далее"
 
-#: mkdocs_primer/partials/toc.html:34
+#: mkdocs_primer/partials/toc.html:37
 msgid "On this page"
 msgstr "На этой странице"
 
