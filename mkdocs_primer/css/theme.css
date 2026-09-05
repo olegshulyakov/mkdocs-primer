@@ -443,12 +443,22 @@ a.primer-nav-section-label:hover {
  * The fill of a selected item, named here because a section label is not a
  * .SideNav-item: a section that is itself the current page should not look like
  * a different kind of current from a leaf that is. On the row rather than on
- * the label, so it does not stop short of the chevron; the label keeps it as
- * well, for a browser without `:has`, and the two are the same colour.
+ * the label, so it does not stop short of the chevron.
  */
-.primer-nav-section-header:has(> [aria-current='page']),
-a.primer-nav-section-label[aria-current='page'] {
+.primer-nav-section-header:has(> [aria-current='page']) {
   background-color: var(--control-transparent-bgColor-selected);
+}
+
+/*
+ * Where the rule above cannot match, the label carries the fill instead and the
+ * chevron beside it goes without. Only there: the fill is translucent, so a
+ * browser that applies both paints the label twice and divides the row into two
+ * shades at the arrow.
+ */
+@supports not selector(:has(*)) {
+  a.primer-nav-section-label[aria-current='page'] {
+    background-color: var(--control-transparent-bgColor-selected);
+  }
 }
 
 /*
