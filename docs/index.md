@@ -1,121 +1,66 @@
 # mkdocs-primer
 
-Text can be **bold**, _italic_, or ~~strikethrough~~.
+A [MkDocs](https://www.mkdocs.org/) theme built on [GitHub's Primer design
+system](https://primer.style/) — documentation that looks like it belongs on
+GitHub.
 
-[Link to another page](another-page.md).
+This site is the theme rendering itself. The article you are reading is styled
+by GitHub's own `.markdown-body` rules, and everything around it — the header,
+the navigation tree, the breadcrumb trail, the outline in the right rail — is
+what a site of your own gets from two lines of configuration.
 
-There should be whitespace between paragraphs.
+## Install
 
-There should be whitespace between paragraphs. We recommend including a README, or a file with information about your project.
-
-# Header 1
-
-This is a normal paragraph following a header. GitHub is a code hosting platform for version control and collaboration. It lets you and others work together on projects from anywhere.
-
-## Header 2
-
-> This is a blockquote following a header.
->
-> When something is important enough, you do it even if the odds are not in your favor.
-
-### Header 3
-
-```js
-// Javascript code with syntax highlighting.
-var fun = function lang(l) {
-  dateformat.i18n = require('./lang/' + l)
-  return true;
-}
+```console
+$ pip install mkdocs-primer
 ```
 
-```ruby
-# Ruby code with syntax highlighting
-GitHubPages::Dependencies.gems.each do |gem, version|
-  s.add_dependency(gem, "= #{version}")
-end
+```yaml
+# mkdocs.yml
+theme:
+  name: primer
 ```
 
-#### Header 4
+That is the whole setup: every option has a working default, and the theme
+renders the `nav` MkDocs has already built. See [Installation](guide/installation.md).
 
-*   This is an unordered list following a header.
-*   This is an unordered list following a header.
-*   This is an unordered list following a header.
+## What you get
 
-##### Header 5
+- **GitHub's rendering of an article** — the typography, tables, code chrome and
+  hover anchors of a README on github.com. The Primer CSS is vendored into the
+  package, so installing the theme needs no Node toolchain.
+- **Light and dark**, from Primer's color primitives. The control in the header
+  follows the operating system until the visitor picks a mode, and remembers the
+  choice afterwards. Syntax highlighting follows it too.
+- **Navigation that scales** — a sidebar with unlimited nesting, collapsed down
+  to the section the reader is in, plus a breadcrumb trail, previous/next links,
+  a search page and a 404 page.
+- **Admonitions styled after GitHub's alerts.** The `admonition` extension ships
+  no CSS and `@primer/css` has no rule for it, so under most themes `!!! note`
+  renders undecorated.
+- **Seven languages** for the theme's own text — English, Spanish, French,
+  Hindi, Portuguese, Russian and Chinese — and right-to-left layouts.
+- **Support for the plugins that need a theme's help**: section index pages,
+  translated sites, revision dates and authors, RSS autodiscovery, and mike's
+  version selector.
 
-1.  This is an ordered list following a header.
-2.  This is an ordered list following a header.
-3.  This is an ordered list following a header.
+## Where to go next
 
-###### Header 6
+[Guide](guide/index.md)
 
-| head1        | head two          | three |
-|:-------------|:------------------|:------|
-| ok           | good swedish fish | nice  |
-| out of stock | good and plenty   | nice  |
-| ok           | good `oreos`      | hmm   |
-| ok           | good `zoute` drop | yumm  |
+:   Installation, every theme option, and the plugins this theme is built
+    against.
 
-### There's a horizontal rule below this.
+[Elements](elements.md)
 
-* * *
+:   Every block the theme styles inside an article, drawn once — admonitions,
+    quotes, code, tables, images.
 
-### Here is an unordered list:
+[Examples](examples.md)
 
-*   Item foo
-*   Item bar
-*   Item baz
-*   Item zip
+:   Three complete sites showing what the theme does with feeds, generated
+    pages, and diagrams.
 
-### And an ordered list:
+[Reference](reference.md)
 
-1.  Item one
-1.  Item two
-1.  Item three
-1.  Item four
-
-### And a nested list:
-
-- level 1 item
-  - level 2 item
-  - level 2 item
-    - level 3 item
-    - level 3 item
-- level 1 item
-  - level 2 item
-  - level 2 item
-  - level 2 item
-- level 1 item
-  - level 2 item
-  - level 2 item
-- level 1 item
-
-### Small image
-
-![Octocat](https://github.githubassets.com/images/icons/emoji/octocat.png)
-
-### Large image
-
-![Branching](https://docs.github.com/assets/images/help/repository/branching.png)
-
-
-### Definition lists can be used with HTML syntax.
-
-<dl>
-<dt>Name</dt>
-<dd>Godzilla</dd>
-<dt>Born</dt>
-<dd>1952</dd>
-<dt>Birthplace</dt>
-<dd>Japan</dd>
-<dt>Color</dt>
-<dd>Green</dd>
-</dl>
-
-```
-Long, single-line code blocks should not wrap. They should horizontally scroll if they are too long. This line should be long enough to demonstrate this.
-```
-
-```
-The final element.
-```
+:   The theme package's own documentation, rendered by mkdocstrings.

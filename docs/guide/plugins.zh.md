@@ -80,7 +80,7 @@
 |插件 |它在这个网站上做什么 |
 |:---|:---|
 | [mkdocs-awesome-nav][awesome-nav]|从 `docs/.nav.yml` 而不是 `nav:` 键构建导航。 |
-| [mkdocs-glightbox][glightbox] |在灯箱中打开[主页](../index.md) 上的图像。 |
+| [mkdocs-glightbox][glightbox] |在灯箱中打开 [Elements](../elements.md) 页面上的图像。 |
 | [mkdocs-minify-插件][minify] |缩小每个页面的 HTML、CSS 和 JS，包括主题的内联颜色模式脚本。 |
 | [mkdocs-重定向][redirects] | `/options/` 重定向到[配置](configuration.md)。 |
 | [mkdocs-macros-plugin][macros] |在 Markdown 中渲染 Jinja。这个网站是 **{{ config.site_name }}**，以主题 `{{ config.theme.name }}` 构建 - 这句话来自插件，而不是来自 Markdown。 |

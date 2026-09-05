@@ -80,7 +80,7 @@ Ceux-ci n’ont besoin de rien du thème au-delà du HTML bien formé. Le premie
 | Plugin | Ce qu'il fait sur ce site |
 |:---|:---|
 | [mkdocs-awesome-nav][awesome-nav] | Construit la navigation à partir de `docs/.nav.yml` au lieu d'une clé `nav:`. |
-| [mkdocs-glightbox][glightbox] | Ouvre les images sur la [page d'accueil](../index.md) dans une lightbox. |
+| [mkdocs-glightbox][glightbox] | Ouvre les images de la page [Elements](../elements.md) dans une lightbox. |
 | [mkdocs-minify-plugin][minify] | Réduit le HTML, CSS et JS de chaque page, y compris le script de mode couleur en ligne du thème. |
 | [mkdocs-redirects][redirects] | `/options/` redirige vers [Configuration](configuration.md). |
 | [mkdocs-macros-plugin][macros] | Rend Jinja dans Markdown. Ce site est **{{ config.site_name }}**, construit avec le thème `{{ config.theme.name }}` — cette phrase vient du plugin, pas de Markdown. |

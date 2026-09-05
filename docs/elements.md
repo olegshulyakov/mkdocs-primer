@@ -126,8 +126,7 @@ they follow the color mode without the theme carrying a second set of rules:
 
 ## Definition lists
 
-The `def_list` extension takes a plainer syntax than the raw `<dl>` on the
-[home page](index.md):
+The `def_list` extension takes a plainer syntax than the raw HTML below it:
 
 `docs_dir`
 
@@ -136,6 +135,33 @@ The `def_list` extension takes a plainer syntax than the raw `<dl>` on the
 `site_dir`
 
 :   Directory MkDocs writes HTML to.
+
+Both reach Primer as the same `<dl>`, which is the point of drawing them
+together — a rule written against one applies to the other:
+
+<dl>
+<dt>Name</dt>
+<dd>Godzilla</dd>
+<dt>Born</dt>
+<dd>1952</dd>
+<dt>Birthplace</dt>
+<dd>Japan</dd>
+</dl>
+
+## Images
+
+The width of the column is the theme's — `.primer-content` carries the ceiling
+that keeps prose off a 130-character line — so an image wider than that column
+is worth having on a page. It should be held to the column rather than pushing
+the layout sideways.
+
+These are also the only content images on the site, which makes them the only
+thing [mkdocs-glightbox](guide/plugins.md) has to work with — click one and it
+opens in a lightbox.
+
+![The Octocat](https://github.githubassets.com/images/icons/emoji/octocat.png)
+
+![Branching in a GitHub repository](https://docs.github.com/assets/images/help/repository/branching.png)
 
 ## Headings
 

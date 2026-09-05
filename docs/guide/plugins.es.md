@@ -80,7 +80,7 @@ Estos no necesitan nada del tema más allá de HTML bien formado. El primer grup
 | Complemento | Qué hace en este sitio |
 |:---|:---|
 | [mkdocs-navegación-increíble][awesome-nav] | Crea la navegación desde `docs/.nav.yml` en lugar de una clave `nav:`. |
-| [mkdocs-glightbox][glightbox] | Abre las imágenes en la [página de inicio](../index.md) en una caja de luz. |
+| [mkdocs-glightbox][glightbox] | Abre las imágenes de la página [Elements](../elements.md) en una caja de luz. |
 | [mkdocs-minify-plugin][minify] | Minimiza el HTML, CSS y JS de cada página, incluido el script de modo de color en línea del tema. |
 | [mkdocs-redirects][redirects] | `/options/` redirige a [Configuración](configuration.md). |
 | [mkdocs-macros-plugin][macros] | Representa a Jinja en Markdown. Este sitio es **{{ config.site_name }}**, creado con el tema `{{ config.theme.name }}`; esa oración proviene del complemento, no de Markdown. |

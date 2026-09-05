@@ -80,7 +80,7 @@
 | Плагин | Что он делает на этом сайте |
 |:---|:---|
 | [mkdocs-awesome-nav][awesome-nav] | Создает навигацию из `docs/.nav.yml` вместо ключа `nav:`. |
-| [mkdocs-glightbox][glightbox] | Открывает изображения на [домашней странице](../index.md) в лайтбоксе. |
+| [mkdocs-glightbox][glightbox] | Открывает изображения на странице [Elements](../elements.md) в лайтбоксе. |
 | [mkdocs-minify-plugin][minify] | Минимизирует HTML, CSS и JS каждой страницы, включая встроенный скрипт цветового режима темы. |
 | [mkdocs-redirects][redirects] | `/options/` перенаправляет на [Конфигурация](configuration.md). |
 | [mkdocs-macros-plugin][macros] | Рендерит Jinja в Markdown. Этот сайт **{{ config.site_name }}** ​​создан с использованием темы `{{ config.theme.name }}` — это предложение взято из плагина, а не из Markdown. |

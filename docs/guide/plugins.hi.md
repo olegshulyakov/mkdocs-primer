@@ -80,7 +80,7 @@
 | प्लगइन | यह इस साइट पर क्या करता है |
 |:---|:---|
 | [mkdocs-awesome-nav][awesome-nav] | `nav:` कुंजी के बजाय `docs/.nav.yml` से नेविगेशन बनाता है। |
-| [mkdocs-glightbox][glightbox] | [होम पेज](../index.md) पर मौजूद छवियों को एक लाइटबॉक्स में खोलता है। |
+| [mkdocs-glightbox][glightbox] | [Elements](../elements.md) पृष्ठ की छवियों को एक लाइटबॉक्स में खोलता है। |
 | [mkdocs-minify-plugin][minify] | थीम की इनलाइन कलर-मोड स्क्रिप्ट सहित प्रत्येक पृष्ठ के HTML, CSS और JS को छोटा करता है। |
 | [एमकेडॉक्स-रीडायरेक्ट्स][redirects] | `/options/` [कॉन्फ़िगरेशन](configuration.md) पर रीडायरेक्ट करता है। |
 | [mkdocs-मैक्रोज़-प्लगइन][macros] | मार्कडाउन में जिंजा प्रस्तुत करता है। यह साइट **{{ config.site_name }}** ​​है, जिसे `{{ config.theme.name }}` थीम के साथ बनाया गया है - यह वाक्य प्लगइन से आता है, मार्कडाउन से नहीं। |

@@ -109,10 +109,12 @@ plugins:
   # Jinja in Markdown; docs/guide/plugins.md uses it for config values.
   - macros
 
-  # The Configuration page used to live at /options/.
+  # The Configuration page used to live at /options/, and /another-page/ was
+  # the sample page inherited from the Jekyll theme this one started from.
   - redirects:
       redirect_maps:
         options.md: guide/configuration.md
+        another-page.md: index.md
 
   # Last: it rewrites the HTML every other plugin produced.
   - minify:
