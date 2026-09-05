@@ -943,14 +943,38 @@ a.primer-toc-link[aria-current] {
   position: relative;
 }
 
+/*
+ * These two stand over the page rather than in the chrome around it, so the
+ * invisible treatment the header controls take is wrong for them: with nothing
+ * behind it, the code ran under the icon. A surface of its own, which is what
+ * Primer's default button is — and the hover that goes with it, since a fill
+ * from the transparent scale over a filled button barely moves.
+ */
+.primer-copy-code,
+.primer-back-to-top {
+  background-color: var(--button-default-bgColor-rest);
+}
+
+.primer-copy-code:hover,
+.primer-back-to-top:hover {
+  background-color: var(--button-default-bgColor-hover);
+}
+
+.primer-copy-code:active,
+.primer-back-to-top:active {
+  background-color: var(--button-default-bgColor-active);
+}
+
 .primer-copy-code {
   position: absolute;
   top: var(--base-size-8);
   inset-inline-end: var(--base-size-8);
+  border: 1px solid var(--button-default-borderColor-rest);
 }
 
 /* ---------------------------------------------------------- back to top -- */
 
+/* The ring around this one is the first layer of the floating shadow. */
 .primer-back-to-top {
   position: fixed;
   inset-inline-end: var(--base-size-16);
