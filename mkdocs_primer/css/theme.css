@@ -333,15 +333,12 @@ ol.primer-breadcrumbs-list {
 /* -------------------------------------------------------------- sidebar -- */
 
 /*
- * The gap belongs to the edge of a section, not to sections alone: a folder
- * usually holds pages and subfolders together, and spacing only between two
- * sections left the gaps in one list depending on the order of its items.
+ * Nothing spaces the rows apart, here or in Primer's NavList: depth is the
+ * indent and the chevron, and a section is a row of the list like the rest. A
+ * section used to carry 8px above and below, from a tree where its label was
+ * also smaller, quieter and set in capitals — once it read as a page does, that
+ * gap was the only thing left holding it apart from the list it belongs to.
  */
-.primer-nav-section + .primer-nav-section,
-.SideNav-item + .primer-nav-section,
-.primer-nav-section + .SideNav-item {
-  margin-top: var(--base-size-8);
-}
 
 /*
  * A section is open only when it holds the current page. `.primer-js` is set
