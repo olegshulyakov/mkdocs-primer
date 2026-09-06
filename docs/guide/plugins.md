@@ -103,7 +103,7 @@ Nav- and file-level plugins — [mkdocs-literate-nav][literate-nav], [mkdocs-awe
 
 ## Known plugin conflicts
 
-Not every failure is the theme's. Five worth knowing about, all reproducible under any theme.
+Not every failure is the theme's. Six worth knowing about, all reproducible under any theme.
 
 Three of them are why this site is not the only build in the repository: the plugins involved cannot share a config with the ones already enabled here, so they get a site of their own under `examples/`, built with `--strict` by the same CI job.
 
@@ -117,6 +117,16 @@ The [Examples](../examples.md) page covers what each of them shows.
   the minifier collapses the newlines inside its `<div>`. The diagram renders as *Syntax error in text* and the build says nothing. Demonstrated instead at [examples/diagrams/]({{ config.site_url }}examples/diagrams/), which also covers [mkdocs-charts-plugin][charts] and how both pick up the color mode.
 - **mkdocs-monorepo without `repo_url`** — building a sub-project page raises
   `TypeError: join() missing 1 required positional argument`. Setting `repo_url` and `edit_uri` avoids it. Reproduces identically under the built-in `mkdocs` theme.
+- **`search` with a default language that mkdocs-static-i18n does not list
+  first** — the i18n plugin runs one build pass per language, starting with the
+  default one, and then walks `languages` skipping whichever it just built. It
+  compares each entry against the pass before it rather than against the
+  default, so a default language listed anywhere but first is built twice and
+  every one of its pages reaches the search plugin twice. The index carries the
+  duplicates through to the search page, which lists each hit twice. Listing the
+  default first avoids it, but the last pass is what writes the site's single
+  `404.html` and `search.html` — so this site keeps `en` last and drops the
+  duplicate entries in `hooks.py` instead.
 - **`material/search` with a non-Material theme** — Material's search plugin
   renders `partials/language.html` through the *active* theme's Jinja environment. Under any theme that does not ship that template it raises `TemplateNotFound` and the build dies. Use the built-in `search` plugin instead; the theme is built against that one.
 

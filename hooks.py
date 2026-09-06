@@ -6,6 +6,8 @@ Nothing here ships in the `mkdocs-primer` package; it exists so that
 
 import logging
 
+import mkdocs.plugins
+
 _SECTION_INDEX_LOGGER = "mkdocs.plugins.mkdocs_section_index.plugin"
 _UNDETECTED_THEME = "couldn't detect a supported theme to adapt"
 _MERMAID_LOGGER = "mkdocs.plugins.mermaid2.util"
@@ -46,3 +48,49 @@ class _DropMermaidOfflineWarning(logging.Filter):
 
 
 logging.getLogger(_MERMAID_LOGGER).addFilter(_DropMermaidOfflineWarning())
+
+
+# After mkdocs-static-i18n, which rebuilds the index at priority -100.
+@mkdocs.plugins.event_priority(-200)
+def on_post_build(config, **kwargs):
+    """Drop the default language's second copy of itself from the search index.
+
+    mkdocs-static-i18n builds one language per pass. The first pass is always
+    the default language, and the passes after it come from `languages` -- but
+    the loop that runs them skips a language by comparing it against the pass
+    before it rather than against the default, so the default language is built
+    a second time whenever it is not listed first.
+
+    That second build is what puts the theme's own `404.html` and `search.html`
+    in English, which is why `mkdocs.yml` lists `en` last on purpose. It also
+    hands the search plugin every English page twice, and the plugin indexes
+    both: 500 documents for 436 locations, and every English hit listed twice on
+    the search page.
+
+    The entries are identical, so the second of each is dropped here, once the
+    index has been stacked up and before it reaches the browser.
+    """
+    search = config.plugins.get("search")
+    index = getattr(search, "search_index", None)
+    if index is None:
+        return
+
+    # The attribute the plugin keeps its entries in, named as the i18n plugin
+    # looks for it -- it was `entries` before MkDocs 1.6 and `_entries` after.
+    attribute = "_entries" if hasattr(index, "_entries") else "entries"
+    entries = getattr(index, attribute, None)
+    if entries is None:
+        return
+
+    seen = set()
+    unique = [
+        entry for entry in entries if not (entry["location"] in seen or seen.add(entry["location"]))
+    ]
+    # Nothing stacked up yet: this is one of the per-language passes, whose
+    # index holds that language alone and is overwritten by the pass after it.
+    if len(unique) == len(entries):
+        return
+
+    entries[:] = unique
+    # Rewrite search_index.json from the entries as they now stand.
+    search.on_post_build(config=config)

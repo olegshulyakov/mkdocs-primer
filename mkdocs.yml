@@ -45,6 +45,13 @@ plugins:
       # — are rewritten by every pass, so the last language wins them. Putting
       # the default language last leaves those two in English. The theme sorts
       # the language selector itself, so this does not affect its order.
+      #
+      # It costs a pass: the plugin skips a language by comparing it against
+      # the pass before it rather than against the default, so a default that
+      # is not listed first is built twice — which is what wins those two
+      # pages, and what handed the search plugin every English page twice.
+      # hooks.py drops the second copy from the index; see the conflict noted
+      # in docs/guide/plugins.md.
       languages:
         - locale: es
           name: Spanish
