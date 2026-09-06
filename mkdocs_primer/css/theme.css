@@ -1416,9 +1416,17 @@ a.primer-toc-link[aria-current] {
    * A medium control is 32px, which is a comfortable target with a mouse and a
    * small one under a thumb. Grow the hit area on a touch-sized window, not the
    * icon; everything else about them is set with the other controls, above.
+   *
+   * Back to top belongs to the rule as much as they do and is not in the header
+   * to be caught by it: it floats over the bottom corner, which is the part of
+   * the screen a thumb reaches least accurately. The theme's other floating
+   * control, the copy button, stays at 32px — it sits inside the code block it
+   * belongs to, where every pixel it grows is a pixel of code it covers, and it
+   * is not something a reader hunts for mid-scroll.
    */
   .primer-header .btn-octicon,
-  .primer-language-selector-summary {
+  .primer-language-selector-summary,
+  .primer-back-to-top {
     min-width: 40px;
     min-height: 40px;
   }
