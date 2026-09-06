@@ -4,6 +4,9 @@
 ;(function () {
   var button = document.querySelector('[data-primer-back-to-top]')
   var headerLink = document.querySelector('.primer-header-title')
+  // Both come from blocks a site may override, and this runs on every page.
+  if (!button || !headerLink) return
+
   var reducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)')
 
   function updateVisibility() {
