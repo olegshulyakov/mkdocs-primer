@@ -267,7 +267,18 @@
             and carries no visible label, so this string is the only name it
             has. See mkdocs_primer_mike/js/version-select.js.
           #}
-          version_select: {{ gettext('Select documentation version') | tojson }}
+          version_select: {{ gettext('Select documentation version') | tojson }},
+          {#
+            The colour-mode control cycles three modes through one button, and
+            the mode it is showing has to reach its accessible name. Named in
+            the script rather than here: the mode this template knows is the one
+            the site configured, which the inline script in <head> may already
+            have replaced with the visitor's stored choice.
+          #}
+          color_mode_label: {{ gettext('Change color mode (%(mode)s)') | tojson }},
+          color_mode_auto: {{ gettext('Automatic') | tojson }},
+          color_mode_light: {{ gettext('Light') | tojson }},
+          color_mode_dark: {{ gettext('Dark') | tojson }}
         }
         var primer_icon_set = {{ config.theme.icon | tojson }}
       </script>

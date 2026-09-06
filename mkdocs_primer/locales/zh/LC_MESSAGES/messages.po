@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: mkdocs-primer 0.3.0\n"
 "Report-Msgid-Bugs-To: https://github.com/olegshulyakov/mkdocs-"
 "primer/issues\n"
-"POT-Creation-Date: 2026-09-06 10:35+0300\n"
+"POT-Creation-Date: 2026-09-06 10:48+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: zh\n"
@@ -55,6 +55,23 @@ msgstr "无法将代码复制到剪贴板"
 #: mkdocs_primer/base.html:270
 msgid "Select documentation version"
 msgstr "选择文档版本"
+
+#: mkdocs_primer/base.html:278
+#, python-format
+msgid "Change color mode (%(mode)s)"
+msgstr "切换配色模式（%(mode)s）"
+
+#: mkdocs_primer/base.html:279
+msgid "Automatic"
+msgstr "自动"
+
+#: mkdocs_primer/base.html:280
+msgid "Light"
+msgstr "浅色"
+
+#: mkdocs_primer/base.html:281
+msgid "Dark"
+msgstr "深色"
 
 #: mkdocs_primer/partials/search-box.html:4
 #: mkdocs_primer/partials/search-box.html:5

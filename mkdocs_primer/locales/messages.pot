@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: mkdocs-primer 0.3.0\n"
 "Report-Msgid-Bugs-To: https://github.com/olegshulyakov/mkdocs-"
 "primer/issues\n"
-"POT-Creation-Date: 2026-09-06 10:35+0300\n"
+"POT-Creation-Date: 2026-09-06 10:48+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -53,6 +53,23 @@ msgstr ""
 
 #: mkdocs_primer/base.html:270
 msgid "Select documentation version"
+msgstr ""
+
+#: mkdocs_primer/base.html:278
+#, python-format
+msgid "Change color mode (%(mode)s)"
+msgstr ""
+
+#: mkdocs_primer/base.html:279
+msgid "Automatic"
+msgstr ""
+
+#: mkdocs_primer/base.html:280
+msgid "Light"
+msgstr ""
+
+#: mkdocs_primer/base.html:281
+msgid "Dark"
 msgstr ""
 
 #: mkdocs_primer/partials/search-box.html:4

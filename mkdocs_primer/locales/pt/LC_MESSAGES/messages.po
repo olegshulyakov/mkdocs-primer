@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: mkdocs-primer 0.3.0\n"
 "Report-Msgid-Bugs-To: https://github.com/olegshulyakov/mkdocs-"
 "primer/issues\n"
-"POT-Creation-Date: 2026-09-06 10:35+0300\n"
+"POT-Creation-Date: 2026-09-06 10:48+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: pt\n"
@@ -55,6 +55,23 @@ msgstr "Não foi possível copiar o código para a área de transferência"
 #: mkdocs_primer/base.html:270
 msgid "Select documentation version"
 msgstr "Selecionar a versão da documentação"
+
+#: mkdocs_primer/base.html:278
+#, python-format
+msgid "Change color mode (%(mode)s)"
+msgstr "Alterar o modo de cor (%(mode)s)"
+
+#: mkdocs_primer/base.html:279
+msgid "Automatic"
+msgstr "Automático"
+
+#: mkdocs_primer/base.html:280
+msgid "Light"
+msgstr "Claro"
+
+#: mkdocs_primer/base.html:281
+msgid "Dark"
+msgstr "Escuro"
 
 #: mkdocs_primer/partials/search-box.html:4
 #: mkdocs_primer/partials/search-box.html:5
