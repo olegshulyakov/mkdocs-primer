@@ -606,7 +606,13 @@ a.primer-nav-section-label[aria-current='page'] {
  * outside the row rather than in it — which is what leaves the row's own eight
  * pixels of padding to the label and keeps the mark clear of the rounded corner
  * of the fill. The measurements are its: 4px wide, inset 4px top and bottom,
- * 8px to the left, radius 6px.
+ * 8px before the row starts, radius 6px.
+ *
+ * Before it starts, not to its left: the mark belongs on the edge the reader
+ * reads from, and in a right-to-left layout that is the right one. Primer's own
+ * rule pins it with `left`, so that has to be let go of first — the same shape
+ * as the anchor rules further down, which undo Primer's physical padding and
+ * margin before setting the logical ones.
  *
  * The room it needs is the padding of whatever the nav is drawn in — 16px in
  * the sidebar, 8px in the mobile panel, where it ends up flush to the border.
@@ -614,7 +620,8 @@ a.primer-nav-section-label[aria-current='page'] {
 .SideNav-item::before {
   top: var(--base-size-4);
   bottom: var(--base-size-4);
-  left: calc(-1 * var(--base-size-8));
+  left: auto;
+  inset-inline-start: calc(-1 * var(--base-size-8));
   width: var(--base-size-4);
   border-radius: var(--borderRadius-medium, 6px);
 }
