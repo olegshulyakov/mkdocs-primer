@@ -197,6 +197,20 @@ body {
   padding: 0;
 }
 
+/*
+ * And the icon, which the rules above are drawn around. An octicon states its
+ * size on the <svg> itself; a Lucide one does not, and an <svg> with no size of
+ * its own is as big as the box it is in — so `icon: lucide` filled every
+ * control edge to edge, 32px on a desktop and 40px under a thumb, with none of
+ * the padding that is the point of them. Stated here rather than on each icon,
+ * so it holds for both sets and for whatever the theme draws next.
+ */
+.btn-octicon > svg,
+.primer-language-selector-summary > svg {
+  width: 16px;
+  height: 16px;
+}
+
 .btn-octicon:hover,
 .btn-octicon:active,
 .primer-language-selector-summary:hover,
