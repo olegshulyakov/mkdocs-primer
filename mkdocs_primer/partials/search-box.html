@@ -1,5 +1,6 @@
 <details class="primer-search-disclosure">
   <summary class="btn btn-octicon"
+           aria-controls="primer-search-form"
            aria-label="{% trans %}Search{% endtrans %}"
            title="{% trans %}Search{% endtrans %}">
     {%- if config.theme.icon == 'lucide' %}
@@ -17,8 +18,11 @@
   narrower, the button opens it as a popover. Nesting it would have meant
   holding a <details> open on the desktop, which CSS cannot do — so the wide
   case would have needed a script to work at all.
+
+  The id is what ties the two back together: the summary's aria-controls names
+  it, and js/disclosure.js dismisses the pair as one panel.
 #}
-<form class="primer-search" action="{{ 'search.html' | url }}" method="get" role="search">
+<form class="primer-search" id="primer-search-form" action="{{ 'search.html' | url }}" method="get" role="search">
     {#
       One search index covers every locale, and there is only one search page —
       the plugin builds it at the site root. Carrying the locale across lets
