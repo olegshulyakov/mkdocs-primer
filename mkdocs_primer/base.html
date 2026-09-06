@@ -260,7 +260,14 @@
           copy: {{ gettext('Copy code') | tojson }},
           copied: {{ gettext('Code copied') | tojson }},
           copied_announcement: {{ gettext('Code copied to clipboard') | tojson }},
-          copy_failed: {{ gettext('Could not copy code to clipboard') | tojson }}
+          copy_failed: {{ gettext('Could not copy code to clipboard') | tojson }},
+          {#
+            mike's version selector, which is not part of this package but
+            reaches the page through the same header. It shows a version number
+            and carries no visible label, so this string is the only name it
+            has. See mkdocs_primer_mike/js/version-select.js.
+          #}
+          version_select: {{ gettext('Select documentation version') | tojson }}
         }
         var primer_icon_set = {{ config.theme.icon | tojson }}
       </script>

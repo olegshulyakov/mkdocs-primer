@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: mkdocs-primer 0.3.0\n"
 "Report-Msgid-Bugs-To: https://github.com/olegshulyakov/mkdocs-"
 "primer/issues\n"
-"POT-Creation-Date: 2026-09-06 00:43+0300\n"
+"POT-Creation-Date: 2026-09-06 10:35+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ru\n"
@@ -29,34 +29,38 @@ msgstr "Извините, эта страница не найдена."
 msgid "Back to the home page"
 msgstr "Вернуться на главную"
 
-#: mkdocs_primer/base.html:129
+#: mkdocs_primer/base.html:148
 msgid "Skip to content"
 msgstr "Перейти к содержимому"
 
-#: mkdocs_primer/base.html:203 mkdocs_primer/base.html:204
+#: mkdocs_primer/base.html:229 mkdocs_primer/base.html:230
 msgid "Back to top"
 msgstr "Наверх"
 
-#: mkdocs_primer/base.html:229
+#: mkdocs_primer/base.html:260
 msgid "Copy code"
 msgstr "Копировать код"
 
-#: mkdocs_primer/base.html:230
+#: mkdocs_primer/base.html:261
 msgid "Code copied"
 msgstr "Код скопирован"
 
-#: mkdocs_primer/base.html:231
+#: mkdocs_primer/base.html:262
 msgid "Code copied to clipboard"
 msgstr "Код скопирован в буфер обмена"
 
-#: mkdocs_primer/base.html:232
+#: mkdocs_primer/base.html:263
 msgid "Could not copy code to clipboard"
 msgstr "Не удалось скопировать код в буфер обмена"
 
-#: mkdocs_primer/partials/search-box.html:3
+#: mkdocs_primer/base.html:270
+msgid "Select documentation version"
+msgstr "Выбрать версию документации"
+
 #: mkdocs_primer/partials/search-box.html:4
-#: mkdocs_primer/partials/search-box.html:31
-#: mkdocs_primer/partials/search-box.html:37 mkdocs_primer/search.html:3
+#: mkdocs_primer/partials/search-box.html:5
+#: mkdocs_primer/partials/search-box.html:35
+#: mkdocs_primer/partials/search-box.html:41 mkdocs_primer/search.html:3
 #: mkdocs_primer/search.html:13
 msgid "Search"
 msgstr "Поиск"
@@ -151,7 +155,7 @@ msgstr "Назад"
 msgid "Next"
 msgstr "Далее"
 
-#: mkdocs_primer/partials/toc.html:37
+#: mkdocs_primer/partials/toc.html:38
 msgid "On this page"
 msgstr "На этой странице"
 

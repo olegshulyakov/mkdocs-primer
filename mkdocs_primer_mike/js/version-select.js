@@ -51,7 +51,13 @@ window.addEventListener('DOMContentLoaded', function () {
   function makeSelect(options) {
     var select = document.createElement('select')
     select.classList.add('form-select', 'form-control', 'select-sm')
-    select.setAttribute('aria-label', 'Select documentation version')
+    // Set by base.html from the theme's translation catalog, as the copy
+    // button's labels are: this file is served verbatim and never rendered
+    // through Jinja. The control shows a version number and nothing else, so
+    // this is the only name it has. The fallback covers a page whose scripts
+    // block a site has overridden away.
+    var strings = window.primer_strings || {}
+    select.setAttribute('aria-label', strings.version_select || 'Select documentation version')
 
     options.forEach(function (i) {
       select.add(new Option(i.text, i.value, undefined, i.selected))
