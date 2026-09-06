@@ -15,6 +15,7 @@
 | `include_sidebar` | `true` | Render the navigation sidebar. |
 | `show_footer` | `true` | Render the "Improve this page" footer. |
 | `toc` | `auto` | "On this page" outline: `auto`, `expanded`, `collapsed` or `hidden`. |
+| `offline` | `false` | Register a service worker, which the site build has to generate itself. |
 | `color_mode` | `auto` | Initial color mode: `auto`, `light` or `dark`. |
 | `light_theme` | `light` | Primer theme used in light mode. |
 | `dark_theme` | `dark` | Primer theme used in dark mode. |
@@ -164,6 +165,27 @@ The theme adds a copy button to each Pygments `.highlight` block. It copies the 
 ## Navigation controls
 
 After scrolling 400 pixels, a back-to-top button appears at the bottom-right of the page. It returns the visitor to the start of the document and moves keyboard focus to the site-title link. The movement is instant when the visitor has requested reduced motion.
+
+## Offline support
+
+`offline: true` adds one thing to every page: a script that registers `service-worker.js` from the site root. The theme does not write that file, and MkDocs has nothing that would — generating it is a step your own build has to run after `mkdocs build`:
+
+```yaml
+theme:
+  name: primer
+  offline: true
+```
+
+```console
+$ mkdocs build
+$ npx workbox generateSW workbox-config.cjs
+```
+
+The service worker is what precaches the built site, so a visitor who has been to it once can read it again with no network. Leave `offline` at `false` and no registration is emitted, which is what a site without that build step wants — a page asking for a `service-worker.js` nobody generated logs a 404 on every visit.
+
+Two things it cannot do. Service workers are refused outside a secure context, so the site has to be served over HTTPS or from `localhost`; a folder opened over `file://` is not made offline-capable by any of this. And precaching starts on the *second* visit — the first one is what fills the cache.
+
+This repository's own `workbox-config.cjs` and its `npm run build:offline` are a complete working example.
 
 ## Markdown extensions
 
