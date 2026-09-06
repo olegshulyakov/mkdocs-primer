@@ -935,14 +935,23 @@ a.primer-toc-link[aria-current] {
   display: none;
 }
 
+/*
+ * The ceiling is the navigation drawer's, for the same reason: the menu hangs
+ * off a sticky header, so a list longer than the room below it would be cut by
+ * the bottom of the window with no way to scroll it back. Seven locales come to
+ * 213px and never meet this; a site with a dozen, or a reader on a landscape
+ * phone, would. `auto` means no scrollbar appears until the list earns one.
+ */
 .primer-language-selector-menu {
   position: absolute;
   top: calc(100% + var(--base-size-8));
   inset-inline-end: 0;
   z-index: 32;
   min-width: max-content;
+  max-height: 70vh;
   padding: var(--base-size-4);
   margin: 0;
+  overflow-y: auto;
   list-style: none;
   background-color: var(--overlay-bgColor, var(--bgColor-default));
   border: 1px solid var(--borderColor-default);
