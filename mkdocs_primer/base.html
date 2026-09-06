@@ -70,7 +70,18 @@
       {%- endif %}
     {%- endblock %}
 
-    <title>{% block htmltitle %}{% if page and page.title and not page.is_homepage %}{{ page.title }} - {% endif %}{{ config.site_name }}{% endblock %}</title>
+    {#
+      `page.is_homepage` is true of one page on the site: the one at the root.
+      A translated site has a home page per language, and mkdocs-static-i18n
+      puts every one but the default's under /<locale>/ — so without the second
+      test those read "<site name> - <site name>" in a tab, a bookmark and a
+      search result, a home page being normally titled after the site it opens.
+    #}
+    <title>{% block htmltitle %}
+      {%- set locale_home = i18n_page_locale is defined and page and page.url in [i18n_page_locale ~ '/', i18n_page_locale ~ '/index.html'] %}
+      {%- if page and page.title and not page.is_homepage and not locale_home %}{{ page.title }} - {% endif %}
+      {{- config.site_name }}
+    {%- endblock %}</title>
 
     {%- block styles %}
       {# Size/spacing/typography tokens first: Primer consumes them without fallbacks. #}
