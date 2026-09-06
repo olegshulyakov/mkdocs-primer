@@ -249,6 +249,11 @@
         Strings for the controls the scripts build at runtime. A .js file is
         served as-is and never passes through Jinja, so it cannot reach the
         translation catalog itself.
+
+        `theme.icon` is here for the same reason: the copy button is built by a
+        script, and every other control in the theme picks its icon set in a
+        template. The set's glyphs stay in the .js file, where they are fetched
+        once, rather than being inlined into every page that has a code block.
       #}
       <script>
         var primer_strings = {
@@ -257,6 +262,7 @@
           copied_announcement: {{ gettext('Code copied to clipboard') | tojson }},
           copy_failed: {{ gettext('Could not copy code to clipboard') | tojson }}
         }
+        var primer_icon_set = {{ config.theme.icon | tojson }}
       </script>
       <script src="{{ 'js/color-mode.js' | url }}" defer></script>
       <script src="{{ 'js/copy-code.js' | url }}" defer></script>

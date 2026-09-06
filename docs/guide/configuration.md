@@ -26,7 +26,7 @@
 
 ## Icons
 
-The header navigation, color-mode control and back-to-top button use inline SVG from one icon set. `octicons` is the default; choose Lucide icons with:
+The header navigation, color-mode control, back-to-top button and the copy button on a code block use inline SVG from one icon set. `octicons` is the default; choose Lucide icons with:
 
 ```yaml
 theme:
