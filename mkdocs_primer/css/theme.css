@@ -1423,6 +1423,18 @@ a.primer-toc-link[aria-current] {
     min-height: 40px;
   }
 
+  /*
+   * The same for the outline's disclosure, which nothing had given a box: 14px
+   * text with the line height that comes with it stands 21px tall, under the
+   * 24px WCAG 2.2 asks of a target. It covers both shapes at once — the
+   * <summary> of `collapsed` and the button js/toc-collapse.js builds for
+   * `auto` carry this class between them. Height only: the label is already
+   * wider than any target needs to be.
+   */
+  .primer-toc-summary {
+    min-height: 40px;
+  }
+
   .primer-language-selector-label {
     display: none;
   }
