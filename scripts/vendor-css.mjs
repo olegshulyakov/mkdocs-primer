@@ -43,6 +43,44 @@ const PRIMITIVES_INDEX = {
   out: 'primitives-base.css',
 }
 
+// Paper is white whichever mode the visitor was reading in, but the color mode
+// is an attribute on <html> and carries into the print stylesheet with every
+// dark token it selects. The result is what the theme's own print rules were
+// half-fixing by hand: light gray body text, and code blocks and quotes that
+// print as empty boxes, because a browser leaves backgrounds off paper by
+// default and the text on them is nearly white.
+//
+// So: take the light theme's values for every token whose two themes disagree,
+// and hand them back under `@media print`. Tokens that already agree need no
+// override, which is what keeps this to a fraction of the theme it comes from.
+// Generated rather than copied, so that a Primer bump carries its own palette
+// onto paper — the CI drift check covers this file with the rest of them.
+const PRINT_OVERRIDES = {
+  out: 'primitives-print.css',
+  // Beats [data-color-mode][data-dark-theme] on specificity rather than on
+  // order, so it holds wherever a site chooses to put this file.
+  selector: ':root[data-color-mode][data-dark-theme]',
+}
+
+// The declarations of a stylesheet's first rule — for a Primer theme file, the
+// block that states the whole palette. What follows it is the same palette
+// again for `prefers-color-scheme`, which would only overwrite these with
+// themselves.
+function firstRuleDeclarations(css) {
+  const open = css.indexOf('{')
+  let depth = 0
+  let close = open
+
+  while (close < css.length) {
+    if (css[close] === '{') depth++
+    else if (css[close] === '}' && --depth === 0) break
+    close++
+  }
+
+  const body = css.slice(open + 1, close)
+  return new Map([...body.matchAll(/(--[\w-]+)\s*:\s*([^;]+);/g)].map(m => [m[1], m[2].trim()]))
+}
+
 const LICENSE = `The MIT License (MIT)
 
 Copyright (c) GitHub, Inc.
@@ -100,8 +138,31 @@ async function vendorIndex({pkg, file, out}) {
   return `${out} ← ${pkg}@${version(pkg)}/${file} (${imports.length} files inlined)`
 }
 
+// Reads the two theme files back out of outDir, so that what lands on paper is
+// what the site is actually serving rather than a second reading of the source.
+async function vendorPrintOverrides({out, selector}) {
+  const read = async name => firstRuleDeclarations(await readFile(resolve(outDir, name), 'utf8'))
+  const [light, dark] = await Promise.all([read('primitives-light.css'), read('primitives-dark.css')])
+
+  const overrides = [...light].filter(([token, value]) => dark.get(token) !== value)
+  if (overrides.length === 0) throw new Error('The two themes state the same palette; nothing to override')
+
+  const body = overrides.map(([token, value]) => `    ${token}: ${value};`).join('\n')
+  const header =
+    `/*!\n` +
+    ` * Generated from primitives-light.css and primitives-dark.css beside this file:\n` +
+    ` * every token the two themes disagree on, at its light value, for print.\n` +
+    ` * Copyright (c) GitHub, Inc. — MIT. See LICENSE in this directory.\n` +
+    ` * Do not edit: regenerate with \`npm run vendor\`.\n` +
+    ` */\n`
+
+  await writeFile(resolve(outDir, out), `${header}@media print {\n  ${selector} {\n${body}\n  }\n}\n`)
+  return `${out} ← primitives-light.css over primitives-dark.css (${overrides.length} tokens)`
+}
+
 await mkdir(outDir, {recursive: true})
 for (const source of SOURCES) console.log(await vendor(source))
 console.log(await vendorIndex(PRIMITIVES_INDEX))
+console.log(await vendorPrintOverrides(PRINT_OVERRIDES))
 await writeFile(resolve(outDir, 'LICENSE'), LICENSE)
 console.log('LICENSE')

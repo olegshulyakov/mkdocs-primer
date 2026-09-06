@@ -91,6 +91,14 @@
       <link rel="stylesheet" href="{{ 'css/vendor/primitives-base.css' | url }}">
       <link rel="stylesheet" href="{{ 'css/vendor/primitives-light.css' | url }}">
       <link rel="stylesheet" href="{{ 'css/vendor/primitives-dark.css' | url }}">
+      {#
+        Paper is white whichever mode the page was being read in, and the mode
+        is an attribute on <html> that the print stylesheet inherits along with
+        every dark token it selects. This hands back the light value of each
+        token the two themes disagree on. The file scopes itself to `print`;
+        the attribute here only tells the browser it can wait for it.
+      #}
+      <link rel="stylesheet" media="print" href="{{ 'css/vendor/primitives-print.css' | url }}">
       <link rel="stylesheet" href="{{ 'css/vendor/primer-core.css' | url }}">
       <link rel="stylesheet" href="{{ 'css/vendor/primer-markdown.css' | url }}">
       <link rel="stylesheet" href="{{ 'css/pygments.css' | url }}">

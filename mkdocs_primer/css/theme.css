@@ -1557,16 +1557,16 @@ a.primer-toc-link[aria-current] {
   }
 
   /*
-   * Literal values rather than Primer tokens: a visitor printing while in dark
-   * mode carries the dark variables into the print stylesheet, and light-gray
-   * body text on white paper is unreadable. These two are Primer's light
-   * --fgColor-default and --bgColor-default.
+   * A visitor printing while in dark mode used to carry the dark variables
+   * onto paper, and two literal values here pinned the body text back. They
+   * only ever reached the prose: code blocks, quotes and the syntax palette
+   * paint their own surfaces and kept printing light-on-dark, which a browser
+   * turns into light-on-white by leaving backgrounds off the page.
+   *
+   * css/vendor/primitives-print.css now hands back the light value of every
+   * token the two themes disagree on, so there is nothing left to pin: the
+   * whole article prints as it would have in light mode.
    */
-  .markdown-body {
-    color: #1f2328;
-    background-color: #ffffff;
-  }
-
   .markdown-body pre,
   .markdown-body table,
   .markdown-body .admonition {
