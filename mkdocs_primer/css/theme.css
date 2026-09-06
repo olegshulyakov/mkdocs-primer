@@ -1528,6 +1528,11 @@ a.primer-toc-link[aria-current] {
  * ships one stylesheet per theme it knows about and warns for the rest.
  * Without these, Ctrl+P puts the header, sidebar and pagination on paper and
  * keeps the prose inside its on-screen column.
+ *
+ * Colour is not among them: a visitor printing while in dark mode used to
+ * carry the dark variables onto paper, and css/vendor/primitives-print.css
+ * hands back the light value of every token the two themes disagree on, so
+ * the whole article prints as it would have in light mode.
  */
 @media print {
   .primer-header,
@@ -1557,16 +1562,43 @@ a.primer-toc-link[aria-current] {
   }
 
   /*
-   * A visitor printing while in dark mode used to carry the dark variables
-   * onto paper, and two literal values here pinned the body text back. They
-   * only ever reached the prose: code blocks, quotes and the syntax palette
-   * paint their own surfaces and kept printing light-on-dark, which a browser
-   * turns into light-on-white by leaving backgrounds off the page.
+   * A block too wide for its column scrolls sideways on screen, and paper does
+   * not scroll: without this the part hanging off the edge is not printed at
+   * all, silently — a shell command ending mid-word, a table losing its last
+   * columns. `anywhere` rather than `break-word` because it is the one that
+   * also lets a box be measured narrower than its longest word, which is what
+   * a table needs to lay its columns out inside the page at all. It costs a
+   * table that would have fitted some of its column proportions, which is the
+   * cheaper of the two: a column an inch narrower still says what it says, and
+   * a column off the edge of the paper does not.
    *
-   * css/vendor/primitives-print.css now hands back the light value of every
-   * token the two themes disagree on, so there is nothing left to pin: the
-   * whole article prints as it would have in light mode.
+   * Code keeps `pre-wrap`, so its own line breaks and indentation survive and
+   * only the lines too long to fit are folded.
    */
+  .markdown-body pre,
+  .markdown-body pre > code {
+    overflow: visible;
+    overflow-wrap: anywhere;
+    white-space: pre-wrap;
+  }
+
+  /*
+   * Primer makes the table a block so that it can scroll, which on paper is
+   * the same clipped edge. As a table again it lays its own columns out, and
+   * the `width: max-content` and `max-width: 100%` it already carries then
+   * mean what they say: natural widths for a table that fits, and the page for
+   * one that does not, with the cells wrapping to make it.
+   */
+  .markdown-body table {
+    display: table;
+    overflow: visible;
+  }
+
+  .markdown-body table th,
+  .markdown-body table td {
+    overflow-wrap: anywhere;
+  }
+
   .markdown-body pre,
   .markdown-body table,
   .markdown-body .admonition {
