@@ -17,9 +17,10 @@
 
   Only `collapsed` is a <details>. `expanded` and the rail have nothing to click
   open, so giving them a disclosure would promise a control that does nothing
-  useful; `auto` in the flow is one, but js/toc-collapse.js builds it out of the
-  heading, which is what keeps the list where the placement below put it — and
-  keeps the outline expanded for a reader with no JavaScript.
+  useful; `auto` in the flow is one, but the script below builds it out of the
+  heading, which is what keeps the list where the placement put it — and keeps
+  the outline expanded for a reader with no JavaScript, for whom the stylesheet
+  ignores the collapsed state entirely.
 
   python-markdown nests the whole document under its single h1, which is already
   the page title on screen; descend past it when that is the shape, so the list
@@ -43,7 +44,15 @@
         </nav>
       </details>
     {%- else %}
-      <section class="primer-toc{{ ' primer-toc-in-rail' if toc_mode != 'expanded' }}">
+      {#
+        `auto` is closed from the markup rather than by the script that builds
+        its button, so the reader never watches the list fold itself up. The
+        stylesheet honours the attribute only once the document is marked
+        scriptable, and the rail overrides it at the width where the outline
+        gets a column and no control to close it.
+      #}
+      <section class="primer-toc{{ ' primer-toc-in-rail' if toc_mode != 'expanded' }}"
+               {{- ' data-primer-toc-collapsed' if toc_mode != 'expanded' }}>
         <div class="primer-toc-heading" id="primer-toc-label">{{ toc_label }}</div>
         <nav aria-labelledby="primer-toc-label">
           {% include "partials/toc-list.html" %}
@@ -57,6 +66,13 @@
       from the Markdown, inside page.content, where a template cannot reach.
       Moving it is cosmetic: with no JavaScript it stays above the article and
       works exactly the same.
+
+      Inline, and run where it stands rather than on DOMContentLoaded: base.html
+      renders this after the article, so the title is already parsed and the
+      outline can be put in its final place — moved, and wearing the button that
+      opens it — before the browser has painted any of it. Waiting cost a
+      layout shift of a third of the first screen on a phone, which is the whole
+      reason this is not a deferred file like the theme's other scripts.
     #}
     <script>
       ;(function () {
@@ -64,11 +80,44 @@
         if (!toc) return
         if (getComputedStyle(toc).getPropertyValue('--primer-toc-rail').trim() === '1') return
 
-        // Deferred: this runs before the article has been parsed.
-        document.addEventListener('DOMContentLoaded', function () {
-          var heading = document.querySelector('.markdown-body h1')
-          if (heading) heading.insertAdjacentElement('afterend', toc)
+        var title = document.querySelector('.markdown-body h1')
+        if (title) title.insertAdjacentElement('afterend', toc)
+
+        // Only `auto` arrives closed and needs something to open it. `expanded`
+        // asked for an open list, and `collapsed` is a <details> already.
+        if (!toc.hasAttribute('data-primer-toc-collapsed')) return
+
+        var heading = toc.querySelector(':scope > .primer-toc-heading')
+        var nav = toc.querySelector(':scope > nav')
+        if (!heading || !nav) return
+
+        // The same shape the `collapsed` mode renders, built as a button rather
+        // than a <summary> because the outline is a <section>: turning it into a
+        // <details> would move the list out of the element it was just put in.
+        var button = document.createElement('button')
+        button.type = 'button'
+        button.className = 'primer-toc-summary primer-toc-toggle'
+        button.setAttribute('aria-expanded', 'false')
+        button.textContent = heading.textContent.trim()
+
+        // The nav is named by this text through aria-labelledby, so the id has
+        // to come along with it; aria-controls then says which list it opens.
+        button.id = heading.id
+        if (!nav.id) nav.id = 'primer-toc-nav'
+        button.setAttribute('aria-controls', nav.id)
+
+        button.addEventListener('click', function () {
+          var collapsed = toc.hasAttribute('data-primer-toc-collapsed')
+
+          if (collapsed) {
+            toc.removeAttribute('data-primer-toc-collapsed')
+          } else {
+            toc.setAttribute('data-primer-toc-collapsed', '')
+          }
+          button.setAttribute('aria-expanded', collapsed ? 'true' : 'false')
         })
+
+        heading.replaceWith(button)
       })()
     </script>
   {%- endif %}

@@ -164,15 +164,6 @@
 
         <div class="primer-columns">
           {#
-            A sibling of the article, not a child of it: on a wide window the
-            stylesheet lifts it into the third column, and where there is no room
-            for one it stays here, above the prose. See partials/toc.html.
-          #}
-          {%- block toc %}
-            {% include "partials/toc.html" %}
-          {%- endblock %}
-
-          {#
             tabindex="-1" is what makes the skip link work: without it the browser
             scrolls but leaves focus at the top of the document, so the next Tab
             goes straight back into the header the visitor just skipped.
@@ -194,6 +185,22 @@
               {%- endif %}
             {%- endblock %}
           </main>
+
+          {#
+            A sibling of the article, not a child of it: on a wide window the
+            stylesheet lifts it into the third column, and where there is no room
+            for one it stays here, beside the prose in source order and above it
+            on screen. See partials/toc.html.
+
+            After the article rather than before it, so that the script inside
+            the partial can put the outline where it belongs while the parser is
+            still working -- the page title it goes under has to exist by then,
+            and nothing has been painted yet. `order` in the stylesheet is what
+            keeps it above the prose for a reader whose scripts never run.
+          #}
+          {%- block toc %}
+            {% include "partials/toc.html" %}
+          {%- endblock %}
         </div>
       </div>
     </div>
@@ -237,7 +244,6 @@
       <script src="{{ 'js/back-to-top.js' | url }}" defer></script>
       <script src="{{ 'js/scrollable.js' | url }}" defer></script>
       <script src="{{ 'js/nav-sections.js' | url }}" defer></script>
-      <script src="{{ 'js/toc-collapse.js' | url }}" defer></script>
       <script src="{{ 'js/toc-active.js' | url }}" defer></script>
       {# Unconditional: the language and navigation popovers exist with or without search. #}
       <script src="{{ 'js/disclosure.js' | url }}" defer></script>

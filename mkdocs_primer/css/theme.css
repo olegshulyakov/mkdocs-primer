@@ -325,6 +325,17 @@ ol.primer-breadcrumbs-list {
   padding-bottom: var(--base-size-32);
 }
 
+/*
+ * The outline is rendered after the article so that the script in
+ * partials/toc.html can move it under the page title while the parser is still
+ * running. That script leaves the grid entirely, and the rail places what is
+ * left by grid-area — so this only ever applies to a reader whose scripts did
+ * not run, and it is what keeps the outline above the prose for them.
+ */
+.primer-columns > .primer-toc {
+  order: -1;
+}
+
 /* The ceiling lives on .primer-content now, so the prose fills its column. */
 .primer-main .markdown-body {
   max-width: none;
@@ -660,7 +671,7 @@ section.primer-toc {
 
 /*
  * The label of an outline the reader opens: the `collapsed` mode's <summary>,
- * and the button js/toc-collapse.js puts in its place when `auto` lands in the
+ * and the button partials/toc.html puts in its place when `auto` lands in the
  * flow. The declarations a <summary> does not need are for the button.
  */
 .primer-toc-summary {
@@ -722,8 +733,16 @@ section.primer-toc {
   margin-top: var(--base-size-8);
 }
 
-/* Set by js/toc-collapse.js, which is also what puts the button there to undo it. */
-.primer-toc[data-primer-toc-collapsed] > nav {
+/*
+ * Set in the markup, so the list is closed from the first paint rather than a
+ * moment after it, and moved by the button partials/toc.html puts there.
+ *
+ * Behind .primer-js, as the navigation tree's own sections are: the attribute
+ * is on the element whether or not anything can build that button, and closing
+ * a list nobody can open again would leave a reader with no scripts staring at
+ * a label.
+ */
+.primer-js .primer-toc[data-primer-toc-collapsed] > nav {
   display: none;
 }
 
@@ -820,6 +839,13 @@ a.primer-toc-link[aria-current] {
    * list has no ceiling at all — see the rule that sets its margin.
    */
   .primer-columns:has(> .primer-toc-in-rail) > .primer-toc-in-rail > nav {
+    /*
+     * `auto` carries the collapsed attribute from the markup, for the width
+     * where it is a disclosure in the flow. Here it is a column with no control
+     * to close it, so the list is open — undone at the same specificity as the
+     * rule that closes it, and later in the file.
+     */
+    display: block;
     max-height: calc(100vh - var(--primer-header-height) - var(--base-size-64));
     overflow-y: auto;
   }
@@ -1444,7 +1470,7 @@ a.primer-toc-link[aria-current] {
    * The same for the outline's disclosure, which nothing had given a box: 14px
    * text with the line height that comes with it stands 21px tall, under the
    * 24px WCAG 2.2 asks of a target. It covers both shapes at once — the
-   * <summary> of `collapsed` and the button js/toc-collapse.js builds for
+   * <summary> of `collapsed` and the button partials/toc.html builds for
    * `auto` carry this class between them. Height only: the label is already
    * wider than any target needs to be.
    */
