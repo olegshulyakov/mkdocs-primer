@@ -170,6 +170,6 @@ msgid "Next"
 msgstr "下一页"
 
 #: mkdocs_primer/partials/toc.html:38
-msgid "On this page"
-msgstr "本页内容"
+msgid "Table of contents"
+msgstr "目录"
 

@@ -1,5 +1,5 @@
 {#
-  "On this page" for the current document. MkDocs hands the heading tree to the
+  "Table of contents" for the current document. MkDocs hands the heading tree to the
   theme as `page.toc` and nothing else surfaces it, so without this a long page
   offers no way to see its sections or jump between them.
 
@@ -35,7 +35,7 @@
 
   {# One entry is the page itself; there is nothing to navigate between. #}
   {%- if entries | length > 1 %}
-    {%- set toc_label = gettext('On this page') %}
+    {%- set toc_label = gettext('Table of contents') %}
     {%- if toc_mode == 'collapsed' %}
       <details class="primer-toc">
         <summary class="primer-toc-summary">{{ toc_label }}</summary>

@@ -653,7 +653,7 @@ a.primer-nav-section-label[aria-current='page'] {
 /* ------------------------------------------------------------------ toc -- */
 
 /*
- * "On this page". On a wide window it sits in the third column beside the
+ * "Table of contents". On a wide window it sits in the third column beside the
  * prose and scrolls with it, the way GitHub's documentation renders it: a
  * label over a plain list, no border, no bullets, nothing to click open.
  * Narrower than that the same list moves into the flow under the page title,

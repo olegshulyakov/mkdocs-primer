@@ -29,7 +29,7 @@ direction: ltr
 # Chrome toggles.
 include_sidebar: true
 show_footer: true
-# "On this page", the outline built from the headings of the current page.
+# "Table of contents", the outline built from the headings of the current page.
 #   auto       the right rail where the window has room for a third column,
 #              otherwise in the flow under the page title — expanded either way
 #   expanded   always in the flow, expanded; never takes the rail

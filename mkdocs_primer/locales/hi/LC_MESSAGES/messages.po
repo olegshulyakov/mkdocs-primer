@@ -172,6 +172,6 @@ msgid "Next"
 msgstr "अगला"
 
 #: mkdocs_primer/partials/toc.html:38
-msgid "On this page"
-msgstr "इस पृष्ठ पर"
+msgid "Table of contents"
+msgstr "विषय सूची"
 

@@ -14,7 +14,7 @@
 | `direction` | `ltr` | Document direction: `ltr` or `rtl`. |
 | `include_sidebar` | `true` | Render the navigation sidebar. |
 | `show_footer` | `true` | Render the "Improve this page" footer. |
-| `toc` | `auto` | "On this page" outline: `auto`, `expanded`, `collapsed` or `hidden`. |
+| `toc` | `auto` | "Table of contents" outline: `auto`, `expanded`, `collapsed` or `hidden`. |
 | `offline` | `false` | Register a service worker, which the site build has to generate itself. |
 | `color_mode` | `auto` | Initial color mode: `auto`, `light` or `dark`. |
 | `light_theme` | `light` | Primer theme used in light mode. |

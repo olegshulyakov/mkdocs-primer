@@ -173,6 +173,6 @@ msgid "Next"
 msgstr "Далее"
 
 #: mkdocs_primer/partials/toc.html:38
-msgid "On this page"
-msgstr "На этой странице"
+msgid "Table of contents"
+msgstr "Оглавление"
 

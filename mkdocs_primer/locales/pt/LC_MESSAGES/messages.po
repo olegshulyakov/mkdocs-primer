@@ -172,6 +172,6 @@ msgid "Next"
 msgstr "Seguinte"
 
 #: mkdocs_primer/partials/toc.html:38
-msgid "On this page"
-msgstr "Nesta página"
+msgid "Table of contents"
+msgstr "Índice"
 
