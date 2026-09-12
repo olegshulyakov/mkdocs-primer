@@ -4,7 +4,7 @@
 #
 # mkdocs-rss-plugin cannot share a config with mkdocs-static-i18n, which the
 # main site uses; see ../README.md.
-site_name: mkdocs-primer — RSS example
+site_name: MkDocs Primer Theme — RSS example
 site_description: The primer theme emitting RSS autodiscovery links
 site_url: https://olegshulyakov.github.io/mkdocs-primer/examples/rss/
 repo_url: https://github.com/olegshulyakov/mkdocs-primer

@@ -1,4 +1,4 @@
-# mkdocs-primer
+# MkDocs Primer Theme
 
 A [MkDocs](https://www.mkdocs.org/) theme built on [GitHub's Primer design
 system](https://primer.style/) — documentation that looks like it belongs on

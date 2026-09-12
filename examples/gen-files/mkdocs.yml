@@ -6,7 +6,7 @@
 # mkdocs-gen-files cannot share a config with mkdocs-static-i18n, and
 # mkdocs-literate-nav competes with mkdocs-awesome-nav; the main site uses both
 # of those. See ../README.md.
-site_name: mkdocs-primer — generated pages example
+site_name: MkDocs Primer Theme — generated pages example
 site_description: The primer theme with a nav and pages built at build time
 site_url: https://olegshulyakov.github.io/mkdocs-primer/examples/gen-files/
 repo_url: https://github.com/olegshulyakov/mkdocs-primer

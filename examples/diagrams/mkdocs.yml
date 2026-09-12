@@ -6,7 +6,7 @@
 # Mermaid cannot share a config with the main site's `minify` settings: Mermaid
 # parses its source line by line, and `minify_html` collapses the newlines
 # inside the container. See ../README.md.
-site_name: mkdocs-primer — diagrams example
+site_name: MkDocs Primer Theme — diagrams example
 site_description: Mermaid and Vega-Lite rendered under the primer theme
 site_url: https://olegshulyakov.github.io/mkdocs-primer/examples/diagrams/
 repo_url: https://github.com/olegshulyakov/mkdocs-primer
