@@ -29,8 +29,26 @@ direction: ltr
 # Chrome toggles.
 include_sidebar: true
 show_footer: true
-# Estimated reading time above each page's content, computed from its word count.
-show_reading_time: true
+
+# Panel of page facts above the table of contents: created/updated dates,
+# authors, and an estimated reading time. `show_metadata` is the panel's own
+# master switch; each field below it can also be turned off on its own. A
+# field with nothing behind it -- no revision-date plugin, no authors plugin
+# -- is left out regardless of these settings, and so is the whole panel when
+# every field it would show is.
+#
+# Flat keys rather than a nested `metadata:` option: MkDocs merges theme
+# options one top-level key at a time, so a site that overrides one of these
+# leaves the rest at their default. A nested dict does not get that same
+# per-key merge -- setting only `metadata: {created: false}` would replace
+# the whole dict and silently drop `show`, `updated` and `reading_time` along
+# with it, turning the entire panel off rather than the one field asked for.
+show_metadata: true
+show_metadata_created: true
+show_metadata_updated: true
+show_metadata_authors: true
+show_metadata_reading_time: true
+
 # "Table of contents", the outline built from the headings of the current page.
 #   auto       the right rail where the window has room for a third column,
 #              otherwise in the flow under the page title — expanded either way

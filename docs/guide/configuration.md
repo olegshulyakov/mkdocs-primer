@@ -14,7 +14,11 @@
 | `direction` | `ltr` | Document direction: `ltr` or `rtl`. |
 | `include_sidebar` | `true` | Render the navigation sidebar. |
 | `show_footer` | `true` | Render the "Improve this page" footer. |
-| `show_reading_time` | `true` | Show an estimated reading time in the metadata panel. |
+| `show_metadata` | `true` | Render the metadata panel above the table of contents. |
+| `show_metadata_created` | `true` | Show the created-date row. |
+| `show_metadata_updated` | `true` | Show the last-updated-date row. |
+| `show_metadata_authors` | `true` | Show the authors row. |
+| `show_metadata_reading_time` | `true` | Show the estimated-reading-time row. |
 | `toc` | `auto` | "Table of contents" outline: `auto`, `expanded`, `collapsed` or `hidden`. |
 | `offline` | `false` | Register a service worker, which the site build has to generate itself. |
 | `color_mode` | `auto` | Initial color mode: `auto`, `light` or `dark`. |
@@ -27,9 +31,21 @@
 
 ## Metadata panel
 
-Below the table of contents — in the rail on a wide window, in the flow above the article otherwise — the theme can show a small panel of facts about the current page: when it was created, when it last changed, who wrote it, and how long it takes to read. Each row appears only when there is data behind it, and the whole panel is left out when none of the four would show anything.
+Below the table of contents — in the rail on a wide window, in the flow above the article otherwise — the theme can show a small panel of facts about the current page: when it was created, when it last changed, who wrote it, and how long it takes to read. Each row appears only when its own option is on *and* there is data behind it, and the whole panel is left out when none of the four would show anything.
 
-`show_reading_time` (`true` by default) controls the reading-time row. It estimates minutes to read from the page's rendered word count at 265 words per minute, the average adult reading speed, and is left out for a page with no content of its own, such as a section index.
+```yaml
+theme:
+  name: primer
+  show_metadata: true # the panel's own switch; false hides all four rows
+  show_metadata_created: true
+  show_metadata_updated: true
+  show_metadata_authors: true
+  show_metadata_reading_time: true
+```
+
+`show_metadata` turns the whole panel off regardless of the fields below it. Each field can also be turned off on its own — for a site that wants the dates but not a reading-time estimate, say.
+
+`show_metadata_reading_time` estimates minutes to read from the page's rendered word count at 265 words per minute, the average adult reading speed, and is left out for a page with no content of its own, such as a section index.
 
 The two date rows come from [mkdocs-git-revision-date-localized](https://github.com/timvink/mkdocs-git-revision-date-localized-plugin):
 

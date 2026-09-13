@@ -9,16 +9,19 @@
   `git_page_authors` is put on the page context by mkdocs-git-authors-plugin,
   as a string of HTML (mailto links), which is why it is not escaped here.
 
-  A row with nothing behind it is left out rather than printed empty, and the
-  whole panel disappears if every row would be -- the common case for a site
-  that has not enabled either plugin and has turned `show_reading_time` off.
+  `theme.show_metadata` is the panel's own switch; each field has its own
+  `theme.show_metadata_*` option too, for a site that wants the dates but not
+  the reading time, say. A row with nothing behind it -- a field turned off,
+  or the plugin it depends on not enabled -- is left out rather than printed
+  empty, and the whole panel disappears if every row would be.
 #}
-{%- set created = page.meta.get('git_creation_date_localized') if page and page.meta else none %}
-{%- set updated = page.meta.get('git_revision_date_localized') if page and page.meta else none %}
-{%- set word_count = (page.content | striptags | wordcount) if config.theme.show_reading_time and page and page.content else 0 %}
+{%- set created = page.meta.get('git_creation_date_localized') if config.theme.show_metadata_created and page and page.meta else none %}
+{%- set updated = page.meta.get('git_revision_date_localized') if config.theme.show_metadata_updated and page and page.meta else none %}
+{%- set authors = git_page_authors if config.theme.show_metadata_authors else none %}
+{%- set word_count = (page.content | striptags | wordcount) if config.theme.show_metadata_reading_time and page and page.content else 0 %}
 {%- set reading_minutes = ([1, ((word_count / 265) | round(0, 'ceil')) | int] | max) if word_count else 0 %}
 
-{%- if created or updated or git_page_authors or reading_minutes %}
+{%- if config.theme.show_metadata and (created or updated or authors or reading_minutes) %}
   <div class="primer-metadata">
     <div class="primer-metadata-heading">{% trans %}Metadata{% endtrans %}</div>
     <ul class="primer-metadata-list">
@@ -42,14 +45,14 @@
           <span><span class="sr-only">{% trans %}Last updated:{% endtrans %} </span>{{ updated }}</span>
         </li>
       {%- endif %}
-      {%- if git_page_authors %}
+      {%- if authors %}
         <li class="primer-metadata-item">
           {%- if config.theme.icon == 'lucide' %}
             <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><path d="M16 3.128a4 4 0 0 1 0 7.744"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><circle cx="9" cy="7" r="4"/></svg>
           {%- else %}
             <svg aria-hidden="true" height="16" viewBox="0 0 16 16" width="16" fill="currentColor"><path d="M2 5.5a3.5 3.5 0 1 1 5.898 2.549 5.508 5.508 0 0 1 3.034 4.084.75.75 0 1 1-1.482.235 4 4 0 0 0-7.9 0 .75.75 0 0 1-1.482-.236A5.507 5.507 0 0 1 3.102 8.05 3.493 3.493 0 0 1 2 5.5ZM11 4a3.001 3.001 0 0 1 2.22 5.018 5.01 5.01 0 0 1 2.56 3.012.749.749 0 0 1-.885.954.752.752 0 0 1-.549-.514 3.507 3.507 0 0 0-2.522-2.372.75.75 0 0 1-.574-.73v-.352a.75.75 0 0 1 .416-.672A1.5 1.5 0 0 0 11 5.5.75.75 0 0 1 11 4Zm-5.5-.5a2 2 0 1 0-.001 3.999A2 2 0 0 0 5.5 3.5Z"></path></svg>
           {%- endif %}
-          <span><span class="sr-only">{% trans %}Authors:{% endtrans %} </span>{{ git_page_authors | safe }}</span>
+          <span><span class="sr-only">{% trans %}Authors:{% endtrans %} </span>{{ authors | safe }}</span>
         </li>
       {%- endif %}
       {%- if reading_minutes %}
