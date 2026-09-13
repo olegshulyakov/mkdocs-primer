@@ -39,11 +39,11 @@ When at least two configured languages have `build: true`, the header also rende
 
 ### mkdocs-git-revision-date-localized
 
-[mkdocs-git-revision-date-localized][git-date] reads the git log and stores the result in `page.meta.git_revision_date_localized`. Nothing displays it unless the theme asks for it, so a theme without that line makes the plugin look broken. `partials/footer.html` prints it — the "Last updated" line at the bottom of this page.
+[mkdocs-git-revision-date-localized][git-date] reads the git log and stores the result in `page.meta.git_revision_date_localized` — and, with `enable_creation_date: true`, `page.meta.git_creation_date_localized` too. Nothing displays either unless the theme asks for it, so a theme without those lines makes the plugin look broken. `partials/metadata.html` prints both, as the "created" and "last updated" rows of the metadata panel above the table of contents.
 
 ### mkdocs-git-authors
 
-[mkdocs-git-authors][git-authors] has the same shape: it puts `git_page_authors` on the page context as a string of HTML and leaves the display to the theme. The footer prints it beside the revision date.
+[mkdocs-git-authors][git-authors] has the same shape: it puts `git_page_authors` on the page context as a string of HTML and leaves the display to the theme. The metadata panel prints it alongside the dates.
 
 ### mkdocs-rss-plugin
 

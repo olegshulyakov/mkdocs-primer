@@ -14,7 +14,7 @@
 | `direction` | `ltr` | Document direction: `ltr` or `rtl`. |
 | `include_sidebar` | `true` | Render the navigation sidebar. |
 | `show_footer` | `true` | Render the "Improve this page" footer. |
-| `show_reading_time` | `true` | Show an estimated reading time above each page's content. |
+| `show_reading_time` | `true` | Show an estimated reading time in the metadata panel. |
 | `toc` | `auto` | "Table of contents" outline: `auto`, `expanded`, `collapsed` or `hidden`. |
 | `offline` | `false` | Register a service worker, which the site build has to generate itself. |
 | `color_mode` | `auto` | Initial color mode: `auto`, `light` or `dark`. |
@@ -25,7 +25,23 @@
 
 `toc` chooses where the outline built from the current page's headings goes. `auto` puts it in the right rail on a window wide enough for a third column and under the page title otherwise, where it is a disclosure the reader opens rather than a list standing between the title and the first paragraph. `expanded` keeps it in the flow and out of the rail, `collapsed` makes it a disclosure the reader opens, and `hidden` — or `false` — leaves it out.
 
-`show_reading_time` estimates minutes to read from the page's rendered word count at 265 words per minute, the average adult reading speed. A page with no content of its own, such as a section index, shows nothing rather than "0 min read".
+## Metadata panel
+
+Below the table of contents — in the rail on a wide window, in the flow above the article otherwise — the theme can show a small panel of facts about the current page: when it was created, when it last changed, who wrote it, and how long it takes to read. Each row appears only when there is data behind it, and the whole panel is left out when none of the four would show anything.
+
+`show_reading_time` (`true` by default) controls the reading-time row. It estimates minutes to read from the page's rendered word count at 265 words per minute, the average adult reading speed, and is left out for a page with no content of its own, such as a section index.
+
+The two date rows come from [mkdocs-git-revision-date-localized](https://github.com/timvink/mkdocs-git-revision-date-localized-plugin):
+
+```yaml
+plugins:
+  - git-revision-date-localized:
+      enable_creation_date: true # also required for the "created" row
+```
+
+Neither date row appears unless that plugin is enabled, and the created-date row needs `enable_creation_date: true` specifically — the plugin's own default leaves it off.
+
+The authors row comes from [mkdocs-git-authors](https://github.com/timvink/mkdocs-git-authors-plugin) and does not appear unless that plugin is enabled either.
 
 ## Icons
 

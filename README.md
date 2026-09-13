@@ -23,8 +23,8 @@ theme:
 - Admonitions styled after GitHub's alerts. The `admonition` extension ships no CSS and `@primer/css` has no rule for it, so most themes render `!!! note` undecorated.
 - Sidebar navigation with unlimited nesting, collapsed down to the section the reader is in, plus a breadcrumb trail, prev/next links, a search results page, and a 404 page.
 - Optional Workbox-powered offline support for sites served over HTTPS.
-- "Improve this page" footer, as in the Jekyll theme, with a "Last updated" line when `mkdocs-git-revision-date-localized` is enabled.
-- Estimated reading time above every page's content, computed from its word count — no blog plugin required.
+- "Improve this page" footer, as in the Jekyll theme.
+- A metadata panel below the table of contents with created/updated dates and authors (from `mkdocs-git-revision-date-localized` and `mkdocs-git-authors`) and an estimated reading time computed from the page's word count — no blog plugin required.
 - Native support for the plugins that need it: `mkdocs-section-index` (section labels render as links) and `mkdocs-static-i18n` (translated pages get the right `<html lang>` and can use the header language selector). See [Plugins](https://olegshulyakov.github.io/mkdocs-primer/guide/plugins/).
 
 ## Configuration
@@ -36,7 +36,7 @@ theme:
 | `locale` | `en` | Language of the theme's own text. Catalogs ship for `en`, `es`, `fr`, `hi`, `pt`, `ru` and `zh`. |
 | `include_sidebar` | `true` | Render the navigation sidebar. |
 | `show_footer` | `true` | Render the "Improve this page" footer. |
-| `show_reading_time` | `true` | Show an estimated reading time above each page's content. |
+| `show_reading_time` | `true` | Show an estimated reading time in the metadata panel. |
 | `toc` | `auto` | "Table of contents" outline: `auto`, `expanded`, `collapsed` or `hidden`. |
 | `color_mode` | `auto` | Initial color mode: `auto`, `light` or `dark`. |
 | `light_theme` | `light` | Primer theme used in light mode. |

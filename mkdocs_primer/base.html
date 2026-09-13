@@ -188,10 +188,6 @@
             goes straight back into the header the visitor just skipped.
           #}
           <main class="primer-main" id="primer-content" tabindex="-1">
-            {%- block reading_time %}
-              {% include "partials/reading-time.html" %}
-            {%- endblock %}
-
             <article class="markdown-body">
               {%- block content %}
                 {{ page.content }}
@@ -213,17 +209,29 @@
             A sibling of the article, not a child of it: on a wide window the
             stylesheet lifts it into the third column, and where there is no room
             for one it stays here, beside the prose in source order and above it
-            on screen. See partials/toc.html.
+            on screen. See partials/toc.html and partials/metadata.html.
 
             After the article rather than before it, so that the script inside
-            the partial can put the outline where it belongs while the parser is
-            still working -- the page title it goes under has to exist by then,
-            and nothing has been painted yet. `order` in the stylesheet is what
-            keeps it above the prose for a reader whose scripts never run.
+            partials/toc.html can put the outline where it belongs while the
+            parser is still working -- the page title it goes under has to exist
+            by then, and nothing has been painted yet. `order` in the stylesheet
+            is what keeps this whole group above the prose for a reader whose
+            scripts never run.
+
+            Metadata comes after the outline so the two stack in that order in
+            the rail. The outline's own script moves only that element out from
+            under metadata and down beside the title, so a narrow window or a
+            reader with no scripts sees metadata on its own, above the article.
           #}
-          {%- block toc %}
-            {% include "partials/toc.html" %}
-          {%- endblock %}
+          <div class="primer-rail">
+            {%- block toc %}
+              {% include "partials/toc.html" %}
+            {%- endblock %}
+
+            {%- block metadata %}
+              {% include "partials/metadata.html" %}
+            {%- endblock %}
+          </div>
         </div>
       </div>
     </div>

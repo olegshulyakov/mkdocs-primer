@@ -73,12 +73,18 @@
       opens it — before the browser has painted any of it. Waiting cost a
       layout shift of a third of the first screen on a phone, which is the whole
       reason this is not a deferred file like the theme's other scripts.
+
+      `matchMedia` rather than reading a CSS custom property theme.css sets via
+      `:has()`: this script runs synchronously mid-parse, before the browser
+      necessarily has that relational selector resolved, and it read back unset
+      often enough to move the outline into the flow on a window plenty wide
+      for the rail. The rail's own width, 1280px, is stated in theme.css too.
     #}
     <script>
       ;(function () {
         var toc = document.querySelector('.primer-toc')
         if (!toc) return
-        if (getComputedStyle(toc).getPropertyValue('--primer-toc-rail').trim() === '1') return
+        if (toc.classList.contains('primer-toc-in-rail') && window.matchMedia('(min-width: 1280px)').matches) return
 
         var title = document.querySelector('.markdown-body h1')
         if (title) title.insertAdjacentElement('afterend', toc)
