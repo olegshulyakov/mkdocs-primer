@@ -29,6 +29,8 @@ direction: ltr
 # Chrome toggles.
 include_sidebar: true
 show_footer: true
+# Estimated reading time above each page's content, computed from its word count.
+show_reading_time: true
 # "Table of contents", the outline built from the headings of the current page.
 #   auto       the right rail where the window has room for a third column,
 #              otherwise in the flow under the page title — expanded either way

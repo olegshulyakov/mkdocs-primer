@@ -14,6 +14,7 @@
 | `direction` | `ltr` | Document direction: `ltr` or `rtl`. |
 | `include_sidebar` | `true` | Render the navigation sidebar. |
 | `show_footer` | `true` | Render the "Improve this page" footer. |
+| `show_reading_time` | `true` | Show an estimated reading time above each page's content. |
 | `toc` | `auto` | "Table of contents" outline: `auto`, `expanded`, `collapsed` or `hidden`. |
 | `offline` | `false` | Register a service worker, which the site build has to generate itself. |
 | `color_mode` | `auto` | Initial color mode: `auto`, `light` or `dark`. |
@@ -23,6 +24,8 @@
 `color_mode` only sets the *initial* mode. Visitors can change it with the header toggle, and their choice is stored in `localStorage`.
 
 `toc` chooses where the outline built from the current page's headings goes. `auto` puts it in the right rail on a window wide enough for a third column and under the page title otherwise, where it is a disclosure the reader opens rather than a list standing between the title and the first paragraph. `expanded` keeps it in the flow and out of the rail, `collapsed` makes it a disclosure the reader opens, and `hidden` — or `false` — leaves it out.
+
+`show_reading_time` estimates minutes to read from the page's rendered word count at 265 words per minute, the average adult reading speed. A page with no content of its own, such as a section index, shows nothing rather than "0 min read".
 
 ## Icons
 

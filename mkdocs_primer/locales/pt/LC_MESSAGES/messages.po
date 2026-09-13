@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: mkdocs-primer 0.3.1\n"
 "Report-Msgid-Bugs-To: https://github.com/olegshulyakov/mkdocs-"
 "primer/issues\n"
-"POT-Creation-Date: 2026-09-06 10:51+0300\n"
+"POT-Creation-Date: 2026-09-13 17:52+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: pt\n"
@@ -32,44 +32,44 @@ msgstr "Voltar à página inicial"
 msgid "Skip to content"
 msgstr "Ir para o conteúdo"
 
-#: mkdocs_primer/base.html:229 mkdocs_primer/base.html:230
+#: mkdocs_primer/base.html:233 mkdocs_primer/base.html:234
 msgid "Back to top"
 msgstr "Voltar ao topo"
 
-#: mkdocs_primer/base.html:260
+#: mkdocs_primer/base.html:264
 msgid "Copy code"
 msgstr "Copiar código"
 
-#: mkdocs_primer/base.html:261
+#: mkdocs_primer/base.html:265
 msgid "Code copied"
 msgstr "Código copiado"
 
-#: mkdocs_primer/base.html:262
+#: mkdocs_primer/base.html:266
 msgid "Code copied to clipboard"
 msgstr "Código copiado para a área de transferência"
 
-#: mkdocs_primer/base.html:263
+#: mkdocs_primer/base.html:267
 msgid "Could not copy code to clipboard"
 msgstr "Não foi possível copiar o código para a área de transferência"
 
-#: mkdocs_primer/base.html:270
+#: mkdocs_primer/base.html:274
 msgid "Select documentation version"
 msgstr "Selecionar a versão da documentação"
 
-#: mkdocs_primer/base.html:278
+#: mkdocs_primer/base.html:282
 #, python-format
 msgid "Change color mode (%(mode)s)"
 msgstr "Alterar o modo de cor (%(mode)s)"
 
-#: mkdocs_primer/base.html:279
+#: mkdocs_primer/base.html:283
 msgid "Automatic"
 msgstr "Automático"
 
-#: mkdocs_primer/base.html:280
+#: mkdocs_primer/base.html:284
 msgid "Light"
 msgstr "Claro"
 
-#: mkdocs_primer/base.html:281
+#: mkdocs_primer/base.html:285
 msgid "Dark"
 msgstr "Escuro"
 
@@ -170,6 +170,11 @@ msgstr "Anterior"
 #: mkdocs_primer/partials/pagination.html:16
 msgid "Next"
 msgstr "Seguinte"
+
+#: mkdocs_primer/partials/reading-time.html:15
+#, python-format
+msgid "%(minutes)s min read"
+msgstr "%(minutes)s min de leitura"
 
 #: mkdocs_primer/partials/toc.html:38
 msgid "Table of contents"
