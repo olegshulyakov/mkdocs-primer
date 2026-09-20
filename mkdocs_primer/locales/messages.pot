@@ -7,10 +7,10 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: mkdocs-primer 0.3.1\n"
+"Project-Id-Version: mkdocs-primer 0.4.0\n"
 "Report-Msgid-Bugs-To: https://github.com/olegshulyakov/mkdocs-"
 "primer/issues\n"
-"POT-Creation-Date: 2026-09-20 12:25+0300\n"
+"POT-Creation-Date: 2026-09-20 18:38+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -32,43 +32,44 @@ msgid "Skip to content"
 msgstr ""
 
 #: mkdocs_primer/base.html:251 mkdocs_primer/base.html:252
+#: mkdocs_primer/base.html:260
 msgid "Back to top"
 msgstr ""
 
-#: mkdocs_primer/base.html:282
+#: mkdocs_primer/base.html:283
 msgid "Copy code"
 msgstr ""
 
-#: mkdocs_primer/base.html:283
+#: mkdocs_primer/base.html:284
 msgid "Code copied"
 msgstr ""
 
-#: mkdocs_primer/base.html:284
+#: mkdocs_primer/base.html:285
 msgid "Code copied to clipboard"
 msgstr ""
 
-#: mkdocs_primer/base.html:285
+#: mkdocs_primer/base.html:286
 msgid "Could not copy code to clipboard"
 msgstr ""
 
-#: mkdocs_primer/base.html:292
+#: mkdocs_primer/base.html:293
 msgid "Select documentation version"
 msgstr ""
 
-#: mkdocs_primer/base.html:300
+#: mkdocs_primer/base.html:301
 #, python-format
 msgid "Change color mode (%(mode)s)"
 msgstr ""
 
-#: mkdocs_primer/base.html:301
+#: mkdocs_primer/base.html:302
 msgid "Automatic"
 msgstr ""
 
-#: mkdocs_primer/base.html:302
+#: mkdocs_primer/base.html:303
 msgid "Light"
 msgstr ""
 
-#: mkdocs_primer/base.html:303
+#: mkdocs_primer/base.html:304
 msgid "Dark"
 msgstr ""
 

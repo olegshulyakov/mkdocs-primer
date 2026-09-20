@@ -6,10 +6,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: mkdocs-primer 0.3.1\n"
+"Project-Id-Version: mkdocs-primer 0.4.0\n"
 "Report-Msgid-Bugs-To: https://github.com/olegshulyakov/mkdocs-"
 "primer/issues\n"
-"POT-Creation-Date: 2026-09-20 12:25+0300\n"
+"POT-Creation-Date: 2026-09-20 18:38+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: zh\n"
@@ -33,43 +33,44 @@ msgid "Skip to content"
 msgstr "跳到主要内容"
 
 #: mkdocs_primer/base.html:251 mkdocs_primer/base.html:252
+#: mkdocs_primer/base.html:260
 msgid "Back to top"
 msgstr "返回顶部"
 
-#: mkdocs_primer/base.html:282
+#: mkdocs_primer/base.html:283
 msgid "Copy code"
 msgstr "复制代码"
 
-#: mkdocs_primer/base.html:283
+#: mkdocs_primer/base.html:284
 msgid "Code copied"
 msgstr "已复制代码"
 
-#: mkdocs_primer/base.html:284
+#: mkdocs_primer/base.html:285
 msgid "Code copied to clipboard"
 msgstr "代码已复制到剪贴板"
 
-#: mkdocs_primer/base.html:285
+#: mkdocs_primer/base.html:286
 msgid "Could not copy code to clipboard"
 msgstr "无法将代码复制到剪贴板"
 
-#: mkdocs_primer/base.html:292
+#: mkdocs_primer/base.html:293
 msgid "Select documentation version"
 msgstr "选择文档版本"
 
-#: mkdocs_primer/base.html:300
+#: mkdocs_primer/base.html:301
 #, python-format
 msgid "Change color mode (%(mode)s)"
 msgstr "切换配色模式（%(mode)s）"
 
-#: mkdocs_primer/base.html:301
+#: mkdocs_primer/base.html:302
 msgid "Automatic"
 msgstr "自动"
 
-#: mkdocs_primer/base.html:302
+#: mkdocs_primer/base.html:303
 msgid "Light"
 msgstr "浅色"
 
-#: mkdocs_primer/base.html:303
+#: mkdocs_primer/base.html:304
 msgid "Dark"
 msgstr "深色"
 
