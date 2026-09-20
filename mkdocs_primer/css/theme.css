@@ -35,7 +35,17 @@ html {
   scroll-padding-top: calc(var(--primer-header-height) + var(--base-size-8));
 }
 
+/*
+ * A flex column the height of the viewport at minimum, so .primer-layout (the
+ * only child set to grow) absorbs whatever room a short article leaves and the
+ * footer lands on the window's bottom edge instead of right under the prose.
+ * Below 1011.98px .primer-sidebar's fixed height stops reaching the same
+ * result as a side effect, so this is stated outright instead.
+ */
 body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
   color: var(--fgColor-default);
   background-color: var(--bgColor-default);
 }
@@ -294,6 +304,7 @@ ol.primer-breadcrumbs-list {
  */
 .primer-layout {
   display: grid;
+  flex: 1 1 auto;
   grid-template-columns: minmax(0, 1fr);
   align-items: start;
 }
@@ -303,14 +314,20 @@ ol.primer-breadcrumbs-list {
 }
 
 /*
- * A fixed height rather than a ceiling, so the rule down its edge runs the
- * whole window the way it does on GitHub's documentation, instead of stopping
- * wherever the last nav item happens to fall.
+ * Stretched to its grid row rather than given a flat 100vh, so the rule down
+ * its edge runs to wherever the row actually ends -- the bottom of a tall
+ * article, or (with .primer-layout now filling the window on a short one)
+ * the top of the footer -- instead of stopping wherever the last nav item
+ * happens to fall, or overshooting the footer by running past it.
+ * `max-height` keeps a nav list longer than one window scrolling inside its
+ * own box rather than growing the row to fit it.
  */
 .primer-sidebar {
   position: sticky;
+  align-self: stretch;
   top: var(--primer-header-height);
-  height: calc(100vh - var(--primer-header-height));
+  height: 100%;
+  max-height: calc(100vh - var(--primer-header-height));
   padding: var(--base-size-24) var(--primer-gutter);
   overflow-y: auto;
   background-color: var(--bgColor-inset); /* see .primer-header */
