@@ -96,14 +96,14 @@ plugins:
   - section-index
 
   # Sets page.meta.git_revision_date_localized and
-  # page.meta.git_creation_date_localized, both printed by the metadata panel.
+  # page.meta.git_creation_date_localized, both printed by the metadata line.
   - git-revision-date-localized:
       # A shallow clone or a fresh working copy has no log for a page; fall back
       # rather than failing the build.
       fallback_to_build_date: true
       enable_creation_date: true
 
-  # Puts `git_page_authors` on the page context, which the metadata panel prints.
+  # Puts `git_page_authors` on the page context, which the metadata line prints.
   - git-authors
 
   # Wraps content images in a lightbox by rewriting the page HTML.

@@ -24,7 +24,7 @@ theme:
 - Sidebar navigation with unlimited nesting, collapsed down to the section the reader is in, plus a breadcrumb trail, prev/next links, a search results page, and a 404 page.
 - Optional Workbox-powered offline support for sites served over HTTPS.
 - "Improve this page" footer, as in the Jekyll theme.
-- A metadata panel below the table of contents with created/updated dates and authors (from `mkdocs-git-revision-date-localized` and `mkdocs-git-authors`) and an estimated reading time computed from the page's word count — no blog plugin required. The panel and each of its fields are independently toggleable.
+- A metadata byline under the page title with created/updated dates (from `mkdocs-git-revision-date-localized`), an estimated reading time computed from the page's word count, and authors (from `mkdocs-git-authors`) — no blog plugin required. The line and each of its fields are independently toggleable.
 - Native support for the plugins that need it: `mkdocs-section-index` (section labels render as links) and `mkdocs-static-i18n` (translated pages get the right `<html lang>` and can use the header language selector). See [Plugins](https://olegshulyakov.github.io/mkdocs-primer/guide/plugins/).
 
 ## Configuration
@@ -36,11 +36,11 @@ theme:
 | `locale` | `en` | Language of the theme's own text. Catalogs ship for `en`, `es`, `fr`, `hi`, `pt`, `ru` and `zh`. |
 | `include_sidebar` | `true` | Render the navigation sidebar. |
 | `show_footer` | `true` | Render the "Improve this page" footer. |
-| `show_metadata` | `true` | Render the metadata panel above the table of contents. |
-| `show_metadata_created` | `true` | Show the created-date row. |
-| `show_metadata_updated` | `true` | Show the last-updated-date row. |
-| `show_metadata_authors` | `true` | Show the authors row. |
-| `show_metadata_reading_time` | `true` | Show the estimated-reading-time row. |
+| `show_metadata` | `true` | Render the metadata line under the page title. |
+| `show_metadata_created` | `true` | Show the created date. |
+| `show_metadata_updated` | `true` | Show the last-updated date. |
+| `show_metadata_reading_time` | `true` | Show the estimated reading time. |
+| `show_metadata_authors` | `true` | Show the authors. |
 | `toc` | `auto` | "Table of contents" outline: `auto`, `expanded`, `collapsed` or `hidden`. |
 | `color_mode` | `auto` | Initial color mode: `auto`, `light` or `dark`. |
 | `light_theme` | `light` | Primer theme used in light mode. |
