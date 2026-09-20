@@ -194,6 +194,21 @@
               {%- endblock %}
             </article>
 
+            {#
+              Page facts belong to the reading column, under the title they
+              describe. The title comes from the Markdown, inside page.content,
+              where a template cannot reach -- so this is rendered after the
+              article and its own script lifts it into place while the parser is
+              still running. After the article rather than before it for the same
+              reason the outline is: the title has to exist by the time that
+              script runs. A reader with no scripts gets the facts here instead,
+              below the prose and above the pagination, which reads as the page
+              footnote it then is.
+            #}
+            {%- block metadata %}
+              {% include "partials/metadata.html" %}
+            {%- endblock %}
+
             {%- block pagination %}
               {% include "partials/pagination.html" %}
             {%- endblock %}
@@ -209,27 +224,17 @@
             A sibling of the article, not a child of it: on a wide window the
             stylesheet lifts it into the third column, and where there is no room
             for one it stays here, beside the prose in source order and above it
-            on screen. See partials/toc.html and partials/metadata.html.
+            on screen. See partials/toc.html.
 
             After the article rather than before it, so that the script inside
             partials/toc.html can put the outline where it belongs while the
             parser is still working -- the page title it goes under has to exist
             by then, and nothing has been painted yet. `order` in the stylesheet
-            is what keeps this whole group above the prose for a reader whose
-            scripts never run.
-
-            Metadata comes after the outline so the two stack in that order in
-            the rail. The outline's own script moves only that element out from
-            under metadata and down beside the title, so a narrow window or a
-            reader with no scripts sees metadata on its own, above the article.
+            is what keeps it above the prose for a reader whose scripts never run.
           #}
           <div class="primer-rail">
             {%- block toc %}
               {% include "partials/toc.html" %}
-            {%- endblock %}
-
-            {%- block metadata %}
-              {% include "partials/metadata.html" %}
             {%- endblock %}
           </div>
         </div>

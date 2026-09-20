@@ -14,11 +14,11 @@
 | `direction` | `ltr` | Document direction: `ltr` or `rtl`. |
 | `include_sidebar` | `true` | Render the navigation sidebar. |
 | `show_footer` | `true` | Render the "Improve this page" footer. |
-| `show_metadata` | `true` | Render the metadata panel above the table of contents. |
-| `show_metadata_created` | `true` | Show the created-date row. |
-| `show_metadata_updated` | `true` | Show the last-updated-date row. |
-| `show_metadata_authors` | `true` | Show the authors row. |
-| `show_metadata_reading_time` | `true` | Show the estimated-reading-time row. |
+| `show_metadata` | `true` | Render the metadata line under the page title. |
+| `show_metadata_created` | `true` | Show the created date. |
+| `show_metadata_updated` | `true` | Show the last-updated date. |
+| `show_metadata_reading_time` | `true` | Show the estimated reading time. |
+| `show_metadata_authors` | `true` | Show the authors. |
 | `toc` | `auto` | "Table of contents" outline: `auto`, `expanded`, `collapsed` or `hidden`. |
 | `offline` | `false` | Register a service worker, which the site build has to generate itself. |
 | `color_mode` | `auto` | Initial color mode: `auto`, `light` or `dark`. |
@@ -29,35 +29,35 @@
 
 `toc` chooses where the outline built from the current page's headings goes. `auto` puts it in the right rail on a window wide enough for a third column and under the page title otherwise, where it is a disclosure the reader opens rather than a list standing between the title and the first paragraph. `expanded` keeps it in the flow and out of the rail, `collapsed` makes it a disclosure the reader opens, and `hidden` — or `false` — leaves it out.
 
-## Metadata panel
+## Metadata line
 
-Below the table of contents — in the rail on a wide window, in the flow above the article otherwise — the theme can show a small panel of facts about the current page: when it was created, when it last changed, who wrote it, and how long it takes to read. Each row appears only when its own option is on *and* there is data behind it, and the whole panel is left out when none of the four would show anything.
+Directly under the page title, above the prose, the theme can show a byline of facts about the current page: when it was created, when it last changed, how long it takes to read, and who wrote it. Each item appears only when its own option is on *and* there is data behind it, and the whole line is left out when none of the four would show anything.
 
 ```yaml
 theme:
   name: primer
-  show_metadata: true # the panel's own switch; false hides all four rows
+  show_metadata: true # the line's own switch; false hides all four items
   show_metadata_created: true
   show_metadata_updated: true
-  show_metadata_authors: true
   show_metadata_reading_time: true
+  show_metadata_authors: true
 ```
 
-`show_metadata` turns the whole panel off regardless of the fields below it. Each field can also be turned off on its own — for a site that wants the dates but not a reading-time estimate, say.
+`show_metadata` turns the whole line off regardless of the fields below it. Each field can also be turned off on its own — for a site that wants the dates but not a reading-time estimate, say.
 
 `show_metadata_reading_time` estimates minutes to read from the page's rendered word count at 265 words per minute, the average adult reading speed, and is left out for a page with no content of its own, such as a section index.
 
-The two date rows come from [mkdocs-git-revision-date-localized](https://github.com/timvink/mkdocs-git-revision-date-localized-plugin):
+The two dates come from [mkdocs-git-revision-date-localized](https://github.com/timvink/mkdocs-git-revision-date-localized-plugin):
 
 ```yaml
 plugins:
   - git-revision-date-localized:
-      enable_creation_date: true # also required for the "created" row
+      enable_creation_date: true # also required for the "created" date
 ```
 
-Neither date row appears unless that plugin is enabled, and the created-date row needs `enable_creation_date: true` specifically — the plugin's own default leaves it off.
+Neither date appears unless that plugin is enabled, and the created date needs `enable_creation_date: true` specifically — the plugin's own default leaves it off.
 
-The authors row comes from [mkdocs-git-authors](https://github.com/timvink/mkdocs-git-authors-plugin) and does not appear unless that plugin is enabled either.
+The authors come from [mkdocs-git-authors](https://github.com/timvink/mkdocs-git-authors-plugin) and do not appear unless that plugin is enabled either.
 
 ## Icons
 

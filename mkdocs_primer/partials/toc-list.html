@@ -1,8 +1,15 @@
 {#
   The heading list, shared by the two shapes partials/toc.html can render.
   `entries` comes from the including template.
+
+  `role="list"`, which a <ul> already is: the outline is drawn without markers,
+  and Safari drops the list semantics of a list styled that way -- so VoiceOver
+  announced the headings as a run of links and said nothing about how many
+  there were or where the reader was in them. The role puts that back. Same
+  reason partials/metadata.html states one, where flexbox costs it the same
+  way. See ul.primer-toc-list in css/theme.css.
 #}
-<ul class="primer-toc-list">
+<ul class="primer-toc-list" role="list">
   {%- for toc_item in entries %}
     {% include "partials/toc-item.html" %}
   {%- endfor %}

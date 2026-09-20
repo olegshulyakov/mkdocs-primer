@@ -1,70 +1,131 @@
 {#
   Facts about the current page that are not part of its own prose: when it was
-  written, when it last changed, how long it takes to read. Below the outline
-  rather than in it, since none of this is a heading the reader can jump to.
+  written, when it last changed, how long it takes to read. A byline under the
+  page title, the way a published article carries one -- read once on the way
+  into the page rather than kept beside it, which is why this is no longer rail
+  furniture next to the outline.
 
   `git_creation_date_localized` and `git_revision_date_localized` are set on
   `page.meta` by mkdocs-git-revision-date-localized-plugin -- the first only
   with `enable_creation_date: true`, the plugin's own default being off.
+
+  Both come wrapped in a span whose `title` is the same moment down to the
+  second, in UTC. That tooltip is reachable with a mouse and nothing else, and
+  a browser hands it to assistive technology as the name of the date, so a
+  screen reader read out a timestamp where the page showed a plain date. The
+  plugin publishes every format a second time as a bare string, under
+  `..._raw_<type>`, and those are what this uses -- keyed on the type the site
+  configured, since that is the one it means to display.
+
+  `timeago` is the exception. That variant is an empty element a script fills
+  in, and the plugin pairs it with a hidden `iso_date` so the date still prints
+  and still reads for someone whose scripts did not run -- both keyed on
+  classes only the wrapped output carries. Taking it apart would break those,
+  so a site on `timeago` keeps the plugin's own markup, tooltip and all.
+
   `git_page_authors` is put on the page context by mkdocs-git-authors-plugin,
   as a string of HTML (mailto links), which is why it is not escaped here.
 
-  `theme.show_metadata` is the panel's own switch; each field has its own
+  `theme.show_metadata` is the line's own switch; each field has its own
   `theme.show_metadata_*` option too, for a site that wants the dates but not
-  the reading time, say. A row with nothing behind it -- a field turned off,
+  the reading time, say. An item with nothing behind it -- a field turned off,
   or the plugin it depends on not enabled -- is left out rather than printed
-  empty, and the whole panel disappears if every row would be.
+  empty, and the whole line disappears if every item would be.
 #}
-{%- set created = page.meta.get('git_creation_date_localized') if config.theme.show_metadata_created and page and page.meta else none %}
-{%- set updated = page.meta.get('git_revision_date_localized') if config.theme.show_metadata_updated and page and page.meta else none %}
-{%- set authors = git_page_authors if config.theme.show_metadata_authors else none %}
+{#
+  The raw key is named after the format in use, and an `or` falls back to the
+  wrapped date: a plugin too old to publish the raw variants would otherwise
+  drop both dates off the page rather than merely keep their tooltips.
+#}
+{%- set date_plugin = config.plugins.get('git-revision-date-localized') %}
+{%- set date_suffix = ('_raw_' ~ date_plugin.config.type) if date_plugin and date_plugin.config.type != 'timeago' else '' %}
+{%- set created = (page.meta.get('git_creation_date_localized' ~ date_suffix) or page.meta.get('git_creation_date_localized')) if config.theme.show_metadata_created and page and page.meta else none %}
+{%- set updated = (page.meta.get('git_revision_date_localized' ~ date_suffix) or page.meta.get('git_revision_date_localized')) if config.theme.show_metadata_updated and page and page.meta else none %}
 {%- set word_count = (page.content | striptags | wordcount) if config.theme.show_metadata_reading_time and page and page.content else 0 %}
 {%- set reading_minutes = ([1, ((word_count / 265) | round(0, 'ceil')) | int] | max) if word_count else 0 %}
+{%- set authors = git_page_authors if config.theme.show_metadata_authors else none %}
 
-{%- if config.theme.show_metadata and (created or updated or authors or reading_minutes) %}
-  <div class="primer-metadata">
-    <div class="primer-metadata-heading">{% trans %}Metadata{% endtrans %}</div>
-    <ul class="primer-metadata-list">
-      {%- if created %}
-        <li class="primer-metadata-item">
-          {%- if config.theme.icon == 'lucide' %}
-            <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2v3"/><path d="M16 2v3"/><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/></svg>
-          {%- else %}
-            <svg aria-hidden="true" height="16" viewBox="0 0 16 16" width="16" fill="currentColor"><path d="M4.75 0a.75.75 0 0 1 .75.75V2h5V.75a.75.75 0 0 1 1.5 0V2h1.25c.966 0 1.75.784 1.75 1.75v10.5A1.75 1.75 0 0 1 13.25 16H2.75A1.75 1.75 0 0 1 1 14.25V3.75C1 2.784 1.784 2 2.75 2H4V.75A.75.75 0 0 1 4.75 0ZM2.5 7.5v6.75c0 .138.112.25.25.25h10.5a.25.25 0 0 0 .25-.25V7.5Zm10.75-4H2.75a.25.25 0 0 0-.25.25V6h11V3.75a.25.25 0 0 0-.25-.25Z"></path></svg>
-          {%- endif %}
-          <span><span class="sr-only">{% trans %}Created:{% endtrans %} </span>{{ created }}</span>
-        </li>
-      {%- endif %}
-      {%- if updated %}
-        <li class="primer-metadata-item">
-          {%- if config.theme.icon == 'lucide' %}
-            <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 14v2.2l1.6 1"/><path d="M16 2v3"/><path d="M21 7.338V5a2 2 0 00-2-2H5a2 2 0 00-2 2v14a2 2 0 002 2h2.338"/><path d="M3 9h5.859"/><path d="M8 2v3"/><circle cx="16" cy="16" r="6"/></svg>
-          {%- else %}
-            <svg aria-hidden="true" height="16" viewBox="0 0 16 16" width="16" fill="currentColor"><path d="m.427 1.927 1.215 1.215a8.002 8.002 0 1 1-1.6 5.685.75.75 0 1 1 1.493-.154 6.5 6.5 0 1 0 1.18-4.458l1.358 1.358A.25.25 0 0 1 3.896 6H.25A.25.25 0 0 1 0 5.75V2.104a.25.25 0 0 1 .427-.177ZM7.75 4a.75.75 0 0 1 .75.75v2.992l2.028.812a.75.75 0 0 1-.557 1.392l-2.5-1A.751.751 0 0 1 7 8.25v-3.5A.75.75 0 0 1 7.75 4Z"></path></svg>
-          {%- endif %}
-          <span><span class="sr-only">{% trans %}Last updated:{% endtrans %} </span>{{ updated }}</span>
-        </li>
-      {%- endif %}
-      {%- if authors %}
-        <li class="primer-metadata-item">
-          {%- if config.theme.icon == 'lucide' %}
-            <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><path d="M16 3.128a4 4 0 0 1 0 7.744"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><circle cx="9" cy="7" r="4"/></svg>
-          {%- else %}
-            <svg aria-hidden="true" height="16" viewBox="0 0 16 16" width="16" fill="currentColor"><path d="M2 5.5a3.5 3.5 0 1 1 5.898 2.549 5.508 5.508 0 0 1 3.034 4.084.75.75 0 1 1-1.482.235 4 4 0 0 0-7.9 0 .75.75 0 0 1-1.482-.236A5.507 5.507 0 0 1 3.102 8.05 3.493 3.493 0 0 1 2 5.5ZM11 4a3.001 3.001 0 0 1 2.22 5.018 5.01 5.01 0 0 1 2.56 3.012.749.749 0 0 1-.885.954.752.752 0 0 1-.549-.514 3.507 3.507 0 0 0-2.522-2.372.75.75 0 0 1-.574-.73v-.352a.75.75 0 0 1 .416-.672A1.5 1.5 0 0 0 11 5.5.75.75 0 0 1 11 4Zm-5.5-.5a2 2 0 1 0-.001 3.999A2 2 0 0 0 5.5 3.5Z"></path></svg>
-          {%- endif %}
-          <span><span class="sr-only">{% trans %}Authors:{% endtrans %} </span>{{ authors | safe }}</span>
-        </li>
-      {%- endif %}
-      {%- if reading_minutes %}
-        <li class="primer-metadata-item">
-          {%- if config.theme.icon == 'lucide' %}
-            <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
-          {%- else %}
-            <svg aria-hidden="true" height="16" viewBox="0 0 16 16" width="16" fill="currentColor"><path d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0ZM1.5 8a6.5 6.5 0 1 0 13 0 6.5 6.5 0 0 0-13 0Zm7-3.25v2.992l2.028.812a.75.75 0 0 1-.557 1.392l-2.5-1A.751.751 0 0 1 7 8.25v-3.5a.75.75 0 0 1 1.5 0Z"></path></svg>
-          {%- endif %}
-          <span>{% trans minutes=reading_minutes %}{{ minutes }} min read{% endtrans %}</span>
-        </li>
-      {%- endif %}
-    </ul>
-  </div>
+{%- if config.theme.show_metadata and (created or updated or reading_minutes or authors) %}
+  {#
+    The list names itself rather than sitting under a visible heading: a line of
+    facts under the title needs no label on screen, but a screen reader reaching
+    a bare list of dates deserves to be told what it is.
+
+    `role` on every row of it, which looks redundant on a <ul> of <li> and is
+    not: laying the line out with flexbox takes `display: list-item` off the
+    items, and a browser that no longer paints them as list items stops
+    exposing them as ones too -- Chrome and Safari both report plain generics
+    here without this, so the four facts arrive as one unbroken run of text and
+    the label on the list goes with them, `aria-label` having nothing valid to
+    attach to on a generic. `list-style: none` alone is enough to cost the
+    semantics in Safari, which is the better-known half of the same problem.
+  #}
+  <ul class="primer-metadata" role="list" aria-label="{% trans %}Metadata{% endtrans %}">
+    {%- if created %}
+      <li class="primer-metadata-item" role="listitem">
+        {%- if config.theme.icon == 'lucide' %}
+          <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2v3"/><path d="M16 2v3"/><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/></svg>
+        {%- else %}
+          <svg aria-hidden="true" height="16" viewBox="0 0 16 16" width="16" fill="currentColor"><path d="M4.75 0a.75.75 0 0 1 .75.75V2h5V.75a.75.75 0 0 1 1.5 0V2h1.25c.966 0 1.75.784 1.75 1.75v10.5A1.75 1.75 0 0 1 13.25 16H2.75A1.75 1.75 0 0 1 1 14.25V3.75C1 2.784 1.784 2 2.75 2H4V.75A.75.75 0 0 1 4.75 0ZM2.5 7.5v6.75c0 .138.112.25.25.25h10.5a.25.25 0 0 0 .25-.25V7.5Zm10.75-4H2.75a.25.25 0 0 0-.25.25V6h11V3.75a.25.25 0 0 0-.25-.25Z"></path></svg>
+        {%- endif %}
+        <span><span class="sr-only">{% trans %}Created:{% endtrans %} </span>{{ created }}</span>
+      </li>
+    {%- endif %}
+    {%- if updated %}
+      <li class="primer-metadata-item" role="listitem">
+        {%- if config.theme.icon == 'lucide' %}
+          <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 14v2.2l1.6 1"/><path d="M16 2v3"/><path d="M21 7.338V5a2 2 0 00-2-2H5a2 2 0 00-2 2v14a2 2 0 002 2h2.338"/><path d="M3 9h5.859"/><path d="M8 2v3"/><circle cx="16" cy="16" r="6"/></svg>
+        {%- else %}
+          <svg aria-hidden="true" height="16" viewBox="0 0 16 16" width="16" fill="currentColor"><path d="m.427 1.927 1.215 1.215a8.002 8.002 0 1 1-1.6 5.685.75.75 0 1 1 1.493-.154 6.5 6.5 0 1 0 1.18-4.458l1.358 1.358A.25.25 0 0 1 3.896 6H.25A.25.25 0 0 1 0 5.75V2.104a.25.25 0 0 1 .427-.177ZM7.75 4a.75.75 0 0 1 .75.75v2.992l2.028.812a.75.75 0 0 1-.557 1.392l-2.5-1A.751.751 0 0 1 7 8.25v-3.5A.75.75 0 0 1 7.75 4Z"></path></svg>
+        {%- endif %}
+        <span><span class="sr-only">{% trans %}Last updated:{% endtrans %} </span>{{ updated }}</span>
+      </li>
+    {%- endif %}
+    {%- if reading_minutes %}
+      <li class="primer-metadata-item" role="listitem">
+        {%- if config.theme.icon == 'lucide' %}
+          <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+        {%- else %}
+          <svg aria-hidden="true" height="16" viewBox="0 0 16 16" width="16" fill="currentColor"><path d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0ZM1.5 8a6.5 6.5 0 1 0 13 0 6.5 6.5 0 0 0-13 0Zm7-3.25v2.992l2.028.812a.75.75 0 0 1-.557 1.392l-2.5-1A.751.751 0 0 1 7 8.25v-3.5a.75.75 0 0 1 1.5 0Z"></path></svg>
+        {%- endif %}
+        <span>{% trans minutes=reading_minutes %}{{ minutes }} min read{% endtrans %}</span>
+      </li>
+    {%- endif %}
+    {%- if authors %}
+      <li class="primer-metadata-item" role="listitem">
+        {%- if config.theme.icon == 'lucide' %}
+          <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><path d="M16 3.128a4 4 0 0 1 0 7.744"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><circle cx="9" cy="7" r="4"/></svg>
+        {%- else %}
+          <svg aria-hidden="true" height="16" viewBox="0 0 16 16" width="16" fill="currentColor"><path d="M2 5.5a3.5 3.5 0 1 1 5.898 2.549 5.508 5.508 0 0 1 3.034 4.084.75.75 0 1 1-1.482.235 4 4 0 0 0-7.9 0 .75.75 0 0 1-1.482-.236A5.507 5.507 0 0 1 3.102 8.05 3.493 3.493 0 0 1 2 5.5ZM11 4a3.001 3.001 0 0 1 2.22 5.018 5.01 5.01 0 0 1 2.56 3.012.749.749 0 0 1-.885.954.752.752 0 0 1-.549-.514 3.507 3.507 0 0 0-2.522-2.372.75.75 0 0 1-.574-.73v-.352a.75.75 0 0 1 .416-.672A1.5 1.5 0 0 0 11 5.5.75.75 0 0 1 11 4Zm-5.5-.5a2 2 0 1 0-.001 3.999A2 2 0 0 0 5.5 3.5Z"></path></svg>
+        {%- endif %}
+        <span><span class="sr-only">{% trans %}Authors:{% endtrans %} </span>{{ authors | safe }}</span>
+      </li>
+    {%- endif %}
+  </ul>
+
+  {#
+    Puts the line under the page title, which lives in the Markdown and so is
+    out of a template's reach. Moving it is cosmetic: with no JavaScript it
+    stays where base.html rendered it, below the prose, and says the same thing.
+
+    Inline, and run where it stands rather than on DOMContentLoaded, for the
+    reason partials/toc.html gives at greater length: this is rendered after the
+    article, so the title is already parsed and the line can be put in its final
+    place before the browser paints any of it. Waiting would cost a visible jump
+    directly under the title, on every page.
+
+    Before partials/toc.html's own script in document order, which is what
+    settles the order of the two when the outline is in the flow as well: the
+    line is already under the title by the time the outline looks for where to
+    go, and that script steps over it.
+  #}
+  <script>
+    ;(function () {
+      var metadata = document.querySelector('.primer-metadata')
+      if (!metadata) return
+
+      var title = document.querySelector('.markdown-body h1')
+      if (title) title.insertAdjacentElement('afterend', metadata)
+    })()
+  </script>
 {%- endif %}

@@ -46,6 +46,10 @@ body {
  * list in which every item is a link — and the sidebar is not underlined
  * either. Underlining it would also make the page look different depending on
  * whether that script had run.
+ *
+ * The metadata byline is dropped in there by a script too, and its authors are
+ * links that do need the cue; it states that itself, so that it reads the same
+ * wherever that script left it. See .primer-metadata-item a.
  */
 .markdown-body a:not(.anchor):not(.btn):not(.primer-toc-link),
 .primer-footer a {
@@ -340,12 +344,11 @@ ol.primer-breadcrumbs-list {
 }
 
 /*
- * The outline and the metadata panel are rendered after the article, in that
- * order, so that the script in partials/toc.html can move the outline under
- * the page title while the parser is still running. That script leaves the
- * grid entirely, taking only the outline with it and leaving metadata behind
- * — so `order` only ever applies to a reader whose scripts did not run, and it
- * is what keeps the whole group above the prose for them.
+ * The outline is rendered after the article, so that the script in
+ * partials/toc.html can move it under the page title while the parser is still
+ * running. That script takes it out of the grid entirely — so `order` only ever
+ * applies to a reader whose scripts did not run, and it is what keeps the
+ * outline above the prose for them.
  */
 .primer-columns > .primer-rail {
   order: -1;
@@ -655,53 +658,75 @@ a.primer-nav-section-label[aria-current='page'] {
 
 /*
  * When the page was written, when it last changed, how long it takes to read
- * -- an icon and a value per fact, below the outline rather than in it, since
- * none of this is a heading the reader can jump to. Flow-mode chrome mirrors
- * .primer-toc's own: same divider, same spacing, so the two read as one
- * family of rail furniture whether or not the rail itself is in play.
+ * -- an icon and a value per fact, on one wrapping line under the page title,
+ * the byline of the article that follows. Quiet and small, at the size and
+ * colour the breadcrumbs above the title are set in, so the two frame the
+ * heading rather than compete with it.
  *
- * The inline start offset on the heading and the list -- not the icons, which
- * sit outside it -- is .primer-toc-heading's and .primer-toc-link's own,
- * repeated rather than shared: it lines the text up with the outline's, whose
- * value is theirs to line up against, not this component's to depend on.
+ * The element is named in the selectors because a script drops this inside
+ * .markdown-body, where Primer styles `ul` and `li` of its own -- the same
+ * reason ul.primer-toc-list names its own.
+ *
+ * Unlike the outline, this prints: a byline under the title is part of the
+ * article on paper, which is why it is not in the @media print list below.
  */
-.primer-metadata {
-  padding-bottom: var(--base-size-16);
-  margin-bottom: var(--base-size-24);
-  border-bottom: 1px solid var(--borderColor-muted, var(--borderColor-default));
-}
-
-.primer-metadata-heading {
-  padding-inline-start: calc(var(--base-size-8) + 2px);
-  margin-bottom: var(--base-size-8);
-  font-size: 14px;
-  font-weight: var(--base-text-weight-semibold, 600);
-  color: var(--fgColor-default);
-}
-
-.primer-metadata-list {
+ul.primer-metadata {
   display: flex;
-  flex-direction: column;
-  gap: var(--base-size-8);
-  padding-inline-start: calc(var(--base-size-8) + 2px);
-  margin: 0;
+  flex-wrap: wrap;
+  gap: var(--base-size-4) var(--base-size-16);
+  padding: 0;
+  margin-top: 0;
+  margin-bottom: var(--base-size-16);
   list-style: none;
 }
 
 .primer-metadata-item {
   display: flex;
   align-items: center;
-  gap: var(--base-size-8);
-  font-size: 14px;
+  gap: var(--base-size-4);
+  font-size: 12px;
   color: var(--fgColor-muted);
+}
+
+/*
+ * Primer spaces adjacent list items apart, which along a row landed as a 3px
+ * top margin on every item but the first -- enough to hold the first one's
+ * text a pixel and a half above the three beside it. Written as a pair, the
+ * way .primer-toc-item is and for the same reason: `.markdown-body li + li`
+ * outranks the class on its own.
+ */
+.primer-metadata-item + .primer-metadata-item {
+  margin-top: 0;
 }
 
 /* Sized here rather than on each icon: an Octicon states its own, a Lucide one
    fills whatever box it is in, the same gap .btn-octicon closes for those. */
 .primer-metadata-item svg {
   flex: 0 0 auto;
-  width: 16px;
-  height: 16px;
+  width: 14px;
+  height: 14px;
+}
+
+/*
+ * The authors plugin hands over mailto links. They take the line's own colour
+ * rather than the link blue, which would make two of the four items shout --
+ * but they keep the underline, which is then the only thing saying they can be
+ * clicked at all. Dropping it left them indistinguishable from the dates
+ * beside them for anyone not hovering a mouse over them.
+ *
+ * Stated here rather than left to the prose-link rule near the top of this
+ * file, so that the byline reads the same in either of the two places the page
+ * can leave it -- that rule reaches inside .markdown-body only.
+ */
+.primer-metadata-item a {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+}
+
+.primer-metadata-item a:hover,
+.primer-metadata-item a:focus-visible {
+  color: var(--fgColor-accent);
 }
 
 /* ------------------------------------------------------------------ toc -- */
@@ -824,6 +849,8 @@ section.primer-toc {
   display: none;
 }
 
+/* Markerless, which costs Safari the list semantics -- partials/toc-list.html
+   hands them back with a role. */
 ul.primer-toc-list {
   padding: 0;
   margin: 0;
@@ -868,13 +895,10 @@ a.primer-toc-link[aria-current] {
 
 /*
  * The third column. `:has` is what keeps it honest — the rail only opens when
- * there is an outline or a metadata panel to put in it, so a page with
- * neither, one heading, or a site with `toc: collapsed` and no metadata
- * plugins enabled, keeps the full reading width. A page with only one of the
- * two still gets the column, rather than falling back to reading width and
- * leaving a dead strip beside a metadata panel with nowhere else to go. Where
- * `:has` is missing, both stay in the flow, which is the same thing a narrow
- * window gets.
+ * there is an outline to put in it, so a page with one heading, or a site with
+ * `toc: collapsed`, keeps the full reading width instead of leaving a dead
+ * strip down the side. Where `:has` is missing, the outline stays in the flow,
+ * which is the same thing a narrow window gets.
  */
 @media (min-width: 1280px) {
   /*
@@ -882,32 +906,23 @@ a.primer-toc-link[aria-current] {
    * flow the outline is moved into the article, and a looser test would keep
    * widening the group after a resize while the columns themselves had gone.
    */
-  .primer-content:has(
-      > .primer-columns > .primer-rail > .primer-toc-in-rail,
-      > .primer-columns > .primer-rail > .primer-metadata
-    ) {
+  .primer-content:has(> .primer-columns > .primer-rail > .primer-toc-in-rail) {
     max-width: calc(
       var(--primer-article-max) + var(--base-size-32) + var(--primer-rail-width) +
         2 * var(--primer-gutter)
     );
   }
 
-  .primer-columns:has(> .primer-rail > .primer-toc-in-rail, > .primer-rail > .primer-metadata) {
+  .primer-columns:has(> .primer-rail > .primer-toc-in-rail) {
     grid-template-columns: minmax(0, 1fr) var(--primer-rail-width);
   }
 
-  .primer-columns:has(> .primer-rail > .primer-toc-in-rail, > .primer-rail > .primer-metadata)
-    > .primer-main {
+  .primer-columns:has(> .primer-rail > .primer-toc-in-rail) > .primer-main {
     grid-area: 1 / 1;
   }
 
-  /*
-   * The whole rail is one sticky, scrollable column; metadata and the outline
-   * stack inside it in source order rather than each claiming a grid area of
-   * their own, so metadata's height never has to be known up front.
-   */
-  .primer-columns:has(> .primer-rail > .primer-toc-in-rail, > .primer-rail > .primer-metadata)
-    > .primer-rail {
+  /* A sticky column of its own, scrolling with the prose beside it. */
+  .primer-columns:has(> .primer-rail > .primer-toc-in-rail) > .primer-rail {
     position: sticky;
     top: calc(var(--primer-header-height) + var(--base-size-24));
     /*
@@ -925,12 +940,11 @@ a.primer-toc-link[aria-current] {
   }
 
   /*
-   * Flow-mode chrome -- the divider under metadata, the divider and padding
-   * under the outline -- gives way to the rail's own `gap` between the two.
+   * Flow-mode chrome -- the divider and padding that separate the outline from
+   * the prose it would otherwise sit above -- has nothing to separate it from
+   * here, the rail being a column of its own.
    */
-  .primer-columns:has(> .primer-rail > .primer-toc-in-rail, > .primer-rail > .primer-metadata)
-    > .primer-rail
-    > * {
+  .primer-columns:has(> .primer-rail > .primer-toc-in-rail) > .primer-rail > * {
     padding-bottom: 0;
     margin-top: 0;
     margin-bottom: 0;
@@ -939,10 +953,10 @@ a.primer-toc-link[aria-current] {
 
   /*
    * A flex column of its own, so the heading keeps its natural height and the
-   * rule below can hand every pixel the rail has left to `nav` — the same
+   * rule below can hand every pixel the rail has left to `nav` — the
    * shrink-to-fit `min-height: 0` needs to reach every ancestor up to the rail
    * itself, or the browser sizes this to the outline's full height instead of
-   * the space actually left once metadata takes its own.
+   * the height the rail actually has.
    */
   .primer-columns:has(> .primer-rail > .primer-toc-in-rail) > .primer-rail > .primer-toc-in-rail {
     display: flex;
@@ -956,7 +970,10 @@ a.primer-toc-link[aria-current] {
    * the sticky rail. In the flow the list has no ceiling at all — see the
    * rule that sets its margin.
    */
-  .primer-columns:has(> .primer-rail > .primer-toc-in-rail) > .primer-rail > .primer-toc-in-rail > nav {
+  .primer-columns:has(> .primer-rail > .primer-toc-in-rail)
+    > .primer-rail
+    > .primer-toc-in-rail
+    > nav {
     /*
      * `auto` carries the collapsed attribute from the markup, for the width
      * where it is a disclosure in the flow. Here it is a column with no control
@@ -1654,9 +1671,6 @@ a.primer-toc-link[aria-current] {
   .primer-back-to-top,
   /* A list of links to jump to is of no use once the page is on paper. */
   .primer-toc,
-  /* Icons and a sticky rail are screen furniture; the dates read fine as prose,
-     but nothing here separates them from the article that follows. */
-  .primer-metadata,
   /* Sits inside .markdown-body, so it survives the header being hidden and
      prints an icon over the first line of every code block. */
   .primer-copy-code {

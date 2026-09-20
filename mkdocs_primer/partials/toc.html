@@ -86,8 +86,13 @@
         if (!toc) return
         if (toc.classList.contains('primer-toc-in-rail') && window.matchMedia('(min-width: 1280px)').matches) return
 
-        var title = document.querySelector('.markdown-body h1')
-        if (title) title.insertAdjacentElement('afterend', toc)
+        // Under the title, and under the metadata line when there is one --
+        // partials/metadata.html has already put that there, the script that
+        // moves it running earlier in the document than this one.
+        var anchor = document.querySelector('.markdown-body h1')
+        var metadata = anchor && anchor.nextElementSibling
+        if (metadata && metadata.classList.contains('primer-metadata')) anchor = metadata
+        if (anchor) anchor.insertAdjacentElement('afterend', toc)
 
         // Only `auto` arrives closed and needs something to open it. `expanded`
         // asked for an open list, and `collapsed` is a <details> already.
