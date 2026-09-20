@@ -212,12 +212,6 @@
             {%- block pagination %}
               {% include "partials/pagination.html" %}
             {%- endblock %}
-
-            {%- block footer %}
-              {%- if config.theme.show_footer %}
-                {% include "partials/footer.html" %}
-              {%- endif %}
-            {%- endblock %}
           </main>
 
           {#
@@ -240,6 +234,17 @@
         </div>
       </div>
     </div>
+
+    {#
+      Outside .primer-layout, so the bar runs the full width of the window under
+      navigation, article and outline alike -- it belongs to the site, not to
+      the reading column. Same placement .primer-header has at the other end.
+    #}
+    {%- block footer %}
+      {%- if config.theme.show_footer %}
+        {% include "partials/footer.html" %}
+      {%- endif %}
+    {%- endblock %}
 
     <button class="btn btn-octicon primer-back-to-top" type="button"
             data-primer-back-to-top hidden

@@ -26,6 +26,12 @@
   `git_page_authors` is put on the page context by mkdocs-git-authors-plugin,
   as a string of HTML (mailto links), which is why it is not escaped here.
 
+  `page.edit_url` is MkDocs' own, built from `repo_url` and `edit_uri`. It is
+  here rather than in the footer because it is a fact about this page like the
+  rest of them, and because the footer became a bar under the whole site, the
+  same on every page of it. A site with no `edit_uri` has no such link and the
+  footer names the repository instead -- see partials/footer.html.
+
   `theme.show_metadata` is the line's own switch; each field has its own
   `theme.show_metadata_*` option too, for a site that wants the dates but not
   the reading time, say. An item with nothing behind it -- a field turned off,
@@ -44,8 +50,9 @@
 {%- set word_count = (page.content | striptags | wordcount) if config.theme.show_metadata_reading_time and page and page.content else 0 %}
 {%- set reading_minutes = ([1, ((word_count / 265) | round(0, 'ceil')) | int] | max) if word_count else 0 %}
 {%- set authors = git_page_authors if config.theme.show_metadata_authors else none %}
+{%- set edit_url = page.edit_url if config.theme.show_metadata_edit and page else none %}
 
-{%- if config.theme.show_metadata and (created or updated or reading_minutes or authors) %}
+{%- if config.theme.show_metadata and (created or updated or reading_minutes or authors or edit_url) %}
   {#
     The list names itself rather than sitting under a visible heading: a line of
     facts under the title needs no label on screen, but a screen reader reaching
@@ -99,6 +106,21 @@
           <svg aria-hidden="true" height="16" viewBox="0 0 16 16" width="16" fill="currentColor"><path d="M2 5.5a3.5 3.5 0 1 1 5.898 2.549 5.508 5.508 0 0 1 3.034 4.084.75.75 0 1 1-1.482.235 4 4 0 0 0-7.9 0 .75.75 0 0 1-1.482-.236A5.507 5.507 0 0 1 3.102 8.05 3.493 3.493 0 0 1 2 5.5ZM11 4a3.001 3.001 0 0 1 2.22 5.018 5.01 5.01 0 0 1 2.56 3.012.749.749 0 0 1-.885.954.752.752 0 0 1-.549-.514 3.507 3.507 0 0 0-2.522-2.372.75.75 0 0 1-.574-.73v-.352a.75.75 0 0 1 .416-.672A1.5 1.5 0 0 0 11 5.5.75.75 0 0 1 11 4Zm-5.5-.5a2 2 0 1 0-.001 3.999A2 2 0 0 0 5.5 3.5Z"></path></svg>
         {%- endif %}
         <span><span class="sr-only">{% trans %}Authors:{% endtrans %} </span>{{ authors | safe }}</span>
+      </li>
+    {%- endif %}
+    {#
+      Last, and the only item that is somewhere to go rather than something to
+      know. "Improve this page" already names its own destination, so unlike
+      the dates it needs no hidden label in front of it.
+    #}
+    {%- if edit_url %}
+      <li class="primer-metadata-item" role="listitem">
+        {%- if config.theme.icon == 'lucide' %}
+          <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z"/><path d="m15 5 4 4"/></svg>
+        {%- else %}
+          <svg aria-hidden="true" height="16" viewBox="0 0 16 16" width="16" fill="currentColor"><path d="M11.013 1.427a1.75 1.75 0 0 1 2.474 0l1.086 1.086a1.75 1.75 0 0 1 0 2.474l-8.61 8.61c-.21.21-.47.364-.756.445l-3.251.93a.75.75 0 0 1-.927-.928l.929-3.25c.081-.286.235-.547.445-.758l8.61-8.61Zm.176 4.823L9.75 4.81l-6.286 6.287a.253.253 0 0 0-.064.108l-.558 1.953 1.953-.558a.253.253 0 0 0 .108-.064Zm1.238-3.763a.25.25 0 0 0-.354 0L10.811 3.75l1.439 1.44 1.263-1.263a.25.25 0 0 0 0-.354Z"></path></svg>
+        {%- endif %}
+        <a href="{{ edit_url }}">{% trans %}Improve this page{% endtrans %}</a>
       </li>
     {%- endif %}
   </ul>

@@ -4,9 +4,17 @@ site_url: https://olegshulyakov.github.io/mkdocs-primer/
 
 repo_url: https://github.com/olegshulyakov/mkdocs-primer
 edit_uri: edit/main/docs/
+copyright: Copyright &copy; 2025 Oleg Shulyakov
 
 theme:
   name: primer
+  # The footer's social row, on this site so that the option is exercised by
+  # every build rather than only described in the reference.
+  social:
+    - service: github
+      link: https://github.com/olegshulyakov/mkdocs-primer
+    - service: pypi
+      link: https://pypi.org/project/mkdocs-primer/
 
 # Drops one false-positive warning from mkdocs-section-index so `--strict` stays
 # usable. See the docstring in hooks.py.

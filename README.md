@@ -23,8 +23,8 @@ theme:
 - Admonitions styled after GitHub's alerts. The `admonition` extension ships no CSS and `@primer/css` has no rule for it, so most themes render `!!! note` undecorated.
 - Sidebar navigation with unlimited nesting, collapsed down to the section the reader is in, plus a breadcrumb trail, prev/next links, a search results page, and a 404 page.
 - Optional Workbox-powered offline support for sites served over HTTPS.
-- "Improve this page" footer, as in the Jekyll theme.
-- A metadata byline under the page title with created/updated dates (from `mkdocs-git-revision-date-localized`), an estimated reading time computed from the page's word count, and authors (from `mkdocs-git-authors`) — no blog plugin required. The line and each of its fields are independently toggleable.
+- A footer bar under the whole layout: copyright, a "Made with" line, and a row of social links driven by a config list, drawn from a curated set of Simple Icons.
+- A metadata byline under the page title with created/updated dates (from `mkdocs-git-revision-date-localized`), an estimated reading time computed from the page's word count, authors (from `mkdocs-git-authors`), and the "Improve this page" link from the Jekyll theme — no blog plugin required. The line and each of its fields are independently toggleable.
 - Native support for the plugins that need it: `mkdocs-section-index` (section labels render as links) and `mkdocs-static-i18n` (translated pages get the right `<html lang>` and can use the header language selector). See [Plugins](https://olegshulyakov.github.io/mkdocs-primer/guide/plugins/).
 
 ## Configuration
@@ -35,12 +35,15 @@ theme:
 | `favicon` | `img/favicon.svg` | Site icon. |
 | `locale` | `en` | Language of the theme's own text. Catalogs ship for `en`, `es`, `fr`, `hi`, `pt`, `ru` and `zh`. |
 | `include_sidebar` | `true` | Render the navigation sidebar. |
-| `show_footer` | `true` | Render the "Improve this page" footer. |
+| `show_footer` | `true` | Render the footer bar. |
+| `show_footer_generator` | `true` | Show "Made with mkdocs-primer and MkDocs" in the footer. |
+| `social` | `[]` | Icon links shown in the footer. |
 | `show_metadata` | `true` | Render the metadata line under the page title. |
 | `show_metadata_created` | `true` | Show the created date. |
 | `show_metadata_updated` | `true` | Show the last-updated date. |
 | `show_metadata_reading_time` | `true` | Show the estimated reading time. |
 | `show_metadata_authors` | `true` | Show the authors. |
+| `show_metadata_edit` | `true` | Show the "Improve this page" link. |
 | `toc` | `auto` | "Table of contents" outline: `auto`, `expanded`, `collapsed` or `hidden`. |
 | `color_mode` | `auto` | Initial color mode: `auto`, `light` or `dark`. |
 | `light_theme` | `light` | Primer theme used in light mode. |

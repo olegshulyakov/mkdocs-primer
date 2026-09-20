@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: mkdocs-primer 0.3.1\n"
 "Report-Msgid-Bugs-To: https://github.com/olegshulyakov/mkdocs-"
 "primer/issues\n"
-"POT-Creation-Date: 2026-09-13 20:10+0300\n"
+"POT-Creation-Date: 2026-09-20 12:11+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: zh\n"
@@ -32,44 +32,44 @@ msgstr "返回首页"
 msgid "Skip to content"
 msgstr "跳到主要内容"
 
-#: mkdocs_primer/base.html:241 mkdocs_primer/base.html:242
+#: mkdocs_primer/base.html:251 mkdocs_primer/base.html:252
 msgid "Back to top"
 msgstr "返回顶部"
 
-#: mkdocs_primer/base.html:272
+#: mkdocs_primer/base.html:282
 msgid "Copy code"
 msgstr "复制代码"
 
-#: mkdocs_primer/base.html:273
+#: mkdocs_primer/base.html:283
 msgid "Code copied"
 msgstr "已复制代码"
 
-#: mkdocs_primer/base.html:274
+#: mkdocs_primer/base.html:284
 msgid "Code copied to clipboard"
 msgstr "代码已复制到剪贴板"
 
-#: mkdocs_primer/base.html:275
+#: mkdocs_primer/base.html:285
 msgid "Could not copy code to clipboard"
 msgstr "无法将代码复制到剪贴板"
 
-#: mkdocs_primer/base.html:282
+#: mkdocs_primer/base.html:292
 msgid "Select documentation version"
 msgstr "选择文档版本"
 
-#: mkdocs_primer/base.html:290
+#: mkdocs_primer/base.html:300
 #, python-format
 msgid "Change color mode (%(mode)s)"
 msgstr "切换配色模式（%(mode)s）"
 
-#: mkdocs_primer/base.html:291
+#: mkdocs_primer/base.html:301
 msgid "Automatic"
 msgstr "自动"
 
-#: mkdocs_primer/base.html:292
+#: mkdocs_primer/base.html:302
 msgid "Light"
 msgstr "浅色"
 
-#: mkdocs_primer/base.html:293
+#: mkdocs_primer/base.html:303
 msgid "Dark"
 msgstr "深色"
 
@@ -125,13 +125,14 @@ msgstr "面包屑导航"
 msgid "Change color mode"
 msgstr "切换配色模式"
 
-#: mkdocs_primer/partials/footer.html:19 mkdocs_primer/partials/footer.html:22
+#: mkdocs_primer/partials/footer.html:39
 msgid "This site is open source."
 msgstr "本站为开源项目。"
 
-#: mkdocs_primer/partials/footer.html:20
-msgid "Improve this page"
-msgstr "改进此页面"
+#: mkdocs_primer/partials/footer.html:52
+#, python-format
+msgid "Made with %(theme)s and %(mkdocs)s"
+msgstr "使用 %(theme)s 和 %(mkdocs)s 构建"
 
 #: mkdocs_primer/partials/header.html:13
 msgid "Toggle navigation"
@@ -145,26 +146,30 @@ msgstr "切换语言"
 msgid "Languages"
 msgstr "语言"
 
-#: mkdocs_primer/partials/metadata.html:23
+#: mkdocs_primer/partials/metadata.html:70
 msgid "Metadata"
 msgstr "元数据"
 
-#: mkdocs_primer/partials/metadata.html:32
+#: mkdocs_primer/partials/metadata.html:78
 msgid "Created:"
 msgstr "创建于："
 
-#: mkdocs_primer/partials/metadata.html:42
+#: mkdocs_primer/partials/metadata.html:88
 msgid "Last updated:"
 msgstr "最后更新："
 
-#: mkdocs_primer/partials/metadata.html:52
-msgid "Authors:"
-msgstr "作者："
-
-#: mkdocs_primer/partials/metadata.html:62
+#: mkdocs_primer/partials/metadata.html:98
 #, python-format
 msgid "%(minutes)s min read"
 msgstr "%(minutes)s 分钟阅读"
+
+#: mkdocs_primer/partials/metadata.html:108
+msgid "Authors:"
+msgstr "作者："
+
+#: mkdocs_primer/partials/metadata.html:123
+msgid "Improve this page"
+msgstr "改进此页面"
 
 #: mkdocs_primer/partials/nav.html:8
 msgid "Site navigation"

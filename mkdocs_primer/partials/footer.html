@@ -1,26 +1,97 @@
 {#
-  Mirrors the Jekyll Primer footer: "This site is open source. Improve this page."
-  Only renders when there is something to link to.
+  The site's footer: a full-width bar under the layout, not a note at the foot
+  of the article. Text on one side, the social row on the other.
 
-  The revision date and the authors mkdocs-git-revision-date-localized-plugin
-  and mkdocs-git-authors-plugin put on the page context are read by the
-  metadata line under the page title now, not here -- see partials/metadata.html.
+  What it says is about the site, not about the page being read -- the edit link
+  that used to live here is a fact about the page and sits in the byline under
+  the title now, see partials/metadata.html. What remains is the copyright, the
+  attribution line, and `config.repo_url` for a site whose pages carry no edit
+  URL of their own: somewhere on every page it should still be possible to find
+  the source.
+
+  Only renders when there is something to put in it. A site with no copyright,
+  no repository, no social links and the generator line turned off gets no bar
+  at all rather than an empty rule across the page.
 #}
-{%- if page and page.edit_url or config.repo_url or config.copyright %}
-  <footer class="primer-footer border-top mt-5 pt-3 color-fg-muted f6">
-    {%- if config.copyright %}
-      <p class="mb-1">{{ config.copyright }}</p>
-    {%- endif %}
-    {%- if page and page.edit_url %}
-      {#
-        No trailing period after the link: it would have to be a Latin one for
-        every locale, and zh and hi end a sentence with 。 and । instead.
-      #}
-      <p class="mb-0">{% trans %}This site is open source.{% endtrans %}
-        <a href="{{ page.edit_url }}">{% trans %}Improve this page{% endtrans %}</a></p>
-    {%- elif config.repo_url %}
-      <p class="mb-0">{% trans %}This site is open source.{% endtrans %}
-        <a href="{{ config.repo_url }}">{{ config.repo_name }}</a></p>
-    {%- endif %}
+{%- import "partials/social-icons.html" as icons %}
+
+{%- set social = config.theme.social or [] %}
+{%- set generator = config.theme.show_footer_generator %}
+
+{%- if config.copyright or config.repo_url or social or generator %}
+  <footer class="primer-footer">
+    <div class="primer-footer-inner">
+      <div class="primer-footer-text">
+        {%- if config.copyright %}
+          <p class="primer-footer-copyright">{{ config.copyright }}</p>
+        {%- endif %}
+
+        {#
+          Only where the page has no edit URL of its own. With one, the byline
+          under the title already links the source of this very page, and a
+          second link to the repository in the same viewport says less.
+        #}
+        {%- if config.repo_url and not (page and page.edit_url) %}
+          {#
+            No trailing period after the link: it would have to be a Latin one
+            for every locale, and zh and hi end a sentence with 。 and । instead.
+          #}
+          <p>{% trans %}This site is open source.{% endtrans %}
+            <a href="{{ config.repo_url }}">{{ config.repo_name }}</a></p>
+        {%- endif %}
+
+        {#
+          The two link texts go in as placeholders rather than the sentence
+          being cut into three pieces around them: a translator needs to move
+          "made with" around both names, and some locales reorder the names.
+        #}
+        {%- if generator %}
+          {%- set theme_link %}<a href="https://github.com/olegshulyakov/mkdocs-primer">mkdocs-primer</a>{% endset %}
+          {%- set mkdocs_link %}<a href="https://www.mkdocs.org">MkDocs</a>{% endset %}
+          <p class="primer-footer-generator">
+            {%- trans theme=theme_link, mkdocs=mkdocs_link %}Made with {{ theme }} and {{ mkdocs }}{% endtrans -%}
+          </p>
+        {%- endif %}
+      </div>
+
+      {%- if social %}
+        {#
+          A list, because that is what it is: a screen reader announces how many
+          links are coming rather than running them together. `role` on every
+          row for the reason partials/metadata.html gives at length -- laying
+          the row out with flexbox costs `display: list-item`, and with it the
+          semantics, in Chrome and Safari both.
+
+          The accessible name is the entry's own `name` where it gives one, and
+          the service's display name otherwise. It is the link text, hidden
+          visually rather than an `aria-label`: a label would be the only name
+          the link has, and some screen readers read one out in the voice of
+          the page's `lang` whether or not it was translated with the page.
+
+          An entry naming a service the registry does not carry, and giving no
+          `icon` of its own, still renders -- with its name as visible text. A
+          typo that quietly dropped the link would be much harder to notice
+          than one odd-looking word in a row of logos.
+        #}
+        <ul class="primer-social" role="list">
+          {%- for item in social %}
+            {%- set icon = icons.SOCIAL_ICONS.get(item.service) if item.service else none %}
+            <li class="primer-social-item" role="listitem">
+              <a class="primer-social-link" href="{{ item.link }}">
+                {%- if icon %}
+                  {{ icon.svg | safe }}
+                  <span class="sr-only">{{ item.name or icon.name }}</span>
+                {%- elif item.icon %}
+                  <img src="{{ item.icon | url }}" alt="" class="primer-social-icon">
+                  <span class="sr-only">{{ item.name or item.service or item.link }}</span>
+                {%- else %}
+                  {{ item.name or item.service or item.link }}
+                {%- endif %}
+              </a>
+            </li>
+          {%- endfor %}
+        </ul>
+      {%- endif %}
+    </div>
   </footer>
 {%- endif %}

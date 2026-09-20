@@ -23,6 +23,13 @@
   /* Distance from the window edge, and from the navigation column. */
   --primer-gutter: var(--base-size-16);
   --primer-header-height: 56px;
+  /*
+   * The floating back-to-top control, which is a Primer medium button. Stated
+   * here because the footer has to know it: the button hangs over the bottom
+   * corner of the window and the social row ends in that same corner, so the
+   * bar reserves this much at its trailing edge and the two never collide.
+   */
+  --primer-back-to-top-size: 32px;
 }
 
 /*
@@ -52,7 +59,7 @@ body {
  * wherever that script left it. See .primer-metadata-item a.
  */
 .markdown-body a:not(.anchor):not(.btn):not(.primer-toc-link),
-.primer-footer a {
+.primer-footer a:not(.primer-social-link) {
   text-decoration: underline;
   text-underline-offset: 0.15em;
 }
@@ -1254,6 +1261,92 @@ a.primer-toc-link[aria-current] {
   content: '\00a0\2190';
 }
 
+/* --------------------------------------------------------------- footer -- */
+
+/*
+ * A bar under the whole layout rather than a note at the foot of the article,
+ * so it reads as belonging to the site the way the header does. Edge to edge
+ * and on the inset surface for the same reason .primer-header is: it is chrome
+ * around the page, not part of it.
+ */
+.primer-footer {
+  background-color: var(--bgColor-inset);
+  border-top: 1px solid var(--borderColor-default);
+}
+
+/*
+ * The trailing gutter is wider than the leading one by the width of the
+ * back-to-top control: that button floats over the bottom corner of the
+ * window, and the bar is the one thing on the page guaranteed to be under it
+ * when the reader has scrolled far enough for it to appear. Without the room,
+ * it covers the last icon in the social row and takes its click.
+ */
+.primer-footer-inner {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--base-size-8) var(--base-size-24);
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--base-size-16) var(--primer-gutter);
+  padding-inline-end: calc(2 * var(--primer-gutter) + var(--primer-back-to-top-size));
+}
+
+.primer-footer-text {
+  font-size: 12px;
+  color: var(--fgColor-muted);
+}
+
+.primer-footer-text p {
+  margin: 0;
+}
+
+/* The one line of the three that is about the site rather than about what
+   built it, so it carries the body colour and the others stay muted. */
+.primer-footer-copyright {
+  color: var(--fgColor-default);
+}
+
+/*
+ * A row of logos, which is what the marks are: no underline under them, and
+ * no link blue either — they take the colour of the line beside them and
+ * light up on hover, the way a control does.
+ *
+ * The underline exclusion is a :not() rather than a reset further down,
+ * because the prose-link rule near the top of this file claims every <a> in
+ * the footer and would otherwise draw a rule under each icon.
+ */
+.primer-social {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--base-size-4);
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.primer-social-link {
+  display: inline-flex;
+  align-items: center;
+  padding: var(--base-size-8);
+  color: var(--fgColor-muted);
+  border-radius: var(--borderRadius-medium, 6px);
+}
+
+.primer-social-link:hover,
+.primer-social-link:focus-visible {
+  color: var(--fgColor-default);
+  background-color: var(--button-default-bgColor-hover);
+}
+
+/* Sized here rather than on each mark, as .primer-metadata-item svg is: an
+   icon from docs_dir arrives as an <img> and states nothing about its size. */
+.primer-social-link svg,
+.primer-social-icon {
+  flex: 0 0 auto;
+  width: 20px;
+  height: 20px;
+}
+
 /* ------------------------------------------------------ heading anchors -- */
 
 /*
@@ -1602,6 +1695,11 @@ a.primer-toc-link[aria-current] {
     min-height: 40px;
   }
 
+  /* Follows the line above, so the footer keeps reserving the whole button. */
+  :root {
+    --primer-back-to-top-size: 40px;
+  }
+
   /*
    * The same for the outline's disclosure, which nothing had given a box: 14px
    * text with the line height that comes with it stands 21px tall, under the
@@ -1671,6 +1769,8 @@ a.primer-toc-link[aria-current] {
   .primer-back-to-top,
   /* A list of links to jump to is of no use once the page is on paper. */
   .primer-toc,
+  /* Neither is a row of logos to click. The copyright beside it stays. */
+  .primer-social,
   /* Sits inside .markdown-body, so it survives the header being hidden and
      prints an icon over the first line of every code block. */
   .primer-copy-code {
