@@ -23,13 +23,6 @@
   /* Distance from the window edge, and from the navigation column. */
   --primer-gutter: var(--base-size-16);
   --primer-header-height: 56px;
-  /*
-   * The floating back-to-top control, which is a Primer medium button. Stated
-   * here because the footer has to know it: the button hangs over the bottom
-   * corner of the window and the social row ends in that same corner, so the
-   * bar reserves this much at its trailing edge and the two never collide.
-   */
-  --primer-back-to-top-size: 32px;
 }
 
 /*
@@ -213,11 +206,15 @@ body {
  * size on the <svg> itself; a Lucide one does not, and an <svg> with no size of
  * its own is as big as the box it is in — so `icon: lucide` filled every
  * control edge to edge, 32px on a desktop and 40px under a thumb, with none of
- * the padding that is the point of them. Stated here rather than on each icon,
- * so it holds for both sets and for whatever the theme draws next.
+ * the padding that is the point of them. Back to top carries a label rather
+ * than sitting edge to edge, but a sizeless Lucide icon would still grow to
+ * fill its line height there. Stated here rather than on each icon, so it
+ * holds for every control this selector list covers, and for whatever the
+ * theme draws next.
  */
 .btn-octicon > svg,
-.primer-language-selector-summary > svg {
+.primer-language-selector-summary > svg,
+.primer-back-to-top > svg {
   width: 16px;
   height: 16px;
 }
@@ -1152,43 +1149,46 @@ a.primer-toc-link[aria-current] {
 }
 
 /*
- * These two stand over the page rather than in the chrome around it, so the
- * invisible treatment the header controls take is wrong for them: with nothing
+ * It stands over the page rather than in the chrome around it, so the
+ * invisible treatment the header controls take is wrong for it: with nothing
  * behind it, the code ran under the icon. A surface of its own, which is what
  * Primer's default button is — and the hover that goes with it, since a fill
- * from the transparent scale over a filled button barely moves.
+ * from the transparent scale over a filled button barely moves. Back to top
+ * needs none of this restating: it carries a label now, so it keeps the plain
+ * `.btn` it started from instead of `.btn-octicon`, and that default button
+ * treatment comes for free.
  */
-.primer-copy-code,
-.primer-back-to-top {
-  background-color: var(--button-default-bgColor-rest);
-}
-
-.primer-copy-code:hover,
-.primer-back-to-top:hover {
-  background-color: var(--button-default-bgColor-hover);
-}
-
-.primer-copy-code:active,
-.primer-back-to-top:active {
-  background-color: var(--button-default-bgColor-active);
-}
-
 .primer-copy-code {
   position: absolute;
   top: var(--base-size-8);
   inset-inline-end: var(--base-size-8);
+  background-color: var(--button-default-bgColor-rest);
   border: 1px solid var(--button-default-borderColor-rest);
+}
+
+.primer-copy-code:hover {
+  background-color: var(--button-default-bgColor-hover);
+}
+
+.primer-copy-code:active {
+  background-color: var(--button-default-bgColor-active);
 }
 
 /* ---------------------------------------------------------- back to top -- */
 
-/* The ring around this one is the first layer of the floating shadow. */
+/*
+ * Centered under the sticky header rather than floating over a bottom corner:
+ * that is where Material's own control sits, and it keeps the button beside
+ * the title the reader is returning to instead of trailing off in a corner.
+ * The ring around this one is the first layer of the floating shadow.
+ */
 .primer-back-to-top {
   position: fixed;
-  inset-inline-end: var(--base-size-16);
-  bottom: var(--base-size-16);
+  top: calc(var(--primer-header-height) + var(--base-size-8));
+  inset-inline-start: 50%;
   z-index: 32;
   box-shadow: var(--shadow-floating-small);
+  transform: translateX(-50%);
 }
 
 /* ----------------------------------------------------------- color mode -- */
@@ -1279,12 +1279,6 @@ a.primer-toc-link[aria-current] {
  * a column of prose above this, both of which end well short of the window,
  * and a line of text run right out to the glass under them reads as an
  * overflow rather than as the foot of the page.
- *
- * The trailing side is wider still by the width of the back-to-top control:
- * that button floats over the bottom corner of the window, and the bar is the
- * one thing on the page guaranteed to be under it when the reader has
- * scrolled far enough for it to appear. Without the room, it covers the last
- * icon in the social row and takes its click.
  */
 .primer-footer-inner {
   --primer-footer-gutter: var(--base-size-24);
@@ -1295,7 +1289,6 @@ a.primer-toc-link[aria-current] {
   align-items: center;
   justify-content: space-between;
   padding: var(--base-size-16) var(--primer-footer-gutter);
-  padding-inline-end: calc(var(--primer-footer-gutter) + var(--primer-gutter) + var(--primer-back-to-top-size));
 }
 
 .primer-footer-text {
@@ -1694,8 +1687,8 @@ a.primer-toc-link[aria-current] {
    * icon; everything else about them is set with the other controls, above.
    *
    * Back to top belongs to the rule as much as they do and is not in the header
-   * to be caught by it: it floats over the bottom corner, which is the part of
-   * the screen a thumb reaches least accurately. The theme's other floating
+   * to be caught by it: it floats free of the document, which makes it as much
+   * a thumb target as anything the header holds. The theme's other floating
    * control, the copy button, stays at 32px — it sits inside the code block it
    * belongs to, where every pixel it grows is a pixel of code it covers, and it
    * is not something a reader hunts for mid-scroll.
@@ -1705,11 +1698,6 @@ a.primer-toc-link[aria-current] {
   .primer-back-to-top {
     min-width: 40px;
     min-height: 40px;
-  }
-
-  /* Follows the line above, so the footer keeps reserving the whole button. */
-  :root {
-    --primer-back-to-top-size: 40px;
   }
 
   /*
