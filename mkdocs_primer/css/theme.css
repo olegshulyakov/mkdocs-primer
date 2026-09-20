@@ -338,6 +338,19 @@ ol.primer-breadcrumbs-list {
 .primer-columns {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
+}
+
+/*
+ * The gap is stated only when the rail actually holds the outline: `gap`
+ * spaces every row of a grid apart, including an empty one, and
+ * .primer-rail stays in the markup -- holding nothing but the script that
+ * moves the outline out of it -- whenever that outline is in the flow
+ * instead, whether because the window is under 1280px or because
+ * toc_mode reads expanded or collapsed. Without this gate that empty row
+ * still billed its 32px against the title, which then read as pushed down
+ * from the breadcrumbs above it.
+ */
+.primer-columns:has(> .primer-rail > .primer-toc-in-rail) {
   gap: var(--base-size-32);
 }
 
