@@ -35,7 +35,12 @@
       {%- if config.theme.logo %}
         <img src="{{ config.theme.logo | url }}" alt="" class="primer-header-logo">
       {%- endif %}
-      {{ config.site_name }}
+      {#
+        Wrapped so js/header-title.js can swap the text for the page's own
+        title once the reader scrolls past it, without touching the logo
+        beside it.
+      #}
+      <span class="primer-header-title-text">{{ config.site_name }}</span>
     </a>
 
     {#
