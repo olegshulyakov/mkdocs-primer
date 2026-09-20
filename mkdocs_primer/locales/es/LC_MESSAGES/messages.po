@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: mkdocs-primer 0.3.1\n"
 "Report-Msgid-Bugs-To: https://github.com/olegshulyakov/mkdocs-"
 "primer/issues\n"
-"POT-Creation-Date: 2026-09-20 12:11+0300\n"
+"POT-Creation-Date: 2026-09-20 12:25+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: es\n"
@@ -127,11 +127,19 @@ msgstr "Ruta de navegación"
 msgid "Change color mode"
 msgstr "Cambiar el modo de color"
 
-#: mkdocs_primer/partials/footer.html:39
+#: mkdocs_primer/partials/footer.html:22
+msgid "(opens in a new tab)"
+msgstr "(se abre en una pestaña nueva)"
+
+#: mkdocs_primer/partials/footer.html:44
+msgid "Improve this page"
+msgstr "Mejorar esta página"
+
+#: mkdocs_primer/partials/footer.html:51
 msgid "This site is open source."
 msgstr "Este sitio es de código abierto."
 
-#: mkdocs_primer/partials/footer.html:52
+#: mkdocs_primer/partials/footer.html:67
 #, python-format
 msgid "Made with %(theme)s and %(mkdocs)s"
 msgstr "Hecho con %(theme)s y %(mkdocs)s"
@@ -148,30 +156,26 @@ msgstr "Cambiar de idioma"
 msgid "Languages"
 msgstr "Idiomas"
 
-#: mkdocs_primer/partials/metadata.html:70
+#: mkdocs_primer/partials/metadata.html:63
 msgid "Metadata"
 msgstr "Metadatos"
 
-#: mkdocs_primer/partials/metadata.html:78
+#: mkdocs_primer/partials/metadata.html:71
 msgid "Created:"
 msgstr "Creado:"
 
-#: mkdocs_primer/partials/metadata.html:88
+#: mkdocs_primer/partials/metadata.html:81
 msgid "Last updated:"
 msgstr "Última actualización:"
 
-#: mkdocs_primer/partials/metadata.html:98
+#: mkdocs_primer/partials/metadata.html:91
 #, python-format
 msgid "%(minutes)s min read"
 msgstr "%(minutes)s min de lectura"
 
-#: mkdocs_primer/partials/metadata.html:108
+#: mkdocs_primer/partials/metadata.html:101
 msgid "Authors:"
 msgstr "Autores:"
-
-#: mkdocs_primer/partials/metadata.html:123
-msgid "Improve this page"
-msgstr "Mejorar esta página"
 
 #: mkdocs_primer/partials/nav.html:8
 msgid "Site navigation"

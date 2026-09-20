@@ -59,11 +59,11 @@ show_footer_generator: true
 social: []
 
 # Byline of page facts under the page title: created/updated dates, an
-# estimated reading time, authors, and a link to edit the page at its source.
-# `show_metadata` is the line's own master switch; each field below it can also
-# be turned off on its own. A field with nothing behind it -- no revision-date
-# plugin, no authors plugin, no `edit_uri` -- is left out regardless of these
-# settings, and so is the whole line when every field it would show is.
+# estimated reading time, and authors. `show_metadata` is the line's own master
+# switch; each field below it can also be turned off on its own. A field with
+# nothing behind it -- no revision-date plugin, no authors plugin -- is left
+# out regardless of these settings, and so is the whole line when every field
+# it would show is.
 #
 # Flat keys rather than a nested `metadata:` option: MkDocs merges theme
 # options one top-level key at a time, so a site that overrides one of these
@@ -76,7 +76,6 @@ show_metadata_created: true
 show_metadata_updated: true
 show_metadata_reading_time: true
 show_metadata_authors: true
-show_metadata_edit: true
 
 # "Table of contents", the outline built from the headings of the current page.
 #   auto       the right rail where the window has room for a third column,

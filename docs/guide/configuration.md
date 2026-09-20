@@ -21,7 +21,6 @@
 | `show_metadata_updated` | `true` | Show the last-updated date. |
 | `show_metadata_reading_time` | `true` | Show the estimated reading time. |
 | `show_metadata_authors` | `true` | Show the authors. |
-| `show_metadata_edit` | `true` | Show the "Improve this page" link. |
 | `toc` | `auto` | "Table of contents" outline: `auto`, `expanded`, `collapsed` or `hidden`. |
 | `offline` | `false` | Register a service worker, which the site build has to generate itself. |
 | `color_mode` | `auto` | Initial color mode: `auto`, `light` or `dark`. |
@@ -34,17 +33,16 @@
 
 ## Metadata line
 
-Directly under the page title, above the prose, the theme can show a byline of facts about the current page: when it was created, when it last changed, how long it takes to read, who wrote it, and where to edit it. Each item appears only when its own option is on *and* there is data behind it, and the whole line is left out when none of them would show anything.
+Directly under the page title, above the prose, the theme can show a byline of facts about the current page: when it was created, when it last changed, how long it takes to read, and who wrote it. Each item appears only when its own option is on *and* there is data behind it, and the whole line is left out when none of the four would show anything.
 
 ```yaml
 theme:
   name: primer
-  show_metadata: true # the line's own switch; false hides every item
+  show_metadata: true # the line's own switch; false hides all four items
   show_metadata_created: true
   show_metadata_updated: true
   show_metadata_reading_time: true
   show_metadata_authors: true
-  show_metadata_edit: true
 ```
 
 `show_metadata` turns the whole line off regardless of the fields below it. Each field can also be turned off on its own — for a site that wants the dates but not a reading-time estimate, say.
@@ -63,19 +61,19 @@ Neither date appears unless that plugin is enabled, and the created date needs `
 
 The authors come from [mkdocs-git-authors](https://github.com/timvink/mkdocs-git-authors-plugin) and do not appear unless that plugin is enabled either.
 
-`show_metadata_edit` is the "Improve this page" link, and needs `repo_url` and `edit_uri` — see [Edit links](#edit-links).
-
 ## Footer
 
-A bar across the foot of every page, under the whole layout. It carries the copyright on one side and a row of icon links on the other, and is left out entirely when there is nothing to put in it. `show_footer: false` removes it whatever else is configured.
+A bar across the foot of every page, under the whole layout. It carries two lines of text on one side and a row of icon links on the other, and is left out entirely when there is nothing to put in it. `show_footer: false` removes it whatever else is configured.
 
-The copyright is MkDocs' own `copyright`, a top-level key rather than a theme option:
+Every link in the bar leaves the documentation, so every one of them opens in a tab of its own.
+
+The first line is the copyright and where to find the page's source — see [Edit links](#edit-links) for the latter. The copyright is MkDocs' own `copyright`, a top-level key rather than a theme option:
 
 ```yaml
 copyright: Copyright &copy; 2026 Your Name
 ```
 
-Under it the theme says what built the site. Turn it off with `show_footer_generator: false`:
+The second line says what built the site. Turn it off with `show_footer_generator: false`:
 
 ```yaml
 theme:
@@ -324,11 +322,11 @@ extra_javascript:
 
 ## Edit links
 
-The [metadata line](#metadata-line) links back to the page's own source file when `repo_url` and `edit_uri` are set:
+The [footer](#footer) links back to the page's own source file when `repo_url` and `edit_uri` are set:
 
 ```yaml
 repo_url: https://github.com/you/your-project
 edit_uri: edit/main/docs/
 ```
 
-With `repo_url` but no `edit_uri` there is no per-page link to make, and the [footer](#footer) names the repository instead — so a reader can still find the source from anywhere on the site.
+With `repo_url` but no `edit_uri` there is no per-page link to make, and the footer names the repository instead — so a reader can still find the source from anywhere on the site.

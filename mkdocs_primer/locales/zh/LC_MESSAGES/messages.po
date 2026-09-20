@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: mkdocs-primer 0.3.1\n"
 "Report-Msgid-Bugs-To: https://github.com/olegshulyakov/mkdocs-"
 "primer/issues\n"
-"POT-Creation-Date: 2026-09-20 12:11+0300\n"
+"POT-Creation-Date: 2026-09-20 12:25+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: zh\n"
@@ -125,11 +125,19 @@ msgstr "面包屑导航"
 msgid "Change color mode"
 msgstr "切换配色模式"
 
-#: mkdocs_primer/partials/footer.html:39
+#: mkdocs_primer/partials/footer.html:22
+msgid "(opens in a new tab)"
+msgstr "（在新标签页中打开）"
+
+#: mkdocs_primer/partials/footer.html:44
+msgid "Improve this page"
+msgstr "改进此页面"
+
+#: mkdocs_primer/partials/footer.html:51
 msgid "This site is open source."
 msgstr "本站为开源项目。"
 
-#: mkdocs_primer/partials/footer.html:52
+#: mkdocs_primer/partials/footer.html:67
 #, python-format
 msgid "Made with %(theme)s and %(mkdocs)s"
 msgstr "使用 %(theme)s 和 %(mkdocs)s 构建"
@@ -146,30 +154,26 @@ msgstr "切换语言"
 msgid "Languages"
 msgstr "语言"
 
-#: mkdocs_primer/partials/metadata.html:70
+#: mkdocs_primer/partials/metadata.html:63
 msgid "Metadata"
 msgstr "元数据"
 
-#: mkdocs_primer/partials/metadata.html:78
+#: mkdocs_primer/partials/metadata.html:71
 msgid "Created:"
 msgstr "创建于："
 
-#: mkdocs_primer/partials/metadata.html:88
+#: mkdocs_primer/partials/metadata.html:81
 msgid "Last updated:"
 msgstr "最后更新："
 
-#: mkdocs_primer/partials/metadata.html:98
+#: mkdocs_primer/partials/metadata.html:91
 #, python-format
 msgid "%(minutes)s min read"
 msgstr "%(minutes)s 分钟阅读"
 
-#: mkdocs_primer/partials/metadata.html:108
+#: mkdocs_primer/partials/metadata.html:101
 msgid "Authors:"
 msgstr "作者："
-
-#: mkdocs_primer/partials/metadata.html:123
-msgid "Improve this page"
-msgstr "改进此页面"
 
 #: mkdocs_primer/partials/nav.html:8
 msgid "Site navigation"

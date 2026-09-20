@@ -1275,20 +1275,27 @@ a.primer-toc-link[aria-current] {
 }
 
 /*
- * The trailing gutter is wider than the leading one by the width of the
- * back-to-top control: that button floats over the bottom corner of the
- * window, and the bar is the one thing on the page guaranteed to be under it
- * when the reader has scrolled far enough for it to appear. Without the room,
- * it covers the last icon in the social row and takes its click.
+ * Wider than the gutter the header keeps: there is a column of navigation and
+ * a column of prose above this, both of which end well short of the window,
+ * and a line of text run right out to the glass under them reads as an
+ * overflow rather than as the foot of the page.
+ *
+ * The trailing side is wider still by the width of the back-to-top control:
+ * that button floats over the bottom corner of the window, and the bar is the
+ * one thing on the page guaranteed to be under it when the reader has
+ * scrolled far enough for it to appear. Without the room, it covers the last
+ * icon in the social row and takes its click.
  */
 .primer-footer-inner {
+  --primer-footer-gutter: var(--base-size-24);
+
   display: flex;
   flex-wrap: wrap;
   gap: var(--base-size-8) var(--base-size-24);
   align-items: center;
   justify-content: space-between;
-  padding: var(--base-size-16) var(--primer-gutter);
-  padding-inline-end: calc(2 * var(--primer-gutter) + var(--primer-back-to-top-size));
+  padding: var(--base-size-16) var(--primer-footer-gutter);
+  padding-inline-end: calc(var(--primer-footer-gutter) + var(--primer-gutter) + var(--primer-back-to-top-size));
 }
 
 .primer-footer-text {
@@ -1300,10 +1307,15 @@ a.primer-toc-link[aria-current] {
   margin: 0;
 }
 
-/* The one line of the three that is about the site rather than about what
-   built it, so it carries the body colour and the others stay muted. */
+/* The line that is about the site rather than about what built it, so it
+   carries the body colour and the generator line under it stays muted. */
 .primer-footer-copyright {
   color: var(--fgColor-default);
+}
+
+/* A comma drawn as a dot: it separates, it does not compete. */
+.primer-footer-separator {
+  color: var(--fgColor-muted);
 }
 
 /*
