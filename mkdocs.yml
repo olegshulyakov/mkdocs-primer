@@ -4,7 +4,7 @@ site_url: https://olegshulyakov.github.io/mkdocs-primer/
 
 repo_url: https://github.com/olegshulyakov/mkdocs-primer
 edit_uri: edit/main/docs/
-copyright: Copyright &copy; 2025 Oleg Shulyakov
+copyright: Copyright &copy; 2026 Oleg Shulyakov
 
 theme:
   name: primer
