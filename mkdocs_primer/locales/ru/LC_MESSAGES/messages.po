@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: mkdocs-primer 0.3.1\n"
 "Report-Msgid-Bugs-To: https://github.com/olegshulyakov/mkdocs-"
 "primer/issues\n"
-"POT-Creation-Date: 2026-09-13 20:10+0300\n"
+"POT-Creation-Date: 2026-09-20 12:25+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ru\n"
@@ -33,44 +33,44 @@ msgstr "Вернуться на главную"
 msgid "Skip to content"
 msgstr "Перейти к содержимому"
 
-#: mkdocs_primer/base.html:241 mkdocs_primer/base.html:242
+#: mkdocs_primer/base.html:251 mkdocs_primer/base.html:252
 msgid "Back to top"
 msgstr "Наверх"
 
-#: mkdocs_primer/base.html:272
+#: mkdocs_primer/base.html:282
 msgid "Copy code"
 msgstr "Копировать код"
 
-#: mkdocs_primer/base.html:273
+#: mkdocs_primer/base.html:283
 msgid "Code copied"
 msgstr "Код скопирован"
 
-#: mkdocs_primer/base.html:274
+#: mkdocs_primer/base.html:284
 msgid "Code copied to clipboard"
 msgstr "Код скопирован в буфер обмена"
 
-#: mkdocs_primer/base.html:275
+#: mkdocs_primer/base.html:285
 msgid "Could not copy code to clipboard"
 msgstr "Не удалось скопировать код в буфер обмена"
 
-#: mkdocs_primer/base.html:282
+#: mkdocs_primer/base.html:292
 msgid "Select documentation version"
 msgstr "Выбрать версию документации"
 
-#: mkdocs_primer/base.html:290
+#: mkdocs_primer/base.html:300
 #, python-format
 msgid "Change color mode (%(mode)s)"
 msgstr "Сменить цветовую схему (%(mode)s)"
 
-#: mkdocs_primer/base.html:291
+#: mkdocs_primer/base.html:301
 msgid "Automatic"
 msgstr "Автоматически"
 
-#: mkdocs_primer/base.html:292
+#: mkdocs_primer/base.html:302
 msgid "Light"
 msgstr "Светлая"
 
-#: mkdocs_primer/base.html:293
+#: mkdocs_primer/base.html:303
 msgid "Dark"
 msgstr "Тёмная"
 
@@ -128,13 +128,22 @@ msgstr "Навигационная цепочка"
 msgid "Change color mode"
 msgstr "Сменить цветовую схему"
 
-#: mkdocs_primer/partials/footer.html:19 mkdocs_primer/partials/footer.html:22
+#: mkdocs_primer/partials/footer.html:22
+msgid "(opens in a new tab)"
+msgstr "(откроется в новой вкладке)"
+
+#: mkdocs_primer/partials/footer.html:44
+msgid "Improve this page"
+msgstr "Улучшить эту страницу"
+
+#: mkdocs_primer/partials/footer.html:51
 msgid "This site is open source."
 msgstr "Исходный код сайта открыт."
 
-#: mkdocs_primer/partials/footer.html:20
-msgid "Improve this page"
-msgstr "Улучшить эту страницу"
+#: mkdocs_primer/partials/footer.html:67
+#, python-format
+msgid "Made with %(theme)s and %(mkdocs)s"
+msgstr "Сделано с помощью %(theme)s и %(mkdocs)s"
 
 #: mkdocs_primer/partials/header.html:13
 msgid "Toggle navigation"
@@ -148,26 +157,26 @@ msgstr "Сменить язык"
 msgid "Languages"
 msgstr "Языки"
 
-#: mkdocs_primer/partials/metadata.html:23
+#: mkdocs_primer/partials/metadata.html:63
 msgid "Metadata"
 msgstr "Метаданные"
 
-#: mkdocs_primer/partials/metadata.html:32
+#: mkdocs_primer/partials/metadata.html:71
 msgid "Created:"
 msgstr "Создано:"
 
-#: mkdocs_primer/partials/metadata.html:42
+#: mkdocs_primer/partials/metadata.html:81
 msgid "Last updated:"
 msgstr "Последнее обновление:"
 
-#: mkdocs_primer/partials/metadata.html:52
-msgid "Authors:"
-msgstr "Авторы:"
-
-#: mkdocs_primer/partials/metadata.html:62
+#: mkdocs_primer/partials/metadata.html:91
 #, python-format
 msgid "%(minutes)s min read"
 msgstr "%(minutes)s мин чтения"
+
+#: mkdocs_primer/partials/metadata.html:101
+msgid "Authors:"
+msgstr "Авторы:"
 
 #: mkdocs_primer/partials/nav.html:8
 msgid "Site navigation"

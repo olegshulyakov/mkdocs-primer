@@ -7,7 +7,7 @@ Pushing a tag named `v<version>` starts the [release workflow](.github/workflows
 
 1. Choose the next [Semantic Versioning](https://semver.org/) version.
 2. Update `version` in `pyproject.toml` to that version, without the `v` prefix. `package.json` is for the private CSS-vendoring tool and does not need to change for a Python package release.
-3. If Primer dependencies changed, run `npm ci && npm run vendor` and commit the resulting files under `mkdocs_primer/css/vendor/`.
+3. If the Primer or Simple Icons dependencies changed, run `npm ci && npm run vendor` and commit the resulting files under `mkdocs_primer/css/vendor/` and `mkdocs_primer/partials/social-icons.html`.
 4. Put the new version in the catalog headers, and — if any translatable string in a template changed — refresh the messages as well. Commit the result:
 
    ```console

@@ -1,26 +1,112 @@
 {#
-  Mirrors the Jekyll Primer footer: "This site is open source. Improve this page."
-  Only renders when there is something to link to.
+  The site's footer: a full-width bar under the layout, not a note at the foot
+  of the article. Text on one side, the social row on the other.
 
-  The revision date and the authors mkdocs-git-revision-date-localized-plugin
-  and mkdocs-git-authors-plugin put on the page context are read by the
-  metadata line under the page title now, not here -- see partials/metadata.html.
+  Two lines of text. The first is the copyright and the source of the page --
+  "Improve this page" where the page has an edit URL of its own, and the
+  repository otherwise, so that a reader can always find the source from here.
+  The second says what built the site.
+
+  Only renders when there is something to put in it. A site with no copyright,
+  no repository, no social links and the generator line turned off gets no bar
+  at all rather than an empty rule across the page.
+
+  Every link here leaves the documentation, so every link opens in a tab of its
+  own -- and says so, quietly. A new tab takes the Back button away from a
+  reader who did not ask for one, and someone who cannot see it happen has
+  nothing else to tell them it did.
 #}
-{%- if page and page.edit_url or config.repo_url or config.copyright %}
-  <footer class="primer-footer border-top mt-5 pt-3 color-fg-muted f6">
-    {%- if config.copyright %}
-      <p class="mb-1">{{ config.copyright }}</p>
-    {%- endif %}
-    {%- if page and page.edit_url %}
-      {#
-        No trailing period after the link: it would have to be a Latin one for
-        every locale, and zh and hi end a sentence with 。 and । instead.
-      #}
-      <p class="mb-0">{% trans %}This site is open source.{% endtrans %}
-        <a href="{{ page.edit_url }}">{% trans %}Improve this page{% endtrans %}</a></p>
-    {%- elif config.repo_url %}
-      <p class="mb-0">{% trans %}This site is open source.{% endtrans %}
-        <a href="{{ config.repo_url }}">{{ config.repo_name }}</a></p>
-    {%- endif %}
+{%- import "partials/social-icons.html" as icons %}
+
+{%- macro new_tab() -%}
+  <span class="sr-only"> {% trans %}(opens in a new tab){% endtrans %}</span>
+{%- endmacro %}
+
+{%- set social = config.theme.social or [] %}
+{%- set generator = config.theme.show_footer_generator %}
+{%- set edit_url = page.edit_url if page else none %}
+{%- set source = edit_url or config.repo_url %}
+
+{%- if config.copyright or source or social or generator %}
+  <footer class="primer-footer">
+    <div class="primer-footer-inner">
+      <div class="primer-footer-text">
+        {%- if config.copyright or source %}
+          <p class="primer-footer-copyright">
+            {#
+              The separator is hidden from assistive technology: it is a comma
+              drawn as a dot, and read out it is only the word for the glyph.
+            #}
+            {%- if config.copyright %}{{ config.copyright }}{% endif %}
+            {%- if source %}
+              {%- if config.copyright %} <span class="primer-footer-separator" aria-hidden="true">&middot;</span> {% endif %}
+              {%- if edit_url %}
+                <a href="{{ edit_url }}" target="_blank" rel="noopener">{% trans %}Improve this page{% endtrans %}{{ new_tab() }}</a>
+              {%- else %}
+                {#
+                  No trailing period after the link: it would have to be a
+                  Latin one for every locale, and zh and hi end a sentence with
+                  。 and । instead.
+                #}
+                {% trans %}This site is open source.{% endtrans %}
+                <a href="{{ config.repo_url }}" target="_blank" rel="noopener">{{ config.repo_name }}{{ new_tab() }}</a>
+              {%- endif %}
+            {%- endif %}
+          </p>
+        {%- endif %}
+
+        {#
+          The two link texts go in as placeholders rather than the sentence
+          being cut into three pieces around them: a translator needs to move
+          "made with" around both names, and some locales reorder the names.
+        #}
+        {%- if generator %}
+          {%- set theme_link %}<a href="https://github.com/olegshulyakov/mkdocs-primer" target="_blank" rel="noopener">mkdocs-primer{{ new_tab() }}</a>{% endset %}
+          {%- set mkdocs_link %}<a href="https://www.mkdocs.org" target="_blank" rel="noopener">MkDocs{{ new_tab() }}</a>{% endset %}
+          <p class="primer-footer-generator">
+            {%- trans theme=theme_link, mkdocs=mkdocs_link %}Made with {{ theme }} and {{ mkdocs }}{% endtrans -%}
+          </p>
+        {%- endif %}
+      </div>
+
+      {%- if social %}
+        {#
+          A list, because that is what it is: a screen reader announces how many
+          links are coming rather than running them together. `role` on every
+          row for the reason partials/metadata.html gives at length -- laying
+          the row out with flexbox costs `display: list-item`, and with it the
+          semantics, in Chrome and Safari both.
+
+          The accessible name is the entry's own `name` where it gives one, and
+          the service's display name otherwise. It is the link text, hidden
+          visually rather than an `aria-label`: a label would be the only name
+          the link has, and some screen readers read one out in the voice of
+          the page's `lang` whether or not it was translated with the page.
+
+          An entry naming a service the registry does not carry, and giving no
+          `icon` of its own, still renders -- with its name as visible text. A
+          typo that quietly dropped the link would be much harder to notice
+          than one odd-looking word in a row of logos.
+        #}
+        <ul class="primer-social" role="list">
+          {%- for item in social %}
+            {%- set icon = icons.SOCIAL_ICONS.get(item.service) if item.service else none %}
+            <li class="primer-social-item" role="listitem">
+              <a class="primer-social-link" href="{{ item.link }}" target="_blank" rel="noopener">
+                {%- if icon %}
+                  {{ icon.svg | safe }}
+                  <span class="sr-only">{{ item.name or icon.name }}</span>{{ new_tab() }}
+                {%- elif item.icon %}
+                  <img src="{{ item.icon | url }}" alt="" class="primer-social-icon">
+                  <span class="sr-only">{{ item.name or item.service or item.link }}</span>{{ new_tab() }}
+                {%- else %}
+                  {{ item.name or item.service or item.link }}{{ new_tab() }}
+                {%- endif %}
+              </a>
+            </li>
+          {%- endfor %}
+        </ul>
+      {%- endif %}
+    </div>
   </footer>
 {%- endif %}

@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: mkdocs-primer 0.3.1\n"
 "Report-Msgid-Bugs-To: https://github.com/olegshulyakov/mkdocs-"
 "primer/issues\n"
-"POT-Creation-Date: 2026-09-13 20:10+0300\n"
+"POT-Creation-Date: 2026-09-20 12:25+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -31,44 +31,44 @@ msgstr ""
 msgid "Skip to content"
 msgstr ""
 
-#: mkdocs_primer/base.html:241 mkdocs_primer/base.html:242
+#: mkdocs_primer/base.html:251 mkdocs_primer/base.html:252
 msgid "Back to top"
 msgstr ""
 
-#: mkdocs_primer/base.html:272
+#: mkdocs_primer/base.html:282
 msgid "Copy code"
 msgstr ""
 
-#: mkdocs_primer/base.html:273
+#: mkdocs_primer/base.html:283
 msgid "Code copied"
 msgstr ""
 
-#: mkdocs_primer/base.html:274
+#: mkdocs_primer/base.html:284
 msgid "Code copied to clipboard"
 msgstr ""
 
-#: mkdocs_primer/base.html:275
+#: mkdocs_primer/base.html:285
 msgid "Could not copy code to clipboard"
 msgstr ""
 
-#: mkdocs_primer/base.html:282
+#: mkdocs_primer/base.html:292
 msgid "Select documentation version"
 msgstr ""
 
-#: mkdocs_primer/base.html:290
+#: mkdocs_primer/base.html:300
 #, python-format
 msgid "Change color mode (%(mode)s)"
 msgstr ""
 
-#: mkdocs_primer/base.html:291
+#: mkdocs_primer/base.html:301
 msgid "Automatic"
 msgstr ""
 
-#: mkdocs_primer/base.html:292
+#: mkdocs_primer/base.html:302
 msgid "Light"
 msgstr ""
 
-#: mkdocs_primer/base.html:293
+#: mkdocs_primer/base.html:303
 msgid "Dark"
 msgstr ""
 
@@ -124,12 +124,21 @@ msgstr ""
 msgid "Change color mode"
 msgstr ""
 
-#: mkdocs_primer/partials/footer.html:19 mkdocs_primer/partials/footer.html:22
+#: mkdocs_primer/partials/footer.html:22
+msgid "(opens in a new tab)"
+msgstr ""
+
+#: mkdocs_primer/partials/footer.html:44
+msgid "Improve this page"
+msgstr ""
+
+#: mkdocs_primer/partials/footer.html:51
 msgid "This site is open source."
 msgstr ""
 
-#: mkdocs_primer/partials/footer.html:20
-msgid "Improve this page"
+#: mkdocs_primer/partials/footer.html:67
+#, python-format
+msgid "Made with %(theme)s and %(mkdocs)s"
 msgstr ""
 
 #: mkdocs_primer/partials/header.html:13
@@ -144,25 +153,25 @@ msgstr ""
 msgid "Languages"
 msgstr ""
 
-#: mkdocs_primer/partials/metadata.html:23
+#: mkdocs_primer/partials/metadata.html:63
 msgid "Metadata"
 msgstr ""
 
-#: mkdocs_primer/partials/metadata.html:32
+#: mkdocs_primer/partials/metadata.html:71
 msgid "Created:"
 msgstr ""
 
-#: mkdocs_primer/partials/metadata.html:42
+#: mkdocs_primer/partials/metadata.html:81
 msgid "Last updated:"
 msgstr ""
 
-#: mkdocs_primer/partials/metadata.html:52
-msgid "Authors:"
-msgstr ""
-
-#: mkdocs_primer/partials/metadata.html:62
+#: mkdocs_primer/partials/metadata.html:91
 #, python-format
 msgid "%(minutes)s min read"
+msgstr ""
+
+#: mkdocs_primer/partials/metadata.html:101
+msgid "Authors:"
 msgstr ""
 
 #: mkdocs_primer/partials/nav.html:8

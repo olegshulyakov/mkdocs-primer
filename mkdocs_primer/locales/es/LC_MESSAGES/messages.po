@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: mkdocs-primer 0.3.1\n"
 "Report-Msgid-Bugs-To: https://github.com/olegshulyakov/mkdocs-"
 "primer/issues\n"
-"POT-Creation-Date: 2026-09-13 20:10+0300\n"
+"POT-Creation-Date: 2026-09-20 12:25+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: es\n"
@@ -32,44 +32,44 @@ msgstr "Volver a la página de inicio"
 msgid "Skip to content"
 msgstr "Saltar al contenido"
 
-#: mkdocs_primer/base.html:241 mkdocs_primer/base.html:242
+#: mkdocs_primer/base.html:251 mkdocs_primer/base.html:252
 msgid "Back to top"
 msgstr "Volver arriba"
 
-#: mkdocs_primer/base.html:272
+#: mkdocs_primer/base.html:282
 msgid "Copy code"
 msgstr "Copiar código"
 
-#: mkdocs_primer/base.html:273
+#: mkdocs_primer/base.html:283
 msgid "Code copied"
 msgstr "Código copiado"
 
-#: mkdocs_primer/base.html:274
+#: mkdocs_primer/base.html:284
 msgid "Code copied to clipboard"
 msgstr "Código copiado al portapapeles"
 
-#: mkdocs_primer/base.html:275
+#: mkdocs_primer/base.html:285
 msgid "Could not copy code to clipboard"
 msgstr "No se pudo copiar el código al portapapeles"
 
-#: mkdocs_primer/base.html:282
+#: mkdocs_primer/base.html:292
 msgid "Select documentation version"
 msgstr "Seleccionar la versión de la documentación"
 
-#: mkdocs_primer/base.html:290
+#: mkdocs_primer/base.html:300
 #, python-format
 msgid "Change color mode (%(mode)s)"
 msgstr "Cambiar el modo de color (%(mode)s)"
 
-#: mkdocs_primer/base.html:291
+#: mkdocs_primer/base.html:301
 msgid "Automatic"
 msgstr "Automático"
 
-#: mkdocs_primer/base.html:292
+#: mkdocs_primer/base.html:302
 msgid "Light"
 msgstr "Claro"
 
-#: mkdocs_primer/base.html:293
+#: mkdocs_primer/base.html:303
 msgid "Dark"
 msgstr "Oscuro"
 
@@ -127,13 +127,22 @@ msgstr "Ruta de navegación"
 msgid "Change color mode"
 msgstr "Cambiar el modo de color"
 
-#: mkdocs_primer/partials/footer.html:19 mkdocs_primer/partials/footer.html:22
+#: mkdocs_primer/partials/footer.html:22
+msgid "(opens in a new tab)"
+msgstr "(se abre en una pestaña nueva)"
+
+#: mkdocs_primer/partials/footer.html:44
+msgid "Improve this page"
+msgstr "Mejorar esta página"
+
+#: mkdocs_primer/partials/footer.html:51
 msgid "This site is open source."
 msgstr "Este sitio es de código abierto."
 
-#: mkdocs_primer/partials/footer.html:20
-msgid "Improve this page"
-msgstr "Mejorar esta página"
+#: mkdocs_primer/partials/footer.html:67
+#, python-format
+msgid "Made with %(theme)s and %(mkdocs)s"
+msgstr "Hecho con %(theme)s y %(mkdocs)s"
 
 #: mkdocs_primer/partials/header.html:13
 msgid "Toggle navigation"
@@ -147,26 +156,26 @@ msgstr "Cambiar de idioma"
 msgid "Languages"
 msgstr "Idiomas"
 
-#: mkdocs_primer/partials/metadata.html:23
+#: mkdocs_primer/partials/metadata.html:63
 msgid "Metadata"
 msgstr "Metadatos"
 
-#: mkdocs_primer/partials/metadata.html:32
+#: mkdocs_primer/partials/metadata.html:71
 msgid "Created:"
 msgstr "Creado:"
 
-#: mkdocs_primer/partials/metadata.html:42
+#: mkdocs_primer/partials/metadata.html:81
 msgid "Last updated:"
 msgstr "Última actualización:"
 
-#: mkdocs_primer/partials/metadata.html:52
-msgid "Authors:"
-msgstr "Autores:"
-
-#: mkdocs_primer/partials/metadata.html:62
+#: mkdocs_primer/partials/metadata.html:91
 #, python-format
 msgid "%(minutes)s min read"
 msgstr "%(minutes)s min de lectura"
+
+#: mkdocs_primer/partials/metadata.html:101
+msgid "Authors:"
+msgstr "Autores:"
 
 #: mkdocs_primer/partials/nav.html:8
 msgid "Site navigation"

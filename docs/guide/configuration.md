@@ -13,7 +13,9 @@
 | `locale` | `en` | Language of the theme's own text. Catalogs ship for `en`, `es`, `fr`, `hi`, `pt`, `ru` and `zh`. |
 | `direction` | `ltr` | Document direction: `ltr` or `rtl`. |
 | `include_sidebar` | `true` | Render the navigation sidebar. |
-| `show_footer` | `true` | Render the "Improve this page" footer. |
+| `show_footer` | `true` | Render the footer bar. |
+| `show_footer_generator` | `true` | Show "Made with mkdocs-primer and MkDocs" in the footer. |
+| `social` | `[]` | Icon links shown in the footer. |
 | `show_metadata` | `true` | Render the metadata line under the page title. |
 | `show_metadata_created` | `true` | Show the created date. |
 | `show_metadata_updated` | `true` | Show the last-updated date. |
@@ -58,6 +60,62 @@ plugins:
 Neither date appears unless that plugin is enabled, and the created date needs `enable_creation_date: true` specifically — the plugin's own default leaves it off.
 
 The authors come from [mkdocs-git-authors](https://github.com/timvink/mkdocs-git-authors-plugin) and do not appear unless that plugin is enabled either.
+
+## Footer
+
+A bar across the foot of every page, under the whole layout. It carries two lines of text on one side and a row of icon links on the other, and is left out entirely when there is nothing to put in it. `show_footer: false` removes it whatever else is configured.
+
+Every link in the bar leaves the documentation, so every one of them opens in a tab of its own.
+
+The first line is the copyright and where to find the page's source — see [Edit links](#edit-links) for the latter. The copyright is MkDocs' own `copyright`, a top-level key rather than a theme option:
+
+```yaml
+copyright: Copyright &copy; 2026 Your Name
+```
+
+The second line says what built the site. Turn it off with `show_footer_generator: false`:
+
+```yaml
+theme:
+  name: primer
+  show_footer_generator: false
+```
+
+### Social links
+
+`social` is a list of links drawn as icons, opposite the copyright:
+
+```yaml
+theme:
+  name: primer
+  social:
+    - service: github
+      link: https://github.com/you/your-project
+    - service: mastodon
+      link: https://fosstodon.org/@you
+      name: Follow the project on Mastodon
+```
+
+`service` names one of the marks the theme ships. `name` is optional: it is the link's accessible name — what a screen reader announces — and defaults to the service's own name, so give one whenever "GitHub" alone would not say where the link goes.
+
+These are the services:
+
+`bitbucket`, `bluesky`, `codeberg`, `devdotto`, `discord`, `docker`, `facebook`, `forgejo`, `github`, `githubsponsors`, `gitlab`, `instagram`, `kofi`, `mastodon`, `matrix`, `medium`, `npm`, `opencollective`, `patreon`, `pypi`, `reddit`, `rss`, `stackoverflow`, `substack`, `telegram`, `twitch`, `x`, `youtube`, `zulip`.
+
+For anything else, point `icon` at an SVG under `docs_dir` instead of naming a `service`:
+
+```yaml
+theme:
+  name: primer
+  social:
+    - icon: img/linkedin.svg
+      link: https://www.linkedin.com/company/your-company
+      name: Your Company on LinkedIn
+```
+
+Such a mark is drawn as an `<img>`, so unlike the built-in ones it keeps its own colours instead of following the text around it. LinkedIn and Slack need this route: both asked to be removed from the icon set the theme draws from, so neither ships with it.
+
+The marks are [Simple Icons](https://github.com/simple-icons/simple-icons), released under CC0-1.0. The brands they depict are not: each remains the trademark of its owner, and putting one in your footer claims no affiliation with or endorsement by them.
 
 ## Icons
 
@@ -264,9 +322,11 @@ extra_javascript:
 
 ## Edit links
 
-The footer links back to the source file when `repo_url` and `edit_uri` are set:
+The [footer](#footer) links back to the page's own source file when `repo_url` and `edit_uri` are set:
 
 ```yaml
 repo_url: https://github.com/you/your-project
 edit_uri: edit/main/docs/
 ```
+
+With `repo_url` but no `edit_uri` there is no per-page link to make, and the footer names the repository instead — so a reader can still find the source from anywhere on the site.

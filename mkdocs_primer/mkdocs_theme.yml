@@ -30,6 +30,34 @@ direction: ltr
 include_sidebar: true
 show_footer: true
 
+# "Made with mkdocs-primer and MkDocs" in the footer, under the copyright.
+show_footer_generator: true
+
+# Icon links in the footer, opposite the copyright. One entry per service:
+#
+#   social:
+#     - service: github
+#       link: https://github.com/olegshulyakov/mkdocs-primer
+#     - service: mastodon
+#       link: https://fosstodon.org/@example
+#       name: Follow the project on Mastodon
+#
+# `service` names a mark in partials/social-icons.html, which is generated from
+# a curated set of Simple Icons -- see scripts/vendor-icons.mjs for the list and
+# for why it is curated. `name` is optional and is the link's accessible name;
+# it defaults to the service's own display name.
+#
+# For a service the registry does not carry, give `icon` instead of `service`,
+# a path to an SVG under docs_dir:
+#
+#     - icon: img/linkedin.svg
+#       link: https://www.linkedin.com/company/example
+#       name: Example on LinkedIn
+#
+# Such an icon is drawn as an <img> and so keeps its own colours rather than
+# taking the colour of the row around it.
+social: []
+
 # Byline of page facts under the page title: created/updated dates, an
 # estimated reading time, and authors. `show_metadata` is the line's own master
 # switch; each field below it can also be turned off on its own. A field with
