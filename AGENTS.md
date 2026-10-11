@@ -5,7 +5,7 @@
 When you find a bug, notice a problem worth fixing later, or plan a new feature, open a GitHub issue for it. Do not leave it in chat or in a local notes file — the issue is what keeps the history of the problem and the progress on it.
 
 ```console
-gh issue list --state all --search "keyword"   # look for an existing issue first
+gh issue list --state all --search "keyword sort:created-asc"   # look for an existing issue first, oldest first
 gh issue create --title "..." --body "..." --label bug
 ```
 
