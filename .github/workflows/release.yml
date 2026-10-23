@@ -4,6 +4,12 @@ on:
   push:
     tags: ['v*']
 
+# Several docs plugins pull in properdocs, which prints a "switch to ProperDocs"
+# banner whenever they run under the mkdocs executable. It only prints; this
+# keeps it out of the logs. See #94.
+env:
+  DISABLE_MKDOCS_2_WARNING: 'true'
+
 jobs:
   publish:
     runs-on: ubuntu-latest
