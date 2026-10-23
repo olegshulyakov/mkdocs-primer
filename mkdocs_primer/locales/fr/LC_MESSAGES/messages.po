@@ -6,7 +6,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: mkdocs-primer 0.4.0\n"
+"Project-Id-Version: mkdocs-primer 0.4.1\n"
 "Report-Msgid-Bugs-To: https://github.com/olegshulyakov/mkdocs-"
 "primer/issues\n"
 "POT-Creation-Date: 2026-09-20 18:38+0300\n"
