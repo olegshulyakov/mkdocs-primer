@@ -70,7 +70,10 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - run: pip install -e . -r requirements-docs.txt
+      # --group, which reads the docs dependencies from pyproject.toml, needs
+      # pip 25.1 or newer.
+      - run: python -m pip install --upgrade pip
+      - run: pip install -e . --group docs
       - run: npm ci
       # Every plugin that needs theme support is enabled in mkdocs.yml, so this
       # build is where a regression in that support surfaces.

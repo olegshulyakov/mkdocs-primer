@@ -79,7 +79,7 @@ CI fails if those committed files drift from the pinned versions.
 To preview the demo site:
 
 ```console
-$ pip install -e . -r requirements-docs.txt
+$ pip install -e . --group docs   # pip 25.1+, or `uv sync`
 $ mkdocs serve --watch-theme
 ```
 
