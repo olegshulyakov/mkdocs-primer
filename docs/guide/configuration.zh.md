@@ -80,7 +80,7 @@ theme:
 
 方向是站点范围内的设置；主题不是从页面或 语言环境。
 
-!!!警告“`light_theme` 和 `dark_theme` 目前仅接受 `light` 和 `dark`”
+!!! warning "`light_theme` 和 `dark_theme` 目前仅接受 `light` 和 `dark`"
     Primer 发布了十四个主题（`dark_dimmed`、`light_high_contrast`、
     `dark_tritanopia` 等），但此主题仅提供其中两个的颜色标记
     它们——全套将增加超过一兆字节的 CSS。命名任何其他主题
@@ -157,7 +157,7 @@ extra_javascript:
 
 `extra_javascript` 在 `<body>` 的末尾发出，在主题自己的之后 脚本。
 
-!!!注意“注入自己资产的插件”
+!!! note "注入自己资产的插件"
     一个将 `<link>` 标签写入页面 HTML 而不是添加到的插件
     `extra_css` — mkdocs-glightbox 就是其中之一 — 在您的覆盖*之后*落地。风格
     那些具有更具体的选择器而不是依赖顺序的选择器。

@@ -12,7 +12,7 @@ Este sitio es el cheque. `mkdocs.yml` en la raíz del repositorio habilita los c
 
 `partials/nav-item.html` comprueba `nav_item.url` y representa la etiqueta como un enlace cuando hay uno. Puedes verlo en la barra lateral: **Guía** y **Anidado** son ambos en los que se puede hacer clic.
 
-!!! nota "Una advertencia que puedes ignorar"
+!!! note "Una advertencia que puedes ignorar"
     El complemento reconoce los temas compatibles al hacer coincidir las rutas de los archivos de plantilla
     contra una lista incorporada, por lo que registra
 

@@ -80,7 +80,7 @@ theme:
 
 La dirección es una configuración que abarca todo el sitio; el tema no lo infiere de una página o idioma local.
 
-!!! advertencia "`light_theme` y `dark_theme` actualmente aceptan solo `light` y `dark`"
+!!! warning "`light_theme` y `dark_theme` actualmente aceptan solo `light` y `dark`"
     Primer publica catorce temas (`dark_dimmed`, `light_high_contrast`,
     `dark_tritanopia` y así sucesivamente), pero este tema incluye fichas de color solo para dos de
     ellos: el conjunto completo agregaría más de un megabyte de CSS. Nombrar cualquier otro tema
@@ -157,7 +157,7 @@ extra_javascript:
 
 `extra_javascript` se emite al final de `<body>`, después del propio tema. guiones.
 
-!!! nota "Complementos que inyectan sus propios activos"
+!!! note "Complementos que inyectan sus propios activos"
     Un complemento que escribe etiquetas `<link>` en el HTML de la página en lugar de agregarlas
     `extra_css`: mkdocs-glightbox es uno: aterriza *después* de tus anulaciones. Estilo
     aquellos con un selector más específico en lugar de depender del orden.

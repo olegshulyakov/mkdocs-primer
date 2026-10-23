@@ -80,7 +80,7 @@ theme:
 
 A direção é uma configuração que abrange todo o site; o tema não o infere de uma página ou localidade do idioma.
 
-!!! aviso "`light_theme` e `dark_theme` atualmente aceitam apenas `light` e `dark`"
+!!! warning "`light_theme` e `dark_theme` atualmente aceitam apenas `light` e `dark`"
     Primer publica quatorze temas (`dark_dimmed`, `light_high_contrast`,
     `dark_tritanopia` e assim por diante), mas este tema envia os tokens de cores para apenas dois dos
     eles - o conjunto completo adicionaria bem mais de um megabyte de CSS. Nomeando qualquer outro tema

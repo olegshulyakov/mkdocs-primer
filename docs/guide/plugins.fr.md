@@ -12,7 +12,7 @@ Ce site est le chèque. `mkdocs.yml` dans la racine du référentiel active les 
 
 `partials/nav-item.html` vérifie `nav_item.url` et affiche l'étiquette sous forme de lien quand il y en a un. Vous pouvez le voir dans la barre latérale : **Guide** et **Imbrication** sont tous deux cliquables.
 
-!!! notez "Un avertissement que vous pouvez ignorer"
+!!! note "Un avertissement que vous pouvez ignorer"
     Le plugin reconnaît les thèmes pris en charge en faisant correspondre les chemins des fichiers modèles
     par rapport à une liste intégrée, donc il enregistre
 

@@ -80,7 +80,7 @@ theme:
 
 La direction est un paramètre à l’échelle du site ; le thème ne le déduit pas d'une page ou langue locale.
 
-!!! avertissement "`light_theme` et `dark_theme` n'acceptent actuellement que `light` et `dark`"
+!!! warning "`light_theme` et `dark_theme` n'acceptent actuellement que `light` et `dark`"
     Primer publie quatorze thèmes (`dark_dimmed`, `light_high_contrast`,
     `dark_tritanopia` et ainsi de suite), mais ce thème fournit les jetons de couleur pour seulement deux des
     eux - l'ensemble complet ajouterait bien plus d'un mégaoctet de CSS. Nommer n’importe quel autre thème
