@@ -57,8 +57,15 @@ jobs:
           mkdocs build --strict -f "$RUNNER_TEMP/smoke/mkdocs.yml"
 
   docs:
-    name: Docs site (full plugin stack)
+    name: Docs site (full plugin stack, ${{ matrix.tool }})
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        # ProperDocs continues MkDocs 1.x and reads the same config and theme
+        # entry point. The docs plugins already install it, so building with
+        # both costs no extra dependencies. See #107.
+        tool: [mkdocs, properdocs]
     steps:
       - uses: actions/checkout@v4
         with:
@@ -74,13 +81,15 @@ jobs:
       - run: npm ci
       # Every plugin that needs theme support is enabled in mkdocs.yml, so this
       # build is where a regression in that support surfaces.
-      - run: mkdocs build --strict
+      - run: ${{ matrix.tool }} build --strict
       # The examples cover plugins that cannot share a config with the main
       # site. They build into site/, so they have to run after it — that build
       # cleans the directory.
-      - run: mkdocs build --strict -f examples/rss/mkdocs.yml
-      - run: mkdocs build --strict -f examples/gen-files/mkdocs.yml
-      - run: mkdocs build --strict -f examples/diagrams/mkdocs.yml
+      - run: ${{ matrix.tool }} build --strict -f examples/rss/mkdocs.yml
+      - run: ${{ matrix.tool }} build --strict -f examples/gen-files/mkdocs.yml
+      - run: ${{ matrix.tool }} build --strict -f examples/diagrams/mkdocs.yml
       # Workbox precaches the generated site and the theme registers the
-      # resulting service worker when `theme.offline` is enabled.
+      # resulting service worker when `theme.offline` is enabled. The script
+      # runs mkdocs itself, so it only needs to run once.
       - run: npm run build:offline
+        if: matrix.tool == 'mkdocs'
