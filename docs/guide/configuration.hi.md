@@ -1,30 +1,135 @@
-# विन्यास
+# कॉन्फ़िगरेशन
+
+<a id="theme-options"></a>
 
 ## थीम विकल्प
 
 | विकल्प | डिफ़ॉल्ट | विवरण |
 |:---|:---|:---|
-| `logo` | `null` | `docs_dir` के सापेक्ष, साइट नाम के बगल में दिखाई गई छवि। |
-| `favicon` | `img/favicon.svg` | साइट आइकन. |
-| `icon` | `octicons` | थीम नियंत्रण के लिए आइकन सेट: `octicons` या `lucide`। |
-| `font.text` | `null` | इंटरफ़ेस और गद्य के लिए सीएसएस फ़ॉन्ट-परिवार मान। |
-| `font.code` | `null` | इनलाइन और ब्लॉक कोड के लिए सीएसएस फ़ॉन्ट-फ़ैमिली मान। |
-| `font.source` | `null` | `docs_dir` के अंतर्गत एक बाहरी स्टाइलशीट URL या स्थानीय स्टाइलशीट। |
-| `direction` | `ltr` | दस्तावेज़ दिशा: `ltr` या `rtl`। |
-| `include_sidebar` | `true` | नेविगेशन साइडबार प्रस्तुत करें. |
-| `show_footer` | `true` | "इस पृष्ठ को सुधारें" पादलेख प्रस्तुत करें। |
-| `toc` | `auto` | "इस पृष्ठ पर" रूपरेखा: `auto`, `expanded`, `collapsed` या `hidden`। |
-| `color_mode` | `auto` | प्रारंभिक रंग मोड: `auto`, `light` या `dark`। |
-| `light_theme` | `light` | प्राइमर थीम का उपयोग लाइट मोड में किया जाता है। |
-| `dark_theme` | `dark` | प्राइमर थीम का उपयोग डार्क मोड में किया जाता है। |
+| `logo` | `null` | साइट के नाम के बगल में दिखने वाली image, `docs_dir` के सापेक्ष। |
+| `favicon` | `img/favicon.svg` | साइट का icon। |
+| `icon` | `octicons` | थीम के controls का icon set: `octicons` या `lucide`। |
+| `font.text` | `null` | इंटरफ़ेस और prose के लिए CSS `font-family` मान। |
+| `font.code` | `null` | inline और block code के लिए CSS `font-family` मान। |
+| `font.source` | `null` | कोई बाहरी stylesheet URL या `docs_dir` के अंदर की local stylesheet। |
+| `locale` | `en` | थीम के अपने text की भाषा। Catalogs `en`, `es`, `fr`, `hi`, `pt`, `ru` और `zh` के लिए आते हैं। |
+| `direction` | `ltr` | दस्तावेज़ की दिशा: `ltr` या `rtl`। |
+| `include_sidebar` | `true` | navigation sidebar render करें। |
+| `show_footer` | `true` | footer bar render करें। |
+| `show_footer_generator` | `true` | footer में "mkdocs-primer और MkDocs से बनाया गया" दिखाएँ। |
+| `social` | `[]` | footer में दिखने वाले icon links। |
+| `show_metadata` | `true` | पेज के title के नीचे metadata line render करें। |
+| `show_metadata_created` | `true` | बनने की तारीख़ दिखाएँ। |
+| `show_metadata_updated` | `true` | अंतिम अद्यतन की तारीख़ दिखाएँ। |
+| `show_metadata_reading_time` | `true` | पढ़ने का अनुमानित समय दिखाएँ। |
+| `show_metadata_authors` | `true` | लेखक दिखाएँ। |
+| `toc` | `auto` | "विषय सूची" की रूपरेखा: `auto`, `expanded`, `collapsed` या `hidden`। |
+| `offline` | `false` | एक service worker register करें, जिसे साइट का build खुद generate करे। |
+| `color_mode` | `auto` | शुरुआती रंग मोड: `auto`, `light` या `dark`। |
+| `light_theme` | `light` | हल्के मोड में इस्तेमाल होने वाली Primer थीम। |
+| `dark_theme` | `dark` | गहरे मोड में इस्तेमाल होने वाली Primer थीम। |
 
-`color_mode` केवल *प्रारंभिक* मोड सेट करता है। विज़िटर इसे हेडर के साथ बदल सकते हैं टॉगल करें, और उनकी पसंद `localStorage` में संग्रहीत हो जाती है।
+`color_mode` सिर्फ़ *शुरुआती* मोड तय करता है। विज़िटर इसे header के toggle से बदल सकते हैं, और उनकी पसंद `localStorage` में सहेजी जाती है।
 
-`toc` तय करता है कि पृष्ठ के शीर्षकों से बनी रूपरेखा कहाँ जाए। `auto` उसे दाहिनी पट्टी में रखता है जब खिड़की में तीसरे स्तंभ की जगह हो, अन्यथा पृष्ठ-शीर्षक के नीचे — वहाँ वह पाठक द्वारा खोला जाने वाला ब्लॉक है, न कि शीर्षक और पहले अनुच्छेद के बीच खड़ी सूची। `expanded` उसे प्रवाह में रखता है और पट्टी से बाहर, `collapsed` उसे खोलने-योग्य ब्लॉक बनाता है, और `hidden` — या `false` — उसे हटा देता है।
+`toc` तय करता है कि मौजूदा पेज की headings से बनी रूपरेखा कहाँ जाए। `auto` उसे दाईं rail में रखता है जब window तीसरे column के लिए पर्याप्त चौड़ी हो, और नहीं तो पेज के title के नीचे — वहाँ वह एक disclosure है जिसे पाठक खुद खोलता है, न कि title और पहले पैराग्राफ़ के बीच खड़ी कोई सूची। `expanded` उसे flow में रखता है और rail से बाहर, `collapsed` उसे ऐसा disclosure बनाता है जिसे पाठक खोलता है, और `hidden` — या `false` — उसे हटा देता है।
 
-## चिह्न
+<a id="metadata-line"></a>
 
-हेडर नेविगेशन, रंग-मोड नियंत्रण और बैक-टू-टॉप बटन इनलाइन एसवीजी का उपयोग करते हैं एक आइकन सेट से. `octicons` डिफ़ॉल्ट है; ल्यूसिड आइकन चुनें के साथ:
+## मेटाडेटा लाइन
+
+पेज के title के ठीक नीचे, prose से ऊपर, थीम मौजूदा पेज के बारे में तथ्यों की एक byline दिखा सकती है: पेज कब बना, आखिरी बार कब बदला, पढ़ने में कितना समय लगता है, और किसने लिखा। हर item तभी दिखता है जब उसका अपना विकल्प चालू हो *और* उसके पीछे डेटा मौजूद हो, और अगर चारों में से कोई भी कुछ न दिखाए तो पूरी line ही हटा दी जाती है।
+
+```yaml
+theme:
+  name: primer
+  show_metadata: true # the line's own switch; false hides all four items
+  show_metadata_created: true
+  show_metadata_updated: true
+  show_metadata_reading_time: true
+  show_metadata_authors: true
+```
+
+`show_metadata` नीचे के fields चाहे जो हों, पूरी line बंद कर देता है। हर field को अलग से भी बंद किया जा सकता है — मान लीजिए किसी साइट को तारीख़ें चाहिए पर पढ़ने के समय का अनुमान नहीं।
+
+`show_metadata_reading_time` पेज के rendered शब्दों की गिनती से 265 शब्द प्रति मिनट की दर पर — जो एक वयस्क की औसत पढ़ने की गति है — पढ़ने के मिनटों का अनुमान लगाता है, और जिस पेज का अपना कोई content नहीं होता, जैसे section index, उस पर यह नहीं दिखता।
+
+दोनों तारीख़ें [mkdocs-git-revision-date-localized](https://github.com/timvink/mkdocs-git-revision-date-localized-plugin) से आती हैं:
+
+```yaml
+plugins:
+  - git-revision-date-localized:
+      enable_creation_date: true # also required for the "created" date
+```
+
+वह plugin चालू न हो तो कोई भी तारीख़ नहीं दिखती, और बनने की तारीख़ के लिए खास तौर पर `enable_creation_date: true` चाहिए — plugin का अपना डिफ़ॉल्ट इसे बंद रखता है।
+
+लेखक [mkdocs-git-authors](https://github.com/timvink/mkdocs-git-authors-plugin) से आते हैं, और वह plugin चालू न हो तो वे भी नहीं दिखते।
+
+<a id="footer"></a>
+
+## फ़ुटर
+
+हर पेज के निचले हिस्से में, पूरे layout के नीचे, एक bar। इसमें एक तरफ़ text की दो lines होती हैं और दूसरी तरफ़ icon links की एक पंक्ति, और जब उसमें रखने को कुछ न हो तो वह पूरी तरह हटा दिया जाता है। `show_footer: false` उसे हटा देता है, बाकी कॉन्फ़िगरेशन चाहे जो हो।
+
+Bar का हर link दस्तावेज़ से बाहर ले जाता है, इसलिए उनमें से हर एक अपने अलग tab में खुलता है।
+
+पहली line copyright है और यह कि पेज का source कहाँ मिलेगा — उसके लिए [एडिट लिंक](#edit-links) देखें। Copyright MkDocs का अपना `copyright` है, जो थीम का विकल्प नहीं बल्कि top-level key है:
+
+```yaml
+copyright: Copyright &copy; 2026 Your Name
+```
+
+दूसरी line बताती है कि साइट किससे बनी है। इसे `show_footer_generator: false` से बंद करें:
+
+```yaml
+theme:
+  name: primer
+  show_footer_generator: false
+```
+
+<a id="social-links"></a>
+
+### सोशल लिंक
+
+`social` links की एक सूची है जो copyright के सामने वाली तरफ़ icons के रूप में दिखती है:
+
+```yaml
+theme:
+  name: primer
+  social:
+    - service: github
+      link: https://github.com/you/your-project
+    - service: mastodon
+      link: https://fosstodon.org/@you
+      name: Follow the project on Mastodon
+```
+
+`service` थीम के साथ आने वाले marks में से किसी एक का नाम है। `name` वैकल्पिक है: यह link का accessible name है — जो screen reader पढ़कर सुनाता है — और डिफ़ॉल्ट रूप से service का अपना नाम होता है, इसलिए जब भी सिर्फ़ "GitHub" से यह पता न चले कि link कहाँ ले जाता है, तब इसे दें।
+
+Services ये हैं:
+
+`bitbucket`, `bluesky`, `codeberg`, `devdotto`, `discord`, `docker`, `facebook`, `forgejo`, `github`, `githubsponsors`, `gitlab`, `instagram`, `kofi`, `mastodon`, `matrix`, `medium`, `npm`, `opencollective`, `patreon`, `pypi`, `reddit`, `rss`, `stackoverflow`, `substack`, `telegram`, `twitch`, `x`, `youtube`, `zulip`.
+
+किसी और चीज़ के लिए, `service` का नाम देने के बजाय `icon` को `docs_dir` के अंदर किसी SVG पर point करें:
+
+```yaml
+theme:
+  name: primer
+  social:
+    - icon: img/linkedin.svg
+      link: https://www.linkedin.com/company/your-company
+      name: Your Company on LinkedIn
+```
+
+ऐसा mark `<img>` के रूप में बनता है, इसलिए built-in marks के उलट यह आसपास के text का रंग नहीं लेता बल्कि अपने रंग बनाए रखता है। LinkedIn और Slack के लिए यही रास्ता है: दोनों ने उस icon set से हटाए जाने का अनुरोध किया था जिससे थीम icons लेती है, इसलिए दोनों में से कोई भी उसके साथ नहीं आता।
+
+ये marks [Simple Icons](https://github.com/simple-icons/simple-icons) हैं, जो CC0-1.0 के तहत जारी हुए हैं। जिन brands को वे दर्शाते हैं, वे नहीं: हर brand अपने मालिक का trademark बना रहता है, और उसे अपने footer में लगाने से उनसे किसी संबंध या समर्थन का दावा नहीं होता।
+
+<a id="icons"></a>
+
+## आइकन
+
+Header navigation, रंग मोड का control, "ऊपर जाएँ" बटन और code block पर कॉपी बटन एक ही icon set के inline SVG इस्तेमाल करते हैं। `octicons` डिफ़ॉल्ट है; Lucide icons इस तरह चुनें:
 
 ```yaml
 theme:
@@ -32,11 +137,13 @@ theme:
   icon: lucide
 ```
 
-दोनों सेट थीम में शामिल हैं, इसलिए कोई भी विकल्प सीडीएन अनुरोध नहीं जोड़ता है। चिह्न चयन केवल थीम के HTML नियंत्रणों पर लागू होता है। भाषा चयनकर्ता हमेशा ऑक्टिकॉन ग्लोब का उपयोग करता है। मार्कडाउन आइकन सिंटैक्स और मनमाना तृतीय-पक्ष आइकन पैक जानबूझकर असमर्थित हैं।
+दोनों sets थीम में शामिल हैं, इसलिए कोई भी विकल्प CDN request नहीं जोड़ता। Icon का चुनाव सिर्फ़ थीम के HTML controls पर लागू होता है। भाषा चुनने वाला control हमेशा Octicon का globe इस्तेमाल करता है। Markdown की icon syntax और मनचाहे third-party icon packs जानबूझकर supported नहीं हैं।
 
-## फ़ॉन्ट्स
+<a id="fonts"></a>
 
-फ़ॉन्ट ऑप्ट-इन हैं: थीम डिफ़ॉल्ट रूप से फ़ॉन्ट सीडीएन का अनुरोध नहीं करती है। टेक्स्ट सेट करें और कोड परिवारों को स्वतंत्र रूप से, फिर किसी बाहरी स्टाइलशीट पर `source` इंगित करें या `docs_dir` में एक CSS फ़ाइल:
+## फ़ॉन्ट
+
+Fonts opt-in हैं: थीम डिफ़ॉल्ट रूप से किसी font CDN से request नहीं करती। Text और code के families अलग-अलग set करें, फिर `source` को किसी बाहरी stylesheet या `docs_dir` में मौजूद CSS file पर point करें:
 
 ```yaml
 theme:
@@ -47,7 +154,7 @@ theme:
     source: https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=JetBrains+Mono&display=swap
 ```
 
-स्वयं-होस्ट की गई साइट के लिए, `docs_dir` में फ़ॉन्ट फ़ाइलें और एक स्टाइलशीट डालें, फिर सापेक्ष स्रोत पथ का उपयोग करें:
+Self-hosted साइट के लिए font files और एक stylesheet `docs_dir` में रखें, फिर relative source path इस्तेमाल करें:
 
 ```yaml
 theme:
@@ -66,11 +173,57 @@ theme:
 }
 ```
 
-ब्राउज़र उन फ़ाइलों को सामान्य रूप से कैश करता है। सेल्फ-होस्टिंग किसी तीसरे पक्ष से बचती है अनुरोध करें और साइट की संपत्तियां कैश हो जाने के बाद उसे ऑफ़लाइन उपयोग योग्य बनाए रखें।
+Browser उन files को सामान्य रूप से cache करता है। Self-hosting से third-party request नहीं होती, और assets cache हो जाने के बाद साइट offline भी इस्तेमाल की जा सकती है।
 
-## दाएं से बाएं लेआउट
+<a id="language"></a>
 
-दाएं से बाएं दस्तावेज़ के लिए `direction: rtl` सेट करें। थीम `dir="rtl"` रखती है मूल HTML तत्व पर और उसके हेडर, साइडबार, मोबाइल नेविगेशन को प्रतिबिंबित करता है, तार्किक सीएसएस गुणों के साथ पृष्ठांकन, पाद लेख, मेनू और नियंत्रण। कोड और आरेख जानबूझकर बाएँ से दाएँ रहते हैं।
+## भाषा
+
+थीम का अपना text — `Search`, `Back to top`, `Previous`/`Next`, footer के labels — एक gettext catalog से आता है, उस भाषा से अलग जिसमें आपके पेज लिखे गए हैं। `locale` से एक चुनें:
+
+```yaml
+theme:
+  name: primer
+  locale: ru
+```
+
+Catalogs `en`, `es`, `fr`, `hi`, `pt`, `ru` और `zh` के लिए आते हैं। सूची में न दिया गया locale build को fail करने के बजाय English पर लौट आता है।
+
+!!! note "बहुभाषी साइटों में हर भाषा के लिए `locale` देना ज़रूरी है"
+    mkdocs-static-i18n `theme.locale` अपने-आप सिर्फ़ उन थीमों के लिए set करता है
+    जो MkDocs के साथ आती हैं, इसलिए third-party थीम को यह साफ़-साफ़ बताना पड़ता
+    है। इसे हर भाषा में जोड़ें, वरना हर locale का chrome English में render होगा:
+
+    ```yaml
+    plugins:
+      - i18n:
+          languages:
+            - locale: en
+              default: true
+              build: true
+              theme:
+                locale: en
+            - locale: ru
+              build: true
+              theme:
+                locale: ru
+    ```
+
+!!! warning "डिफ़ॉल्ट भाषा को सबसे आख़िर में रखें"
+    Plugin हर भाषा के लिए एक build pass चलाता है, और जो पेज पूरी साइट के लिए
+    एक ही बार होते हैं — `404.html` और `search.html` — उन्हें हर pass दोबारा
+    लिखता है। इसलिए वे दोनों उसी भाषा में निकलते हैं जो सूची में **आख़िर** में
+    है। डिफ़ॉल्ट भाषा को आख़िर में रखें ताकि वे उसी में बनें। थीम भाषा चुनने
+    वाले control को खुद sort करती है, इसलिए इससे विज़िटरों को दिखने वाला क्रम
+    नहीं बदलता।
+
+कोई भाषा जोड़ने या सुधारने के लिए `mkdocs_primer/locales/<locale>/LC_MESSAGES/messages.po` edit करें और फिर से compile करें — देखें [`RELEASING.md`](https://github.com/olegshulyakov/mkdocs-primer/blob/main/RELEASING.md)।
+
+<a id="right-to-left-layouts"></a>
+
+## दाएँ-से-बाएँ लेआउट
+
+दाएँ-से-बाएँ दस्तावेज़ के लिए `direction: rtl` set करें। थीम root HTML element पर `dir="rtl"` लगाती है और logical CSS properties की मदद से अपने header, sidebar, mobile navigation, pagination, footer, menus और controls को mirror करती है। Code और diagrams जानबूझकर बाएँ-से-दाएँ ही रहते हैं।
 
 ```yaml
 theme:
@@ -78,18 +231,20 @@ theme:
   direction: rtl
 ```
 
-दिशा एक साइट-व्यापी सेटिंग है; विषय किसी पृष्ठ से इसका अनुमान नहीं लगाता है भाषा स्थान.
+दिशा पूरी साइट की setting है; थीम इसे किसी पेज या भाषा के locale से अंदाज़ा लगाकर तय नहीं करती।
 
-!!! warning "`light_theme` और `dark_theme` वर्तमान में केवल `light` और `dark` स्वीकार करते हैं"
-    प्राइमर ने चौदह थीम प्रकाशित की हैं (`dark_dimmed`, `light_high_contrast`,
-    `dark_tritanopia` इत्यादि), लेकिन यह थीम केवल दो के लिए रंगीन टोकन भेजती है
-    उन्हें - पूरा सेट सीएसएस के एक मेगाबाइट से अधिक जोड़ देगा। किसी अन्य विषय का नामकरण
-    किसी त्रुटि के बजाय बिना किसी रंग वाला पृष्ठ प्रस्तुत करता है। अधिक विषयों के लिए समर्थन
-    भविष्य में होने वाले जोड़ के रूप में ट्रैक किया जाता है।
+!!! warning "`light_theme` और `dark_theme` अभी सिर्फ़ `light` और `dark` स्वीकार करते हैं"
+    Primer चौदह थीमें प्रकाशित करता है (`dark_dimmed`, `light_high_contrast`,
+    `dark_tritanopia` वगैरह), लेकिन यह थीम उनमें से सिर्फ़ दो के color tokens
+    साथ लाती है — पूरा set एक megabyte से कहीं ज़्यादा CSS जोड़ देता। किसी और
+    थीम का नाम देने पर error नहीं आता, बल्कि बिना किसी रंग का पेज render होता है।
+    ज़्यादा थीमों का support भविष्य में जोड़ने के लिए track किया जा रहा है।
+
+<a id="heading-anchors"></a>
 
 ## हेडिंग एंकर
 
-प्रत्येक शीर्षक के आगे GitHub का होवर एंकर प्राप्त करने के लिए, `toc` एक्सटेंशन को सक्षम करें प्रमुख पर्मलिंक जो प्राइमर की `anchor` क्लास को वहन करता है:
+हर heading के बगल में GitHub जैसा hover anchor पाने के लिए, `toc` extension को leading permalink के साथ चालू करें जिस पर Primer की `anchor` class हो:
 
 ```yaml
 markdown_extensions:
@@ -100,13 +255,15 @@ markdown_extensions:
       permalink_title: Permanent link
 ```
 
-थीम ऑक्टिकॉन को स्वयं खींचती है, इसलिए `permalink` को एक खाली स्ट्रिंग पर सेट किया गया है सामान्य `true` से अधिक। यह दिखावे से अधिक मायने रखता है: MkDocs का खोज प्लगइन नहीं पर्मलिंक ग्लिफ़ को स्ट्रिप करें, ताकि अन्यथा एक `¶` आपके खोज परिणामों में दिखाई दे।
+Octicon थीम खुद बनाती है, इसलिए `permalink` को सामान्य `true` के बजाय खाली string पर set किया जाता है। यह सिर्फ़ दिखावट की बात नहीं है: MkDocs का search plugin permalink glyphs को नहीं हटाता, इसलिए नहीं तो आपके search results में `¶` दिखाई देता।
 
-इस कॉन्फ़िगरेशन के बिना पर्मलिंक अभी भी काम करता है, यह केवल एक सादे ग्लिफ़ के रूप में प्रस्तुत होता है ऑक्टिकॉन की तुलना में.
+इस config के बिना भी permalink काम करता है, बस octicon के बजाय एक सादे glyph के रूप में render होता है।
 
-## वाक्य - विन्यास पर प्रकाश डालना
+<a id="syntax-highlighting"></a>
 
-कोड रंग प्राइमर के `prettylights` वेरिएबल्स से आते हैं, इसलिए वे सक्रिय का अनुसरण करते हैं रंग मोड स्वचालित रूप से. किसी पिगमेंट शैली का चयन करने की आवश्यकता नहीं है:
+## सिंटैक्स हाइलाइटिंग
+
+Code के रंग Primer के `prettylights` variables से आते हैं, इसलिए वे अपने-आप सक्रिय रंग मोड के साथ चलते हैं। कोई Pygments style चुनने की ज़रूरत नहीं है:
 
 ```yaml
 markdown_extensions:
@@ -114,17 +271,44 @@ markdown_extensions:
   - pymdownx.superfences
 ```
 
-`.highlight` और `.codehilite` दोनों रैपर स्टाइल किए गए हैं, इसलिए `codehilite` भी काम करता है।
+`.highlight` और `.codehilite` दोनों wrappers styled हैं, इसलिए `codehilite` भी काम करता है।
 
-थीम प्रत्येक Pygments `.highlight` ब्लॉक में एक कॉपी बटन जोड़ती है। यह कॉपी करता है दृश्य स्रोत और घोषणा करता है कि क्लिपबोर्ड ऑपरेशन सफल हुआ या नहीं। ब्लॉक मरमेड और वेगा-लाइट जैसे प्लगइन्स द्वारा प्रस्तुत, जानबूझकर बाहर रखा गया है।
+थीम हर Pygments `.highlight` block में एक कॉपी बटन जोड़ती है। यह दिखने वाला source कॉपी करता है और बताता है कि clipboard का operation सफल हुआ या नहीं। Plugins द्वारा render किए गए blocks, जैसे Mermaid और Vega-Lite, जानबूझकर बाहर रखे गए हैं।
 
-## नेविगेशन नियंत्रण
+<a id="navigation-controls"></a>
 
-400 पिक्सेल स्क्रॉल करने के बाद, नीचे दाईं ओर एक बैक-टू-टॉप बटन दिखाई देता है पेज का. यह विज़िटर को दस्तावेज़ की शुरुआत में लौटाता है और आगे बढ़ता है साइट-शीर्षक लिंक पर कीबोर्ड फोकस। आगंतुक के आने पर हलचल तत्काल होती है कम गति का अनुरोध किया है.
+## नेविगेशन कंट्रोल
 
-## मार्कडाउन एक्सटेंशन
+400 pixels scroll करने के बाद पेज के नीचे दाईं ओर "ऊपर जाएँ" बटन दिखाई देता है। यह विज़िटर को दस्तावेज़ की शुरुआत पर वापस ले जाता है और keyboard focus को site-title link पर ले आता है। अगर विज़िटर ने reduced motion माँगा है तो यह तुरंत, बिना animation के, होता है।
 
-इनमें से किसी की भी आवश्यकता नहीं है, लेकिन थीम जहाज स्टाइल केवल एक बार ही लाभदायक होता है वे चालू हैं:
+<a id="offline-support"></a>
+
+## ऑफ़लाइन सपोर्ट
+
+`offline: true` हर पेज में एक ही चीज़ जोड़ता है: एक script जो साइट के root से `service-worker.js` register करती है। थीम वह file नहीं लिखती, और MkDocs में ऐसा कुछ नहीं है जो उसे लिखे — उसे generate करना एक step है जो आपके अपने build को `mkdocs build` के बाद चलाना होगा:
+
+```yaml
+theme:
+  name: primer
+  offline: true
+```
+
+```console
+$ mkdocs build
+$ npx workbox generateSW workbox-config.cjs
+```
+
+Service worker ही बनी हुई साइट को precache करता है, ताकि जो विज़िटर एक बार साइट पर आ चुका है, वह उसे बिना network के फिर से पढ़ सके। `offline` को `false` पर छोड़ दें तो कोई registration नहीं जुड़ता, और बिना इस build step वाली साइट को यही चाहिए — जो पेज ऐसी `service-worker.js` माँगता है जिसे किसी ने generate नहीं किया, वह हर visit पर 404 log करता है।
+
+दो चीज़ें यह नहीं कर सकता। Secure context के बाहर service workers मना कर दिए जाते हैं, इसलिए साइट HTTPS पर या `localhost` से serve होनी चाहिए; `file://` से खोला गया folder इनमें से किसी भी चीज़ से offline-capable नहीं बनता। और precaching *दूसरी* visit से शुरू होती है — पहली visit ही cache भरती है।
+
+इस repository की अपनी `workbox-config.cjs` और उसका `npm run build:offline` एक पूरा, काम करता हुआ उदाहरण हैं।
+
+<a id="markdown-extensions"></a>
+
+## Markdown एक्सटेंशन
+
+इनमें से कोई भी ज़रूरी नहीं है, लेकिन थीम ऐसी styling के साथ आती है जिसका फ़ायदा इन्हें चालू करने पर ही मिलता है:
 
 ```yaml
 markdown_extensions:
@@ -137,11 +321,13 @@ markdown_extensions:
   - pymdownx.tilde
 ```
 
-`admonition` वह है जो ध्यान देने योग्य है: एक्सटेंशन मार्कअप उत्सर्जित करता है और कोई सीएसएस नहीं स्वयं का, और `@primer/css` के पास इसके लिए कोई नियम भी नहीं है, इसलिए यह एक अनस्टाइल है चेतावनी एक सामान्य आश्चर्य है. विषय उस अंतर को भरता है - देखिए [उदाहरण](../elements.md#admonitions)।
+`admonition` खास तौर पर ध्यान देने लायक है: यह extension markup बनाता है पर अपनी कोई CSS नहीं देता, और `@primer/css` में भी इसके लिए कोई नियम नहीं है, इसलिए बिना style वाला admonition अक्सर चौंका देता है। थीम यह कमी पूरी करती है — देखें [उदाहरण](../elements.md#admonitions)।
 
-## कस्टम सीएसएस और जावास्क्रिप्ट
+<a id="custom-css-and-javascript"></a>
 
-थीम शिप होने वाली प्रत्येक स्टाइलशीट के बाद `extra_css` लोड किया जाता है, इसलिए आपके नियम जीत जाते हैं `!important` की आवश्यकता के बिना:
+## कस्टम CSS और JavaScript
+
+`extra_css` थीम की हर stylesheet के बाद load होती है, इसलिए आपके नियम `!important` के बिना ही जीतते हैं:
 
 ```yaml
 extra_css:
@@ -153,20 +339,24 @@ extra_javascript:
     type: module
 ```
 
-[Styling](../styling.md) बताता है कि उसमें क्या लिखना है: थीम की अपनी लेआउट वेरिएबल, और `:root` में Primer के रंग टोकन को बदलना क्यों काम नहीं करता, जबकि वही नियम दो एट्रिब्यूट सिलेक्टर के नीचे लागू हो जाता है।
+[स्टाइलिंग](../styling.md) बताता है कि इसमें क्या रखें: थीम के अपने layout variables, और यह कि Primer के किसी color token का `:root` override क्यों छोड़ दिया जाता है जबकि वही नियम दो attribute selectors के नीचे लागू हो जाता है।
 
-`extra_javascript` थीम के बाद, `<body>` के अंत में उत्सर्जित होता है स्क्रिप्ट.
+`extra_javascript` `<body>` के आख़िर में, थीम की अपनी scripts के बाद, जोड़ी जाती है।
 
-!!! note "प्लगइन्स जो अपनी संपत्ति इंजेक्ट करते हैं"
-    एक प्लगइन जो `<link>` टैग को जोड़ने के बजाय पृष्ठ HTML में लिखता है
-    `extra_css` - mkdocs-glightbox एक है - आपके ओवरराइड के बाद * लैंड करता है। अंदाज
-    ऑर्डर पर निर्भर रहने के बजाय अधिक विशिष्ट चयनकर्ता वाले।
+!!! note "अपने assets खुद inject करने वाले plugins"
+    जो plugin `extra_css` में जोड़ने के बजाय पेज के HTML में `<link>` tags लिखता
+    है — mkdocs-glightbox ऐसा ही एक है — वह आपके overrides के *बाद* आता है। ऐसी
+    चीज़ों को क्रम पर निर्भर रहने के बजाय ज़्यादा specific selector से style करें।
 
-## लिंक संपादित करें
+<a id="edit-links"></a>
 
-जब `repo_url` और `edit_uri` सेट होते हैं तो पाद लेख वापस स्रोत फ़ाइल से लिंक हो जाता है:
+## एडिट लिंक
+
+जब `repo_url` और `edit_uri` set हों, तो [footer](#footer) पेज की अपनी source file का link देता है:
 
 ```yaml
 repo_url: https://github.com/you/your-project
 edit_uri: edit/main/docs/
 ```
+
+अगर `repo_url` है पर `edit_uri` नहीं, तो हर पेज के लिए link बनाने का कोई आधार नहीं होता, और footer उसकी जगह repository का नाम देता है — ताकि पाठक साइट पर कहीं से भी source तक पहुँच सके।

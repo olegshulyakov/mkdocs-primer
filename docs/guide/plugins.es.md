@@ -1,127 +1,142 @@
-# Complementos
+# Plugins
 
-La mayoría de los complementos de MkDocs nunca tocan una plantilla, por lo que funcionan con cualquier tema. un Un puñado no lo hace: esperan que el tema represente algo que ellos calcularon, o que manejar una forma de navegación que crearon. Esos son los que vale la pena comprobar.
+La mayoría de los plugins de MkDocs nunca tocan una plantilla, así que funcionan con cualquier tema. Unos pocos no: esperan que el tema muestre algo que ellos han calculado, o que sepa manejar una estructura de navegación que ellos han creado. Esos son los que vale la pena comprobar.
 
-Este sitio es el cheque. `mkdocs.yml` en la raíz del repositorio habilita los complementos que necesitan soporte de tema, y CI lo construye con `--strict`, por lo que una regresión rompe la construcción en lugar de degradar silenciosamente una página. Los candidatos fueron elegidos del [catálogo MkDocs](https://github.com/mkdocs/catalog), trabajando hacia abajo por popularidad.
+Este sitio es la comprobación. El `mkdocs.yml` de la raíz del repositorio activa los plugins que necesitan soporte del tema, y la CI lo compila con `--strict`, de modo que una regresión rompe la compilación en lugar de degradar una página sin que nadie se entere. Los candidatos se tomaron del [catálogo de MkDocs](https://github.com/mkdocs/catalog), de más a menos populares.
 
-## Complementos que necesitan algo del tema
+<a id="plugins-that-need-something-from-the-theme"></a>
+
+## Plugins que necesitan algo del tema
 
 ### mkdocs-section-index
 
-[mkdocs-section-index][section-index] incluye `guide/index.md` en la **Guía** sección en sí, por lo que un elemento de navegación termina con `children` y `url`. un tema que muestra "tiene hijos" como una etiqueta de sección simple hace que la página de índice inalcanzable desde la barra lateral.
+[mkdocs-section-index][section-index] integra `guide/index.md` en la propia sección **Guía**, así que un elemento de la navegación acaba teniendo a la vez `children` y una `url`. Un tema que muestra "tiene hijos" como una simple etiqueta de sección deja esa página índice inalcanzable desde la barra lateral.
 
-`partials/nav-item.html` comprueba `nav_item.url` y representa la etiqueta como un enlace cuando hay uno. Puedes verlo en la barra lateral: **Guía** y **Anidado** son ambos en los que se puede hacer clic.
+`partials/nav-item.html` comprueba `nav_item.url` y, si existe, muestra la etiqueta como un enlace. Puedes verlo en la barra lateral: tanto **Guía** como **Anidado** son clicables.
 
 !!! note "Una advertencia que puedes ignorar"
-    El complemento reconoce los temas compatibles al hacer coincidir las rutas de los archivos de plantilla
-    contra una lista incorporada, por lo que registra
+    El plugin reconoce los temas compatibles comparando rutas de archivos de
+    plantilla con una lista integrada, así que registra
 
-```text
+    ```text
     section-index plugin couldn't detect a supported theme to adapt.
     ```
 
-para cada tema de terceros, incluido este. El soporte aquí es nativo:
-    no es necesario adaptar nada, pero el mensaje es inevitable desde el punto de vista temático.
+    con cualquier tema de terceros, incluido este. Aquí el soporte es nativo
+    —no hay nada que adaptar—, pero desde el lado del tema no hay forma de
+    evitar el mensaje.
 
 ### mkdocs-static-i18n
 
-[mkdocs-static-i18n][i18n] reescribe `theme.locale` solo para los temas que incluye soporte para, que no incluye temas de terceros. Leyendo `theme.locale` Por lo tanto, solo etiqueta cada página traducida con el idioma predeterminado.
+[mkdocs-static-i18n][i18n] solo reescribe `theme.locale` para los temas a los que da soporte, entre los que no están los de terceros. Por eso, leer solo `theme.locale` etiqueta todas las páginas traducidas con el idioma predeterminado.
 
-`base.html` prefiere la variable `i18n_page_locale` que el complemento coloca en la página contexto y recurre a `theme.locale` cuando el complemento está ausente:
+`base.html` prefiere la variable `i18n_page_locale` que el plugin pone en el contexto de la página, y recurre a `theme.locale` cuando el plugin no está:
 
 ```html+jinja
 {% raw %}<html lang="{{ i18n_page_locale | default(config.theme.locale, true) }}">{% endraw %}
 ```
 
-Las páginas traducidas en `/es/`, `/zh/`, `/hi/`, `/pt/`, `/ru/` y `/fr/` lleva el atributo `lang` correspondiente. Páginas sin traducción `*.<locale>.md` recurra a su fuente en inglés, que es el comportamiento predeterminado del complemento.
+Las páginas traducidas bajo `/es/`, `/zh/`, `/hi/`, `/pt/`, `/ru/` y `/fr/` llevan el atributo `lang` correspondiente. Las páginas sin traducción `*.<locale>.md` recurren a su original en inglés, que es el comportamiento predeterminado del plugin.
 
-Cuando al menos dos idiomas configurados tienen `build: true`, el encabezado también representa un selector de idioma. Sus etiquetas provienen del `name` de cada idioma, y cada entrada permanece en la misma página en la configuración regional de destino. Esto incluye páginas para lo cual el complemento recurre a la fuente del idioma predeterminado. el seleccionador no se representa sin `mkdocs-static-i18n`, para una compilación en un solo idioma, o en la página 404 estática.
+Cuando al menos dos de los idiomas configurados tienen `build: true`, el encabezado muestra además un selector de idioma. Sus etiquetas proceden del `name` de cada idioma, y cada entrada lleva a la misma página en el idioma de destino. Esto incluye las páginas para las que el plugin recurre al original en el idioma predeterminado. El selector no se muestra sin `mkdocs-static-i18n`, en una compilación de un solo idioma ni en la página 404 estática.
 
 ### mkdocs-git-revision-date-localized
 
-[mkdocs-git-revision-date-localized][git-date] lee el registro de git y almacena el resultado en `page.meta.git_revision_date_localized`. Nada lo muestra a menos que el tema lo solicita, por lo que un tema sin esa línea hace que el complemento parezca roto. `partials/footer.html` lo imprime: la línea "Última actualización" en la parte inferior de esta página.
+[mkdocs-git-revision-date-localized][git-date] lee el registro de git y guarda el resultado en `page.meta.git_revision_date_localized` y, con `enable_creation_date: true`, también en `page.meta.git_creation_date_localized`. Nada muestra ninguno de los dos a menos que el tema los pida, así que un tema sin esas líneas hace que el plugin parezca roto. `partials/metadata.html` imprime ambos como los elementos de creación y de última actualización de la línea de metadatos que hay bajo el título de la página.
 
 ### mkdocs-git-authors
 
-[mkdocs-git-authors][git-authors] tiene la misma forma: pone `git_page_authors` en el contexto de la página como una cadena de HTML y deja el mostrar al tema. El pie de página lo imprime junto a la fecha de revisión.
+[mkdocs-git-authors][git-authors] funciona igual: pone `git_page_authors` en el contexto de la página como una cadena de HTML y deja al tema la tarea de mostrarlo. La línea de metadatos lo imprime junto a las fechas.
 
 ### mkdocs-rss-plugin
 
-[mkdocs-rss-plugin][rss] escribe `feed_rss_created.xml` y `feed_rss_updated.xml` pero no agrega ningún marcado, por lo que nada señala al lector hacia ellos. `base.html` emite el par `<link rel="alternate">`, tomando los nombres de archivo de la propia configuración del complemento en lugar de codificarlas, ya que son opciones.
+[mkdocs-rss-plugin][rss] escribe `feed_rss_created.xml` y `feed_rss_updated.xml`, pero no añade ningún marcado, así que nada le indica al lector que existen. `base.html` emite el par de `<link rel="alternate">` y toma los nombres de archivo de la propia configuración del plugin en lugar de fijarlos en el código, ya que son opciones.
 
-El complemento no está habilitado en este sitio; consulte [Conflictos de complementos conocidos](#known-plugin-conflicts).
+El plugin no está activado en este sitio; consulta [Conflictos conocidos entre plugins](#known-plugin-conflicts).
 
 ### mike
 
-[mike][mike] mantiene varias versiones de documentación una al lado de la otra y agrega una menú desplegable de versiones. Encuentra los recursos desplegables de un tema a través de `mike.themes` grupo de puntos de entrada y, para un tema que no puede encontrar allí, crea **sin selector en todo y no dice nada**: el sitio se implementa, las versiones existen y la única manera moverse entre ellos es editar la URL.
+[mike][mike] mantiene varias versiones de la documentación una junto a otra y añade un desplegable de versiones. Encuentra los recursos del desplegable de cada tema a través del grupo de puntos de entrada `mike.themes` y, con un tema que no encuentra ahí, **no crea ningún selector y no dice nada**: el sitio se despliega, las versiones existen y la única manera de moverse entre ellas es editar la URL.
 
-`pyproject.toml` registra `mkdocs_primer.mike` en ese grupo, por lo que Mike elige up `version-select.css` y `version-select.js` de este paquete y copias ellos. El selector aterriza en el encabezado al lado del nombre del sitio y sigue el modo de color. Los alias se resuelven en su versión real, por lo que `/latest/` muestra `2.0`. seleccionado en lugar de un control vacío.
+`pyproject.toml` registra `mkdocs_primer.mike` en ese grupo, así que mike toma `version-select.css` y `version-select.js` de este paquete y los copia. El selector aparece en el encabezado, junto al nombre del sitio, y sigue el modo de color. Los alias se resuelven a su versión real, así que `/latest/` muestra `2.0` seleccionada en lugar de un control vacío.
 
-Ese script lee el `base_url` global, que declara `base.html` incondicionalmente. Solía declararse solo cuando el complemento `search` estaba habilitado, lo que habría dejado el selector roto en un sitio sin búsqueda.
+Ese script lee la variable global `base_url`, que `base.html` declara siempre. Antes solo se declaraba cuando el plugin `search` estaba activado, lo que habría dejado el selector roto en un sitio sin búsqueda.
 
 ### mkdocs-print-site
 
-[mkdocs-print-site][print-site] representa todo el sitio como una sola página usando el plantillas del tema activo, que funciona aquí. Lo que no puede hacer es suministrar impresiones. CSS: envía una hoja de estilo por tema que conoce y advierte `Theme 'primer' not yet supported` para el resto.
+[mkdocs-print-site][print-site] muestra todo el sitio como una sola página usando las plantillas del tema activo, y eso aquí funciona. Lo que no puede hacer es aportar el CSS de impresión: incluye una hoja de estilos por cada tema que conoce y, para el resto, avisa con `Theme 'primer' not yet supported`.
 
-Ese es el trabajo del tema de todos modos. `theme.css` lleva un bloque `@media print` que elimina el encabezado, la barra lateral y la paginación, libera la columna de contenido para ancho completo y evita que los bloques de código y las tablas se divida entre páginas. eso también fija el texto del cuerpo en el color de primer plano *claro* de Primer, porque un visitante Al imprimir en modo oscuro, de lo contrario se obtendría texto gris claro en papel blanco. Ese bloqueo se aplica a cualquier página, con o sin el complemento.
+De todas formas, eso es trabajo del tema. `theme.css` lleva un bloque `@media print` que quita el encabezado, la barra lateral y la paginación, deja que la columna de contenido ocupe todo el ancho y evita que los bloques de código y las tablas se partan entre páginas. También fija el texto al color de primer plano *claro* de Primer, porque si no, un visitante que imprimiera en modo oscuro obtendría texto gris claro sobre papel blanco. Ese bloque se aplica a cualquier página, con o sin el plugin.
 
 ### search
 
-El complemento `search` integrado necesita el tema para enviar una plantilla `search.html` y cargar `search/main.js` con `base_url` en el alcance. Ambos están en el tema; El cuadro de búsqueda del encabezado aparece cada vez que el complemento está habilitado y desaparece cuando no lo es.
+El plugin integrado `search` necesita que el tema incluya una plantilla `search.html` y que cargue `search/main.js` con `base_url` disponible. Ambas cosas están en el tema: el cuadro de búsqueda del encabezado aparece siempre que el plugin está activado y desaparece cuando no lo está.
 
 ### mkdocstrings
 
-[mkdocstrings][mkdocstrings] emite su propio marcado con clases `doc-*` y deja el estilo al tema. Aquí se muestra legible porque todo aterriza dentro de `.markdown-body` y retoma la escala de tipos de Primer, pero el tema no incluye reglas `doc-*` dedicadas: las firmas y tablas de parámetros utilizan Primer's valores predeterminados. [Referencia](../reference.md) es la página que genera.
+[mkdocstrings][mkdocstrings] genera su propio marcado con clases `doc-*` y deja los estilos al tema. Aquí se lee bien porque todo cae dentro de `.markdown-body` y adopta la escala tipográfica de Primer, pero el tema no incluye reglas `doc-*` específicas: las firmas y las tablas de parámetros usan los valores predeterminados de Primer. [Referencia](../reference.md) es la página que genera.
 
-## Complementos que simplemente funcionan
+<a id="plugins-that-just-work"></a>
 
-Estos no necesitan nada del tema más allá de HTML bien formado. El primer grupo es habilitado en este sitio, por lo que sigue siendo cierto:
+## Plugins que funcionan sin más
 
-| Complemento | Qué hace en este sitio |
+Estos no necesitan del tema nada más que HTML bien formado. El primer grupo está activado en este sitio, para que eso siga siendo cierto:
+
+| Plugin | Qué hace en este sitio |
 |:---|:---|
-| [mkdocs-navegación-increíble][awesome-nav] | Crea la navegación desde `docs/.nav.yml` en lugar de una clave `nav:`. |
-| [mkdocs-glightbox][glightbox] | Abre las imágenes de la página [Elements](../elements.md) en una caja de luz. |
-| [mkdocs-minify-plugin][minify] | Minimiza el HTML, CSS y JS de cada página, incluido el script de modo de color en línea del tema. |
+| [mkdocs-awesome-nav][awesome-nav] | Construye la navegación a partir de `docs/.nav.yml` en lugar de una clave `nav:`. |
+| [mkdocs-glightbox][glightbox] | Abre en una caja de luz las imágenes de [Elementos](../elements.md). |
+| [mkdocs-minify-plugin][minify] | Minifica el HTML, el CSS y el JS de cada página, incluido el script en línea del modo de color del tema. |
 | [mkdocs-redirects][redirects] | `/options/` redirige a [Configuración](configuration.md). |
-| [mkdocs-macros-plugin][macros] | Representa a Jinja en Markdown. Este sitio es **{{ config.site_name }}**, creado con el tema `{{ config.theme.name }}`; esa oración proviene del complemento, no de Markdown. |
+| [mkdocs-macros-plugin][macros] | Procesa Jinja dentro de Markdown. Este sitio es **{{ config.site_name }}**, construido con el tema `{{ config.theme.name }}`: esa frase la genera el plugin, no Markdown. |
 
-El segundo grupo se comparó con el tema en una versión preliminar en lugar de conectado a este sitio, porque cada uno quiere contenido fijo que no ganaría su lugar en la documentación de un tema:
+El segundo grupo se probó con el tema en una compilación de prueba en lugar de integrarlo en este sitio, porque cada uno necesita contenido de ejemplo que no justificaría su sitio en la documentación de un tema:
 
-| Complemento | Comprobado |
+| Plugin | Comprobado |
 |:---|:---|
 | [mkdocs-swagger-ui-tag][swagger] | La etiqueta `<swagger-ui>` se expande y los recursos se copian. |
-| [mkdocs-include-markdown-plugin][include-markdown] | Fragmento en línea. |
-| [markdown-exec][markdown-exec] | Código ejecutado, salida incorporada. |
-| [mkdocs-table-reader-plugin][table-reader] | CSV representado como una tabla. |
-| [mkdocs-markdownextradata-plugin][extradata] | Valores `extra:` interpolados. |
-| [mkdocs-autolinks-plugin][autolinks] | Se resolvieron los enlaces desnudos de `[file.md](file.md)`. |
-| [mkdocs-encryptcontent-plugin][encryptcontent] | Cuerpo de la página cifrado sin texto sin formato en el HTML, formulario de contraseña representado, shell del tema intacto a su alrededor. |
-| [mkdocs-monorepo-plugin][monorepo] | Subproyecto fusionado a través de `!include`. |
-| `material/group` | Habilita o deshabilita un grupo de complementos. Con el `search` integrado en su interior, el cuadro de búsqueda del tema aparece correctamente cuando el grupo está activado y desaparece cuando está desactivado. |
+| [mkdocs-include-markdown-plugin][include-markdown] | Fragmento incrustado. |
+| [markdown-exec][markdown-exec] | Código ejecutado y salida incrustada. |
+| [mkdocs-table-reader-plugin][table-reader] | CSV mostrado como tabla. |
+| [mkdocs-markdownextradata-plugin][extradata] | Valores de `extra:` interpolados. |
+| [mkdocs-autolinks-plugin][autolinks] | Enlaces simples `[file.md](file.md)` resueltos. |
+| [mkdocs-encryptcontent-plugin][encryptcontent] | Cuerpo de la página cifrado sin texto en claro en el HTML, formulario de contraseña mostrado y estructura del tema intacta a su alrededor. |
+| [mkdocs-monorepo-plugin][monorepo] | Subproyecto integrado mediante `!include`. |
+| `material/group` | Activa o desactiva un grupo de plugins. Con el `search` integrado dentro, el cuadro de búsqueda del tema aparece correctamente cuando el grupo está activado y desaparece cuando está desactivado. |
 
-Complementos de navegación y a nivel de archivos: [mkdocs-literate-nav][literate-nav], [mkdocs-awesome-pages][awesome-pages], [mkdocs-exclude][exclude] — nunca llegue a un plantilla en absoluto.
+Los plugins que actúan sobre la navegación y los archivos —[mkdocs-literate-nav][literate-nav], [mkdocs-awesome-pages][awesome-pages], [mkdocs-exclude][exclude]— no llegan a tocar ninguna plantilla.
 
 <a id="known-plugin-conflicts"></a>
 
-## Conflictos de complementos conocidos
+## Conflictos conocidos entre plugins
 
-No todos los fracasos son del tema. Cinco que vale la pena conocer, todos reproducibles. bajo cualquier tema.
+No todos los fallos son culpa del tema. Hay seis que conviene conocer, todos reproducibles con cualquier tema.
 
-Tres de ellos explican por qué este sitio no es la única compilación en el repositorio: el Los complementos involucrados no pueden compartir una configuración con los que ya están habilitados aquí, por lo que obtienen un sitio propio bajo `examples/`, creado con `--strict` por el mismo trabajo de CI.
+Tres de ellos son el motivo de que este sitio no sea la única compilación del repositorio: los plugins implicados no pueden compartir configuración con los que ya están activados aquí, así que tienen su propio sitio en `examples/`, compilado con `--strict` por el mismo trabajo de CI.
 
-La página [Examples](../examples.md) explica qué muestra cada uno de ellos.
+La página [Ejemplos](../examples.md) explica qué muestra cada uno.
 
-- **mkdocs-rss-plugin con mkdocs-static-i18n** — el complemento RSS reescribe su
-  propio `date_from_meta.default_time` de una cadena a un `datetime` durante `on_config`. El complemento i18n ejecuta `on_config` una vez por idioma, por lo que el segundo pass vuelve a analizar un `datetime` y advierte, abortando una compilación de `--strict`. demostrado en su lugar en [examples/rss/]({{ config.site_url }}examples/rss/).
-- **mkdocs-gen-files con mkdocs-static-i18n** — archivos creados durante
-  `on_files` no están clasificados por el complemento i18n, que registra `Unhandled file case` y los elimina de la compilación. Demostrado en cambio en [examples/gen-files/]({{ config.site_url }}examples/gen-files/), junto con mkdocs-literate-nav, que de otro modo competiría con mkdocs-awesome-nav por la navegación.
-- **Mermaid con `minify_html`** — Mermaid analiza su fuente línea por línea y
-  el minificador colapsa las nuevas líneas dentro de su `<div>`. El diagrama se representa como *Error de sintaxis en el texto* y la compilación no dice nada. Demostrado en cambio en [ejemplos/diagramas/]({{ config.site_url }}examples/diagrams/), que también cubre [mkdocs-charts-plugin][charts] y cómo ambos seleccionan el modo de color.
-- **mkdocs-monorepo sin `repo_url`**: aumenta la creación de una página de subproyecto
-  `TypeError: join() missing 1 required positional argument`. Configuración de `repo_url` y `edit_uri` lo evita. Se reproduce de forma idéntica bajo el `mkdocs` integrado. tema.
-- **`material/search` con un tema que no es Material** — Complemento de búsqueda de Material
-  renderiza `partials/language.html` a través de Jinja del tema *activo* ambiente. Bajo cualquier tema que no lleve esa plantilla plantea `TemplateNotFound` y la compilación muere. Utilice el complemento `search` integrado en cambio; el tema se construye en contra de ese.
-
+- **mkdocs-rss-plugin con mkdocs-static-i18n**: el plugin de RSS reescribe su
+  propio `date_from_meta.default_time`, que pasa de cadena a `datetime` durante `on_config`. El plugin i18n ejecuta `on_config` una vez por idioma, así que la segunda pasada vuelve a analizar un `datetime` y emite un aviso, lo que aborta una compilación con `--strict`. Se muestra en su lugar en [examples/rss/]({{ config.site_url }}examples/rss/).
+- **mkdocs-gen-files con mkdocs-static-i18n**: el plugin i18n no clasifica los
+  archivos creados durante `on_files`, así que registra `Unhandled file case` y los deja fuera de la compilación. Se muestra en su lugar en [examples/gen-files/]({{ config.site_url }}examples/gen-files/), junto con mkdocs-literate-nav, que de otro modo competiría con mkdocs-awesome-nav por la navegación.
+- **Mermaid con `minify_html`**: Mermaid analiza su código fuente línea a línea,
+  y el minificador elimina los saltos de línea dentro de su `<div>`. El diagrama se muestra como *Syntax error in text* y la compilación no dice nada. Se muestra en su lugar en [examples/diagrams/]({{ config.site_url }}examples/diagrams/), que también cubre [mkdocs-charts-plugin][charts] y cómo ambos adoptan el modo de color.
+- **mkdocs-monorepo sin `repo_url`**: compilar una página de un subproyecto
+  lanza `TypeError: join() missing 1 required positional argument`. Configurar `repo_url` y `edit_uri` lo evita. Se reproduce exactamente igual con el tema integrado `mkdocs`.
+- **`search` con un idioma predeterminado que mkdocs-static-i18n no tiene en
+  primer lugar**: el plugin i18n hace una pasada de compilación por idioma,
+  empezando por el predeterminado, y luego recorre `languages` saltándose el que
+  acaba de compilar. Compara cada entrada con la pasada anterior y no con el
+  idioma predeterminado, así que un idioma predeterminado que no esté el primero
+  se compila dos veces y todas sus páginas llegan dos veces al plugin de
+  búsqueda. El índice arrastra los duplicados hasta la página de búsqueda, que
+  muestra cada resultado dos veces. Ponerlo el primero lo evita, pero es la
+  última pasada la que escribe los únicos `404.html` y `search.html` del sitio,
+  así que este sitio mantiene `en` al final y elimina las entradas duplicadas en
+  `hooks.py`.
+- **`material/search` con un tema que no es Material**: el plugin de búsqueda de
+  Material renderiza `partials/language.html` a través del entorno Jinja del tema *activo*. Con cualquier tema que no incluya esa plantilla lanza `TemplateNotFound` y la compilación se detiene. Usa en su lugar el plugin integrado `search`; el tema está construido para ese.
 
 [autolinks]: https://github.com/zachhannum/mkdocs-autolinks-plugin
 [awesome-nav]: https://lukasgeiter.github.io/mkdocs-awesome-nav/

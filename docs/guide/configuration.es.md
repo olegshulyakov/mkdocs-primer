@@ -1,30 +1,135 @@
 # Configuración
 
-## Opciones de tema
+<a id="theme-options"></a>
+
+## Opciones del tema
 
 | Opción | Predeterminado | Descripción |
 |:---|:---|:---|
 | `logo` | `null` | Imagen que se muestra junto al nombre del sitio, relativa a `docs_dir`. |
 | `favicon` | `img/favicon.svg` | Icono del sitio. |
-| `icon` | `octicons` | Conjunto de iconos para controles de tema: `octicons` o `lucide`. |
-| `font.text` | `null` | Valor de familia de fuentes CSS para interfaz y prosa. |
-| `font.code` | `null` | Valor de familia de fuentes CSS para código en línea y de bloque. |
-| `font.source` | `null` | Una URL de hoja de estilo externa o una hoja de estilo local en `docs_dir`. |
+| `icon` | `octicons` | Conjunto de iconos para los controles del tema: `octicons` o `lucide`. |
+| `font.text` | `null` | Valor CSS de `font-family` para la interfaz y el texto. |
+| `font.code` | `null` | Valor CSS de `font-family` para el código en línea y en bloque. |
+| `font.source` | `null` | URL de una hoja de estilos externa o una hoja de estilos local dentro de `docs_dir`. |
+| `locale` | `en` | Idioma de los textos propios del tema. Se incluyen catálogos para `en`, `es`, `fr`, `hi`, `pt`, `ru` y `zh`. |
 | `direction` | `ltr` | Dirección del documento: `ltr` o `rtl`. |
-| `include_sidebar` | `true` | Representa la barra lateral de navegación. |
-| `show_footer` | `true` | Representa el pie de página "Mejorar esta página". |
-| `toc` | `auto` | Esquema "En esta página": `auto`, `expanded`, `collapsed` u `hidden`. |
+| `include_sidebar` | `true` | Muestra la barra lateral de navegación. |
+| `show_footer` | `true` | Muestra la barra del pie de página. |
+| `show_footer_generator` | `true` | Muestra "Hecho con mkdocs-primer y MkDocs" en el pie de página. |
+| `social` | `[]` | Enlaces con icono que se muestran en el pie de página. |
+| `show_metadata` | `true` | Muestra la línea de metadatos bajo el título de la página. |
+| `show_metadata_created` | `true` | Muestra la fecha de creación. |
+| `show_metadata_updated` | `true` | Muestra la fecha de la última actualización. |
+| `show_metadata_reading_time` | `true` | Muestra el tiempo de lectura estimado. |
+| `show_metadata_authors` | `true` | Muestra los autores. |
+| `toc` | `auto` | Esquema del "Índice": `auto`, `expanded`, `collapsed` o `hidden`. |
+| `offline` | `false` | Registra un service worker, que la compilación del sitio tiene que generar por su cuenta. |
 | `color_mode` | `auto` | Modo de color inicial: `auto`, `light` o `dark`. |
-| `light_theme` | `light` | Tema básico utilizado en modo claro. |
-| `dark_theme` | `dark` | Tema básico utilizado en modo oscuro. |
+| `light_theme` | `light` | Tema de Primer que se usa en modo claro. |
+| `dark_theme` | `dark` | Tema de Primer que se usa en modo oscuro. |
 
-`color_mode` solo establece el modo *inicial*. Los visitantes pueden cambiarlo con el encabezado. alternar y su elección se almacena en `localStorage`.
+`color_mode` solo fija el modo *inicial*. Los visitantes pueden cambiarlo con el selector del encabezado, y su elección se guarda en `localStorage`.
 
-`toc` decide dónde va el esquema construido a partir de los encabezados de la página. `auto` lo coloca en la columna derecha cuando la ventana da para una tercera columna, y bajo el título de la página en caso contrario, donde es un desplegable que el lector abre en vez de una lista entre el título y el primer párrafo. `expanded` lo mantiene en el flujo y fuera de la columna, `collapsed` lo convierte en un desplegable, y `hidden` — o `false` — lo omite.
+`toc` decide dónde va el esquema construido a partir de los encabezados de la página actual. `auto` lo coloca en la columna derecha cuando la ventana es lo bastante ancha para una tercera columna y, si no, bajo el título de la página, donde es un desplegable que el lector abre en lugar de una lista plantada entre el título y el primer párrafo. `expanded` lo mantiene en el flujo y fuera de la columna, `collapsed` lo convierte en un desplegable que el lector abre, y `hidden` —o `false`— lo omite.
+
+<a id="metadata-line"></a>
+
+## Línea de metadatos
+
+Justo bajo el título de la página, encima del texto, el tema puede mostrar una línea de datos sobre la página actual: cuándo se creó, cuándo cambió por última vez, cuánto se tarda en leerla y quién la escribió. Cada elemento aparece solo cuando su propia opción está activada *y* hay datos que mostrar, y la línea entera se omite cuando ninguno de los cuatro mostraría nada.
+
+```yaml
+theme:
+  name: primer
+  show_metadata: true # the line's own switch; false hides all four items
+  show_metadata_created: true
+  show_metadata_updated: true
+  show_metadata_reading_time: true
+  show_metadata_authors: true
+```
+
+`show_metadata` desactiva la línea entera, independientemente de los campos que hay debajo. Cada campo también se puede desactivar por separado; por ejemplo, en un sitio que quiere las fechas pero no una estimación del tiempo de lectura.
+
+`show_metadata_reading_time` estima los minutos de lectura a partir del número de palabras de la página renderizada, a 265 palabras por minuto, la velocidad media de lectura de un adulto, y se omite en las páginas sin contenido propio, como el índice de una sección.
+
+Las dos fechas proceden de [mkdocs-git-revision-date-localized](https://github.com/timvink/mkdocs-git-revision-date-localized-plugin):
+
+```yaml
+plugins:
+  - git-revision-date-localized:
+      enable_creation_date: true # also required for the "created" date
+```
+
+Ninguna de las dos fechas aparece si ese plugin no está activado, y la fecha de creación necesita en concreto `enable_creation_date: true`: el valor predeterminado del propio plugin la deja desactivada.
+
+Los autores proceden de [mkdocs-git-authors](https://github.com/timvink/mkdocs-git-authors-plugin) y tampoco aparecen si ese plugin no está activado.
+
+<a id="footer"></a>
+
+## Pie de página
+
+Una barra a lo ancho del pie de cada página, por debajo de todo el diseño. Lleva dos líneas de texto a un lado y una fila de enlaces con icono al otro, y se omite por completo cuando no hay nada que poner en ella. `show_footer: false` la elimina, se configure lo que se configure.
+
+Todos los enlaces de la barra salen de la documentación, así que todos se abren en una pestaña propia.
+
+La primera línea contiene el copyright y dónde encontrar el código fuente de la página; para esto último, consulta [Enlaces de edición](#edit-links). El copyright es la opción `copyright` del propio MkDocs, una clave de nivel superior y no una opción del tema:
+
+```yaml
+copyright: Copyright &copy; 2026 Your Name
+```
+
+La segunda línea indica con qué se ha construido el sitio. Se desactiva con `show_footer_generator: false`:
+
+```yaml
+theme:
+  name: primer
+  show_footer_generator: false
+```
+
+<a id="social-links"></a>
+
+### Enlaces sociales
+
+`social` es una lista de enlaces que se dibujan como iconos, en el lado opuesto al copyright:
+
+```yaml
+theme:
+  name: primer
+  social:
+    - service: github
+      link: https://github.com/you/your-project
+    - service: mastodon
+      link: https://fosstodon.org/@you
+      name: Follow the project on Mastodon
+```
+
+`service` nombra uno de los logotipos que incluye el tema. `name` es opcional: es el nombre accesible del enlace —lo que anuncia un lector de pantalla— y, por defecto, es el nombre del propio servicio, así que indica uno siempre que "GitHub" a secas no deje claro adónde lleva el enlace.
+
+Estos son los servicios:
+
+`bitbucket`, `bluesky`, `codeberg`, `devdotto`, `discord`, `docker`, `facebook`, `forgejo`, `github`, `githubsponsors`, `gitlab`, `instagram`, `kofi`, `mastodon`, `matrix`, `medium`, `npm`, `opencollective`, `patreon`, `pypi`, `reddit`, `rss`, `stackoverflow`, `substack`, `telegram`, `twitch`, `x`, `youtube`, `zulip`.
+
+Para cualquier otro, apunta `icon` a un SVG dentro de `docs_dir` en lugar de nombrar un `service`:
+
+```yaml
+theme:
+  name: primer
+  social:
+    - icon: img/linkedin.svg
+      link: https://www.linkedin.com/company/your-company
+      name: Your Company on LinkedIn
+```
+
+Un logotipo así se dibuja como un `<img>`, de modo que, a diferencia de los integrados, conserva sus propios colores en lugar de seguir los del texto que lo rodea. LinkedIn y Slack necesitan esta vía: ambos pidieron que se los retirara del conjunto de iconos del que se nutre el tema, así que ninguno de los dos viene incluido.
+
+Los logotipos son de [Simple Icons](https://github.com/simple-icons/simple-icons), publicados bajo CC0-1.0. Las marcas que representan no lo están: cada una sigue siendo marca registrada de su titular, y ponerla en tu pie de página no implica ninguna afiliación con su titular ni ningún respaldo por su parte.
+
+<a id="icons"></a>
 
 ## Iconos
 
-La navegación del encabezado, el control del modo de color y el botón de volver al principio utilizan SVG en línea de un conjunto de iconos. `octicons` es el valor predeterminado; elige iconos de Lucide con:
+La navegación del encabezado, el control del modo de color, el botón "Volver arriba" y el botón de copiar de los bloques de código usan SVG en línea de un único conjunto de iconos. `octicons` es el predeterminado; para elegir los iconos de Lucide:
 
 ```yaml
 theme:
@@ -32,11 +137,13 @@ theme:
   icon: lucide
 ```
 
-Ambos conjuntos están incluidos en el tema, por lo que ninguna de las opciones agrega una solicitud CDN. Icono La selección se aplica sólo a los controles HTML del tema. El selector de idioma siempre utiliza un globo Octicon. Sintaxis de iconos de Markdown y terceros arbitrarios Los paquetes de iconos no son compatibles deliberadamente.
+Ambos conjuntos vienen incluidos en el tema, así que ninguna de las dos opciones añade una petición a un CDN. La elección de iconos solo afecta a los controles HTML del tema. El selector de idioma siempre usa el globo de Octicons. La sintaxis de iconos en Markdown y los paquetes de iconos arbitrarios de terceros no se admiten de forma deliberada.
+
+<a id="fonts"></a>
 
 ## Fuentes
 
-Las fuentes son opcionales: el tema no solicita una CDN de fuentes de forma predeterminada. Establecer texto y familias de códigos de forma independiente, luego apunte `source` a una hoja de estilo externa o un archivo CSS en `docs_dir`:
+Las fuentes son opcionales: por defecto, el tema no pide nada a ningún CDN de fuentes. Define por separado las familias del texto y del código y apunta `source` a una hoja de estilos externa o a un archivo CSS dentro de `docs_dir`:
 
 ```yaml
 theme:
@@ -47,7 +154,7 @@ theme:
     source: https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=JetBrains+Mono&display=swap
 ```
 
-Para un sitio autohospedado, coloque los archivos de fuentes y una hoja de estilo en `docs_dir`, luego utilice una ruta de origen relativa:
+Para un sitio que aloja sus propias fuentes, coloca los archivos de fuente y una hoja de estilos en `docs_dir` y usa una ruta relativa en `source`:
 
 ```yaml
 theme:
@@ -66,11 +173,58 @@ theme:
 }
 ```
 
-El navegador almacena en caché esos archivos normalmente. El autohospedaje evita a un tercero solicitud y mantiene el sitio utilizable sin conexión una vez que sus activos se almacenan en caché.
+El navegador guarda esos archivos en caché como cualquier otro. Alojar las fuentes uno mismo evita una petición a terceros y mantiene el sitio usable sin conexión una vez que sus recursos están en caché.
+
+<a id="language"></a>
+
+## Idioma
+
+Los textos propios del tema —`Search`, `Back to top`, `Previous`/`Next`, las etiquetas del pie de página— proceden de un catálogo de gettext, con independencia del idioma en que estén escritas tus páginas. Elige uno con `locale`:
+
+```yaml
+theme:
+  name: primer
+  locale: ru
+```
+
+Se incluyen catálogos para `en`, `es`, `fr`, `hi`, `pt`, `ru` y `zh`. Un idioma que no está en la lista recurre al inglés en lugar de hacer fallar la compilación.
+
+!!! note "Los sitios multilingües necesitan `locale` en cada idioma"
+    mkdocs-static-i18n solo fija `theme.locale` automáticamente para los temas
+    que incluye el propio MkDocs, así que a un tema de terceros hay que
+    indicárselo de forma explícita. Añádelo a cada idioma o todos mostrarán la
+    interfaz en inglés:
+
+    ```yaml
+    plugins:
+      - i18n:
+          languages:
+            - locale: en
+              default: true
+              build: true
+              theme:
+                locale: en
+            - locale: ru
+              build: true
+              theme:
+                locale: ru
+    ```
+
+!!! warning "Pon el idioma predeterminado al final de la lista"
+    El plugin hace una pasada de compilación por idioma, y las páginas que
+    existen una sola vez para todo el sitio —`404.html` y `search.html`— se
+    reescriben en cada pasada. Por tanto, esas dos salen en el idioma que
+    aparece **el último**. Pon el idioma predeterminado al final para que
+    queden en él. El tema ordena el selector de idioma por su cuenta, así que
+    esto no cambia el orden que ven los visitantes.
+
+Para añadir o corregir un idioma, edita `mkdocs_primer/locales/<locale>/LC_MESSAGES/messages.po` y vuelve a compilarlo; consulta [`RELEASING.md`](https://github.com/olegshulyakov/mkdocs-primer/blob/main/RELEASING.md).
+
+<a id="right-to-left-layouts"></a>
 
 ## Diseños de derecha a izquierda
 
-Configure `direction: rtl` para un documento de derecha a izquierda. El tema pone `dir="rtl"` en el elemento HTML raíz y refleja su encabezado, barra lateral, navegación móvil, paginación, pie de página, menús y controles con propiedades lógicas CSS. Código y Los diagramas permanecen intencionalmente de izquierda a derecha.
+Configura `direction: rtl` para un documento de derecha a izquierda. El tema pone `dir="rtl"` en el elemento HTML raíz y refleja el encabezado, la barra lateral, la navegación móvil, la paginación, el pie de página, los menús y los controles mediante propiedades lógicas de CSS. El código y los diagramas se mantienen de izquierda a derecha de forma intencionada.
 
 ```yaml
 theme:
@@ -78,18 +232,21 @@ theme:
   direction: rtl
 ```
 
-La dirección es una configuración que abarca todo el sitio; el tema no lo infiere de una página o idioma local.
+La dirección es un ajuste de todo el sitio; el tema no la deduce de la página ni del idioma.
 
-!!! warning "`light_theme` y `dark_theme` actualmente aceptan solo `light` y `dark`"
+!!! warning "Por ahora, `light_theme` y `dark_theme` solo aceptan `light` y `dark`"
     Primer publica catorce temas (`dark_dimmed`, `light_high_contrast`,
-    `dark_tritanopia` y así sucesivamente), pero este tema incluye fichas de color solo para dos de
-    ellos: el conjunto completo agregaría más de un megabyte de CSS. Nombrar cualquier otro tema
-    representa una página sin ningún color en lugar de un error. Soporte para más temas
-    se rastrea como una futura incorporación.
+    `dark_tritanopia`, etc.), pero este tema solo incluye los tokens de color de
+    dos de ellos: el conjunto completo añadiría bastante más de un megabyte de
+    CSS. Si se indica cualquier otro tema, la página se muestra sin ningún color
+    en lugar de producir un error. La compatibilidad con más temas está prevista
+    como una incorporación futura.
 
-## Anclas de rumbo
+<a id="heading-anchors"></a>
 
-Para obtener el ancla flotante de GitHub junto a cada encabezado, habilite la extensión `toc` con un enlace permanente principal que lleva la clase `anchor` de Primer:
+## Anclas de encabezado
+
+Para tener el ancla que GitHub muestra al pasar el cursor junto a cada encabezado, activa la extensión `toc` con un enlace permanente al inicio que lleve la clase `anchor` de Primer:
 
 ```yaml
 markdown_extensions:
@@ -100,13 +257,15 @@ markdown_extensions:
       permalink_title: Permanent link
 ```
 
-El tema dibuja el octicon en sí, por lo que `permalink` se establece en una cadena vacía en lugar de que el `true` habitual. Eso importa más que la apariencia: el complemento de búsqueda de MkDocs no elimine los glifos de enlaces permanentes, por lo que, de lo contrario, aparecerá un `¶` en los resultados de su búsqueda.
+El tema dibuja el octicon por su cuenta, así que `permalink` se fija en una cadena vacía en lugar del habitual `true`. Eso importa por algo más que la apariencia: el plugin de búsqueda de MkDocs no elimina los glifos de los enlaces permanentes, así que, de lo contrario, aparecería un `¶` en tus resultados de búsqueda.
 
-Sin esta configuración, el enlace permanente aún funciona, simplemente se representa como un glifo simple en lugar de que el octicon.
+Sin esta configuración el enlace permanente sigue funcionando; simplemente se muestra como un glifo sin más en lugar del octicon.
+
+<a id="syntax-highlighting"></a>
 
 ## Resaltado de sintaxis
 
-Los colores del código provienen de las variables `prettylights` de Primer, por lo que siguen el código activo. modo de color automáticamente. No es necesario seleccionar ningún estilo de pigmentos:
+Los colores del código proceden de las variables `prettylights` de Primer, así que siguen automáticamente el modo de color activo. No hace falta elegir ningún estilo de Pygments:
 
 ```yaml
 markdown_extensions:
@@ -114,17 +273,44 @@ markdown_extensions:
   - pymdownx.superfences
 ```
 
-Tanto los contenedores `.highlight` como `.codehilite` tienen estilo, por lo que `codehilite` también funciona.
+Tanto el contenedor `.highlight` como el `.codehilite` tienen estilos, así que `codehilite` también funciona.
 
-El tema agrega un botón de copia a cada bloque de Pygments `.highlight`. Copia el fuente visible y anuncia si la operación del portapapeles se realizó correctamente. Bloques renderizados por complementos, como Mermaid y Vega-Lite, se excluyen intencionalmente.
+El tema añade un botón de copiar a cada bloque `.highlight` de Pygments. Copia el código visible y anuncia si la operación con el portapapeles ha tenido éxito. Los bloques que generan los plugins, como Mermaid y Vega-Lite, quedan excluidos de forma intencionada.
+
+<a id="navigation-controls"></a>
 
 ## Controles de navegación
 
-Después de desplazarse 400 píxeles, aparece un botón para volver al principio en la parte inferior derecha de la página. Devuelve al visitante al inicio del documento y se mueve enfoque del teclado en el enlace del título del sitio. El movimiento es instantáneo cuando el visitante ha solicitado la reducción de la moción.
+Tras desplazarse 400 píxeles, aparece un botón "Volver arriba" en la esquina inferior derecha de la página. Lleva al visitante al principio del documento y mueve el foco del teclado al enlace del título del sitio. El movimiento es instantáneo cuando el visitante ha pedido reducir el movimiento.
 
-## Extensiones de rebajas
+<a id="offline-support"></a>
 
-Ninguno de estos es necesario, pero el tema ofrece un estilo que solo vale la pena una vez. estan en:
+## Uso sin conexión
+
+`offline: true` añade una sola cosa a cada página: un script que registra `service-worker.js` desde la raíz del sitio. El tema no escribe ese archivo, y MkDocs no tiene nada que lo haga: generarlo es un paso que tu propia compilación tiene que ejecutar después de `mkdocs build`:
+
+```yaml
+theme:
+  name: primer
+  offline: true
+```
+
+```console
+$ mkdocs build
+$ npx workbox generateSW workbox-config.cjs
+```
+
+El service worker es lo que precachea el sitio compilado, de modo que un visitante que ya lo ha visitado una vez puede volver a leerlo sin red. Si dejas `offline` en `false`, no se emite ningún registro, que es lo que quiere un sitio sin ese paso de compilación: una página que pide un `service-worker.js` que nadie ha generado registra un 404 en cada visita.
+
+Hay dos cosas que no puede hacer. Los service workers se rechazan fuera de un contexto seguro, así que el sitio tiene que servirse por HTTPS o desde `localhost`; nada de esto hace que una carpeta abierta mediante `file://` funcione sin conexión. Y el precacheo empieza en la *segunda* visita: la primera es la que llena la caché.
+
+El propio `workbox-config.cjs` de este repositorio y su `npm run build:offline` son un ejemplo completo y funcional.
+
+<a id="markdown-extensions"></a>
+
+## Extensiones de Markdown
+
+Ninguna es obligatoria, pero el tema incluye estilos que solo se aprovechan cuando están activadas:
 
 ```yaml
 markdown_extensions:
@@ -137,11 +323,13 @@ markdown_extensions:
   - pymdownx.tilde
 ```
 
-`admonition` es el que vale la pena mencionar: la extensión emite marcado y no CSS propio, y `@primer/css` tampoco tiene ninguna regla para ello, por lo que un sin estilo la amonestación es una sorpresa común. El tema llena ese vacío (ver [los ejemplos](../elements.md#admonitions).
+`admonition` es la que merece mención aparte: la extensión genera marcado pero ningún CSS propio, y `@primer/css` tampoco tiene ninguna regla para ella, así que una advertencia sin estilos es una sorpresa habitual. El tema cubre ese hueco; consulta [los ejemplos](../elements.md#admonitions).
+
+<a id="custom-css-and-javascript"></a>
 
 ## CSS y JavaScript personalizados
 
-`extra_css` se carga después de cada hoja de estilo que envía el tema, por lo que tus reglas ganan sin necesidad de `!important`:
+`extra_css` se carga después de todas las hojas de estilos que incluye el tema, así que tus reglas ganan sin necesidad de `!important`:
 
 ```yaml
 extra_css:
@@ -153,20 +341,25 @@ extra_javascript:
     type: module
 ```
 
-[Styling](../styling.md) explica qué poner en ella: las variables de disposición propias del tema y por qué una anulación de un token de color de Primer en `:root` se descarta mientras que la misma regla bajo dos selectores de atributo sí se aplica.
+[Estilos](../styling.md) explica qué poner ahí: las variables de diseño propias del tema, y por qué se descarta una sobrescritura en `:root` de un token de color de Primer mientras que la misma regla bajo dos selectores de atributo sí se aplica.
 
-`extra_javascript` se emite al final de `<body>`, después del propio tema. guiones.
+`extra_javascript` se emite al final de `<body>`, después de los scripts propios del tema.
 
-!!! note "Complementos que inyectan sus propios activos"
-    Un complemento que escribe etiquetas `<link>` en el HTML de la página en lugar de agregarlas
-    `extra_css`: mkdocs-glightbox es uno: aterriza *después* de tus anulaciones. Estilo
-    aquellos con un selector más específico en lugar de depender del orden.
+!!! note "Plugins que inyectan sus propios recursos"
+    Un plugin que escribe etiquetas `<link>` en el HTML de la página en lugar de
+    añadirlas a `extra_css` —mkdocs-glightbox es uno— queda *después* de tus
+    sobrescrituras. Dale estilo a eso con un selector más específico en lugar de
+    confiar en el orden.
 
-## Editar enlaces
+<a id="edit-links"></a>
 
-El pie de página enlaza nuevamente con el archivo fuente cuando se configuran `repo_url` y `edit_uri`:
+## Enlaces de edición
+
+El [pie de página](#footer) enlaza al archivo fuente de la propia página cuando están configurados `repo_url` y `edit_uri`:
 
 ```yaml
 repo_url: https://github.com/you/your-project
 edit_uri: edit/main/docs/
 ```
+
+Con `repo_url` pero sin `edit_uri` no hay enlace por página que construir, y el pie de página nombra el repositorio en su lugar, de modo que el lector pueda seguir encontrando el código fuente desde cualquier parte del sitio.
