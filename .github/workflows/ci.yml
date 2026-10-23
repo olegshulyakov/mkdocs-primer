@@ -5,6 +5,12 @@ on:
     branches: [main]
   pull_request:
 
+# Several docs plugins pull in properdocs, which prints a "switch to ProperDocs"
+# banner whenever they run under the mkdocs executable. It only prints; this
+# keeps it out of the logs. See #94.
+env:
+  DISABLE_MKDOCS_2_WARNING: 'true'
+
 jobs:
   vendor:
     name: Vendored CSS and icons are up to date

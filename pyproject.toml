@@ -56,6 +56,12 @@ primer = "mkdocs_primer_mike"
 # Several of these require Python >= 3.10, so the group is not installable on
 # the theme's own minimum (3.9). CI builds the docs on 3.13 and checks 3.9 with
 # a plugin-free site instead.
+#
+# mkdocs-section-index, mkdocs-redirects, mkdocs-rss-plugin, mkdocs-gen-files
+# and mkdocs-literate-nav depend on properdocs, a continuation of MkDocs 1.x by
+# its former maintainers. They pull it in only to print a "switch to ProperDocs"
+# banner under the mkdocs executable. Set DISABLE_MKDOCS_2_WARNING=true to
+# silence it, as CI does. Those same releases also cap mkdocs at 1.6.1. See #94.
 [dependency-groups]
 docs = [
     "pymdown-extensions >= 10",
