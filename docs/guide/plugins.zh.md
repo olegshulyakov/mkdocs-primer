@@ -10,7 +10,7 @@
 
 [mkdocs-section-index][section-index] 将 `guide/index.md` 折叠到 **指南** 部分本身，因此导航项以 `children` 和 `url` 结尾。一个主题 将“有子项”呈现为普通部分标签使得该索引页 从侧边栏无法访问。
 
-`partials/nav-item.html` 检查 `nav_item.url` 并将标签呈现为链接 当有一个时。您可以在侧边栏中看到它：**Guide** 和 **Nested** 是 两者均可点击。
+`partials/nav-item.html` 检查 `nav_item.url` 并将标签呈现为链接 当有一个时。您可以在侧边栏中看到它：**指南** 和 **嵌套** 是 两者均可点击。
 
 !!!注意“您可以忽略的警告”
     该插件通过匹配模板文件路径来识别支持的主题
