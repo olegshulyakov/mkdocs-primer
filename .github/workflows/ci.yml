@@ -39,7 +39,9 @@ jobs:
 
   minimum-python:
     name: Theme builds on Python 3.9
-    runs-on: ubuntu-latest
+    # Pinned: ubuntu-latest is 26.04, for which actions/python-versions
+    # publishes no 3.9 build, and setup-python fails before anything runs.
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
