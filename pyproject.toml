@@ -26,12 +26,7 @@ classifiers = [
     "Topic :: Software Development :: Documentation",
 ]
 dependencies = [
-    # MkDocs 2.0 drops support for 1.x themes, plugins and config files, so a
-    # fresh install must not resolve to it. ProperDocs continues the 1.x line
-    # for anyone who wants to stay current. See #105.
     "mkdocs >= 1.6, < 2",
-    # MkDocs does not require Pygments, but without it the code blocks this
-    # theme styles are emitted untokenized and css/pygments.css does nothing.
     "pygments >= 2.16",
 ]
 
@@ -43,28 +38,9 @@ Issues = "https://github.com/olegshulyakov/mkdocs-primer/issues"
 [project.entry-points."mkdocs.themes"]
 primer = "mkdocs_primer"
 
-# mike resolves a theme's version-selector assets through this group and builds
-# no selector at all, without warning, for a theme it cannot find here.
 [project.entry-points."mike.themes"]
 primer = "mkdocs_primer_mike"
 
-# Dependency groups are not part of the published metadata, so none of this is
-# installed with the theme. `docs` builds this repository's own documentation
-# site, which doubles as the theme's plugin compatibility test:
-#
-#   pip install -e . --group docs                       # pip >= 25.1, or `uv sync`
-#   mkdocs build --strict                              # main site
-#   mkdocs build --strict -f examples/rss/mkdocs.yml   # and each example
-#
-# Several of these require Python >= 3.10, so the group is not installable on
-# the theme's own minimum (3.9). CI builds the docs on 3.13 and checks 3.9 with
-# a plugin-free site instead.
-#
-# mkdocs-section-index, mkdocs-redirects, mkdocs-rss-plugin, mkdocs-gen-files
-# and mkdocs-literate-nav depend on properdocs, a continuation of MkDocs 1.x by
-# its former maintainers. They pull it in only to print a "switch to ProperDocs"
-# banner under the mkdocs executable. Set DISABLE_MKDOCS_2_WARNING=true to
-# silence it, as CI does. Those same releases also cap mkdocs at 1.6.1. See #94.
 [dependency-groups]
 docs = [
     "pymdown-extensions >= 10",
@@ -80,20 +56,13 @@ docs = [
     "mkdocs-minify-plugin >= 0.8",
     "mkdocs-redirects >= 1.2",
     "mkdocstrings[python] >= 0.25",
-    # Used only by the builds under examples/, which exist because these
-    # plugins cannot share a config with mkdocs-static-i18n.
     "mkdocs-rss-plugin >= 1.12",
     "mkdocs-gen-files >= 0.5",
     "mkdocs-literate-nav >= 0.6",
 ]
-# Babel writes its own version into every compiled .mo, so CI's drift check
-# passes only when the catalogs were compiled with this exact release.
 i18n = ["babel == 2.18.0"]
-# `uv sync` installs `dev` by default.
 dev = [{ include-group = "docs" }, { include-group = "i18n" }]
 
-# uv resolves for every Python the project supports, and without this it fails
-# on 3.9, which the docs plugins above do not support. pip ignores this table.
 [tool.uv.dependency-groups]
 docs = { requires-python = ">=3.10" }
 

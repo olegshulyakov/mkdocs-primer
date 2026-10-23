@@ -13,7 +13,6 @@ _UNDETECTED_THEME = "couldn't detect a supported theme to adapt"
 _MERMAID_LOGGER = "mkdocs.plugins.mermaid2.util"
 _MERMAID_OFFLINE_WARNING = "Cannot check URL, no Internet access?"
 
-
 class _DropUndetectedThemeWarning(logging.Filter):
     """Silence one known-false warning from mkdocs-section-index.
 
@@ -31,9 +30,7 @@ class _DropUndetectedThemeWarning(logging.Filter):
     def filter(self, record: logging.LogRecord) -> bool:
         return _UNDETECTED_THEME not in record.getMessage()
 
-
 logging.getLogger(_SECTION_INDEX_LOGGER).addFilter(_DropUndetectedThemeWarning())
-
 
 class _DropMermaidOfflineWarning(logging.Filter):
     """Keep a missing optional CDN probe from failing an offline strict build.
@@ -46,11 +43,8 @@ class _DropMermaidOfflineWarning(logging.Filter):
     def filter(self, record: logging.LogRecord) -> bool:
         return _MERMAID_OFFLINE_WARNING not in record.getMessage()
 
-
 logging.getLogger(_MERMAID_LOGGER).addFilter(_DropMermaidOfflineWarning())
 
-
-# After mkdocs-static-i18n, which rebuilds the index at priority -100.
 @mkdocs.plugins.event_priority(-200)
 def on_post_build(config, **kwargs):
     """Drop the default language's second copy of itself from the search index.
@@ -75,8 +69,6 @@ def on_post_build(config, **kwargs):
     if index is None:
         return
 
-    # The attribute the plugin keeps its entries in, named as the i18n plugin
-    # looks for it -- it was `entries` before MkDocs 1.6 and `_entries` after.
     attribute = "_entries" if hasattr(index, "_entries") else "entries"
     entries = getattr(index, attribute, None)
     if entries is None:
@@ -86,11 +78,8 @@ def on_post_build(config, **kwargs):
     unique = [
         entry for entry in entries if not (entry["location"] in seen or seen.add(entry["location"]))
     ]
-    # Nothing stacked up yet: this is one of the per-language passes, whose
-    # index holds that language alone and is overwritten by the pass after it.
     if len(unique) == len(entries):
         return
 
     entries[:] = unique
-    # Rewrite search_index.json from the entries as they now stand.
     search.on_post_build(config=config)

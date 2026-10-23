@@ -8,63 +8,24 @@ copyright: Copyright &copy; 2026 Oleg Shulyakov
 
 theme:
   name: primer
-  # The footer's social row, on this site so that the option is exercised by
-  # every build rather than only described in the reference.
   social:
     - service: github
       link: https://github.com/olegshulyakov/mkdocs-primer
     - service: pypi
       link: https://pypi.org/project/mkdocs-primer/
 
-# Drops one false-positive warning from mkdocs-section-index so `--strict` stays
-# usable. See the docstring in hooks.py.
 hooks:
   - hooks.py
 
-# This site doubles as the theme's plugin compatibility test: every plugin that
-# needs something from a theme is enabled here, and CI builds with `--strict`.
-# docs/guide/plugins.md explains what each one is here to prove.
 plugins:
-  # Built in. The theme renders the header search box and the plugin supplies
-  # search/main.js only when this plugin is enabled.
   - search:
-      # MkDocs does not ship wordcut.js, required by its Hindi Lunr adapter.
-      # Keep Hindi pages in the shared index without loading the broken adapter.
       lang: [en, es, zh, pt, ru, fr]
 
-  # Nav comes from docs/.nav.yml instead of a `nav:` key below. Must run before
-  # section-index, which rewrites the nav it produces.
   - awesome-nav
 
-  # Extra locales under /es/, /zh/, /hi/, /pt/, /ru/ and /fr/.
-  # `docs_structure: suffix` means installation.ru.md. Pages with no translation
-  # fall back to their English source.
   - i18n:
       docs_structure: suffix
-      # Do not let i18n re-add Hindi to the search adapter list above.
       reconfigure_search: false
-      # `theme.locale` per language is what switches the theme's own chrome
-      # (Search, Back to top, Previous/Next...) to that language. The plugin
-      # only sets it automatically for the themes MkDocs itself ships, so a
-      # third-party theme needs it spelled out. See mkdocs_primer/locales/.
-      #
-      # `nav_translations` names the sections. awesome-nav labels a section
-      # after its folder (guide/ → Guide), not after a page heading, so a
-      # translated index page alone leaves the sidebar and the page title in
-      # English.
-      #
-      # `en` is listed last on purpose. One build pass runs per language and
-      # the pages that exist once for the whole site — 404.html and search.html
-      # — are rewritten by every pass, so the last language wins them. Putting
-      # the default language last leaves those two in English. The theme sorts
-      # the language selector itself, so this does not affect its order.
-      #
-      # It costs a pass: the plugin skips a language by comparing it against
-      # the pass before it rather than against the default, so a default that
-      # is not listed first is built twice — which is what wins those two
-      # pages, and what handed the search plugin every English page twice.
-      # hooks.py drops the second copy from the index; see the conflict noted
-      # in docs/guide/plugins.md.
       languages:
         - locale: es
           name: Spanish
@@ -121,42 +82,28 @@ plugins:
           theme:
             locale: en
 
-  # Folds docs/guide/index.md into the Guide section itself, so a nav item ends
-  # up with both children and a url. Runs after the other nav plugins, or its
-  # rewrite is thrown away.
   - section-index
 
-  # Sets page.meta.git_revision_date_localized and
-  # page.meta.git_creation_date_localized, both printed by the metadata line.
   - git-revision-date-localized:
-      # A shallow clone or a fresh working copy has no log for a page; fall back
-      # rather than failing the build.
       fallback_to_build_date: true
       enable_creation_date: true
 
-  # Puts `git_page_authors` on the page context, which the metadata line prints.
   - git-authors
 
-  # Wraps content images in a lightbox by rewriting the page HTML.
   - glightbox
 
-  # Renders docs/reference.md from the theme package's docstring.
   - mkdocstrings:
       handlers:
         python:
           paths: ['.']
 
-  # Jinja in Markdown; docs/guide/plugins.md uses it for config values.
   - macros
 
-  # The Configuration page used to live at /options/, and /another-page/ was
-  # the sample page inherited from the Jekyll theme this one started from.
   - redirects:
       redirect_maps:
         options.md: guide/configuration.md
         another-page.md: index.md
 
-  # Last: it rewrites the HTML every other plugin produced.
   - minify:
       minify_html: true
       minify_js: true
@@ -168,8 +115,6 @@ markdown_extensions:
   - footnotes
   - tables
   - toc:
-      # Empty permalink text: theme.css draws the octicon via ::before, and an
-      # empty anchor keeps the glyph out of the search index.
       permalink: ""
       permalink_class: anchor
       permalink_leading: true

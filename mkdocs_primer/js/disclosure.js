@@ -1,7 +1,3 @@
-// Dismissal behaviour for the header popovers. A bare <details> only closes by
-// clicking its own summary again: clicking elsewhere, pressing Escape or tabbing
-// away all leave the panel floating over the page, and two of them can sit open
-// on top of each other.
 
 ;(function () {
   var disclosures = [].slice.call(
@@ -15,13 +11,6 @@
     disclosure.open = false
   }
 
-  // The search field sits beside its disclosure rather than inside it, so that a
-  // wide header can render it with no script at all (partials/search-box.html
-  // says why). The two are still one popover, and every check below has to see
-  // them that way: the field is outside the <details>, so a tap on it would
-  // otherwise read as a tap on the page and dismiss what it was aimed at. A
-  // summary names the panel it owns with aria-controls; the other two header
-  // popovers own nothing outside themselves, and this returns just the <details>.
   function panel(disclosure) {
     var summary = disclosure.querySelector('summary')
     var controls = summary && summary.getAttribute('aria-controls')
@@ -45,7 +34,6 @@
     disclosure.addEventListener('toggle', function () {
       if (!disclosure.open) return
 
-      // One popover at a time; they are all anchored to the same header row.
       disclosures.forEach(function (other) {
         if (other !== disclosure) close(other)
       })
@@ -56,13 +44,6 @@
       if (input) input.focus()
     })
 
-    // Covers tabbing out, which moves focus to a named element off the panel.
-    // A null relatedTarget is not proof of leaving: Safari, and Firefox on macOS,
-    // do not focus a link on click, so pressing one in the panel blurs the
-    // summary towards nothing. Closing then would hide the link before the click
-    // lands on it (#96). Clicks on inert page content are the pointerdown
-    // handler's below. One listener per part: an event in the owned panel does
-    // not bubble through the <details> it hangs off, because it is not inside it.
     panel(disclosure).forEach(function (part) {
       part.addEventListener('focusout', function (event) {
         var target = event.relatedTarget
@@ -81,8 +62,6 @@
     if (event.key !== 'Escape') return
     openDisclosures().forEach(function (disclosure) {
       close(disclosure)
-      // Escape should leave focus somewhere predictable, not on the panel that
-      // just disappeared.
       disclosure.querySelector('summary').focus()
     })
   })

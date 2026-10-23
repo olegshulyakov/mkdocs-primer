@@ -1,11 +1,3 @@
-# Builds into site/examples/diagrams/. Run after the main site, which cleans
-# site/.
-#
-#   mkdocs build --strict -f examples/diagrams/mkdocs.yml
-#
-# Mermaid cannot share a config with the main site's `minify` settings: Mermaid
-# parses its source line by line, and `minify_html` collapses the newlines
-# inside the container. See ../README.md.
 site_name: MkDocs Primer Theme — diagrams example
 site_description: Mermaid and Vega-Lite rendered under the primer theme
 site_url: https://olegshulyakov.github.io/mkdocs-primer/examples/diagrams/
@@ -16,17 +8,12 @@ site_dir: ../../site/examples/diagrams
 theme:
   name: primer
 
-# Drops mkdocs-mermaid2's non-fatal CDN probe warning so offline `--strict`
-# builds remain reproducible. See ../../hooks.py.
 hooks:
   - ../../hooks.py
 
 plugins:
   - search
 
-  # `theme` is a raw JavaScript expression — mermaid2 treats a leading `^` as a
-  # literal rather than a string — evaluated when Mermaid initializes, so a
-  # diagram is drawn in whatever color mode the page loaded in.
   - mermaid2:
       arguments:
         theme: >-
@@ -38,7 +25,6 @@ plugins:
               ? 'dark' : 'default'
           })()
 
-  # Vega-Lite, rendered in the browser from the libraries in extra_javascript.
   - charts
 
 extra_javascript:
@@ -58,12 +44,7 @@ markdown_extensions:
       custom_fences:
         - name: mermaid
           class: mermaid
-          # `fence_mermaid`, not `fence_mermaid_custom`: the `_custom` variant
-          # only publishes `window.mermaidConfig` and waits for Material's own
-          # loader to run Mermaid, so under any other theme nothing is drawn.
           format: !!python/name:mermaid2.fence_mermaid
         - name: vegalite
           class: vegalite
-          # Without this the chart is left as a highlighted JSON code block —
-          # mkdocs-charts-plugin does not touch a fence it was not given.
           format: !!python/name:mkdocs_charts_plugin.fences.fence_vegalite

@@ -5,9 +5,6 @@ on:
     branches: [main]
   pull_request:
 
-# Several docs plugins pull in properdocs, which prints a "switch to ProperDocs"
-# banner whenever they run under the mkdocs executable. It only prints; this
-# keeps it out of the logs. See #94.
 env:
   DISABLE_MKDOCS_2_WARNING: 'true'
 
@@ -22,9 +19,6 @@ jobs:
           node-version: '22'
       - run: npm ci
       - run: npm run vendor
-      # Guards against the pinned versions in package.json drifting from the
-      # bytes committed under mkdocs_primer/css/vendor/ and from the brand
-      # marks generated into partials/social-icons.html.
       - name: Check for drift
         run: git diff --exit-code -- mkdocs_primer/css/vendor mkdocs_primer/partials/social-icons.html
 
@@ -36,20 +30,14 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.13'
-      # --group needs pip 25.1 or newer. The group pins Babel, because a newer
-      # release stamps its own version into every .mo and shows up as drift.
       - run: python -m pip install --upgrade pip
       - run: pip install --group i18n
       - run: pybabel compile -d mkdocs_primer/locales
-      # MkDocs reads only the compiled .mo, never the .po beside it, so a
-      # translation edited without a recompile ships as the old string.
       - name: Check for drift
         run: git diff --exit-code -- mkdocs_primer/locales
 
   minimum-python:
     name: Theme builds on Python 3.9
-    # Pinned: ubuntu-latest is 26.04, for which actions/python-versions
-    # publishes no 3.9 build, and setup-python fails before anything runs.
     runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
@@ -57,8 +45,6 @@ jobs:
         with:
           python-version: '3.9'
       - run: pip install -e .
-      # The docs site pulls in plugins that need Python 3.10+, so the floor of
-      # the theme's own `requires-python` is checked against a bare site.
       - name: Build a plugin-free site
         run: |
           mkdocs new "$RUNNER_TEMP/smoke"
@@ -71,14 +57,10 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        # ProperDocs continues MkDocs 1.x and reads the same config and theme
-        # entry point. The docs plugins already install it, so building with
-        # both costs no extra dependencies. See #107.
         tool: [mkdocs, properdocs]
     steps:
       - uses: actions/checkout@v4
         with:
-          # mkdocs-git-revision-date-localized reads the log of every page.
           fetch-depth: 0
       - uses: actions/setup-python@v5
         with:
@@ -86,22 +68,12 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      # --group, which reads the docs dependencies from pyproject.toml, needs
-      # pip 25.1 or newer.
       - run: python -m pip install --upgrade pip
       - run: pip install -e . --group docs
       - run: npm ci
-      # Every plugin that needs theme support is enabled in mkdocs.yml, so this
-      # build is where a regression in that support surfaces.
       - run: ${{ matrix.tool }} build --strict
-      # The examples cover plugins that cannot share a config with the main
-      # site. They build into site/, so they have to run after it — that build
-      # cleans the directory.
       - run: ${{ matrix.tool }} build --strict -f examples/rss/mkdocs.yml
       - run: ${{ matrix.tool }} build --strict -f examples/gen-files/mkdocs.yml
       - run: ${{ matrix.tool }} build --strict -f examples/diagrams/mkdocs.yml
-      # Workbox precaches the generated site and the theme registers the
-      # resulting service worker when `theme.offline` is enabled. The script
-      # runs mkdocs itself, so it only needs to run once.
       - run: npm run build:offline
         if: matrix.tool == 'mkdocs'

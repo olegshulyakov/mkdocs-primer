@@ -1,5 +1,3 @@
-# Produces a PWA build. Serve the resulting site over HTTPS: service workers
-# cannot run from file:// URLs.
 INHERIT: mkdocs.yml
 
 theme:

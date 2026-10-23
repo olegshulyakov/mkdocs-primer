@@ -1,12 +1,5 @@
-/*
- * Version selector for mike, adapted from the one mike ships for the built-in
- * mkdocs theme. The path arithmetic is mike's; what differs here is where the
- * control gets inserted (the Primer header, beside the site title) and the fact
- * that a missing versions.json is tolerated rather than thrown.
- */
 window.addEventListener('DOMContentLoaded', function () {
   function expandPath(path) {
-    // Get the base directory components.
     var expanded = window.location.pathname.split('/')
     expanded.pop()
     var isSubdir = false
@@ -19,7 +12,6 @@ window.addEventListener('DOMContentLoaded', function () {
         isSubdir = true
       } else if (bit === '..') {
         if (expanded.length === 1) {
-          // We must be trying to .. past the root!
           throw new Error('invalid path')
         } else {
           isSubdir = true
@@ -35,27 +27,15 @@ window.addEventListener('DOMContentLoaded', function () {
     return expanded.join('/')
   }
 
-  // `base_url` comes from base.html.
   var ABS_BASE_URL = expandPath(base_url)
   var versionMatch = ABS_BASE_URL.match(/\/([^\/]+)\/$/)
 
-  /*
-   * mike only copies this file in when its plugin is enabled, but the plugin
-   * can be enabled for a plain `mkdocs build` too. That site is not deployed
-   * under a version directory and has no versions.json, so leave the header
-   * alone instead of failing.
-   */
   if (!versionMatch) return
   var CURRENT_VERSION = versionMatch[1]
 
   function makeSelect(options) {
     var select = document.createElement('select')
     select.classList.add('form-select', 'form-control', 'select-sm')
-    // Set by base.html from the theme's translation catalog, as the copy
-    // button's labels are: this file is served verbatim and never rendered
-    // through Jinja. The control shows a version number and nothing else, so
-    // this is the only name it has. The fallback covers a page whose scripts
-    // block a site has overridden away.
     var strings = window.primer_strings || {}
     select.setAttribute('aria-label', strings.version_select || 'Select documentation version')
 
@@ -99,6 +79,5 @@ window.addEventListener('DOMContentLoaded', function () {
       if (title) title.parentNode.insertBefore(container, title.nextSibling)
     })
     .catch(function () {
-      /* No versions.json: not a mike deployment. Nothing to select. */
     })
 })
