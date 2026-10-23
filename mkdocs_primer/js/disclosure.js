@@ -56,13 +56,17 @@
       if (input) input.focus()
     })
 
-    // Covers tabbing out and clicking on inert page content, both of which move
-    // focus off the panel. A null relatedTarget means focus went to the body.
-    // One listener per part: an event in the owned panel does not bubble through
-    // the <details> it hangs off, because it is not inside it.
+    // Covers tabbing out, which moves focus to a named element off the panel.
+    // A null relatedTarget is not proof of leaving: Safari, and Firefox on macOS,
+    // do not focus a link on click, so pressing one in the panel blurs the
+    // summary towards nothing. Closing then would hide the link before the click
+    // lands on it (#96). Clicks on inert page content are the pointerdown
+    // handler's below. One listener per part: an event in the owned panel does
+    // not bubble through the <details> it hangs off, because it is not inside it.
     panel(disclosure).forEach(function (part) {
       part.addEventListener('focusout', function (event) {
-        if (disclosure.open && !holds(disclosure, event.relatedTarget)) close(disclosure)
+        var target = event.relatedTarget
+        if (disclosure.open && target && !holds(disclosure, target)) close(disclosure)
       })
     })
   })
