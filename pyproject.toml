@@ -26,7 +26,10 @@ classifiers = [
     "Topic :: Software Development :: Documentation",
 ]
 dependencies = [
-    "mkdocs >= 1.6",
+    # MkDocs 2.0 drops support for 1.x themes, plugins and config files, so a
+    # fresh install must not resolve to it. ProperDocs continues the 1.x line
+    # for anyone who wants to stay current. See #105.
+    "mkdocs >= 1.6, < 2",
     # MkDocs does not require Pygments, but without it the code blocks this
     # theme styles are emitted untokenized and css/pygments.css does nothing.
     "pygments >= 2.16",
