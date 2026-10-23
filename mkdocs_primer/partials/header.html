@@ -1,14 +1,7 @@
-{# Same locale caveat as the sidebar in base.html. #}
 {%- set has_sidebar = config.theme.include_sidebar and nav and (page or not config.plugins.get('i18n')) %}
 <header class="primer-header">
-  {#
-    Edge to edge, like the layout below it — not a centred container. The class
-    tells the stylesheet there is a navigation column for the title to stand
-    over; without one the header is the plain row it always was.
-  #}
   <div class="primer-header-inner d-flex flex-items-center{{ ' primer-header-inner-with-sidebar' if has_sidebar }}">
     {%- if has_sidebar %}
-      {# The mobile hamburger comes first, matching the usual left-edge placement. #}
       <details class="primer-nav-toggle">
         <summary class="btn btn-octicon" aria-label="{% trans %}Toggle navigation{% endtrans %}">
           {%- if config.theme.icon == 'lucide' %}
@@ -25,31 +18,13 @@
       </details>
     {%- endif %}
 
-    {#
-      `nav` belongs to whichever locale mkdocs-static-i18n happened to build
-      last, and a static template (404.html) is rendered once, outside any
-      locale. Using its homepage there sends an English visitor to, say, the
-      French home page; base_url is locale-agnostic and always right.
-    #}
     <a class="primer-header-title" href="{{ nav.homepage.url | url if nav.homepage and page else base_url }}">
       {%- if config.theme.logo %}
         <img src="{{ config.theme.logo | url }}" alt="" class="primer-header-logo">
       {%- endif %}
-      {#
-        Wrapped so js/header-title.js can swap the text for the page's own
-        title once the reader scrolls past it, without touching the logo
-        beside it.
-      #}
       <span class="primer-header-title-text">{{ config.site_name }}</span>
     </a>
 
-    {#
-      One spacer either side of the search field, so it sits in the middle of
-      the header rather than against the controls on the right. The trailing one
-      is dropped on a narrow window, where the field is a popover and what is
-      left in the row is the button that opens it — that belongs with the
-      controls at the right edge, in the same order as the field it replaces.
-    #}
     <div class="flex-auto"></div>
 
     {%- if 'search' in config.plugins %}

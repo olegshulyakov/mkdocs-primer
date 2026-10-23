@@ -1,103 +1,40 @@
-# Default configuration for the `primer` theme.
-# Override any of these under `theme:` in your mkdocs.yml.
 
-# Templates rendered once for the whole site rather than per page.
 static_templates:
   - 404.html
 
-# The search plugin builds search.html for us and supplies search/main.js.
 include_search_page: true
 search_index_only: false
 
-# Image shown next to the site name in the header. Path relative to docs_dir.
 logo: null
 favicon: img/favicon.svg
 
-# Icon set used by the theme chrome. Supported values: `octicons` and `lucide`.
 icon: octicons
 
-# Optional typography overrides. `source` may be an absolute stylesheet URL or
-# a stylesheet under docs_dir that declares local files with @font-face.
 font:
   text: null
   code: null
   source: null
 
-# Document direction. Supported values: `ltr` and `rtl`.
 direction: ltr
 
-# Chrome toggles.
 include_sidebar: true
 show_footer: true
 
-# "Made with mkdocs-primer and MkDocs" in the footer, under the copyright.
 show_footer_generator: true
 
-# Icon links in the footer, opposite the copyright. One entry per service:
-#
-#   social:
-#     - service: github
-#       link: https://github.com/olegshulyakov/mkdocs-primer
-#     - service: mastodon
-#       link: https://fosstodon.org/@example
-#       name: Follow the project on Mastodon
-#
-# `service` names a mark in partials/social-icons.html, which is generated from
-# a curated set of Simple Icons -- see scripts/vendor-icons.mjs for the list and
-# for why it is curated. `name` is optional and is the link's accessible name;
-# it defaults to the service's own display name.
-#
-# For a service the registry does not carry, give `icon` instead of `service`,
-# a path to an SVG under docs_dir:
-#
-#     - icon: img/linkedin.svg
-#       link: https://www.linkedin.com/company/example
-#       name: Example on LinkedIn
-#
-# Such an icon is drawn as an <img> and so keeps its own colours rather than
-# taking the colour of the row around it.
 social: []
 
-# Byline of page facts under the page title: created/updated dates, an
-# estimated reading time, and authors. `show_metadata` is the line's own master
-# switch; each field below it can also be turned off on its own. A field with
-# nothing behind it -- no revision-date plugin, no authors plugin -- is left
-# out regardless of these settings, and so is the whole line when every field
-# it would show is.
-#
-# Flat keys rather than a nested `metadata:` option: MkDocs merges theme
-# options one top-level key at a time, so a site that overrides one of these
-# leaves the rest at their default. A nested dict does not get that same
-# per-key merge -- setting only `metadata: {created: false}` would replace
-# the whole dict and silently drop `show`, `updated` and `reading_time` along
-# with it, turning the entire line off rather than the one field asked for.
 show_metadata: true
 show_metadata_created: true
 show_metadata_updated: true
 show_metadata_reading_time: true
 show_metadata_authors: true
 
-# "Table of contents", the outline built from the headings of the current page.
-#   auto       the right rail where the window has room for a third column,
-#              otherwise in the flow under the page title — expanded either way
-#   expanded   always in the flow, expanded; never takes the rail
-#   collapsed  always in the flow, as a disclosure the reader opens
-#   hidden     not rendered at all; `false` does the same
 toc: auto
-# Register a Workbox-generated service worker. The application using the theme
-# must generate it as part of its site build; see the project offline example.
 offline: false
 
-# Color mode. `color_mode` is the initial default only — visitors can override
-# it with the header toggle, and their choice is remembered in localStorage.
-#   auto  follow the operating system
-#   light always light
-#   dark  always dark
 color_mode: auto
-# Only `light` and `dark` primitives ship with the theme today. Adding another
-# Primer theme (dark_dimmed, *_high_contrast, ...) means vendoring one more file.
 light_theme: light
 dark_theme: dark
 
-# Language of the theme chrome. Catalogs ship for the locales under locales/.
 locale: en

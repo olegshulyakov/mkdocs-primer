@@ -1,16 +1,4 @@
-/*
- * Pygments tokens mapped onto Primer's --color-prettylights-syntax-* variables.
- *
- * Those variables are defined in both the light and dark primitives, so this
- * single file gives GitHub's exact syntax colors in either color mode — there
- * is no separate dark stylesheet to keep in sync.
- *
- * Both wrappers are covered because which one appears depends on the user's
- * markdown_extensions: `.highlight` (pymdownx.highlight, fenced_code) and
- * `.codehilite` (codehilite).
- */
 
-/* Primer styles `.markdown-body .highlight pre` already; match it for codehilite. */
 .markdown-body .codehilite {
   margin-bottom: var(--base-size-16);
 }
@@ -27,39 +15,32 @@
   border-radius: 6px;
 }
 
-/* Highlighted line (pymdownx `hl_lines`). */
 :is(.highlight, .codehilite) .hll {
   background-color: var(--bgColor-attention-muted);
 }
 
-/* Line numbers. */
 :is(.highlight, .codehilite) :is(.lineno, .linenos, .gl) {
   color: var(--fgColor-muted);
   user-select: none;
 }
 
-/* Comments. */
 :is(.highlight, .codehilite) :is(.c, .ch, .cd, .cm, .cp, .cpf, .c1, .cs, .gp) {
   color: var(--color-prettylights-syntax-comment);
 }
 
-/* Keywords. */
 :is(.highlight, .codehilite) :is(.k, .kd, .kp, .kr, .kt) {
   color: var(--color-prettylights-syntax-keyword);
 }
 
-/* Imports and other storage modifiers. */
 :is(.highlight, .codehilite) .kn {
   color: var(--color-prettylights-syntax-storage-modifier-import);
 }
 
-/* Constants: numbers, booleans, builtins, symbols. */
 :is(.highlight, .codehilite)
   :is(.kc, .m, .mb, .mf, .mh, .mi, .il, .mo, .nb, .bp, .no, .ni, .na, .ss, .o, .ow) {
   color: var(--color-prettylights-syntax-constant);
 }
 
-/* Strings. */
 :is(.highlight, .codehilite) :is(.s, .sa, .sb, .sc, .dl, .sd, .s2, .se, .sh, .si, .sx, .s1) {
   color: var(--color-prettylights-syntax-string);
 }
@@ -68,28 +49,23 @@
   color: var(--color-prettylights-syntax-string-regexp);
 }
 
-/* Entities: function, class, decorator and exception names. */
 :is(.highlight, .codehilite) :is(.nf, .fm, .nc, .nd, .ne) {
   color: var(--color-prettylights-syntax-entity);
 }
 
-/* Markup tags (HTML/XML). */
 :is(.highlight, .codehilite) .nt {
   color: var(--color-prettylights-syntax-entity-tag);
 }
 
-/* Variables and namespaces. */
 :is(.highlight, .codehilite) :is(.nv, .vc, .vg, .vi, .vm, .nn, .nl) {
   color: var(--color-prettylights-syntax-variable);
 }
 
-/* Errors. */
 :is(.highlight, .codehilite) :is(.err, .gr) {
   color: var(--color-prettylights-syntax-invalid-illegal-text);
   background-color: var(--color-prettylights-syntax-invalid-illegal-bg);
 }
 
-/* Diff output. */
 :is(.highlight, .codehilite) .gd {
   color: var(--color-prettylights-syntax-markup-deleted-text);
   background-color: var(--color-prettylights-syntax-markup-deleted-bg);
@@ -105,20 +81,10 @@
   font-weight: var(--base-text-weight-semibold, 600);
 }
 
-/*
- * The one place this file departs from GitHub's palette. In dark mode
- * --color-prettylights-syntax-markup-heading is #1f6feb, which against the
- * code background is 3.74:1 — under the 4.5:1 WCAG AA needs at this size.
- * --fgColor-accent is the same hue two steps lighter and reaches 5.7:1.
- * A diff hunk header (`@@ -1,3 +1,3 @@`) is the common case, and it carries
- * the line numbers, so it has to be readable.
- */
 [data-color-mode='dark'] :is(.highlight, .codehilite) :is(.gh, .gu) {
   color: var(--fgColor-accent);
 }
 
-/* Same rule for `auto`, but only once the system has resolved to dark: in
-   light the vendored token is already 7.4:1 and stays GitHub-exact. */
 @media (prefers-color-scheme: dark) {
   [data-color-mode='auto'] :is(.highlight, .codehilite) :is(.gh, .gu) {
     color: var(--fgColor-accent);
@@ -129,7 +95,6 @@
   color: var(--color-prettylights-syntax-meta-diff-range);
 }
 
-/* Emphasis in markup lexers. */
 :is(.highlight, .codehilite) .ge {
   color: var(--color-prettylights-syntax-markup-italic);
   font-style: italic;

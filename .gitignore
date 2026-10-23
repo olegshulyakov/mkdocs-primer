@@ -1,4 +1,3 @@
-# Python
 __pycache__/
 *.py[cod]
 *.egg-info/
@@ -6,12 +5,9 @@ build/
 dist/
 .venv/
 
-# Node — only needed to refresh mkdocs_primer/css/vendor/
 node_modules/
 
-# MkDocs
 site/
 
-# Agent working notes, local to a checkout
 /.agents/TODO.md
 /.agents/LOOP.md

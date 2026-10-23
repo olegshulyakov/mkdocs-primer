@@ -1,7 +1,3 @@
-/*
- * The selector sits in the Primer header, immediately after the site title.
- * Colors come from the header's own tokens so it follows the color mode.
- */
 #version-selector {
   display: flex;
   align-items: center;

@@ -1,31 +1,4 @@
-{#
-  "Table of contents" for the current document. MkDocs hands the heading tree to the
-  theme as `page.toc` and nothing else surfaces it, so without this a long page
-  offers no way to see its sections or jump between them.
 
-  `theme.toc` says what the reader gets:
-
-    auto       the right rail where the window is wide enough for a third
-               column, otherwise under the page title as a disclosure the
-               reader opens, which is how GitHub's own documentation reads
-    expanded   always in the flow, expanded; never takes the rail
-    collapsed  always in the flow, as a disclosure the reader opens
-    hidden     not rendered at all; `false` does the same
-
-  An unrecognised value falls through to the `auto` behaviour, which is how the
-  theme treats the rest of its options.
-
-  Only `collapsed` is a <details>. `expanded` and the rail have nothing to click
-  open, so giving them a disclosure would promise a control that does nothing
-  useful; `auto` in the flow is one, but the script below builds it out of the
-  heading, which is what keeps the list where the placement put it — and keeps
-  the outline expanded for a reader with no JavaScript, for whom the stylesheet
-  ignores the collapsed state entirely.
-
-  python-markdown nests the whole document under its single h1, which is already
-  the page title on screen; descend past it when that is the shape, so the list
-  starts at the h2 level.
-#}
 {%- set toc_mode = config.theme.toc %}
 {%- if toc_mode and toc_mode != 'hidden' and page and page.toc %}
   {%- set entries = page.toc | list %}
@@ -33,7 +6,6 @@
     {%- set entries = entries[0].children | list %}
   {%- endif %}
 
-  {# One entry is the page itself; there is nothing to navigate between. #}
   {%- if entries | length > 1 %}
     {%- set toc_label = gettext('Table of contents') %}
     {%- if toc_mode == 'collapsed' %}
@@ -44,13 +16,6 @@
         </nav>
       </details>
     {%- else %}
-      {#
-        `auto` is closed from the markup rather than by the script that builds
-        its button, so the reader never watches the list fold itself up. The
-        stylesheet honours the attribute only once the document is marked
-        scriptable, and the rail overrides it at the width where the outline
-        gets a column and no control to close it.
-      #}
       <section class="primer-toc{{ ' primer-toc-in-rail' if toc_mode != 'expanded' }}"
                {{- ' data-primer-toc-collapsed' if toc_mode != 'expanded' }}>
         <div class="primer-toc-heading" id="primer-toc-label">{{ toc_label }}</div>
@@ -60,26 +25,6 @@
       </section>
     {%- endif %}
 
-    {#
-      In the rail the outline is already where it belongs. In the flow it reads
-      as part of the page, so it belongs under the title — but the title comes
-      from the Markdown, inside page.content, where a template cannot reach.
-      Moving it is cosmetic: with no JavaScript it stays above the article and
-      works exactly the same.
-
-      Inline, and run where it stands rather than on DOMContentLoaded: base.html
-      renders this after the article, so the title is already parsed and the
-      outline can be put in its final place — moved, and wearing the button that
-      opens it — before the browser has painted any of it. Waiting cost a
-      layout shift of a third of the first screen on a phone, which is the whole
-      reason this is not a deferred file like the theme's other scripts.
-
-      `matchMedia` rather than reading a CSS custom property theme.css sets via
-      `:has()`: this script runs synchronously mid-parse, before the browser
-      necessarily has that relational selector resolved, and it read back unset
-      often enough to move the outline into the flow on a window plenty wide
-      for the rail. The rail's own width, 1280px, is stated in theme.css too.
-    #}
     <script>
       ;(function () {
         var toc = document.querySelector('.primer-toc')

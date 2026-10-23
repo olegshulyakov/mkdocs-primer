@@ -2,10 +2,6 @@
 
 {% block htmltitle %}{% trans %}Search{% endtrans %} - {{ config.site_name }}{% endblock %}
 
-{#
-  The search plugin's search/main.js needs `base_url` (set in base.html) plus
-  these two element ids. It rewrites #mkdocs-search-results in place.
-#}
 {% block content %}
   <h1 id="search">{% trans %}Search results{% endtrans %}</h1>
 
@@ -19,18 +15,6 @@
            autocomplete="off">
   </form>
 
-  {#
-    The search plugin's main.js only rewrites this container once it has a query
-    to run, so whatever sits here is what a visitor with no query sees — and
-    "Searching…" claimed a search was in progress forever. Keep the prompt as
-    the default and switch to the progress message only when there is a term to
-    look up, which is also the only case where the container is short-lived.
-  #}
-  {#
-    The plugin's main.js renders every hit as an <h3>, which would jump
-    straight from the <h1> above and skip a level. This heading fills the gap;
-    it is redundant next to "Search results", hence hidden from sight.
-  #}
   <h2 class="sr-only">{% trans %}Results{% endtrans %}</h2>
 
   <div id="mkdocs-search-results"
@@ -42,14 +26,6 @@
     <p>{% trans %}Search needs JavaScript. Use your browser's find-on-page, or the repository's own search, to look through the documentation instead.{% endtrans %}</p>
   </noscript>
 
-  {#
-    Locale prefixes, so the script below can tell which language a result URL
-    belongs to. Empty on a single-language site, where it never filters.
-
-    Read off the plugin config rather than `i18n_config`: the search plugin
-    builds this page as a static template, and mkdocs-static-i18n only puts
-    `i18n_config` on a real page context.
-  #}
   {%- set prefixes = [] %}
   {%- set i18n_plugin = config.plugins.get('i18n') %}
   {%- if i18n_plugin %}

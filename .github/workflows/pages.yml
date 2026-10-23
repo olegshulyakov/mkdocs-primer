@@ -5,20 +5,15 @@ on:
     branches: [main]
   workflow_dispatch:
 
-# Allow the deploy job to publish to Pages via OIDC.
 permissions:
   contents: read
   pages: write
   id-token: write
 
-# Let an in-progress deploy finish rather than cancelling it mid-publish.
 concurrency:
   group: pages
   cancel-in-progress: false
 
-# Several docs plugins pull in properdocs, which prints a "switch to ProperDocs"
-# banner whenever they run under the mkdocs executable. It only prints; this
-# keeps it out of the logs. See #94.
 env:
   DISABLE_MKDOCS_2_WARNING: 'true'
 
@@ -28,18 +23,13 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          # mkdocs-git-revision-date-localized reads the log of every page.
           fetch-depth: 0
       - uses: actions/setup-python@v5
         with:
           python-version: '3.13'
-      # --group, which reads the docs dependencies from pyproject.toml, needs
-      # pip 25.1 or newer.
       - run: python -m pip install --upgrade pip
       - run: pip install -e . --group docs
       - run: mkdocs build --strict
-      # Published under /examples/. Must run after the main build, which cleans
-      # site/.
       - run: mkdocs build --strict -f examples/rss/mkdocs.yml
       - run: mkdocs build --strict -f examples/gen-files/mkdocs.yml
       - run: mkdocs build --strict -f examples/diagrams/mkdocs.yml

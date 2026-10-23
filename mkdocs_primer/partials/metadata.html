@@ -1,42 +1,4 @@
-{#
-  Facts about the current page that are not part of its own prose: when it was
-  written, when it last changed, how long it takes to read. A byline under the
-  page title, the way a published article carries one -- read once on the way
-  into the page rather than kept beside it, which is why this is no longer rail
-  furniture next to the outline.
 
-  `git_creation_date_localized` and `git_revision_date_localized` are set on
-  `page.meta` by mkdocs-git-revision-date-localized-plugin -- the first only
-  with `enable_creation_date: true`, the plugin's own default being off.
-
-  Both come wrapped in a span whose `title` is the same moment down to the
-  second, in UTC. That tooltip is reachable with a mouse and nothing else, and
-  a browser hands it to assistive technology as the name of the date, so a
-  screen reader read out a timestamp where the page showed a plain date. The
-  plugin publishes every format a second time as a bare string, under
-  `..._raw_<type>`, and those are what this uses -- keyed on the type the site
-  configured, since that is the one it means to display.
-
-  `timeago` is the exception. That variant is an empty element a script fills
-  in, and the plugin pairs it with a hidden `iso_date` so the date still prints
-  and still reads for someone whose scripts did not run -- both keyed on
-  classes only the wrapped output carries. Taking it apart would break those,
-  so a site on `timeago` keeps the plugin's own markup, tooltip and all.
-
-  `git_page_authors` is put on the page context by mkdocs-git-authors-plugin,
-  as a string of HTML (mailto links), which is why it is not escaped here.
-
-  `theme.show_metadata` is the line's own switch; each field has its own
-  `theme.show_metadata_*` option too, for a site that wants the dates but not
-  the reading time, say. An item with nothing behind it -- a field turned off,
-  or the plugin it depends on not enabled -- is left out rather than printed
-  empty, and the whole line disappears if every item would be.
-#}
-{#
-  The raw key is named after the format in use, and an `or` falls back to the
-  wrapped date: a plugin too old to publish the raw variants would otherwise
-  drop both dates off the page rather than merely keep their tooltips.
-#}
 {%- set date_plugin = config.plugins.get('git-revision-date-localized') %}
 {%- set date_suffix = ('_raw_' ~ date_plugin.config.type) if date_plugin and date_plugin.config.type != 'timeago' else '' %}
 {%- set created = (page.meta.get('git_creation_date_localized' ~ date_suffix) or page.meta.get('git_creation_date_localized')) if config.theme.show_metadata_created and page and page.meta else none %}
@@ -46,20 +8,7 @@
 {%- set authors = git_page_authors if config.theme.show_metadata_authors else none %}
 
 {%- if config.theme.show_metadata and (created or updated or reading_minutes or authors) %}
-  {#
-    The list names itself rather than sitting under a visible heading: a line of
-    facts under the title needs no label on screen, but a screen reader reaching
-    a bare list of dates deserves to be told what it is.
 
-    `role` on every row of it, which looks redundant on a <ul> of <li> and is
-    not: laying the line out with flexbox takes `display: list-item` off the
-    items, and a browser that no longer paints them as list items stops
-    exposing them as ones too -- Chrome and Safari both report plain generics
-    here without this, so the four facts arrive as one unbroken run of text and
-    the label on the list goes with them, `aria-label` having nothing valid to
-    attach to on a generic. `list-style: none` alone is enough to cost the
-    semantics in Safari, which is the better-known half of the same problem.
-  #}
   <ul class="primer-metadata" role="list" aria-label="{% trans %}Metadata{% endtrans %}">
     {%- if created %}
       <li class="primer-metadata-item" role="listitem">
@@ -103,22 +52,6 @@
     {%- endif %}
   </ul>
 
-  {#
-    Puts the line under the page title, which lives in the Markdown and so is
-    out of a template's reach. Moving it is cosmetic: with no JavaScript it
-    stays where base.html rendered it, below the prose, and says the same thing.
-
-    Inline, and run where it stands rather than on DOMContentLoaded, for the
-    reason partials/toc.html gives at greater length: this is rendered after the
-    article, so the title is already parsed and the line can be put in its final
-    place before the browser paints any of it. Waiting would cost a visible jump
-    directly under the title, on every page.
-
-    Before partials/toc.html's own script in document order, which is what
-    settles the order of the two when the outline is in the flow as well: the
-    line is already under the title by the time the outline looks for where to
-    go, and that script steps over it.
-  #}
   <script>
     ;(function () {
       var metadata = document.querySelector('.primer-metadata')

@@ -1,47 +1,16 @@
-/*
- * mkdocs-primer chrome: the parts MkDocs needs that Primer does not ship.
- *
- * Everything here is plain CSS on top of @primer/primitives custom properties,
- * so it follows the active color mode without a second dark-mode ruleset.
- */
 
 :root {
-  /* Navigation column, its own padding included. */
   --primer-sidebar-width: 288px;
-  /* Third column, on screens wide enough for one. */
   --primer-rail-width: 256px;
-  /*
-   * How wide the prose is allowed to get. It grows with the window rather than
-   * sitting at a fixed measure, but a line has a length past which the eye
-   * loses the start of the next one, so it stops here: 45em at the body size,
-   * about ninety characters. Primer's container-lg, which this was, is 1012px
-   * — a measure that made sense while the outline was in the flow and the
-   * article had the window to itself, and half as long again as it reads now
-   * beside a 256px rail.
-   */
   --primer-article-max: 720px;
-  /* Distance from the window edge, and from the navigation column. */
   --primer-gutter: var(--base-size-16);
   --primer-header-height: 56px;
 }
 
-/*
- * The header is sticky, so anything scrolled to by the browser — a heading
- * reached through a #fragment, a permalink, the skip link — otherwise lands
- * underneath it. Reserving the header's height on the scrolling element covers
- * every such target at once, including ones plugins add later.
- */
 html {
   scroll-padding-top: calc(var(--primer-header-height) + var(--base-size-8));
 }
 
-/*
- * A flex column the height of the viewport at minimum, so .primer-layout (the
- * only child set to grow) absorbs whatever room a short article leaves and the
- * footer lands on the window's bottom edge instead of right under the prose.
- * Below 1011.98px .primer-sidebar's fixed height stops reaching the same
- * result as a side effect, so this is stated outright instead.
- */
 body {
   display: flex;
   flex-direction: column;
@@ -50,24 +19,12 @@ body {
   background-color: var(--bgColor-default);
 }
 
-/*
- * Links in prose need a non-color cue in their resting state. The outline is
- * left out: a script drops it inside .markdown-body, but it is navigation — a
- * list in which every item is a link — and the sidebar is not underlined
- * either. Underlining it would also make the page look different depending on
- * whether that script had run.
- *
- * The metadata byline is dropped in there by a script too, and its authors are
- * links that do need the cue; it states that itself, so that it reads the same
- * wherever that script left it. See .primer-metadata-item a.
- */
 .markdown-body a:not(.anchor):not(.btn):not(.primer-toc-link),
 .primer-footer a:not(.primer-social-link) {
   text-decoration: underline;
   text-underline-offset: 0.15em;
 }
 
-/* Primer's .sr-only hides content even while focused; skip links must surface. */
 .primer-skip-link:focus {
   position: fixed;
   top: var(--base-size-8);
@@ -83,25 +40,10 @@ body {
   border-radius: var(--borderRadius-medium, 6px);
 }
 
-/*
- * The skip link focuses .primer-main so the tab order continues from the
- * content (see base.html). It is a scroll target, not a control, so the ring
- * the browser would draw around the whole column carries no information.
- */
 .primer-main:focus {
   outline: none;
 }
 
-/* --------------------------------------------------------------- header -- */
-
-/*
- * Navigation sits on the inset surface and the article keeps the default one,
- * so the two read as separate planes instead of one sheet divided by a
- * hairline. Light mode lays grey under white; dark mode's inset is darker than
- * its default, so there it is near-black under dark grey. Either way the prose
- * keeps the surface Primer measures body text against, and reading contrast is
- * untouched. .primer-sidebar carries it for the same reason.
- */
 .primer-header {
   position: sticky;
   top: 0;
@@ -117,12 +59,6 @@ body {
   padding-inline: var(--primer-gutter);
 }
 
-/*
- * Primer keys its focus ring to a/button/[role=button]; <summary> is none of
- * those, so the three popover triggers fell back to the browser's own thin
- * outline while every neighbouring control drew Primer's. Same declaration
- * Primer uses, so they match exactly.
- */
 .primer-header summary:focus-visible {
   outline: 2px solid var(--focus-outlineColor, var(--fgColor-accent));
   outline-offset: -2px;
@@ -132,7 +68,7 @@ body {
   display: flex;
   gap: var(--base-size-8);
   align-items: center;
-  min-width: 0; /* long site names truncate rather than wrapping the header taller */
+  min-width: 0;
   overflow: hidden;
   font-size: var(--text-title-size-medium, 16px);
   font-weight: var(--base-text-weight-semibold, 600);
@@ -151,18 +87,6 @@ body {
   width: auto;
 }
 
-/*
- * Where there is a navigation column, the title stands over it: held to the
- * column's width, and inset by the 8px a nav row adds on top of the sidebar's
- * own padding, so the site name and the pages under it start on one line. What
- * follows then begins at the reading column, which is what centres the search
- * field over the prose rather than over the window.
- *
- * The controls at the other end stay against the window edge. .primer-content
- * is wider on a page that put its outline in the rail than on one that did
- * not, and the header cannot know which it is standing on — so there is no one
- * edge for them to line up with.
- */
 @media (min-width: 1012px) {
   .primer-header-inner-with-sidebar > .primer-header-title {
     min-width: calc(var(--primer-sidebar-width) - var(--primer-gutter));
@@ -170,34 +94,13 @@ body {
   }
 }
 
-/* ------------------------------------------------------------- controls -- */
-
-/*
- * Every icon control the theme draws is Primer's .btn-octicon: the three
- * toggles in the header, the copy button on a code block, back to top. The
- * class predates the icon button Primer draws now — it puts 5px of padding
- * around a 16px icon, which lands the target at 26px square, and it leaves the
- * hover to .btn, which these elements also carry. That pair gives a borderless
- * control the solid fill of a bordered one and turns the icon accent blue over
- * it, which is the one place left in the theme where hovering means recolour
- * rather than fill.
- *
- * This is the treatment Primer draws now, its `invisible` variant: the medium
- * control size, and a fill from the transparent scale — the same token the
- * navigation rows take. The icon only lifts out of muted, as the chevron beside
- * a section label does.
- *
- * The language selector is here too. It shows a name beside its globe, so it is
- * a text button rather than an icon one, and it is the width of what it holds;
- * everything else about it is the same control.
- */
 .btn-octicon,
 .primer-language-selector-summary {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   height: var(--control-medium-size, 32px);
-  margin: 0; /* the header spaces its controls with a gap of its own */
+  margin: 0;
   color: var(--fgColor-muted);
   background-color: transparent;
   border: 0;
@@ -205,23 +108,11 @@ body {
   box-shadow: none;
 }
 
-/* Square around a 16px icon; the language selector is sized by its label. */
 .btn-octicon {
   width: var(--control-medium-size, 32px);
   padding: 0;
 }
 
-/*
- * And the icon, which the rules above are drawn around. An octicon states its
- * size on the <svg> itself; a Lucide one does not, and an <svg> with no size of
- * its own is as big as the box it is in — so `icon: lucide` filled every
- * control edge to edge, 32px on a desktop and 40px under a thumb, with none of
- * the padding that is the point of them. Back to top carries a label rather
- * than sitting edge to edge, but a sizeless Lucide icon would still grow to
- * fill its line height there. Stated here rather than on each icon, so it
- * holds for every control this selector list covers, and for whatever the
- * theme draws next.
- */
 .btn-octicon > svg,
 .primer-language-selector-summary > svg,
 .primer-back-to-top > svg {
@@ -246,17 +137,6 @@ body {
   background-color: var(--control-transparent-bgColor-active);
 }
 
-/* ---------------------------------------------------------- breadcrumbs -- */
-
-/*
- * The first line of the reading column, above the title it leads to. It sits
- * inside .primer-content, which already supplies the gutters and the width
- * ceiling, so the trail needs neither of its own — and no rule under it, which
- * at this width would read as a divider inside the article rather than as the
- * page furniture the full-width bar was.
- *
- * The article's own top padding is the gap down to the title.
- */
 .primer-breadcrumbs {
   padding-top: var(--base-size-24);
 }
@@ -270,10 +150,6 @@ ol.primer-breadcrumbs-list {
   list-style: none;
 }
 
-/*
- * The separator is drawn rather than written, so it stays out of the trail's
- * accessible name — a screen reader announces the crumbs, not a row of slashes.
- */
 .primer-breadcrumbs-item + .primer-breadcrumbs-item::before {
   margin-inline: var(--base-size-8);
   color: var(--fgColor-muted);
@@ -294,14 +170,6 @@ ol.primer-breadcrumbs-list {
   color: var(--fgColor-default);
 }
 
-/* --------------------------------------------------------------- layout -- */
-
-/*
- * The page runs edge to edge, as GitHub's own documentation does: navigation
- * against the left edge, and the reading column centred in what is left of the
- * window. Without the sidebar the grid would drop the article into the
- * navigation's narrow track, so the second shape is spelled out.
- */
 .primer-layout {
   display: grid;
   flex: 1 1 auto;
@@ -313,15 +181,6 @@ ol.primer-breadcrumbs-list {
   grid-template-columns: var(--primer-sidebar-width) minmax(0, 1fr);
 }
 
-/*
- * Stretched to its grid row rather than given a flat 100vh, so the rule down
- * its edge runs to wherever the row actually ends -- the bottom of a tall
- * article, or (with .primer-layout now filling the window on a short one)
- * the top of the footer -- instead of stopping wherever the last nav item
- * happens to fall, or overshooting the footer by running past it.
- * `max-height` keeps a nav list longer than one window scrolling inside its
- * own box rather than growing the row to fit it.
- */
 .primer-sidebar {
   position: sticky;
   align-self: stretch;
@@ -330,15 +189,10 @@ ol.primer-breadcrumbs-list {
   max-height: calc(100vh - var(--primer-header-height));
   padding: var(--base-size-24) var(--primer-gutter);
   overflow-y: auto;
-  background-color: var(--bgColor-inset); /* see .primer-header */
+  background-color: var(--bgColor-inset);
   border-inline-end: 1px solid var(--borderColor-default);
 }
 
-/*
- * Breadcrumbs, article and outline together. The width ceiling is on the whole
- * group rather than on the prose alone, so it stays centred as one block on a
- * wide monitor instead of drifting apart.
- */
 .primer-content {
   width: 100%;
   max-width: calc(var(--primer-article-max) + 2 * var(--primer-gutter));
@@ -346,80 +200,33 @@ ol.primer-breadcrumbs-list {
   margin-inline: auto;
 }
 
-/*
- * Article and outline side by side. A box of its own rather than the trail
- * being made a third grid item: the trail is optional, and a grid that has to
- * place its columns around something that may not be there needs a row it
- * cannot collapse when the page has no ancestors.
- */
 .primer-columns {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
 }
 
-/*
- * The gap is stated only when the rail actually holds the outline: `gap`
- * spaces every row of a grid apart, including an empty one, and
- * .primer-rail stays in the markup -- holding nothing but the script that
- * moves the outline out of it -- whenever that outline is in the flow
- * instead, whether because the window is under 1280px or because
- * toc_mode reads expanded or collapsed. Without this gate that empty row
- * still billed its 32px against the title, which then read as pushed down
- * from the breadcrumbs above it.
- */
 .primer-columns:has(> .primer-rail > .primer-toc-in-rail) {
   gap: var(--base-size-32);
 }
 
 .primer-main {
-  min-width: 0; /* lets wide tables and code blocks scroll instead of stretching the grid */
+  min-width: 0;
   padding-top: var(--base-size-24);
   padding-bottom: var(--base-size-32);
 }
 
-/*
- * The outline is rendered after the article, so that the script in
- * partials/toc.html can move it under the page title while the parser is still
- * running. That script takes it out of the grid entirely — so `order` only ever
- * applies to a reader whose scripts did not run, and it is what keeps the
- * outline above the prose for them.
- */
 .primer-columns > .primer-rail {
   order: -1;
 }
 
-/* The ceiling lives on .primer-content now, so the prose fills its column. */
 .primer-main .markdown-body {
   max-width: none;
 }
 
-/* -------------------------------------------------------------- sidebar -- */
-
-/*
- * Nothing spaces the rows apart, here or in Primer's NavList: depth is the
- * indent and the chevron, and a section is a row of the list like the rest. A
- * section used to carry 8px above and below, from a tree where its label was
- * also smaller, quieter and set in capitals — once it read as a page does, that
- * gap was the only thing left holding it apart from the list it belongs to.
- */
-
-/*
- * A section is open only when it holds the current page. `.primer-js` is set
- * on <html> by the inline script in base.html, so a reader without JavaScript
- * — who would have no toggle to open anything with — sees every section, the
- * way this navigation always worked.
- */
 .primer-js .primer-nav-section:not([data-primer-nav-open]) > .primer-nav-section-items {
   display: none;
 }
 
-/*
- * On its own this lays out as the bare label did; js/nav-sections.js adds the
- * toggle. Whatever it adds, the row is one surface: the fill covers the label
- * and the chevron together, so the two never read as separate controls sharing
- * a line. The hover is guarded on a control being there, since with no
- * JavaScript, and no page of its own, the row is inert text.
- */
 .primer-nav-section-header {
   display: flex;
   align-items: center;
@@ -431,29 +238,15 @@ ol.primer-breadcrumbs-list {
   background-color: var(--bgColor-neutral-muted);
 }
 
-/*
- * A section reads as a row of the same list as the pages under it — same size,
- * same weight, same colour — told apart by the arrow it has and they do not.
- * Small muted capitals looked like a caption over items that outranked it, and
- * this nav nests without a bound, so any treatment of a section repeats at
- * every depth: set in bold, most of a deep tree outweighed the pages it leads
- * to, and the weight Primer spends on the current item stopped standing out.
- */
 .primer-nav-section-label {
   display: block;
   flex: 1 1 auto;
   min-width: 0;
-  padding: 6px var(--base-size-8); /* the row height of a .SideNav-item */
+  padding: 6px var(--base-size-8);
   font-size: 14px;
   color: var(--fgColor-default);
 }
 
-/*
- * A section with no page of its own has nothing else in the row to click, so
- * the row is the button and the chevron is drawn inside it — the label moves
- * in, and the button is named by the text it now holds. js/nav-sections.js
- * decides which of the two shapes a section gets.
- */
 .primer-nav-section-row {
   display: flex;
   flex: 1 1 auto;
@@ -461,7 +254,6 @@ ol.primer-breadcrumbs-list {
   min-width: 0;
   padding: 0 var(--base-size-8) 0 0;
   font: inherit;
-  /* The chevron's colour; the label inside states its own. */
   color: var(--fgColor-muted);
   text-align: start;
   cursor: pointer;
@@ -470,13 +262,6 @@ ol.primer-breadcrumbs-list {
   border-radius: var(--borderRadius-medium, 6px);
 }
 
-/*
- * The other shape: mkdocs-section-index gave the section a page, the label is
- * a link, and a link cannot be nested in a button — so opening the section is
- * a control of its own beside it. It stands as tall as the row it sits in, so
- * the target is the height of the thing it belongs to rather than a square
- * floating in the middle of it.
- */
 .primer-nav-section-toggle {
   display: flex;
   flex: 0 0 auto;
@@ -492,17 +277,11 @@ ol.primer-breadcrumbs-list {
   border-radius: var(--borderRadius-medium, 6px);
 }
 
-/* The row carries the fill for both; only the mark itself lifts. */
 .primer-nav-section-row:hover,
 .primer-nav-section-header:hover > .primer-nav-section-toggle {
   color: var(--fgColor-default);
 }
 
-/*
- * The chevron. Drawn with borders rather than an icon because these buttons are
- * built in JavaScript, and neither icon set the theme ships would be reachable
- * from there without copying its markup into a second place.
- */
 .primer-nav-section-toggle::before,
 .primer-nav-section-row::after {
   width: 0;
@@ -526,77 +305,40 @@ ol.primer-breadcrumbs-list {
   }
 }
 
-/* Primer's own ring, as .primer-header does for its <summary> triggers. */
 .primer-nav-section-row:focus-visible,
 .primer-nav-section-toggle:focus-visible {
   outline: 2px solid var(--focus-outlineColor, var(--fgColor-accent));
   outline-offset: -2px;
 }
 
-/*
- * The branch holding the current page. Colour rather than weight, which is the
- * current page's: an ancestor is where the reader came through, not where they
- * are. With no JavaScript nothing is collapsed, so this trail is the only thing
- * that says where in the tree they are.
- */
 .primer-nav-section-label-active {
   color: var(--fgColor-accent);
 }
 
-/* The label is an <a> when the section has an index page (mkdocs-section-index). */
 a.primer-nav-section-label {
   border-radius: var(--borderRadius-medium, 6px);
   text-decoration: none;
 }
 
-/*
- * Accent on hover, as the breadcrumbs and the header title do. The fill is the
- * row's, so hovering the label lights the chevron beside it too.
- */
 a.primer-nav-section-label:hover {
   color: var(--fgColor-accent);
 }
 
-/*
- * The fill of a selected item, named here because a section label is not a
- * .SideNav-item: a section that is itself the current page should not look like
- * a different kind of current from a leaf that is. On the row rather than on
- * the label, so it does not stop short of the chevron.
- */
 .primer-nav-section-header:has(> [aria-current='page']) {
   background-color: var(--control-transparent-bgColor-selected);
 }
 
-/*
- * Where the rule above cannot match, the label carries the fill instead and the
- * chevron beside it goes without. Only there: the fill is translucent, so a
- * browser that applies both paints the label twice and divides the row into two
- * shades at the arrow.
- */
 @supports not selector(:has(*)) {
   a.primer-nav-section-label[aria-current='page'] {
     background-color: var(--control-transparent-bgColor-selected);
   }
 }
 
-/*
- * And the weight, which Primer gives a selected .SideNav-item and this label
- * no longer carries by default. In the default colour, not the branch accent:
- * the reader is on this page, not passing through it.
- */
 a.primer-nav-section-label[aria-current='page'] {
   font-weight: var(--base-text-weight-semibold, 600);
   color: var(--fgColor-default);
 }
 
-/*
- * Scoped to .SideNav itself, not to .primer-sidebar: the same nav is rendered
- * twice, once in the sidebar and once inside the mobile disclosure panel, and
- * both need these resets.
- *
- * Primer's SideNav is a bordered list — separators between items and a rule
- * under the last one. That reads as clutter for a docs tree, so drop them.
- */
 .SideNav {
   border: 0;
   background-color: transparent;
@@ -613,18 +355,6 @@ a.primer-nav-section-label[aria-current='page'] {
   box-shadow: none;
 }
 
-/*
- * Depth, which Primer's SideNav has none of. NavList spends it inside the row —
- * a spacer of eight pixels a level ahead of the label — rather than on the
- * container, and that is the part worth copying: the row keeps the full width
- * of the list at every level, so the hover fill, the fill under the current
- * page and the bar beside it all stand on one left edge instead of stepping
- * right with the depth of the page. --primer-nav-depth is set per item by
- * partials/nav-item.html; it is unset at the top of the tree, hence the 0.
- *
- * Below .SideNav-item rather than beside its sibling rule, because that one
- * sets `padding` and would otherwise overwrite this from further down.
- */
 .SideNav-item,
 .primer-nav-section-label {
   padding-inline-start: calc(
@@ -632,43 +362,14 @@ a.primer-nav-section-label[aria-current='page'] {
   );
 }
 
-/* The weight, which Primer gives a selected item and this one does not carry. */
 .SideNav-item[aria-current='page'] {
   font-weight: var(--base-text-weight-semibold, 600);
 }
 
-/*
- * The fill. SideNav's own is --sideNav-bgColor-selected, an opaque #ffffff in
- * light mode and #212830 in dark — drawn for a list on the default surface,
- * where white reads as raised. This navigation sits on --bgColor-inset and is
- * drawn a second time on an overlay in the mobile panel, and against either of
- * those a white plate reads as a different material rather than a selection.
- *
- * NavList's fill is the translucent one, and it darkens whatever it is over.
- * The selector is the one Primer uses, so this does not outrank it — theme.css
- * is the last sheet, and simply comes later.
- */
 .SideNav-item[aria-current]:not([aria-current='false']) {
   background-color: var(--control-transparent-bgColor-selected);
 }
 
-/*
- * The bar beside it. SideNav draws a 2px rule the full height of the row and
- * flush to its left edge; NavList draws a shorter, rounder mark, and stands it
- * outside the row rather than in it — which is what leaves the row's own eight
- * pixels of padding to the label and keeps the mark clear of the rounded corner
- * of the fill. The measurements are its: 4px wide, inset 4px top and bottom,
- * 8px before the row starts, radius 6px.
- *
- * Before it starts, not to its left: the mark belongs on the edge the reader
- * reads from, and in a right-to-left layout that is the right one. Primer's own
- * rule pins it with `left`, so that has to be let go of first — the same shape
- * as the anchor rules further down, which undo Primer's physical padding and
- * margin before setting the logical ones.
- *
- * The room it needs is the padding of whatever the nav is drawn in — 16px in
- * the sidebar, 8px in the mobile panel, where it ends up flush to the border.
- */
 .SideNav-item::before {
   top: var(--base-size-4);
   bottom: var(--base-size-4);
@@ -678,32 +379,10 @@ a.primer-nav-section-label[aria-current='page'] {
   border-radius: var(--borderRadius-medium, 6px);
 }
 
-/*
- * Its colour, which Primer draws in --underlineNav-borderColor-active: the
- * coral of the active tab on github.com, and the one warm accent in a theme
- * whose links, focus ring and current branch are all blue. The selector is the
- * one Primer uses, so this does not outrank it — it simply comes later.
- */
 .SideNav-item[aria-current]:not([aria-current='false'])::before {
   background-color: var(--borderColor-accent-emphasis);
 }
 
-/* ------------------------------------------------------------- metadata -- */
-
-/*
- * When the page was written, when it last changed, how long it takes to read
- * -- an icon and a value per fact, on one wrapping line under the page title,
- * the byline of the article that follows. Quiet and small, at the size and
- * colour the breadcrumbs above the title are set in, so the two frame the
- * heading rather than compete with it.
- *
- * The element is named in the selectors because a script drops this inside
- * .markdown-body, where Primer styles `ul` and `li` of its own -- the same
- * reason ul.primer-toc-list names its own.
- *
- * Unlike the outline, this prints: a byline under the title is part of the
- * article on paper, which is why it is not in the @media print list below.
- */
 ul.primer-metadata {
   display: flex;
   flex-wrap: wrap;
@@ -722,36 +401,16 @@ ul.primer-metadata {
   color: var(--fgColor-muted);
 }
 
-/*
- * Primer spaces adjacent list items apart, which along a row landed as a 3px
- * top margin on every item but the first -- enough to hold the first one's
- * text a pixel and a half above the three beside it. Written as a pair, the
- * way .primer-toc-item is and for the same reason: `.markdown-body li + li`
- * outranks the class on its own.
- */
 .primer-metadata-item + .primer-metadata-item {
   margin-top: 0;
 }
 
-/* Sized here rather than on each icon: an Octicon states its own, a Lucide one
-   fills whatever box it is in, the same gap .btn-octicon closes for those. */
 .primer-metadata-item svg {
   flex: 0 0 auto;
   width: 14px;
   height: 14px;
 }
 
-/*
- * The authors plugin hands over mailto links. They take the line's own colour
- * rather than the link blue, which would make two of the four items shout --
- * but they keep the underline, which is then the only thing saying they can be
- * clicked at all. Dropping it left them indistinguishable from the dates
- * beside them for anyone not hovering a mouse over them.
- *
- * Stated here rather than left to the prose-link rule near the top of this
- * file, so that the byline reads the same in either of the two places the page
- * can leave it -- that rule reaches inside .markdown-body only.
- */
 .primer-metadata-item a {
   color: inherit;
   text-decoration: underline;
@@ -763,27 +422,6 @@ ul.primer-metadata {
   color: var(--fgColor-accent);
 }
 
-/* ------------------------------------------------------------------ toc -- */
-
-/*
- * "Table of contents". On a wide window it sits in the third column beside the
- * prose and scrolls with it, the way GitHub's documentation renders it: a
- * label over a plain list, no border, no bullets, nothing to click open.
- * Narrower than that the same list moves into the flow under the page title,
- * still expanded, with a rule under it.
- *
- * The selectors name the element because a script drops the block inside
- * .markdown-body, where Primer styles `details` and `ul` of its own; naming it
- * ties that specificity and wins on order, theme.css being the last sheet.
- *
- * 1280px, matched here and by that script's own `matchMedia` call, is the only
- * place the theme states the rail's width -- kept as a literal in both rather
- * than threaded through a custom property, which a synchronous script reading
- * computed style during parsing cannot depend on: the pre-metadata selector
- * this replaced set one via `:has()`, and it read back as unset often enough,
- * moving the outline into the flow on a window wide enough for the rail, to
- * rule the mechanism out rather than chase the exact trigger.
- */
 details.primer-toc,
 section.primer-toc {
   padding-bottom: var(--base-size-16);
@@ -791,14 +429,7 @@ section.primer-toc {
   border-bottom: 1px solid var(--borderColor-muted, var(--borderColor-default));
 }
 
-/*
- * A div rather than a heading: the outline is rendered before the article, and
- * a real h2 there would land above the page's own h1 and break the document's
- * heading order. `nav` takes its accessible name from this through
- * aria-labelledby, so assistive technology still announces the landmark.
- */
 .primer-toc-heading {
-  /* Lines up with the link text, which is inset by its own accent bar. */
   padding-inline-start: calc(var(--base-size-8) + 2px);
   margin-bottom: var(--base-size-8);
   font-size: 14px;
@@ -806,11 +437,6 @@ section.primer-toc {
   color: var(--fgColor-default);
 }
 
-/*
- * The label of an outline the reader opens: the `collapsed` mode's <summary>,
- * and the button partials/toc.html puts in its place when `auto` lands in the
- * flow. The declarations a <summary> does not need are for the button.
- */
 .primer-toc-summary {
   display: inline-flex;
   gap: var(--base-size-8);
@@ -835,7 +461,6 @@ section.primer-toc {
   color: var(--fgColor-accent);
 }
 
-/* Disclosure triangle, rotating on open; ::before so it leads the label. */
 .primer-toc-summary::before {
   display: inline-block;
   width: 0;
@@ -858,54 +483,28 @@ section.primer-toc {
   }
 }
 
-/*
- * The list runs to its full height. It used to stop at half the window and
- * scroll the rest, so that a page with dozens of headings did not push its own
- * first paragraph off the screen — but that put a scrolling box between the
- * title and the prose, where a swipe on a touch screen moved the outline
- * instead of the page. Every shape that is open in the flow is now one the
- * reader or the author asked to be open: `auto` is a disclosure there.
- */
 .primer-toc > nav {
   margin-top: var(--base-size-8);
 }
 
-/*
- * Set in the markup, so the list is closed from the first paint rather than a
- * moment after it, and moved by the button partials/toc.html puts there.
- *
- * Behind .primer-js, as the navigation tree's own sections are: the attribute
- * is on the element whether or not anything can build that button, and closing
- * a list nobody can open again would leave a reader with no scripts staring at
- * a label.
- */
 .primer-js .primer-toc[data-primer-toc-collapsed] > nav {
   display: none;
 }
 
-/* Markerless, which costs Safari the list semantics -- partials/toc-list.html
-   hands them back with a role. */
 ul.primer-toc-list {
   padding: 0;
   margin: 0;
   list-style: none;
 }
 
-/* No markers, so the padding is what carries heading depth. */
 ul.primer-toc-list ul.primer-toc-list {
   padding-inline-start: var(--base-size-16);
 }
 
-/* Primer spaces adjacent list items apart; the outline reads better tight. */
 .primer-toc-item + .primer-toc-item {
   margin-top: 0;
 }
 
-/*
- * The bar is on every entry, transparent until js/toc-active.js marks one. Its
- * width is reserved either way, so nothing shifts sideways as the mark follows
- * the reader down the page.
- */
 a.primer-toc-link {
   display: block;
   padding-block: var(--base-size-4);
@@ -921,25 +520,12 @@ a.primer-toc-link:hover {
   text-decoration: underline;
 }
 
-/* The heading the reader has most recently scrolled past. */
 a.primer-toc-link[aria-current] {
   color: var(--fgColor-default);
   border-inline-start-color: var(--borderColor-accent-emphasis);
 }
 
-/*
- * The third column. `:has` is what keeps it honest — the rail only opens when
- * there is an outline to put in it, so a page with one heading, or a site with
- * `toc: collapsed`, keeps the full reading width instead of leaving a dead
- * strip down the side. Where `:has` is missing, the outline stays in the flow,
- * which is the same thing a narrow window gets.
- */
 @media (min-width: 1280px) {
-  /*
-   * Spelled out through .primer-columns rather than as a descendant: in the
-   * flow the outline is moved into the article, and a looser test would keep
-   * widening the group after a resize while the columns themselves had gone.
-   */
   .primer-content:has(> .primer-columns > .primer-rail > .primer-toc-in-rail) {
     max-width: calc(
       var(--primer-article-max) + var(--base-size-32) + var(--primer-rail-width) +
@@ -955,15 +541,9 @@ a.primer-toc-link[aria-current] {
     grid-area: 1 / 1;
   }
 
-  /* A sticky column of its own, scrolling with the prose beside it. */
   .primer-columns:has(> .primer-rail > .primer-toc-in-rail) > .primer-rail {
     position: sticky;
     top: calc(var(--primer-header-height) + var(--base-size-24));
-    /*
-     * Without this the grid stretches the rail over the whole row — as tall as
-     * the article — and a box that already fills its grid area has nowhere to
-     * travel inside it, so `sticky` does nothing at all.
-     */
     align-self: start;
     grid-area: 1 / 2;
     display: flex;
@@ -973,11 +553,6 @@ a.primer-toc-link[aria-current] {
     margin-top: var(--base-size-24);
   }
 
-  /*
-   * Flow-mode chrome -- the divider and padding that separate the outline from
-   * the prose it would otherwise sit above -- has nothing to separate it from
-   * here, the rail being a column of its own.
-   */
   .primer-columns:has(> .primer-rail > .primer-toc-in-rail) > .primer-rail > * {
     padding-bottom: 0;
     margin-top: 0;
@@ -985,35 +560,16 @@ a.primer-toc-link[aria-current] {
     border-bottom: 0;
   }
 
-  /*
-   * A flex column of its own, so the heading keeps its natural height and the
-   * rule below can hand every pixel the rail has left to `nav` — the
-   * shrink-to-fit `min-height: 0` needs to reach every ancestor up to the rail
-   * itself, or the browser sizes this to the outline's full height instead of
-   * the height the rail actually has.
-   */
   .primer-columns:has(> .primer-rail > .primer-toc-in-rail) > .primer-rail > .primer-toc-in-rail {
     display: flex;
     flex-direction: column;
     min-height: 0;
   }
 
-  /*
-   * Grows to fill whatever the rail has left once metadata takes its own
-   * height, and scrolls inside that rather than running past the bottom of
-   * the sticky rail. In the flow the list has no ceiling at all — see the
-   * rule that sets its margin.
-   */
   .primer-columns:has(> .primer-rail > .primer-toc-in-rail)
     > .primer-rail
     > .primer-toc-in-rail
     > nav {
-    /*
-     * `auto` carries the collapsed attribute from the markup, for the width
-     * where it is a disclosure in the flow. Here it is a column with no control
-     * to close it, so the list is open — undone at the same specificity as the
-     * rule that closes it, and later in the file.
-     */
     display: block;
     flex: 1 1 auto;
     min-height: 0;
@@ -1021,31 +577,11 @@ a.primer-toc-link[aria-current] {
   }
 }
 
-
-/* --------------------------------------------------------------- search -- */
-
-/*
- * One field, two shapes. A header with room for it carries the input itself,
- * the way GitHub's documentation does, and the button that would have opened
- * it is dropped; a narrower one keeps the button, and the input is the popover
- * it opens.
- *
- * The form is a sibling of the disclosure rather than its child, which is what
- * lets the wide case work with no script at all — CSS cannot hold a <details>
- * open, so a nested form would have had to be opened by JavaScript on every
- * page load and defended from the dismissal handlers in js/disclosure.js.
- */
 .primer-search-disclosure {
   flex: 0 0 auto;
   max-width: none;
 }
 
-/*
- * A <summary> is a list-item, and would draw a marker beside the icon. Any
- * other display drops it — so this states the one the control already has,
- * rather than `block`, which came later in the sheet than the rule that centres
- * the icon and left it in the corner of the button.
- */
 .primer-search-disclosure > summary {
   display: inline-flex;
   list-style: none;
@@ -1055,21 +591,10 @@ a.primer-toc-link[aria-current] {
   display: none;
 }
 
-/*
- * A ceiling rather than a width: the field takes what the header can spare and
- * stops here, which is about where GitHub's documentation holds its own — 640px
- * on a 1400px window. It is a jump to the search page, not a box anyone types a
- * paragraph into, so it does not follow the header out to any width. The spacer
- * on either side of it in header.html is what centres it.
- */
 .primer-search {
   flex: 0 1 480px;
 }
 
-/*
- * Primer sizes the control to its content; here it should fill the field. The
- * height is the one the other controls in this header now stand at.
- */
 .primer-search .form-control {
   width: 100%;
   height: var(--control-medium-size, 32px);
@@ -1086,18 +611,10 @@ a.primer-toc-link[aria-current] {
     display: none;
   }
 
-  /* Nothing left to centre, and the button belongs to the cluster on the right. */
   .primer-header-spacer-end {
     display: none;
   }
 
-  /*
-   * Anchored to the header, which is the positioned ancestor because it is
-   * sticky. The popover is wider than the room beside the button, so hanging
-   * it off the button itself ran it past the edge of a narrow screen; the
-   * inset here lines it up with the header's own gutter, and so with the
-   * controls above it.
-   */
   .primer-search-disclosure[open] ~ .primer-search {
     position: absolute;
     top: calc(100% + var(--base-size-8));
@@ -1112,8 +629,6 @@ a.primer-toc-link[aria-current] {
     box-shadow: var(--shadow-floating-small);
   }
 }
-
-/* ------------------------------------------------------------ languages -- */
 
 .primer-language-selector {
   position: relative;
@@ -1131,13 +646,6 @@ a.primer-toc-link[aria-current] {
   display: none;
 }
 
-/*
- * The ceiling is the navigation drawer's, for the same reason: the menu hangs
- * off a sticky header, so a list longer than the room below it would be cut by
- * the bottom of the window with no way to scroll it back. Seven locales come to
- * 213px and never meet this; a site with a dozen, or a reader on a landscape
- * phone, would. `auto` means no scrollbar appears until the list earns one.
- */
 .primer-language-selector-menu {
   position: absolute;
   top: calc(100% + var(--base-size-8));
@@ -1172,22 +680,10 @@ a.primer-toc-link[aria-current] {
   font-weight: var(--base-text-weight-semibold, 600);
 }
 
-/* ------------------------------------------------------------ code copy -- */
-
 .markdown-body .highlight {
   position: relative;
 }
 
-/*
- * It stands over the page rather than in the chrome around it, so the
- * invisible treatment the header controls take is wrong for it: with nothing
- * behind it, the code ran under the icon. A surface of its own, which is what
- * Primer's default button is — and the hover that goes with it, since a fill
- * from the transparent scale over a filled button barely moves. Back to top
- * needs none of this restating: it carries a label now, so it keeps the plain
- * `.btn` it started from instead of `.btn-octicon`, and that default button
- * treatment comes for free.
- */
 .primer-copy-code {
   position: absolute;
   top: var(--base-size-8);
@@ -1204,14 +700,6 @@ a.primer-toc-link[aria-current] {
   background-color: var(--button-default-bgColor-active);
 }
 
-/* ---------------------------------------------------------- back to top -- */
-
-/*
- * Centered under the sticky header rather than floating over a bottom corner:
- * that is where Material's own control sits, and it keeps the button beside
- * the title the reader is returning to instead of trailing off in a corner.
- * The ring around this one is the first layer of the floating shadow.
- */
 .primer-back-to-top {
   position: fixed;
   top: calc(var(--primer-header-height) + var(--base-size-8));
@@ -1221,9 +709,6 @@ a.primer-toc-link[aria-current] {
   transform: translateX(-50%);
 }
 
-/* ----------------------------------------------------------- color mode -- */
-
-/* Show only the icon matching the active mode. */
 .primer-color-mode svg {
   display: none;
 }
@@ -1233,8 +718,6 @@ a.primer-toc-link[aria-current] {
 [data-color-mode='dark'] .primer-color-mode .primer-icon-dark {
   display: inline-block;
 }
-
-/* ----------------------------------------------------------- pagination -- */
 
 .primer-pagination {
   display: flex;
@@ -1250,12 +733,6 @@ a.primer-toc-link[aria-current] {
   font-weight: var(--base-text-weight-semibold, 600);
   color: var(--fgColor-accent);
   text-decoration: none;
-  /*
-   * The button tokens rather than --bgColor-muted: these are cards the reader
-   * clicks, and they need a resting fill and a hover fill that differ. In light
-   * mode --bgColor-muted and --bgColor-inset are the same color, so the pair
-   * would have had nowhere to go.
-   */
   background-color: var(--button-default-bgColor-rest);
   border: 1px solid var(--borderColor-default);
   border-radius: var(--borderRadius-medium, 6px);
@@ -1270,11 +747,6 @@ a.primer-toc-link[aria-current] {
   text-align: end;
 }
 
-/*
- * Inline layout puts ::before on the leading edge and ::after on the trailing
- * one, so the arrows move to the correct side by themselves; only the glyph has
- * to be mirrored, because "previous" points right in an RTL document.
- */
 .primer-pagination-prev .primer-pagination-label::before {
   content: '\2190\00a0';
 }
@@ -1291,25 +763,11 @@ a.primer-toc-link[aria-current] {
   content: '\00a0\2190';
 }
 
-/* --------------------------------------------------------------- footer -- */
-
-/*
- * A bar under the whole layout rather than a note at the foot of the article,
- * so it reads as belonging to the site the way the header does. Edge to edge
- * and on the inset surface for the same reason .primer-header is: it is chrome
- * around the page, not part of it.
- */
 .primer-footer {
   background-color: var(--bgColor-inset);
   border-top: 1px solid var(--borderColor-default);
 }
 
-/*
- * Wider than the gutter the header keeps: there is a column of navigation and
- * a column of prose above this, both of which end well short of the window,
- * and a line of text run right out to the glass under them reads as an
- * overflow rather than as the foot of the page.
- */
 .primer-footer-inner {
   --primer-footer-gutter: var(--base-size-24);
 
@@ -1330,26 +788,14 @@ a.primer-toc-link[aria-current] {
   margin: 0;
 }
 
-/* The line that is about the site rather than about what built it, so it
-   carries the body colour and the generator line under it stays muted. */
 .primer-footer-copyright {
   color: var(--fgColor-default);
 }
 
-/* A comma drawn as a dot: it separates, it does not compete. */
 .primer-footer-separator {
   color: var(--fgColor-muted);
 }
 
-/*
- * A row of logos, which is what the marks are: no underline under them, and
- * no link blue either — they take the colour of the line beside them and
- * light up on hover, the way a control does.
- *
- * The underline exclusion is a :not() rather than a reset further down,
- * because the prose-link rule near the top of this file claims every <a> in
- * the footer and would otherwise draw a rule under each icon.
- */
 .primer-social {
   display: flex;
   flex-wrap: wrap;
@@ -1373,8 +819,6 @@ a.primer-toc-link[aria-current] {
   background-color: var(--button-default-bgColor-hover);
 }
 
-/* Sized here rather than on each mark, as .primer-metadata-item svg is: an
-   icon from docs_dir arrives as an <img> and states nothing about its size. */
 .primer-social-link svg,
 .primer-social-icon {
   flex: 0 0 auto;
@@ -1382,23 +826,13 @@ a.primer-toc-link[aria-current] {
   height: 20px;
 }
 
-/* ------------------------------------------------------ heading anchors -- */
-
-/*
- * Python-Markdown's toc extension emits a text glyph, where Primer's
- * .markdown-body .anchor rules expect GitHub's octicon-link SVG. Swap the
- * glyph for the octicon via a mask so it inherits currentColor.
- *
- * Requires `toc: {permalink: true, permalink_class: anchor, permalink_leading: true}`.
- * Without it, the permalink just renders as its normal glyph.
- */
 .markdown-body .anchor {
   float: inline-start;
   padding-right: 0;
   padding-inline-end: var(--base-size-4);
   margin-left: 0;
   margin-inline-start: -20px;
-  font-size: 0; /* hides the ¶ (or whatever `permalink` was set to) */
+  font-size: 0;
   visibility: hidden;
   text-decoration: none;
 }
@@ -1424,19 +858,8 @@ a.primer-toc-link[aria-current] {
   visibility: visible;
 }
 
-/*
- * Reveal-on-hover leaves a phone with no way to get a link to a heading. Show
- * the anchor permanently where there is no hover, and put it back in the flow:
- * the negative margin above parks it outside the content column, off-screen on
- * a narrow viewport.
- */
 @media (hover: none) {
   .markdown-body .anchor {
-    /*
-     * `font-size: 0` above collapses the line box to zero height, so the link
-     * has no tappable area of its own until it is given a box — inline-flex
-     * both sizes it and centres the octicon the ::before draws.
-     */
     display: inline-flex;
     float: none;
     align-items: center;
@@ -1450,65 +873,21 @@ a.primer-toc-link[aria-current] {
   }
 }
 
-/* ---------------------------------------------------------------- tables -- */
-
-/*
- * A column is aligned only when the row of dashes asks for it, and then
- * python-markdown writes that on the cell as an inline style. Everything else
- * falls to the browser, which centres a header over cells it ranges left — so
- * a plain table reads down two edges at once. GitHub renders the same markdown
- * down one, and a column that did ask for `:---:` still gets it, an inline
- * style outranking a stylesheet.
- */
 .markdown-body table th {
   text-align: start;
 }
 
-/* ---------------------------------------------------------------- quotes -- */
-
-/*
- * Primer marks a quote with a leading rule and nothing else, so on the page it
- * carries no more weight than an indent. The fill is the lighter cousin of the
- * one the admonitions take below — neutral, and with half their padding, since
- * a quote should not shout the way an alert does.
- *
- * The vertical padding is what the fill needs to stand on: Primer flattens the
- * first and last child's margins to zero, so without it the tint would close
- * on the text.
- */
 .markdown-body blockquote {
   padding-block: var(--base-size-8);
   background-color: var(--bgColor-muted);
   border-radius: var(--borderRadius-medium, 6px);
 }
 
-/* ----------------------------------------------------------- admonitions -- */
-
-/*
- * The `admonition` extension emits markup and no styling, and neither Primer's
- * markdown stylesheet nor its core carries a rule for it — GitHub's own alerts
- * use `.markdown-alert`, which @primer/css does not ship. Without the rules
- * below, every `!!! note` renders as an undecorated block.
- *
- * Geometry follows GitHub's alerts: a colored leading rule and a colored title.
- * The tint below is the one departure — GitHub leaves its alerts unfilled, but
- * on a page of body text those blocks are the only place a document has color
- * to give, and an outline alone barely registers.
- *
- * The rule stays, so the type is still told apart without relying on color.
- */
 .markdown-body .admonition {
-  /* Real padding rather than margins on the children: a filled box has to hold
-     its own spacing, and a top margin on the first child would collapse
-     straight out through a parent with no padding of its own. */
   padding: var(--base-size-16);
   margin-bottom: var(--base-size-16);
   color: inherit;
-  /* Neutral until a type below claims it, so a block the extension emits that
-     GitHub has no alert for still reads as one of the family. */
   background-color: var(--bgColor-muted);
-  /* 0.25em, not --borderWidth-thick (2px): matches the rule Primer draws down
-     the side of a blockquote, so the two read as the same family. */
   border-inline-start: 0.25em solid var(--borderColor-default);
   border-radius: var(--borderRadius-medium, 6px);
 }
@@ -1525,25 +904,10 @@ a.primer-toc-link[aria-current] {
   font-weight: var(--base-text-weight-semibold, 600);
 }
 
-/*
- * The type colors below tint the whole title, including any inline code in it,
- * and against Primer's muted code background that pairing falls under 4.5:1.
- * Inline code already reads as code from its own background, so it does not
- * need the title color too.
- */
 .markdown-body .admonition-title code {
   color: var(--fgColor-default);
 }
 
-/*
- * Type names come from the `admonition` extension. The five that match a
- * GitHub alert take its color; anything else keeps the neutral border above.
- *
- * Each tint is paired with the title color Primer intends to sit on it, which
- * is what keeps them legible — but only just: in light mode every one of the
- * five measures between 4.52 and 4.57:1, so there is nothing here to darken a
- * shade or lighten a shade without dropping under AA.
- */
 .markdown-body .admonition.note {
   background-color: var(--bgColor-accent-muted);
   border-inline-start-color: var(--borderColor-accent-emphasis);
@@ -1599,22 +963,6 @@ a.primer-toc-link[aria-current] {
   color: var(--fgColor-danger);
 }
 
-/*
- * The octicon GitHub puts beside an alert title, drawn from a mask the way
- * .markdown-body .anchor is. The title is markup the `admonition` extension
- * generates, so a stylesheet is the only thing that can reach it — and a mask
- * takes currentcolor, which the rules above have already set to the type's own
- * color.
- *
- * Octicons whatever `theme.icon` says, exactly as the heading anchor is: CSS
- * cannot read the theme config, and the alternative is carrying a second set
- * of path data for five more icons.
- *
- * An inline box rather than a flex row on the title, because with
- * `pymdownx.details` enabled that title is a <summary>, and giving it a
- * `display` of its own would take away the marker the browser draws to show
- * that it opens.
- */
 .markdown-body .admonition.note > .admonition-title::before,
 .markdown-body .admonition.tip > .admonition-title::before,
 .markdown-body .admonition.hint > .admonition-title::before,
@@ -1660,15 +1008,6 @@ a.primer-toc-link[aria-current] {
   mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' width='16' height='16'%3E%3Cpath d='M4.47.22A.749.749 0 0 1 5 0h6c.199 0 .389.079.53.22l4.25 4.25c.141.14.22.331.22.53v6a.749.749 0 0 1-.22.53l-4.25 4.25A.749.749 0 0 1 11 16H5a.749.749 0 0 1-.53-.22L.22 11.53A.749.749 0 0 1 0 11V5c0-.199.079-.389.22-.53Zm.84 1.28L1.5 5.31v5.38l3.81 3.81h5.38l3.81-3.81V5.31L10.69 1.5ZM8 4a.75.75 0 0 1 .75.75v3.5a.75.75 0 0 1-1.5 0v-3.5A.75.75 0 0 1 8 4Zm0 8a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z'%3E%3C/path%3E%3C/svg%3E");
 }
 
-/* ------------------------------------------------------------ responsive -- */
-
-/*
- * Below Primer's lg breakpoint the sidebar collapses into the header
- * disclosure. Not md (768px): the sidebar keeps its full 240px there, which
- * left the prose column at 464px — narrow enough that the tables on the
- * configuration page start scrolling sideways. Handing that band the full
- * width and one tap to reach the nav reads better than keeping both.
- */
 .primer-nav-toggle {
   display: none;
   position: relative;
@@ -1711,18 +1050,6 @@ a.primer-toc-link[aria-current] {
     display: block;
   }
 
-  /*
-   * A medium control is 32px, which is a comfortable target with a mouse and a
-   * small one under a thumb. Grow the hit area on a touch-sized window, not the
-   * icon; everything else about them is set with the other controls, above.
-   *
-   * Back to top belongs to the rule as much as they do and is not in the header
-   * to be caught by it: it floats free of the document, which makes it as much
-   * a thumb target as anything the header holds. The theme's other floating
-   * control, the copy button, stays at 32px — it sits inside the code block it
-   * belongs to, where every pixel it grows is a pixel of code it covers, and it
-   * is not something a reader hunts for mid-scroll.
-   */
   .primer-header .btn-octicon,
   .primer-language-selector-summary,
   .primer-back-to-top {
@@ -1730,14 +1057,6 @@ a.primer-toc-link[aria-current] {
     min-height: 40px;
   }
 
-  /*
-   * The same for the outline's disclosure, which nothing had given a box: 14px
-   * text with the line height that comes with it stands 21px tall, under the
-   * 24px WCAG 2.2 asks of a target. It covers both shapes at once — the
-   * <summary> of `collapsed` and the button partials/toc.html builds for
-   * `auto` carry this class between them. Height only: the label is already
-   * wider than any target needs to be.
-   */
   .primer-toc-summary {
     min-height: 40px;
   }
@@ -1747,15 +1066,6 @@ a.primer-toc-link[aria-current] {
   }
 }
 
-/* ------------------------------------------------------------- diagrams -- */
-
-/*
- * Diagram plugins drop an SVG into the page and leave the framing to the theme.
- * Mermaid sizes its SVG to the diagram; mkdocs-charts-plugin measures a parent
- * it recognises by class name (`md-content` for Material, `col-md-9` for the
- * built-in theme) and, finding neither here, falls back to a fixed 800px. Both
- * therefore need a ceiling of their own to survive a narrow viewport.
- */
 .markdown-body .mermaid,
 .markdown-body .vega-embed {
   display: flex;
@@ -1769,7 +1079,6 @@ a.primer-toc-link[aria-current] {
   height: auto;
 }
 
-/* Code and diagrams retain their conventional left-to-right source order. */
 .markdown-body pre,
 .markdown-body code,
 .markdown-body .mermaid,
@@ -1778,31 +1087,14 @@ a.primer-toc-link[aria-current] {
   text-align: start;
 }
 
-/* ---------------------------------------------------------------- print -- */
-
-/*
- * A theme is expected to bring its own print rules — mkdocs-print-site even
- * ships one stylesheet per theme it knows about and warns for the rest.
- * Without these, Ctrl+P puts the header, sidebar and pagination on paper and
- * keeps the prose inside its on-screen column.
- *
- * Colour is not among them: a visitor printing while in dark mode used to
- * carry the dark variables onto paper, and css/vendor/primitives-print.css
- * hands back the light value of every token the two themes disagree on, so
- * the whole article prints as it would have in light mode.
- */
 @media print {
   .primer-header,
   .primer-sidebar,
   .primer-breadcrumbs,
   .primer-pagination,
   .primer-back-to-top,
-  /* A list of links to jump to is of no use once the page is on paper. */
   .primer-toc,
-  /* Neither is a row of logos to click. The copyright beside it stays. */
   .primer-social,
-  /* Sits inside .markdown-body, so it survives the header being hidden and
-     prints an icon over the first line of every code block. */
   .primer-copy-code {
     display: none;
   }
@@ -1815,25 +1107,10 @@ a.primer-toc-link[aria-current] {
     max-width: none;
   }
 
-  /* Hover-only affordance; it prints as an empty box. */
   .markdown-body .anchor {
     display: none;
   }
 
-  /*
-   * A block too wide for its column scrolls sideways on screen, and paper does
-   * not scroll: without this the part hanging off the edge is not printed at
-   * all, silently — a shell command ending mid-word, a table losing its last
-   * columns. `anywhere` rather than `break-word` because it is the one that
-   * also lets a box be measured narrower than its longest word, which is what
-   * a table needs to lay its columns out inside the page at all. It costs a
-   * table that would have fitted some of its column proportions, which is the
-   * cheaper of the two: a column an inch narrower still says what it says, and
-   * a column off the edge of the paper does not.
-   *
-   * Code keeps `pre-wrap`, so its own line breaks and indentation survive and
-   * only the lines too long to fit are folded.
-   */
   .markdown-body pre,
   .markdown-body pre > code {
     overflow: visible;
@@ -1841,13 +1118,6 @@ a.primer-toc-link[aria-current] {
     white-space: pre-wrap;
   }
 
-  /*
-   * Primer makes the table a block so that it can scroll, which on paper is
-   * the same clipped edge. As a table again it lays its own columns out, and
-   * the `width: max-content` and `max-width: 100%` it already carries then
-   * mean what they say: natural widths for a table that fits, and the page for
-   * one that does not, with the cells wrapping to make it.
-   */
   .markdown-body table {
     display: table;
     overflow: visible;
