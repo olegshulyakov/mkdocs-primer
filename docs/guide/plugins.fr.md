@@ -10,7 +10,7 @@ Ce site est le chèque. `mkdocs.yml` dans la racine du référentiel active les 
 
 [mkdocs-section-index][section-index] intègre `guide/index.md` dans le **Guide** section elle-même, donc un élément de navigation se termine par à la fois `children` et un `url`. Un thème qui affiche "a des enfants" sous la forme d'une simple étiquette de section qui rend cette page d'index inaccessible depuis la barre latérale.
 
-`partials/nav-item.html` vérifie `nav_item.url` et affiche l'étiquette sous forme de lien quand il y en a un. Vous pouvez le voir dans la barre latérale : **Guide** et **Nested** sont tous deux cliquables.
+`partials/nav-item.html` vérifie `nav_item.url` et affiche l'étiquette sous forme de lien quand il y en a un. Vous pouvez le voir dans la barre latérale : **Guide** et **Imbrication** sont tous deux cliquables.
 
 !!! notez "Un avertissement que vous pouvez ignorer"
     Le plugin reconnaît les thèmes pris en charge en faisant correspondre les chemins des fichiers modèles

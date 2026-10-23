@@ -10,7 +10,7 @@ Este site é o cheque. `mkdocs.yml` na raiz do repositório habilita os plugins 
 
 [mkdocs-section-index][section-index] dobra `guide/index.md` no **Guia** seção em si, então um item de navegação termina com `children` e `url`. Um tema que renderiza "tem filhos" como um rótulo de seção simples torna a página de índice inacessível na barra lateral.
 
-`partials/nav-item.html` verifica `nav_item.url` e renderiza o rótulo como um link quando há um. Você pode vê-lo na barra lateral: **Guide** e **Nested** são ambos clicáveis.
+`partials/nav-item.html` verifica `nav_item.url` e renderiza o rótulo como um link quando há um. Você pode vê-lo na barra lateral: **Guia** e **Aninhado** são ambos clicáveis.
 
 !!! note "Um aviso que você pode ignorar"
     O plugin reconhece temas suportados combinando caminhos de arquivo de modelo

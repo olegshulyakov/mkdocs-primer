@@ -10,7 +10,7 @@ Este sitio es el cheque. `mkdocs.yml` en la raíz del repositorio habilita los c
 
 [mkdocs-section-index][section-index] incluye `guide/index.md` en la **Guía** sección en sí, por lo que un elemento de navegación termina con `children` y `url`. un tema que muestra "tiene hijos" como una etiqueta de sección simple hace que la página de índice inalcanzable desde la barra lateral.
 
-`partials/nav-item.html` comprueba `nav_item.url` y representa la etiqueta como un enlace cuando hay uno. Puedes verlo en la barra lateral: **Guía** y **Anidados** son ambos en los que se puede hacer clic.
+`partials/nav-item.html` comprueba `nav_item.url` y representa la etiqueta como un enlace cuando hay uno. Puedes verlo en la barra lateral: **Guía** y **Anidado** son ambos en los que se puede hacer clic.
 
 !!! nota "Una advertencia que puedes ignorar"
     El complemento reconoce los temas compatibles al hacer coincidir las rutas de los archivos de plantilla

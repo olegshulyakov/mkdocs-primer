@@ -48,6 +48,11 @@ plugins:
       # only sets it automatically for the themes MkDocs itself ships, so a
       # third-party theme needs it spelled out. See mkdocs_primer/locales/.
       #
+      # `nav_translations` names the sections. awesome-nav labels a section
+      # after its folder (guide/ → Guide), not after a page heading, so a
+      # translated index page alone leaves the sidebar and the page title in
+      # English.
+      #
       # `en` is listed last on purpose. One build pass runs per language and
       # the pages that exist once for the whole site — 404.html and search.html
       # — are rewritten by every pass, so the last language wins them. Putting
@@ -66,31 +71,49 @@ plugins:
           build: true
           theme:
             locale: es
+          nav_translations:
+            Guide: Guía
+            Nested: Anidado
         - locale: zh
           name: Chinese
           build: true
           theme:
             locale: zh
+          nav_translations:
+            Guide: 指南
+            Nested: 嵌套
         - locale: hi
           name: Hindi
           build: true
           theme:
             locale: hi
+          nav_translations:
+            Guide: गाइड
+            Nested: नेस्टेड
         - locale: pt
           name: Portuguese
           build: true
           theme:
             locale: pt
+          nav_translations:
+            Guide: Guia
+            Nested: Aninhado
         - locale: ru
           name: Russian
           build: true
           theme:
             locale: ru
+          nav_translations:
+            Guide: Руководство
+            Nested: Вложенный раздел
         - locale: fr
           name: French
           build: true
           theme:
             locale: fr
+          nav_translations:
+            Guide: Guide
+            Nested: Imbrication
         - locale: en
           default: true
           name: English
