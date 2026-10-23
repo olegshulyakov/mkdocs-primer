@@ -24,7 +24,7 @@ Pushing a tag named `v<version>` starts the [release workflow](.github/workflows
 5. Run the release checks locally with Python 3.13:
 
    ```console
-   pip install -e . -r requirements-docs.txt
+   pip install -e . --group docs
    mkdocs build --strict
    mkdocs build --strict -f examples/rss/mkdocs.yml
    mkdocs build --strict -f examples/gen-files/mkdocs.yml

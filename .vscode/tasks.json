@@ -4,7 +4,8 @@
   // PATH and Windows needs no second spelling of the command.
   //
   //   python -m venv .venv
-  //   .venv/bin/pip install -e . -r requirements-docs.txt
+  //   .venv/bin/pip install --upgrade pip   # --group needs pip 25.1+
+  //   .venv/bin/pip install -e . --group docs
   "version": "2.0.0",
   "tasks": [
     {
