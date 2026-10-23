@@ -100,24 +100,24 @@ msgstr "Nenhum resultado encontrado"
 
 #: mkdocs_primer/search.html:38
 msgid "Enter a search term above to search the documentation."
-msgstr "Escreva um termo de pesquisa acima para pesquisar na documentação."
+msgstr "Digite um termo de pesquisa acima para pesquisar na documentação."
 
 #: mkdocs_primer/search.html:42
 msgid ""
 "Search needs JavaScript. Use your browser's find-on-page, or the "
 "repository's own search, to look through the documentation instead."
 msgstr ""
-"A pesquisa precisa de JavaScript. Utilize a pesquisa na página do seu "
+"A pesquisa precisa de JavaScript. Use a pesquisa na página do seu "
 "navegador, ou a do repositório, para consultar a documentação."
 
 #: mkdocs_primer/search.html:66
 msgid "Searching…"
-msgstr "A pesquisar…"
+msgstr "Pesquisando…"
 
 #: mkdocs_primer/search.html:117
 #, python-format
 msgid "Show results in other languages (%(count)s)"
-msgstr "Mostrar resultados noutros idiomas (%(count)s)"
+msgstr "Mostrar resultados em outros idiomas (%(count)s)"
 
 #: mkdocs_primer/partials/breadcrumbs.html:16
 msgid "Breadcrumb"
@@ -130,7 +130,7 @@ msgstr "Alterar o modo de cor"
 
 #: mkdocs_primer/partials/footer.html:22
 msgid "(opens in a new tab)"
-msgstr "(abre numa nova aba)"
+msgstr "(abre em uma nova aba)"
 
 #: mkdocs_primer/partials/footer.html:44
 msgid "Improve this page"
@@ -192,7 +192,7 @@ msgstr "Anterior"
 
 #: mkdocs_primer/partials/pagination.html:16
 msgid "Next"
-msgstr "Seguinte"
+msgstr "Próximo"
 
 #: mkdocs_primer/partials/toc.html:38
 msgid "Table of contents"
