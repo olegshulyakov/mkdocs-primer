@@ -83,8 +83,11 @@ docs = [
     "mkdocs-gen-files >= 0.5",
     "mkdocs-literate-nav >= 0.6",
 ]
+# Babel writes its own version into every compiled .mo, so CI's drift check
+# passes only when the catalogs were compiled with this exact release.
+i18n = ["babel == 2.18.0"]
 # `uv sync` installs `dev` by default.
-dev = [{ include-group = "docs" }]
+dev = [{ include-group = "docs" }, { include-group = "i18n" }]
 
 # uv resolves for every Python the project supports, and without this it fails
 # on 3.9, which the docs plugins above do not support. pip ignores this table.

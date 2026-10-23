@@ -36,7 +36,10 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.13'
-      - run: pip install babel
+      # --group needs pip 25.1 or newer. The group pins Babel, because a newer
+      # release stamps its own version into every .mo and shows up as drift.
+      - run: python -m pip install --upgrade pip
+      - run: pip install --group i18n
       - run: pybabel compile -d mkdocs_primer/locales
       # MkDocs reads only the compiled .mo, never the .po beside it, so a
       # translation edited without a recompile ships as the old string.

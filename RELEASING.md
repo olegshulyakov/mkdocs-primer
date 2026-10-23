@@ -11,6 +11,7 @@ Pushing a tag named `v<version>` starts the [release workflow](.github/workflows
 4. Put the new version in the catalog headers, and — if any translatable string in a template changed — refresh the messages as well. Commit the result:
 
    ```console
+   pip install --group i18n
    pybabel extract -F babel.cfg --project mkdocs-primer --version 0.1.3 \
        --copyright-holder "Oleg Shulyakov" \
        --msgid-bugs-address https://github.com/olegshulyakov/mkdocs-primer/issues \
@@ -20,7 +21,7 @@ Pushing a tag named `v<version>` starts the [release workflow](.github/workflows
    pybabel compile -d mkdocs_primer/locales --statistics
    ```
 
-   `extract` builds the template header out of those four options; leave them off and it drops the copyright holder and the bug address. `update` keeps whatever `Project-Id-Version` each catalog already had, so edit that line in the `.po` files by hand before compiling. The compiled `.mo` files are committed, because that is what ships in the wheel.
+   `extract` builds the template header out of those four options; leave them off and it drops the copyright holder and the bug address. `update` keeps whatever `Project-Id-Version` each catalog already had, so edit that line in the `.po` files by hand before compiling. The compiled `.mo` files are committed, because that is what ships in the wheel. Compile them with the Babel pinned in the `i18n` group: Babel records its version in each `.mo`, and CI fails on any other version.
 5. Run the release checks locally with Python 3.13:
 
    ```console
