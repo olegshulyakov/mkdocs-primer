@@ -55,7 +55,7 @@
 
 [mike][mike] 让多个文档版本并存，并添加一个版本下拉菜单。它通过 `mike.themes` 入口点组查找主题的下拉菜单资源；对于在其中找不到的主题，它**完全不生成选择器，也不给出任何提示**——站点照常部署，各个版本也都存在，但在它们之间切换的唯一办法就是手动修改 URL。
 
-`pyproject.toml` 在该组下注册了 `mkdocs_primer.mike`，因此 mike 会从本包中取得 `version-select.css` 和 `version-select.js` 并复制进站点。选择器位于页眉中站点名称旁边，并跟随配色模式。别名会解析为其实际版本，因此 `/latest/` 会显示选中的 `2.0`，而不是一个空的控件。
+`pyproject.toml` 在该组下注册了 `mkdocs_primer_mike`，因此 mike 会从本包中取得 `version-select.css` 和 `version-select.js` 并复制进站点。选择器位于页眉中站点名称旁边，并跟随配色模式。别名会解析为其实际版本，因此 `/latest/` 会显示选中的 `2.0`，而不是一个空的控件。
 
 该脚本读取全局变量 `base_url`，`base.html` 会无条件声明它。过去它只在启用 `search` 插件时才声明，这会导致没有搜索功能的站点上选择器失效。
 

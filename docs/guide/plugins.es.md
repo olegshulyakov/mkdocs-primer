@@ -58,7 +58,7 @@ El plugin no está activado en este sitio; consulta [Conflictos conocidos entre 
 
 [mike][mike] mantiene varias versiones de la documentación una junto a otra y añade un desplegable de versiones. Encuentra los recursos del desplegable de cada tema a través del grupo de puntos de entrada `mike.themes` y, con un tema que no encuentra ahí, **no crea ningún selector y no dice nada**: el sitio se despliega, las versiones existen y la única manera de moverse entre ellas es editar la URL.
 
-`pyproject.toml` registra `mkdocs_primer.mike` en ese grupo, así que mike toma `version-select.css` y `version-select.js` de este paquete y los copia. El selector aparece en el encabezado, junto al nombre del sitio, y sigue el modo de color. Los alias se resuelven a su versión real, así que `/latest/` muestra `2.0` seleccionada en lugar de un control vacío.
+`pyproject.toml` registra `mkdocs_primer_mike` en ese grupo, así que mike toma `version-select.css` y `version-select.js` de este paquete y los copia. El selector aparece en el encabezado, junto al nombre del sitio, y sigue el modo de color. Los alias se resuelven a su versión real, así que `/latest/` muestra `2.0` seleccionada en lugar de un control vacío.
 
 Ese script lee la variable global `base_url`, que `base.html` declara siempre. Antes solo se declaraba cuando el plugin `search` estaba activado, lo que habría dejado el selector roto en un sitio sin búsqueda.
 

@@ -55,7 +55,7 @@ The plugin is not enabled on this site — see [Known plugin conflicts](#known-p
 
 [mike][mike] keeps several documentation versions side by side and adds a version dropdown. It finds a theme's dropdown assets through the `mike.themes` entry point group and, for a theme it cannot find there, builds **no selector at all and says nothing** — the site deploys, the versions exist, and the only way to move between them is to edit the URL.
 
-`pyproject.toml` registers `mkdocs_primer.mike` under that group, so mike picks up `version-select.css` and `version-select.js` from this package and copies them in. The selector lands in the header next to the site name and follows the color mode. Aliases resolve to their real version, so `/latest/` shows `2.0` selected rather than an empty control.
+`pyproject.toml` registers `mkdocs_primer_mike` under that group, so mike picks up `version-select.css` and `version-select.js` from this package and copies them in. The selector lands in the header next to the site name and follows the color mode. Aliases resolve to their real version, so `/latest/` shows `2.0` selected rather than an empty control.
 
 That script reads the global `base_url`, which `base.html` declares unconditionally. It used to be declared only when the `search` plugin was enabled, which would have left the selector broken on a site without search.
 
