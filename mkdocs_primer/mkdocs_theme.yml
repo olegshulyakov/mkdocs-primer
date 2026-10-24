@@ -18,6 +18,7 @@ font:
 direction: ltr
 
 include_sidebar: true
+nav_expand: all
 show_footer: true
 
 show_footer_generator: true

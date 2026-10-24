@@ -3,7 +3,9 @@
   <div class="primer-header-inner d-flex flex-items-center{{ ' primer-header-inner-with-sidebar' if has_sidebar }}">
     {%- if has_sidebar %}
       <details class="primer-nav-toggle">
-        <summary class="btn btn-octicon" aria-label="{% trans %}Toggle navigation{% endtrans %}">
+        <summary class="btn btn-octicon"
+                 aria-controls="primer-sidebar"
+                 aria-label="{% trans %}Toggle navigation{% endtrans %}">
           {%- if config.theme.icon == 'lucide' %}
             <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 12h16"/><path d="M4 18h16"/><path d="M4 6h16"/></svg>
           {%- else %}
@@ -12,9 +14,6 @@
           </svg>
           {%- endif %}
         </summary>
-        <div class="primer-nav-toggle-panel">
-          {% include "partials/nav.html" %}
-        </div>
       </details>
     {%- endif %}
 

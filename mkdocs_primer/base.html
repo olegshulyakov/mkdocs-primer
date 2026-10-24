@@ -118,7 +118,7 @@
     <div class="primer-layout{{ ' primer-layout-with-sidebar' if show_sidebar }}">
       {%- block site_nav %}
         {%- if show_sidebar %}
-          <div class="primer-sidebar">
+          <div class="primer-sidebar" id="primer-sidebar">
             {% include "partials/nav.html" %}
           </div>
         {%- endif %}

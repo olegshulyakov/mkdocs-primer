@@ -13,12 +13,14 @@
              {% if depth %}style="--primer-nav-depth: {{ depth }}"{% endif %}>{{ nav_item.title }}</div>
       {%- endif %}
     </div>
+    {%- if config.theme.nav_expand != 'active' or nav_item.active or not nav_item.url %}
     <div class="primer-nav-section-items">
       {%- set depth = depth + 1 %}
       {%- for nav_item in nav_item.children %}
         {% include "partials/nav-item.html" %}
       {%- endfor %}
     </div>
+    {%- endif %}
   </div>
 {%- else %}
   <a class="SideNav-item"

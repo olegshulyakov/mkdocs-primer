@@ -15,6 +15,7 @@
 | `locale` | `en` | Idioma de los textos propios del tema. Se incluyen catálogos para `en`, `es`, `fr`, `hi`, `pt`, `ru` y `zh`. |
 | `direction` | `ltr` | Dirección del documento: `ltr` o `rtl`. |
 | `include_sidebar` | `true` | Muestra la barra lateral de navegación. |
+| `nav_expand` | `all` | Secciones de navegación que se muestran con sus páginas: `all`, o `active` para mostrar solo la sección de la página actual y las secciones sin página propia. Use `active` en sitios grandes para reducir el tamaño de las páginas y el tiempo de compilación. |
 | `show_footer` | `true` | Muestra la barra del pie de página. |
 | `show_footer_generator` | `true` | Muestra "Hecho con mkdocs-primer y MkDocs" en el pie de página. |
 | `social` | `[]` | Enlaces con icono que se muestran en el pie de página. |

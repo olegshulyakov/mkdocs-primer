@@ -15,6 +15,7 @@
 | `locale` | `en` | थीम के अपने text की भाषा। Catalogs `en`, `es`, `fr`, `hi`, `pt`, `ru` और `zh` के लिए आते हैं। |
 | `direction` | `ltr` | दस्तावेज़ की दिशा: `ltr` या `rtl`। |
 | `include_sidebar` | `true` | navigation sidebar render करें। |
+| `nav_expand` | `all` | कौन-से navigation sections अपने pages के साथ render हों: `all`, या `active` — सिर्फ़ मौजूदा page वाला section और बिना अपने page वाले sections। बड़ी sites पर `active` page size और build time घटाता है। |
 | `show_footer` | `true` | footer bar render करें। |
 | `show_footer_generator` | `true` | footer में "mkdocs-primer और MkDocs से बनाया गया" दिखाएँ। |
 | `social` | `[]` | footer में दिखने वाले icon links। |

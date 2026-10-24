@@ -18,16 +18,14 @@
     var header = section.querySelector(':scope > .primer-nav-section-header')
     var label = header && header.querySelector(':scope > .primer-nav-section-label')
     var items = section.querySelector(':scope > .primer-nav-section-items')
-    if (!header || !label) return
+    if (!header || !label || !items) return
 
     var button = document.createElement('button')
     button.type = 'button'
     button.setAttribute('aria-expanded', section.hasAttribute('data-primer-nav-open') ? 'true' : 'false')
 
-    if (items) {
-      if (!items.id) items.id = 'primer-nav-section-' + index
-      button.setAttribute('aria-controls', items.id)
-    }
+    if (!items.id) items.id = 'primer-nav-section-' + index
+    button.setAttribute('aria-controls', items.id)
 
     button.addEventListener('click', function () {
       toggle(section, button)
