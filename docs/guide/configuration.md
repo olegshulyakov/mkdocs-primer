@@ -13,6 +13,7 @@
 | `locale` | `en` | Language of the theme's own text. Catalogs ship for `en`, `es`, `fr`, `hi`, `pt`, `ru` and `zh`. |
 | `direction` | `ltr` | Document direction: `ltr` or `rtl`. |
 | `include_sidebar` | `true` | Render the navigation sidebar. |
+| `nav_expand` | `all` | Navigation sections to render with their pages: `all`, or `active` to render only the section holding the current page and sections without their own page. Use `active` on large sites to cut page size and build time. |
 | `show_footer` | `true` | Render the footer bar. |
 | `show_footer_generator` | `true` | Show "Made with mkdocs-primer and MkDocs" in the footer. |
 | `social` | `[]` | Icon links shown in the footer. |

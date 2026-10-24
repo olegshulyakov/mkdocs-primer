@@ -38,10 +38,15 @@
         if (other !== disclosure) close(other)
       })
 
-      var input = panel(disclosure).reduce(function (found, part) {
-        return found || part.querySelector('input[type="search"]')
+      var target = panel(disclosure).reduce(function (found, part) {
+        return (
+          found ||
+          part.querySelector('input[type="search"]') ||
+          part.querySelector('.SideNav [aria-current="page"]') ||
+          part.querySelector('.SideNav a')
+        )
       }, null)
-      if (input) input.focus()
+      if (target) target.focus()
     })
 
     panel(disclosure).forEach(function (part) {

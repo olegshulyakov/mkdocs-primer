@@ -15,6 +15,7 @@
 | `locale` | `en` | 主题自身文字的语言。随附 `en`、`es`、`fr`、`hi`、`pt`、`ru` 和 `zh` 的语言目录。 |
 | `direction` | `ltr` | 文档方向：`ltr` 或 `rtl`。 |
 | `include_sidebar` | `true` | 渲染导航侧边栏。 |
+| `nav_expand` | `all` | 哪些导航分区连同其页面一起渲染：`all`，或 `active`，只渲染当前页面所在的分区和没有自身页面的分区。大型站点使用 `active` 可减小页面体积并缩短构建时间。 |
 | `show_footer` | `true` | 渲染页脚栏。 |
 | `show_footer_generator` | `true` | 在页脚中显示“使用 mkdocs-primer 和 MkDocs 构建”。 |
 | `social` | `[]` | 显示在页脚中的图标链接。 |

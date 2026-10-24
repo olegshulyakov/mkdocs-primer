@@ -1021,22 +1021,6 @@ a.primer-toc-link[aria-current] {
   display: none;
 }
 
-.primer-nav-toggle-panel {
-  position: absolute;
-  top: calc(100% + var(--base-size-8));
-  inset-inline-start: 0;
-  z-index: 32;
-  width: max-content;
-  min-width: 220px;
-  max-height: 70vh;
-  padding: var(--base-size-8);
-  overflow-y: auto;
-  background-color: var(--overlay-bgColor, var(--bgColor-default));
-  border: 1px solid var(--borderColor-default);
-  border-radius: var(--borderRadius-medium, 6px);
-  box-shadow: var(--shadow-floating-small);
-}
-
 @media (max-width: 1011.98px) {
   .primer-layout-with-sidebar {
     grid-template-columns: minmax(0, 1fr);
@@ -1048,6 +1032,24 @@ a.primer-toc-link[aria-current] {
 
   .primer-nav-toggle {
     display: block;
+  }
+
+  body:has(.primer-nav-toggle[open]) .primer-sidebar {
+    position: fixed;
+    top: calc(var(--primer-header-height) + var(--base-size-8));
+    inset-inline-start: var(--primer-gutter);
+    z-index: 32;
+    display: block;
+    width: max-content;
+    min-width: 220px;
+    max-width: calc(100vw - 2 * var(--primer-gutter));
+    height: auto;
+    max-height: 70vh;
+    padding: var(--base-size-8);
+    background-color: var(--overlay-bgColor, var(--bgColor-default));
+    border: 1px solid var(--borderColor-default);
+    border-radius: var(--borderRadius-medium, 6px);
+    box-shadow: var(--shadow-floating-small);
   }
 
   .primer-header .btn-octicon,

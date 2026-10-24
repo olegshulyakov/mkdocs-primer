@@ -15,6 +15,7 @@
 | `locale` | `en` | Idioma dos textos do próprio tema. Há catálogos para `en`, `es`, `fr`, `hi`, `pt`, `ru` e `zh`. |
 | `direction` | `ltr` | Direção do documento: `ltr` ou `rtl`. |
 | `include_sidebar` | `true` | Renderiza a barra lateral de navegação. |
+| `nav_expand` | `all` | Seções de navegação renderizadas com suas páginas: `all`, ou `active` para renderizar só a seção da página atual e as seções sem página própria. Use `active` em sites grandes para reduzir o tamanho das páginas e o tempo de build. |
 | `show_footer` | `true` | Renderiza a barra do rodapé. |
 | `show_footer_generator` | `true` | Mostra "Feito com mkdocs-primer e MkDocs" no rodapé. |
 | `social` | `[]` | Links em forma de ícone mostrados no rodapé. |
