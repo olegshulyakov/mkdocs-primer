@@ -57,7 +57,7 @@
 
 [mike][mike] दस्तावेज़ के कई संस्करण साथ-साथ रखता है और एक version dropdown जोड़ता है। यह किसी थीम के dropdown assets को `mike.themes` entry point group के ज़रिए ढूँढता है, और जो थीम उसे वहाँ नहीं मिलती, उसके लिए **कोई selector नहीं बनाता और कुछ बताता भी नहीं** — साइट deploy हो जाती है, संस्करण मौजूद होते हैं, और उनके बीच जाने का इकलौता तरीका URL को edit करना रह जाता है।
 
-`pyproject.toml` `mkdocs_primer.mike` को उस group के तहत register करता है, इसलिए mike इस package से `version-select.css` और `version-select.js` उठाकर copy कर लेता है। Selector header में साइट के नाम के बगल में आता है और रंग मोड के साथ चलता है। Aliases अपने असली संस्करण में resolve होते हैं, इसलिए `/latest/` पर खाली control के बजाय `2.0` चुना हुआ दिखता है।
+`pyproject.toml` `mkdocs_primer_mike` को उस group के तहत register करता है, इसलिए mike इस package से `version-select.css` और `version-select.js` उठाकर copy कर लेता है। Selector header में साइट के नाम के बगल में आता है और रंग मोड के साथ चलता है। Aliases अपने असली संस्करण में resolve होते हैं, इसलिए `/latest/` पर खाली control के बजाय `2.0` चुना हुआ दिखता है।
 
 वह script global `base_url` पढ़ती है, जिसे `base.html` बिना किसी शर्त के declare करता है। पहले यह सिर्फ़ तब declare होता था जब `search` plugin चालू हो, जिससे बिना search वाली साइट पर selector टूटा रह जाता।
 

@@ -57,7 +57,7 @@ O plugin não está habilitado neste site — veja [Conflitos conhecidos entre p
 
 O [mike][mike] mantém várias versões da documentação lado a lado e adiciona um menu de versões. Ele encontra os arquivos do menu de um tema pelo grupo de entry points `mike.themes` e, para um tema que não encontra ali, **não cria seletor nenhum e não avisa nada** — o site é publicado, as versões existem, e a única forma de passar de uma para outra é editar a URL.
 
-O `pyproject.toml` registra `mkdocs_primer.mike` nesse grupo, então o mike pega `version-select.css` e `version-select.js` deste pacote e os copia para o site. O seletor fica no cabeçalho, ao lado do nome do site, e acompanha o modo de cor. Os aliases são resolvidos para a versão real, então `/latest/` mostra `2.0` selecionado em vez de um controle vazio.
+O `pyproject.toml` registra `mkdocs_primer_mike` nesse grupo, então o mike pega `version-select.css` e `version-select.js` deste pacote e os copia para o site. O seletor fica no cabeçalho, ao lado do nome do site, e acompanha o modo de cor. Os aliases são resolvidos para a versão real, então `/latest/` mostra `2.0` selecionado em vez de um controle vazio.
 
 Esse script lê a variável global `base_url`, que `base.html` declara incondicionalmente. Antes ela só era declarada quando o plugin `search` estava habilitado, o que teria deixado o seletor quebrado em um site sem pesquisa.
 

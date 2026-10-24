@@ -57,7 +57,7 @@ Le plugin n'est pas activé sur ce site — voir [Conflits de plugins connus](#k
 
 [mike][mike] conserve plusieurs versions de la documentation côte à côte et ajoute une liste déroulante de versions. Il trouve les ressources de cette liste pour un thème donné via le groupe de points d'entrée `mike.themes` et, pour un thème qu'il n'y trouve pas, ne construit **aucun sélecteur, sans rien signaler** — le site se déploie, les versions existent, et le seul moyen de passer de l'une à l'autre est de modifier l'URL.
 
-`pyproject.toml` enregistre `mkdocs_primer.mike` dans ce groupe : mike récupère donc `version-select.css` et `version-select.js` dans ce paquet et les copie dans le site. Le sélecteur prend place dans l'en-tête, à côté du nom du site, et suit le mode de couleur. Les alias sont résolus vers leur version réelle : `/latest/` affiche donc `2.0` sélectionné plutôt qu'un contrôle vide.
+`pyproject.toml` enregistre `mkdocs_primer_mike` dans ce groupe : mike récupère donc `version-select.css` et `version-select.js` dans ce paquet et les copie dans le site. Le sélecteur prend place dans l'en-tête, à côté du nom du site, et suit le mode de couleur. Les alias sont résolus vers leur version réelle : `/latest/` affiche donc `2.0` sélectionné plutôt qu'un contrôle vide.
 
 Ce script lit la variable globale `base_url`, que `base.html` déclare sans condition. Auparavant, elle n'était déclarée que lorsque le plugin `search` était activé, ce qui aurait laissé le sélecteur hors service sur un site sans recherche.
 
